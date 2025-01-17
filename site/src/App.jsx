@@ -1,17 +1,17 @@
-import Home from './pages/home'
-import Header from './components/utils/header'
+import {Header} from "./components/index.js";
+import {Home} from "./pages/index.js";
 
-function App() {
+const App = () => {
+    return (
+        <>
+            <div>
+                <Header/>
+                <Home/>
+            </div>
+        </>
+    );
+};
 
-
-  return (
-    <>
-      <div>
-        <Header/>
-        <Home />
-       </ div>
-    </>
-  )
+export {
+    App
 }
-
-export default App

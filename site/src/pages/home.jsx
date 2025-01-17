@@ -1,12 +1,13 @@
-import React from "react";
-import TopBlock from "../components/homePage/topBlock";
+import {TopBlock} from "../components/index.js";
 
-function Home() {
-  return (
-    <div>
-      <TopBlock></TopBlock>
-    </div>
-  );
+const Home = () => {
+    return (
+        <div>
+            <TopBlock></TopBlock>
+        </div>
+    );
+};
+
+export {
+    Home
 }
-
-export default Home;
