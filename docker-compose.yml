@@ -1,5 +1,3 @@
-version: "3.9"
-
 name: prano-app
 
 services:
@@ -13,7 +11,7 @@ services:
       - ./mongo_data:/data/db
     networks:
       - prano-app
-    restart: on-failure
+    restart: unless-stopped
 
   web:
     build:
@@ -26,7 +24,7 @@ services:
       - prano-app
     #    depends_on:
     #      - api
-    restart: on-failure
+    restart: unless-stopped
 
   nginx:
     image: nginx:alpine
@@ -39,7 +37,7 @@ services:
     depends_on:
       #      - api
       - web
-    restart: on-failure
+    restart: unless-stopped
 
 volumes:
   mongo_data:
