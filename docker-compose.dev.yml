@@ -3,6 +3,8 @@ name: prano-app
 services:
   mongo:
     image: mongo:7.0.12
+    ports:
+      - "27017:27017"
     env_file:
       - .env
     volumes:
@@ -14,7 +16,11 @@ services:
   web:
     build:
       context: ./site
-      target: production
+      target: development
+    volumes:
+      - ./site:/app
+      - /app/node_modules
+    command: npm run dev -- --host
     networks:
       - prano-app
     #    depends_on:
@@ -26,7 +32,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/nginx.dev.conf:/etc/nginx/conf.d/default.conf
     networks:
       - prano-app
     depends_on:
