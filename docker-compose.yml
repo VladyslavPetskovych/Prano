@@ -1,0 +1,41 @@
+name: prano-app
+
+services:
+  mongo:
+    image: mongo:7.0.12
+    env_file:
+      - .env
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - prano-app
+    restart: unless-stopped
+
+  web:
+    build:
+      context: ./site
+      target: production
+    networks:
+      - prano-app
+    #    depends_on:
+    #      - api
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - prano-app
+    depends_on:
+      #      - api
+      - web
+    restart: unless-stopped
+
+volumes: # /var/lib/docker
+  mongo_data:
+networks:
+  prano-app:
+    driver: bridge
