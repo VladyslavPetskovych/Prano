@@ -30,16 +30,21 @@ function EndlessPossibilities() {
 
         {/* Image Section */}
         <div className="md:w-1/2 mt-8 md:mt-0 md:pl-12 relative">
-          <div className="flex flex-col space-y-4">
+          <div className="relative  h-[600px] md:h-[700px]">
+            {/* First Image */}
             <img
               src="//images.pexels.com/photos/5087727/pexels-photo-5087727.jpeg"
               alt="Laundry Service"
-              className="w-full rounded-lg shadow-lg"
+              className="rounded-lg shadow-lg object-cover w-[300px] h-[300px]  ml-24 mb-2 md:mx-4 lg:ml-36 "
+        
             />
+
+            {/* Second Image */}
             <img
               src="//images.pexels.com/photos/5661252/pexels-photo-5661252.jpeg"
               alt="Laundry Service"
-              className="object-cover rounded-lg shadow-lg absolute -bottom-10 -left-10 w-[70%] h-[50%] object-right"
+              className="object-cover rounded-lg shadow-lg w-[300px] h-[300px] mr-10 lg:w-[400px] lg:h-[400px] "
+        
             />
           </div>
         </div>
