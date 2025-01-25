@@ -1,5 +1,6 @@
 import EndlessPossibilities from "../components/homePage/EndlessPossibilities.jsx";
-import {TopBlock} from "../components/index.js";
+import {TopBlock} from "../components/homePage/topBlock.jsx";
+
 
 const Home = () => {
     return (

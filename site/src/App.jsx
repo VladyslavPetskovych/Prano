@@ -1,17 +1,17 @@
-import { Header } from "./components/index.js";
-import { Footer } from "./components/index.js";
-import { Home } from "./pages/index.js";
+import {Header} from "./components/utils/header.jsx";
+import {Home} from "./pages/home.jsx";
+import {Footer} from "./components/utils/footer.jsx";
 
 const App = () => {
-  return (
-    <>
-      <div>
-        <Header />
-        <Home />
-        <Footer />
-      </div>
-    </>
-  );
+    return (
+        <>
+            <div>
+                <Header/>
+                <Home/>
+                <Footer/>
+            </div>
+        </>
+    );
 };
 
-export { App };
+export {App};
