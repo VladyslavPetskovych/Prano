@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import BurgerMenu from "./burgerMenu"; // Adjust the import path as necessary
+import {BurgerMenu} from "./burgerMenu"; // Adjust the import path as necessary
 
 const Header = () => {
   const [opened, setOpened] = useState(false);
