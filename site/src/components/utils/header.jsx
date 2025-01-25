@@ -8,14 +8,17 @@ const Header = () => {
     "px-4 py-2 mx-1 text-white hover:bg-sky-500 focus:outline-none";
 
   return (
-    <nav className="bg-sky-400 h-16 flex items-center justify-around px-4">
-      <h1>Prano</h1>
+    <nav className="bg-coolBlue h-16 flex items-center justify-around px-4 font-geologica">
+      <h1 className=" ">Prano</h1>
       <div className="hidden md:block">
         <span>
-          <button className={buttonStyle}>Головна</button>
+          <button className={buttonStyle}>Про нас</button>
         </span>
         <span>
-          <button className={buttonStyle}>Прання</button>
+          <button className={buttonStyle}>Послуги</button>
+        </span>
+        <span>
+          <button className={buttonStyle}>Ціни</button>
         </span>
         <span>
           <button className={buttonStyle}>Хімчистка</button>
