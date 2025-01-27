@@ -36,7 +36,6 @@ services:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
       - ./scripts:/scripts
-    command: ./scripts/run_nginx.sh
     networks:
       - prano-app
     depends_on:
