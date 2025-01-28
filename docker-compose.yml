@@ -17,8 +17,6 @@ services:
     build:
       context: ./server
       target: production
-    ports:
-      - "3000:3000"
     networks:
       - prano-app
     depends_on:
