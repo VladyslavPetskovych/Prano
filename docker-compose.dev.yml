@@ -13,6 +13,20 @@ services:
       - prano-app
     restart: unless-stopped
 
+  api:
+    build:
+      context: ./server
+      target: development
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    command: npm run dev
+    networks:
+      - prano-app
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
   web:
     build:
       context: ./site
@@ -23,8 +37,8 @@ services:
     command: npm run dev -- --host
     networks:
       - prano-app
-    #    depends_on:
-    #      - api
+    depends_on:
+      - api
     restart: unless-stopped
 
   nginx:
@@ -36,7 +50,6 @@ services:
     networks:
       - prano-app
     depends_on:
-      #      - api
       - web
     restart: unless-stopped
 

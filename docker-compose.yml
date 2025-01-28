@@ -13,14 +13,26 @@ services:
       - prano-app
     restart: unless-stopped
 
+  api:
+    build:
+      context: ./server
+      target: production
+    ports:
+      - "3000:3000"
+    networks:
+      - prano-app
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
   web:
     build:
       context: ./site
       target: production
     networks:
       - prano-app
-    #    depends_on:
-    #      - api
+    depends_on:
+      - api
     restart: unless-stopped
 
   nginx:
@@ -39,20 +51,19 @@ services:
     networks:
       - prano-app
     depends_on:
-      #      - api
       - web
     restart: unless-stopped
-
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email ${CERT_EMAIL} -d ${DOMAIN} --agree-tos
-    networks:
-      - prano-app
-    depends_on:
-      - nginx
+# Тимчасово закоментив, щоб сертбот не намагався поновити сертифікати
+#  certbot:
+#    image: certbot/certbot
+#    volumes:
+#      - ./certbot/conf:/etc/letsencrypt
+#      - ./certbot/www:/var/www/certbot
+#    command: certonly --webroot -w /var/www/certbot --force-renewal --email ${CERT_EMAIL} -d ${DOMAIN} --agree-tos
+#    networks:
+#      - prano-app
+#    depends_on:
+#      - nginx
 
 volumes: # /var/lib/docker
   mongo_data:
