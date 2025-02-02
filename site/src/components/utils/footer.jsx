@@ -1,4 +1,6 @@
-const Footer = () => {
+import React from "react";
+
+function Footer() {
   return (
     <footer className="bg-logoGray text-white py-8">
       <div className="container mx-auto px-4">
@@ -75,6 +77,6 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
+}
 
-export { Footer };
+export default Footer;
