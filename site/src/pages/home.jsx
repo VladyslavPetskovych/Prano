@@ -1,16 +1,13 @@
 import EndlessPossibilities from "../components/homePage/EndlessPossibilities.jsx";
-import {TopBlock} from "../components/homePage/topBlock.jsx";
-
+import { TopBlock } from "../components/homePage/topBlock.jsx";
 
 const Home = () => {
-    return (
-        <div>
-            <TopBlock />
-            <EndlessPossibilities/>
-        </div>
-    );
+  return (
+    <div>
+      <TopBlock />
+      <EndlessPossibilities />
+    </div>
+  );
 };
 
-export {
-    Home
-}
+export default Home;
