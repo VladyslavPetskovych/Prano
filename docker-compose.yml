@@ -27,6 +27,9 @@ services:
       - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
       - JWT_REFRESH_EXPIRES_IN=${JWT_REFRESH_EXPIRES_IN}
       - SECRET_SALT=${SECRET_SALT}
+    volumes:
+      - ./server:/app
+      - /app/node_modules
     networks:
       - prano-app
     depends_on:
@@ -55,7 +58,6 @@ services:
       - ./nginx/nginx.conf.template:/etc/nginx/templates/default.conf.template
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-      - ./scripts:/scripts
     networks:
       - prano-app
     depends_on:

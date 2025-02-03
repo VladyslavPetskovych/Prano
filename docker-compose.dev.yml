@@ -13,6 +13,7 @@ services:
       - MONGO_PASSWORD=${MONGO_PASSWORD}
     volumes:
       - mongo_data:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
     networks:
       - prano-app
     restart: unless-stopped
@@ -21,10 +22,16 @@ services:
     build:
       context: ./server
       target: development
+    environment:
+      - DB_URL=${DB_URL}
+      - JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}
+      - JWT_ACCESS_EXPIRES_IN=${JWT_ACCESS_EXPIRES_IN}
+      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
+      - JWT_REFRESH_EXPIRES_IN=${JWT_REFRESH_EXPIRES_IN}
+      - SECRET_SALT=${SECRET_SALT}
     volumes:
       - ./server:/app
       - /app/node_modules
-    command: npm run dev
     networks:
       - prano-app
     depends_on:
