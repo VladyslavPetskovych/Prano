@@ -1,9 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { BurgerMenu } from "./burgerMenu";
 
-// Оновлений компонент Dropdown для прийому опцій
 function Dropdown({ label, options }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (pathname === "/services") {
+      setTimeout(() => {
+        const hash = window.location.hash;
+        if (hash) {
+          const element = document.querySelector(hash);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+      }, 100);
+    }
+  }, [pathname]);
 
   return (
     <div
@@ -18,13 +33,13 @@ function Dropdown({ label, options }) {
       {isOpen && (
         <div className="absolute left-0 mt-0 w-40 bg-white text-black shadow-lg z-10">
           {options.map((option, index) => (
-            <a
-              href="#"
+            <Link
+              to={option.href}
               key={index}
               className="block px-4 py-2 hover:bg-gray-200"
             >
-              {option}
-            </a>
+              {option.label}
+            </Link>
           ))}
         </div>
       )}
@@ -39,38 +54,29 @@ function Header() {
     "px-4 py-2 mx-1 text-white hover:bg-sky-500 focus:outline-none";
 
   const servicesOptions = [
-    "Хімчистка",
-    "Пральня",
-    "Чистка і реставрація взуття",
-    "ремонт взуття",
+    { label: "Хімчистка", href: "/services#cleaning" },
+    { label: "Пральня", href: "/services#laundry" },
+    { label: "Чистка і реставрація взуття", href: "/services#shoes-cleaning" },
+    { label: "Ремонт взуття", href: "/services#shoes-repair" },
   ];
-  const pricesOptions = [
-    "Хімчистка",
-    "Пральня",
-    "Чистка і реставрація взуття",
-    "ремонт взуття",
-  ];
- 
 
   return (
-    <nav className="bg-coolBlue h-16 flex items-center justify-between px-4 font-geologica">
-      <h1 className="text-white">Prano</h1>
-      <div className="hidden md:flex space-x-4">
-        <span>
-          <button className={buttonStyle}>Про нас</button>
-        </span>
-        <span>
-          <Dropdown label="Послуги" options={servicesOptions} />
-        </span>
-        <span>
-          <Dropdown label="Ціни" options={pricesOptions} />
-        </span>
-        <span>
-          <button className={buttonStyle}>Контакти</button>
-        </span>
-        <span>
-          <button className={buttonStyle}>Кабінет</button>
-        </span>
+    <nav className="bg-coolBlue h-16 flex items-center justify-between px-6 font-geologica">
+      <h1 className="text-white text-lg font-bold">Prano</h1>
+      <div className="hidden md:flex items-center space-x-6">
+        <Link to="/about" className={buttonStyle}>
+          Про нас
+        </Link>
+        <Dropdown label="Послуги" options={servicesOptions} />
+        <Link to="/price" className={buttonStyle}>
+          Ціни
+        </Link>
+        <Link to="/contacts" className={buttonStyle}>
+          Контакти
+        </Link>
+        <Link to="/cabinet" className={buttonStyle}>
+          Кабінет
+        </Link>
       </div>
       <div className="block md:hidden">
         <BurgerMenu opened={opened} toggleOpened={() => setOpened(!opened)} />
