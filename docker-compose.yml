@@ -7,8 +7,11 @@ services:
       - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_USER=${MONGO_USER}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
     volumes:
       - mongo_data:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
     networks:
       - prano-app
     restart: unless-stopped
@@ -17,6 +20,16 @@ services:
     build:
       context: ./server
       target: production
+    environment:
+      - DB_URL=${DB_URL}
+      - JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}
+      - JWT_ACCESS_EXPIRES_IN=${JWT_ACCESS_EXPIRES_IN}
+      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
+      - JWT_REFRESH_EXPIRES_IN=${JWT_REFRESH_EXPIRES_IN}
+      - SECRET_SALT=${SECRET_SALT}
+    volumes:
+      - ./server:/app
+      - /app/node_modules
     networks:
       - prano-app
     depends_on:
@@ -45,7 +58,6 @@ services:
       - ./nginx/nginx.conf.template:/etc/nginx/templates/default.conf.template
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-      - ./scripts:/scripts
     networks:
       - prano-app
     depends_on:
