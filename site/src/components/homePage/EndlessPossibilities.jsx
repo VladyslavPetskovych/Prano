@@ -35,7 +35,7 @@ function EndlessPossibilities() {
                         <img
                             src="//images.pexels.com/photos/5087727/pexels-photo-5087727.jpeg"
                             alt="Laundry Service"
-                            className="rounded-lg shadow-lg object-cover w-[300px] h-[300px]  ml-24 mb-2 md:mx-4 lg:ml-36 "
+                            className="rounded-lg shadow-lg object-cover w-[300px] h-[300px]  ml-0 mb-2 md:mx-4 lg:ml-36 "
 
                         />
 

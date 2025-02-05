@@ -1,5 +1,5 @@
 import back from "../../assets/home/back.jpg";
-import logo1 from "../../assets/home/logo1.webp";
+
 
 const TopBlock = () => {
   return (

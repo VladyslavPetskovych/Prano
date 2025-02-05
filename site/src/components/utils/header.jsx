@@ -63,7 +63,7 @@ function Header() {
   return (
     <nav className="bg-coolBlue h-16 flex items-center justify-between px-6 font-geologica">
       <h1 className="text-white text-lg font-bold">Prano</h1>
-      <div className="hidden md:flex items-center space-x-6">
+      <div className="hidden md:flex items-center space-x-5">
         <Link to="/about" className={buttonStyle}>
           Про нас
         </Link>
@@ -73,6 +73,9 @@ function Header() {
         </Link>
         <Link to="/contacts" className={buttonStyle}>
           Контакти
+        </Link>
+        <Link to="/blog" className={buttonStyle}>
+          Блог
         </Link>
         <Link to="/cabinet" className={buttonStyle}>
           Кабінет

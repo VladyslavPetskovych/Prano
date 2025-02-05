@@ -4,7 +4,7 @@ function Prices() {
   return (
     <div className="p-6 font-sans">
       <h1 className="text-center text-2xl font-bold text-gray-700 mb-6">
-        Pricing for Laundry & Dry Cleaning
+        Ціни на прання і хімчистку
       </h1>
       <table className="min-w-full table-auto border-collapse shadow-md">
         <thead>
@@ -72,6 +72,11 @@ function Prices() {
           </tr>
         </tbody>
       </table>
+      <div className="my-32">
+        <h1 className="text-center text-2xl font-bold text-gray-700 mb-6">
+          При корпоративних замовленнях і великих об'ємах економія до 30%
+        </h1>
+      </div>
     </div>
   );
 }
