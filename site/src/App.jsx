@@ -16,6 +16,7 @@ import ShoesRepair from "./pages/shoesRepair.jsx";
 import Price from "./pages/price.jsx";
 import Contacts from "./pages/contacts.jsx";
 import Cabinet from "./pages/cabinet.jsx";
+import Register from "./pages/register.jsx";
 
 import LoadingScreen from "./components/utils/loadingScreen.jsx";
 
@@ -46,6 +47,7 @@ const App = () => {
         <Route path="/price" element={<Price />} />
         <Route path="/contacts" element={<Contacts />} />
         <Route path="/cabinet" element={<Cabinet />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
       <Footer />
     </Router>
