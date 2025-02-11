@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import fur from "../../assets/home/fur.jpg";
 import textile from "../../assets/home/textile.jpg";
 
 function CareArtBlock() {
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: false, disable: "phone" });
+  }, []);
+
   return (
-    <div className="bg-black text-white py-10 px-5">
+    <div className="bg-black text-white py-10 px-5 overflow-hidden">
       <h2 className="text-center text-2xl font-bold mb-8">
         МИСТЕЦТВО ДОГЛЯДУ ЗА РЕЧАМИ
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-[500px]">
-        <div className="relative group overflow-hidden  h-full">
+        <div
+          className="relative group overflow-hidden h-full"
+          data-aos="slide-right"
+        >
           <img
             src={textile}
             alt="Textile Care"
@@ -24,7 +33,10 @@ function CareArtBlock() {
             </button>
           </div>
         </div>
-        <div className="relative group overflow-hidden md:col-span-2 h-full">
+        <div
+          className="relative group overflow-hidden md:col-span-2 h-full"
+          data-aos="slide-left"
+        >
           <img
             src={fur}
             alt="Leather & Fur Care"
