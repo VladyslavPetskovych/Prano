@@ -12,11 +12,15 @@
   "description": "",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "cron": "^3.5.0",
+    "dayjs": "^1.11.13",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.9.5"
+    "mongoose": "^8.9.5",
+    "nodemailer": "^6.10.0",
+    "nodemailer-express-handlebars": "^6.1.2"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"

@@ -2,13 +2,9 @@ const {model, Schema, Types} = require("mongoose");
 
 const User = require("./User.model");
 
-const tokenSchema = new Schema(
+const oldPasswordSchema = new Schema(
     {
-        accessToken: {
-            type: String,
-            required: true,
-        },
-        refreshToken: {
+        password: {
             type: String,
             required: true,
         },
@@ -24,4 +20,4 @@ const tokenSchema = new Schema(
     }
 )
 
-module.exports = model("token", tokenSchema)
+module.exports = model("oldPassword", oldPasswordSchema)
