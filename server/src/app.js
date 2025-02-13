@@ -3,19 +3,15 @@ const mongoose = require("mongoose");
 
 const {authRouter, userRouter} = require("./routers");
 const {configs} = require("./configs");
+const {cronRunner} = require("./crons");
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-});
-
 app.use("/auth", authRouter)
 app.use("/users", userRouter)
-
 app.use((err, req, res, next) => {
     const status = err.status || 500;
 
@@ -47,5 +43,6 @@ const PORT = 3000;
 
 app.listen(PORT, async () => {
     await dbConnect()
+    cronRunner()
     console.log(`Server has started on PORT ${PORT}`)
 })

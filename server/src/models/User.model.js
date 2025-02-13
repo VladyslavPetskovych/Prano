@@ -1,6 +1,6 @@
 const {model, Schema} = require("mongoose");
 
-const {userEnum} = require("../enums");
+const {UserEnum: {EGenders, EUserStatus}} = require("../enums");
 
 const userSchema = new Schema(
     {
@@ -14,7 +14,7 @@ const userSchema = new Schema(
         },
         gender: {
             type: String,
-            enum: userEnum.EGenders,
+            enum: EGenders,
         },
         email: {
             type: String,
@@ -27,6 +27,11 @@ const userSchema = new Schema(
             required: true,
             select: false,
         },
+        status: {
+            type: String,
+            enum: EUserStatus,
+            default: EUserStatus.INACTIVE,
+        }
     },
     {
         versionKey: false,

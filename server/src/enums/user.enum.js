@@ -1,8 +1,14 @@
 const EGenders = {
-    Male: "male",
-    Female: "female"
+    MALE: "male",
+    FEMALE: "female"
+}
+
+const EUserStatus = {
+    ACTIVE: "active",
+    INACTIVE: "inactive"
 }
 
 module.exports = {
-    EGenders
+    EGenders,
+    EUserStatus,
 }
