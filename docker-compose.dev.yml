@@ -35,7 +35,7 @@ services:
       - JWT_REFRESH_EXPIRES_IN=${JWT_REFRESH_EXPIRES_IN}
       - SECRET_SALT=${SECRET_SALT}
       - NO_REPLY_EMAIL=${NO_REPLY_EMAIL}
-      - NO_REPLY_PASSWORD${NO_REPLY_PASSWORD}
+      - NO_REPLY_PASSWORD=${NO_REPLY_PASSWORD}
     volumes:
       - ./server:/app
       - /app/node_modules
