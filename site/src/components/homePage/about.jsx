@@ -4,17 +4,16 @@ import backScroll from "../../assets/home/backScroll.jpg";
 function About() {
   return (
     <div className="relative w-full h-screen">
-      {/* Фонове зображення */}
+ 
       <img
         src={backScroll}
         alt="Background"
         className="w-full h-full object-cover"
       />
 
-      {/* Затемнення */}
+ 
       <div className="absolute inset-0 bg-black bg-opacity-70"></div>
 
-      {/* Контент */}
       <div className="absolute inset-0 flex items-center justify-center text-white text-center px-6">
         <div className="max-w-3xl animate-fadeIn">
           <h1 className="text-5xl font-extrabold mb-6 uppercase tracking-wide">

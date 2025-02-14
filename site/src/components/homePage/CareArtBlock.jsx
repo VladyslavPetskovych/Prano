@@ -6,14 +6,12 @@ import textile from "../../assets/home/textile.jpg";
 
 function CareArtBlock() {
   useEffect(() => {
-    AOS.init({ duration: 1000, once: false, disable: "phone" });
+    AOS.init({ duration: 1000, once: false });
   }, []);
 
   return (
     <div className="text-white py-4 px-5 overflow-hidden">
       <div className="flex justify-center">
-        {" "}
-        {/* Added flexbox for centering the heading */}
         <h2
           className="font-playfair text-3xl text-black md:text-4xl font-bold my-7 p-4 inline-block bg-white text-center"
           data-aos="fade-up"
