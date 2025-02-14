@@ -3,7 +3,7 @@ import back from "../../assets/home/back.jpg";
 const TopBlock = () => {
   return (
     <div
-      className="relative h-screen w-full flex flex-col items-center justify-center bg-no-repeat bg-cover bg-fixed"
+      className="relative min-h-screen w-full flex flex-col items-center justify-center bg-no-repeat bg-cover md:bg-fixed"
       style={{ backgroundImage: `url(${back})` }}
     >
       {/* Gradient Overlay for Smooth Transition */}
@@ -11,11 +11,11 @@ const TopBlock = () => {
 
       {/* Content */}
       <div className="relative z-10 text-center px-6">
-        <h1 className="text-5xl md:text-6xl font-bold text-white drop-shadow-lg">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white drop-shadow-lg">
           Прано
         </h1>
 
-        <p className="text-lg md:text-xl text-gray-300 mt-4 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-lg sm:text-xl text-gray-300 mt-4 max-w-2xl mx-auto leading-relaxed">
           Ми пропонуємо високоякісні послуги прання та хімчистки, які
           забезпечать чистоту та свіжість вашого одягу. Дбайливий підхід до
           кожної речі — ваш одяг у надійних руках.
@@ -28,6 +28,7 @@ const TopBlock = () => {
           Замовити послугу
         </a>
       </div>
+      
     </div>
   );
 };
