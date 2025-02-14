@@ -14,9 +14,10 @@ export default {
       },
       fontFamily: {
         geologica: ['Geologica', 'sans-serif'], 
+        playfair: ["'Playfair Display'", "serif"],
       },
     },
   },
-  // eslint-disable-next-line no-undef
+
   plugins: [require("tailwind-hamburgers")],
 };

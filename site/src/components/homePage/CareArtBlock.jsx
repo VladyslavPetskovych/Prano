@@ -10,43 +10,64 @@ function CareArtBlock() {
   }, []);
 
   return (
-    <div className="bg-black text-white py-10 px-5 overflow-hidden">
-      <h2 className="text-center text-2xl font-bold mb-8">
-        МИСТЕЦТВО ДОГЛЯДУ ЗА РЕЧАМИ
-      </h2>
+    <div className="text-white py-4 px-5 overflow-hidden">
+      <div className="flex justify-center">
+        {" "}
+        {/* Added flexbox for centering the heading */}
+        <h2
+          className="font-playfair text-3xl text-black md:text-4xl font-bold my-7 p-4 inline-block bg-white text-center"
+          data-aos="fade-up"
+        >
+          МИСТЕЦТВО ДОГЛЯДУ ЗА РЕЧАМИ
+        </h2>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-[500px]">
         <div
           className="relative group overflow-hidden h-full"
-          data-aos="slide-right"
+          data-aos="fade-right"
         >
           <img
             src={textile}
             alt="Textile Care"
-            className="w-full h-full object-cover opacity-75 group-hover:opacity-100 transition duration-300"
+            className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500"
           />
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center bg-black bg-opacity-50 p-4">
-            <h3 className="text-xl font-semibold">
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center bg-black bg-opacity-60 p-4">
+            <h3
+              className="text-xl md:text-2xl font-semibold drop-shadow-lg"
+              data-aos="zoom-in"
+            >
               ДОГЛЯД ЗА ТЕКСТИЛЬНИМ ОДЯГОМ
             </h3>
-            <button className="mt-4 border border-white px-4 py-2 hover:bg-white hover:text-black transition">
+            <button
+              className="mt-4 border border-white px-6 py-2 text-lg font-medium hover:bg-white hover:text-black transition duration-300"
+              data-aos="fade-up"
+            >
               ДІЗНАТИСЯ БІЛЬШЕ
             </button>
           </div>
         </div>
+
         <div
           className="relative group overflow-hidden md:col-span-2 h-full"
-          data-aos="slide-left"
+          data-aos="fade-left"
         >
           <img
             src={fur}
             alt="Leather & Fur Care"
-            className="w-full h-full object-cover opacity-75 group-hover:opacity-100 transition duration-300"
+            className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500"
           />
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center bg-black bg-opacity-50 p-4">
-            <h3 className="text-xl font-semibold">
-              ЧАСТКА РЕЧЕЙ ЗІ ШКІРИ І ХУТРА
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center bg-black bg-opacity-60 p-4">
+            <h3
+              className="text-xl md:text-2xl font-semibold drop-shadow-lg"
+              data-aos="zoom-in"
+            >
+              ЧИСТКА РЕЧЕЙ ЗІ ШКІРИ І ХУТРА
             </h3>
-            <button className="mt-4 border border-white px-4 py-2 hover:bg-white hover:text-black transition">
+            <button
+              className="mt-4 border border-white px-6 py-2 text-lg font-medium hover:bg-white hover:text-black transition duration-300"
+              data-aos="fade-up"
+            >
               ДІЗНАТИСЯ БІЛЬШЕ
             </button>
           </div>
