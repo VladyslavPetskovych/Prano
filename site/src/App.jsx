@@ -15,8 +15,11 @@ import ShoesCleaning from "./pages/shoesCleaning.jsx";
 import ShoesRepair from "./pages/shoesRepair.jsx";
 import Price from "./pages/price.jsx";
 import Contacts from "./pages/contacts.jsx";
-import Cabinet from "./pages/cabinet.jsx";
+import Account from "./pages/account.jsx";
 import Register from "./pages/register.jsx";
+
+import { Provider } from "react-redux";
+import store from "./redux";
 
 import LoadingScreen from "./components/utils/loadingScreen.jsx";
 
@@ -26,31 +29,33 @@ const App = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 500); 
+    }, 500);
 
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <Router>
-     {loading && <LoadingScreen />} 
-      <UpperHeader />
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<Home />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/services/cleaning" element={<Cleaning />} />
-        <Route path="/services/laundry" element={<Laundry />} />
-        <Route path="/services/shoes-cleaning" element={<ShoesCleaning />} />
-        <Route path="/services/shoes-repair" element={<ShoesRepair />} />
-        <Route path="/price" element={<Price />} />
-        <Route path="/contacts" element={<Contacts />} />
-        <Route path="/cabinet" element={<Cabinet />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-      <Footer />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        {loading && <LoadingScreen />}
+        <UpperHeader />
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<Home />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/services/cleaning" element={<Cleaning />} />
+          <Route path="/services/laundry" element={<Laundry />} />
+          <Route path="/services/shoes-cleaning" element={<ShoesCleaning />} />
+          <Route path="/services/shoes-repair" element={<ShoesRepair />} />
+          <Route path="/price" element={<Price />} />
+          <Route path="/contacts" element={<Contacts />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </Provider>
   );
 };
 

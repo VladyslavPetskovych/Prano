@@ -26,7 +26,7 @@ function Dropdown({ label, options }) {
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <button className="px-4 py-2 text-white hover:bg-sky-500 focus:outline-none">
+      <button className="px-4 py-2 text-white hover:bg-bg-coolBlue hover:opacity-75 focus:outline-none">
         {label}
       </button>
 
@@ -51,7 +51,7 @@ function Header() {
   const [opened, setOpened] = useState(false);
 
   const buttonStyle =
-    "px-4 py-2 mx-1 text-white hover:bg-sky-500 focus:outline-none";
+    "px-4 py-2 mx-1 text-white hover:bg-bg-coolBlue hover:opacity-75 focus:outline-none";
 
   const servicesOptions = [
     { label: "Хімчистка", href: "/services#cleaning" },
@@ -61,9 +61,9 @@ function Header() {
   ];
 
   return (
-    <nav className="bg-coolBlue h-16 flex items-center justify-between px-6 font-geologica">
-      <h1 className="text-white text-lg font-bold">Prano</h1>
-      <div className="hidden md:flex items-center space-x-5">
+    <nav className="bg-coolBlue h-16 flex items-center justify-between px-6 font-playfair">
+      <h1 className="text-white text-2xl font-bold">Prano</h1>
+      <div className="hidden md:flex items-center space-x-5 text-xl">
         <Link to="/about" className={buttonStyle}>
           Про нас
         </Link>
