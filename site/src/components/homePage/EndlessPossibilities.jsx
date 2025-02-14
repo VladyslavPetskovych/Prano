@@ -4,7 +4,7 @@ function EndlessPossibilities() {
     return (
         <section className="bg-white py-16">
             <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
-                {/* Text Section */}
+         
                 <div className="md:w-1/2">
                     <h2 className="text-4xl font-bold mb-6">Безмежні можливості</h2>
                     <p className="text-lg text-gray-700 mb-6">
@@ -28,10 +28,9 @@ function EndlessPossibilities() {
                     </ul>
                 </div>
 
-                {/* Image Section */}
                 <div className="md:w-1/2 mt-8 md:mt-0 md:pl-12 relative">
                     <div className="relative  h-[600px] md:h-[700px]">
-                        {/* First Image */}
+                    
                         <img
                             src="//images.pexels.com/photos/5087727/pexels-photo-5087727.jpeg"
                             alt="Laundry Service"

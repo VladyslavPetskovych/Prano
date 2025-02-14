@@ -5,7 +5,7 @@ import shoeImg from "../../assets/home/shoe.jpg";
 
 function Shoe() {
   useEffect(() => {
-    AOS.init({ duration: 1000, once: false, disable: "phone" });
+    AOS.init({ duration: 1000, once: false,});
   }, []);
 
   return (
