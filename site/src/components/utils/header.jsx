@@ -61,7 +61,7 @@ function Header() {
   ];
 
   return (
-    <nav className="bg-coolBlue h-16 flex items-center justify-between px-6 font-playfair">
+    <nav className= "fixed z-50 w-full mt-7 bg-coolBlue h-16 flex items-center justify-between px-6 font-playfair">
       <h1 className="text-white text-2xl font-bold">Prano</h1>
       <div className="hidden md:flex items-center space-x-5 text-xl">
         <Link to="/about" className={buttonStyle}>
