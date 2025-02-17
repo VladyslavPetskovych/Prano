@@ -4,7 +4,7 @@ import mail from "/src/assets/icons/mail.png";
 
 function upperHeader() {
   return (
-    <div className="h-7 bg-white flex  justify-between items-center">
+    <div className="fixed z-50 w-full h-7 bg-white flex  justify-between items-center">
       <p className="hidden md:block"></p>
       <div className="flex flew-row justify-start ml-3 px-3 md:px-10">
         <div className="ml-2 flex items-center gap-2">
