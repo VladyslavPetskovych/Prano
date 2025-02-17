@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const {authRouter, userRouter} = require("./routers");
 const {configs} = require("./configs");
 const {cronRunner} = require("./crons");
+const cors = require("cors");
 
 const app = express();
 
