@@ -18,19 +18,11 @@ server {
     }
 
     location /api/ {
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
         proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-
-        if ($request_method = 'OPTIONS') {
-            return 204;
-        }
-
-        add_header 'Access-Control-Allow-Origin' '*';
-        add_header 'Access-Control-Allow-Credentials' 'true';
-        add_header 'Access-Control-Allow-Methods' '*';
-        add_header 'Access-Control-Allow-Headers' '*';
+        proxy_cache_bypass $http_upgrade;
 
         rewrite /(.*) /$1 break;
         proxy_pass http://api:3000;
