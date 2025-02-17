@@ -1,21 +1,35 @@
 import back from "../../assets/home/back.jpg";
+import { useEffect, useState } from "react";
 
 const TopBlock = () => {
+
+  const [height, setHeight] = useState("100vh");
+
+  useEffect(() => {
+    const handleResize = () => {
+      setHeight(`${window.innerHeight}px`);
+    };
+
+    handleResize(); // Set initial height
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
-      {/* Gradient Overlay */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: `url(${back})`,
-          height: "100vh", // Fix the background image height to the viewport height
+          height: height, // Use dynamic height
         }}
       ></div>
 
-      {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/40"></div>
 
-      {/* Content */}
       <div className="relative z-10 text-center px-6">
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white drop-shadow-lg">
           Прано
