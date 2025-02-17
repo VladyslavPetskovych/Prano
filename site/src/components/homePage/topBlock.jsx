@@ -2,12 +2,12 @@ import back from "../../assets/home/back.jpg";
 
 const TopBlock = () => {
   return (
-    <div className="relative h-[600px] w-full flex flex-col items-center justify-center overflow-hidden">
+    <div className="relative h-[900px] w-full flex flex-col items-center justify-center overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: `url(${back})`,
-          height: "1000px", // Fixed height
+          height: "1200px", // Fixed height
         }}
       ></div>
 
