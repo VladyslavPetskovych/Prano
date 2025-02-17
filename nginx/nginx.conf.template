@@ -23,9 +23,7 @@ server {
         proxy_set_header Connection 'upgrade';
         proxy_set_header Host $host;
         proxy_cache_bypass $http_upgrade;
-
-        rewrite /(.*) /$1 break;
-        proxy_pass http://api:3000;
+        proxy_pass http://api:3000/;
     }
 
     location ~ /.well-known/acme-challenge/ {
