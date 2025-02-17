@@ -3,7 +3,7 @@ import back from "../../assets/home/back.jpg";
 const TopBlock = () => {
   return (
     <div
-      className="relative min-h-[100dvh] w-full flex flex-col items-center justify-center bg-no-repeat bg-cover lg:bg-fixed overflow-hidden"
+      className="relative min-h-[100vh] max-h-[100vh] w-full flex flex-col items-center justify-center bg-no-repeat bg-cover lg:bg-fixed overflow-hidden"
       style={{
         backgroundImage: `url(${back})`,
       }}
