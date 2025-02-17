@@ -4,10 +4,7 @@ const TopBlock = () => {
   return (
     <div
       className="relative h-screen w-full flex flex-col items-center justify-center bg-no-repeat bg-cover lg:bg-fixed overflow-hidden overscroll-none"
-      style={{
-        backgroundImage: `url(${back})`,
-        willChange: "transform",
-      }}
+ 
     >
       {/* Gradient Overlay for Smooth Transition */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/40"></div>
