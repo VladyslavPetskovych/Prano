@@ -1,30 +1,13 @@
 import back from "../../assets/home/back.jpg";
-import { useEffect, useState } from "react";
 
 const TopBlock = () => {
-
-  const [height, setHeight] = useState("100vh");
-
-  useEffect(() => {
-    const handleResize = () => {
-      setHeight(`${window.innerHeight}px`);
-    };
-
-    handleResize(); // Set initial height
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   return (
-    <div className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+    <div className="relative h-[600px] w-full flex flex-col items-center justify-center overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: `url(${back})`,
-          height: height, // Use dynamic height
+          height: "1000px", // Fixed height
         }}
       ></div>
 
