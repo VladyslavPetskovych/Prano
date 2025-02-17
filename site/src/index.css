@@ -11,6 +11,3 @@ body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
 }
-body, html {
-  overscroll-behavior: none;
-}
