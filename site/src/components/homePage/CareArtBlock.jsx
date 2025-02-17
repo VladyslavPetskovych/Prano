@@ -6,8 +6,7 @@ import textile from "../../assets/home/textile.jpg";
 
 function CareArtBlock() {
   useEffect(() => {
-// AOS.init({ duration: 1000, once: false }); // Comment this out
-
+    AOS.init({ duration: 1000, once: false });
   }, []);
 
   return (
