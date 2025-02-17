@@ -6,7 +6,6 @@ const TopBlock = () => {
       className="relative h-screen w-full flex flex-col items-center justify-center bg-no-repeat bg-cover lg:bg-fixed overflow-hidden"
       style={{
         backgroundImage: `url(${back})`,
-        height: "100dvh", // Use dynamic viewport height for better mobile support
       }}
     >
       {/* Gradient Overlay for Smooth Transition */}
