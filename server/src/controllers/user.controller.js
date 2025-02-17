@@ -33,12 +33,12 @@ class UserController {
         }
     }
 
-    async deleteById(req, res, next) {
+    async banById(req, res, next) {
         try {
             const {userId} = req.params;
-            await userService.deleteById(userId);
+            await userService.banById(userId);
 
-            return res.sendStatus(204)
+            return res.sendStatus(200)
         } catch (e) {
             next(e)
         }

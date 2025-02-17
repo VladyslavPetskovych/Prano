@@ -1,11 +1,14 @@
 const express = require("express")
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const {authRouter, userRouter} = require("./routers");
 const {configs} = require("./configs");
 const {cronRunner} = require("./crons");
 
 const app = express();
+
+app.use(cors())
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));

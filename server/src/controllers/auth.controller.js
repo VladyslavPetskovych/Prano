@@ -24,9 +24,9 @@ class AuthController {
 
     async login(req, res, next) {
         try {
-            const tokenPair = await authService.login(req.body, res.locals.user);
+            const payload = await authService.login(req.body, res.locals.user);
 
-            return res.status(200).json(tokenPair)
+            return res.status(200).json(payload)
         } catch (e) {
             next(e)
         }
@@ -34,9 +34,9 @@ class AuthController {
 
     async refresh(req, res, next) {
         try {
-            const tokenPair = await authService.refresh(res.locals.oldTokenPair, res.locals.tokenPayload);
+            const payload = await authService.refresh(res.locals.oldTokenPair, res.locals.tokenPayload);
 
-            return res.status(200).json(tokenPair)
+            return res.status(200).json(payload)
         } catch (e) {
             next(e)
         }

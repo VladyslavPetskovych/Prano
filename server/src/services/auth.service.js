@@ -45,7 +45,7 @@ class AuthService {
             const tokenPair = tokenService.generateTokenPair({id: user._id});
             await Token.create({...tokenPair, _userId: user._id})
 
-            return tokenPair
+            return {userId: user._id, ...tokenPair}
         } catch (e) {
             throw new ApiError(e.message, e.status)
         }
@@ -60,7 +60,7 @@ class AuthService {
                 Token.create({...tokenPair, _userId: tokenPayload.id})
             ])
 
-            return tokenPair
+            return {userId: tokenPayload.id, ...tokenPair}
         } catch (e) {
             throw new ApiError(e.message, e.status)
         }

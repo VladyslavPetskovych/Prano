@@ -27,7 +27,7 @@ router.delete(
     authMiddleware.checkAccessToken,
     commonMiddleware.isIdValid("userId"),
     userMiddleware.isUserExistByReqParams("userId"),
-    userController.deleteById
+    userController.banById
 )
 
 module.exports = router

@@ -1,14 +1,15 @@
-const EGenders = {
-    MALE: "male",
-    FEMALE: "female"
-}
-
 const EUserStatus = {
     ACTIVE: "active",
-    INACTIVE: "inactive"
+    INACTIVE: "inactive",
+    BANNED: "banned",
+}
+
+const EUserRole = {
+    USER: "user",
+    ADMIN: "admin"
 }
 
 module.exports = {
-    EGenders,
     EUserStatus,
+    EUserRole,
 }

@@ -1,26 +1,22 @@
 const {model, Schema} = require("mongoose");
 
-const {UserEnum: {EGenders, EUserStatus}} = require("../enums");
+const {UserEnum: {EUserStatus, EUserRole}} = require("../enums");
 
 const userSchema = new Schema(
     {
         name: {
             type: String,
         },
-        age: {
-            type: Number,
-            min: [1, "Minimum value for age is 1"],
-            max: [100, "Maximum value for age is 100"]
-        },
-        gender: {
-            type: String,
-            enum: EGenders,
-        },
         email: {
             type: String,
             required: true,
             trim: true,
             lowercase: true,
+        },
+        phone: {
+            type: String,
+            trim: true,
+            required: true,
         },
         password: {
             type: String,
@@ -31,6 +27,11 @@ const userSchema = new Schema(
             type: String,
             enum: EUserStatus,
             default: EUserStatus.INACTIVE,
+        },
+        role: {
+            type: String,
+            enum: EUserRole,
+            default: EUserRole.USER,
         }
     },
     {
