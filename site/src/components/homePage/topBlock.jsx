@@ -3,8 +3,11 @@ import back from "../../assets/home/back.jpg";
 const TopBlock = () => {
   return (
     <div
-      className="relative min-h-screen w-full flex flex-col items-center justify-center bg-no-repeat bg-cover md:bg-fixed"
-      style={{ backgroundImage: `url(${back})` }}
+      className="relative h-screen w-full flex flex-col items-center justify-center bg-no-repeat bg-cover lg:bg-fixed overflow-hidden"
+      style={{
+        backgroundImage: `url(${back})`,
+        height: "100dvh", // Use dynamic viewport height for better mobile support
+      }}
     >
       {/* Gradient Overlay for Smooth Transition */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/40"></div>
@@ -28,7 +31,6 @@ const TopBlock = () => {
           Замовити послугу
         </a>
       </div>
-      
     </div>
   );
 };
