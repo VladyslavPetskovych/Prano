@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Dropdown from "./dropdown"; 
+import Dropdown from "./dropdown";
 import { BurgerMenu } from "./burgerMenu";
+import { useSelector } from "react-redux";
 
 function Header() {
   const [opened, setOpened] = useState(false);
+
+  const isAuth = useSelector((state) => state.auth.isAuth);
+  const user = useSelector((state) => state.auth.user);
 
   const buttonStyle =
     "px-4 py-2 mx-1 text-white hover:bg-bg-coolBlue hover:opacity-75 focus:outline-none";
@@ -33,12 +37,18 @@ function Header() {
         <Link to="/blog" className={buttonStyle}>
           Блог
         </Link>
-        <Link to="/register" className="text-white">
-          Реєстрація
-        </Link>
+
+        {!isAuth ? (
+          <Link to="/login" className="text-white">
+            Увійти
+          </Link>
+        ) : (
+          <Link to="/account" className="text-white">
+            Профіль
+          </Link>
+        )}
       </div>
       <div className="block md:hidden">
-        
         <BurgerMenu opened={opened} toggleOpened={() => setOpened(!opened)} />
       </div>
     </nav>
