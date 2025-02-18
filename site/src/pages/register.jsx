@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/authSlice";
+import { Link } from "react-router-dom";
 
 export default function RegistrationPage() {
   const [formData, setFormData] = useState({
@@ -36,14 +37,14 @@ export default function RegistrationPage() {
 
     setLoading(true);
     try {
-      await console.log(userData)
+      await console.log(userData);
       const response = await axios.post(
         "https://prano.group/api/auth/register",
         userData
       );
-      
+
       console.log("Registered successfully:", response.data);
-      dispatch(login(response.data)); 
+      dispatch(login(response.data));
     } catch (error) {
       console.error("Error during registration:", error);
       alert(
@@ -101,9 +102,9 @@ export default function RegistrationPage() {
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           <div className="flex justify-center">
-            <button type="button" className="text-blue-500 hover:underline">
+            <Link to="/login" className="text-blue-500 hover:underline">
               Вже маєте акаунт? Увійти
-            </button>
+            </Link>
           </div>
           <button
             type="submit"

@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";  
 
 function Dropdown({ label, options }) {
   const [isOpen, setIsOpen] = useState(false);
   const { pathname } = useLocation();
+  
+  const isAuth = useSelector((state) => state.auth.isAuth);
+
+  const updatedOptions = isAuth
+    ? [
+        { label: "Мій акаунт", href: "/account" },
+        { label: "Вийти", href: "/logout" },
+      ]
+    : options; 
 
   useEffect(() => {
     if (pathname === "/services") {
@@ -33,7 +43,7 @@ function Dropdown({ label, options }) {
 
       {isOpen && (
         <div className="absolute left-0 mt-0 w-40 bg-white text-black shadow-lg z-10">
-          {options.map((option, index) => (
+          {updatedOptions.map((option, index) => (
             <Link
               to={option.href}
               key={index}
