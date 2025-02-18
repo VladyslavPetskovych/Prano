@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "../store/authSlice";
+import { login } from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -18,7 +18,7 @@ function Login() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+    <div className="flex pt-32 min-h-screen items-center justify-center bg-gray-100">
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold text-center">Login</h2>
         <form className="mt-4" onSubmit={handleLogin}>

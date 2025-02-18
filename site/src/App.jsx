@@ -16,6 +16,7 @@ import ShoesRepair from "./pages/shoesRepair.jsx";
 import Price from "./pages/price.jsx";
 import Contacts from "./pages/contacts.jsx";
 import Account from "./pages/account.jsx";
+import Login from "./pages/login.jsx";
 import Register from "./pages/register.jsx";
 import ActivateAccount from "./components/utils/ActivateAccount.jsx"
 
@@ -52,6 +53,7 @@ const App = () => {
           <Route path="/price" element={<Price />} />
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/activate/:token" element={<ActivateAccount />} />
         </Routes>
