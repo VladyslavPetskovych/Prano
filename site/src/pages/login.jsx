@@ -5,16 +5,34 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState(""); 
+  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    const userData = { email };
-    dispatch(login(userData));
-    navigate("/login"); 
+    try {
+      const response = await fetch("https://prano.group/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Login failed");
+      }
+
+      dispatch(login({ token: data.token, user: data.user }));
+
+      localStorage.setItem("token", data.token);
+
+      navigate("/account");
+    } catch (error) {
+      console.error("Login error:", error.message);
+    }
   };
 
   return (
