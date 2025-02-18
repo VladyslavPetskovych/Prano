@@ -14,7 +14,7 @@ function Login() {
 
     const userData = { email };
     dispatch(login(userData));
-    navigate("/account"); 
+    navigate("/login"); 
   };
 
   return (

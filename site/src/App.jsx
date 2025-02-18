@@ -17,6 +17,7 @@ import Price from "./pages/price.jsx";
 import Contacts from "./pages/contacts.jsx";
 import Account from "./pages/account.jsx";
 import Register from "./pages/register.jsx";
+import ActivateAccount from "./components/utils/ActivateAccount.jsx"
 
 import { Provider } from "react-redux";
 import store from "./redux";
@@ -52,6 +53,7 @@ const App = () => {
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/account" element={<Account />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/activate/:token" element={<ActivateAccount />} />
         </Routes>
         <Footer />
       </Router>

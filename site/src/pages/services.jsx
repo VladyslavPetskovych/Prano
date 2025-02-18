@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 function Services() {
-  const { hash } = useLocation(); // Get hash from URL
+  const { hash } = useLocation(); 
 
   useEffect(() => {
     if (hash) {
@@ -14,7 +14,7 @@ function Services() {
   }, [hash]);
 
   return (
-    <div className="p-6">
+    <div className="p-6 pt-32">
       <h1 className="text-2xl font-bold mb-4">Наші Послуги</h1>
 
       <section id="cleaning" className="mb-96">
