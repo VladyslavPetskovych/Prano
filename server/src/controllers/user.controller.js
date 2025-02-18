@@ -43,6 +43,17 @@ class UserController {
             next(e)
         }
     }
+
+    async setAdmin(req, res, next) {
+        try {
+            const {userId} = req.params;
+            await userService.setAdmin(userId);
+
+            return res.sendStatus(200)
+        } catch (e) {
+            next(e)
+        }
+    }
 }
 
 module.exports = new UserController()

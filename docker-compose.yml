@@ -70,7 +70,7 @@ services:
     depends_on:
       - web
     restart: unless-stopped
-# Тимчасово закоментив, щоб сертбот не намагався поновити сертифікати
+# TODO Тимчасово закоментив, щоб сертбот не намагався поновити сертифікати
 #  certbot:
 #    image: certbot/certbot
 #    volumes:

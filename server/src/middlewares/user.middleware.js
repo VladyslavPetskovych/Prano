@@ -1,5 +1,6 @@
 const {User} = require("../models");
 const {ApiError} = require("../errors");
+const {UserEnum: {EUserRole}} = require("../enums");
 
 
 class UserMiddleware {
@@ -35,15 +36,36 @@ class UserMiddleware {
         }
     }
 
-    isUserExistByReqParams(field) {
+    isUserExistByReqParams(idField) {
         return async (req, res, next) => {
             try {
-                const user = await User.findById(req.params[field]);
+                const user = await User.findById(req.params[idField]);
                 if (!user) {
                     throw new ApiError("User not found", 404)
                 }
 
                 next()
+            } catch (e) {
+                next(e)
+            }
+        }
+    }
+
+    checkUserRights(idField = null) {
+        return async (req, res, next) => {
+            try {
+                const {id: userId} = res.locals.tokenPayload;
+                const user = await User.findById(userId);
+
+                if (user.role === EUserRole.ADMIN) {
+                    return next()
+                }
+
+                if (idField && userId === req.params[idField]) {
+                    return next()
+                }
+
+                throw new ApiError("User has no rights to view this", 403)
             } catch (e) {
                 next(e)
             }
