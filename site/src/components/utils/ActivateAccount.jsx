@@ -23,7 +23,7 @@ export default function ActivateAccount() {
           `https://prano.group/api/auth/register/${token}`
         );
 
-        const response = await axios.get(
+        const response = await axios.post(
           `https://prano.group/api/auth/register/${token}`
         );
 
