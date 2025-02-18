@@ -3,13 +3,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 export default function ActivateAccount() {
-  const { token } = useParams(); // Extract token from URL
+  const { token } = useParams();
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!token) {
+      console.error("No token found in URL.");
       setMessage("Invalid activation link.");
       setLoading(false);
       return;
@@ -17,11 +18,28 @@ export default function ActivateAccount() {
 
     const activateAccount = async () => {
       try {
-        const response = await axios.get(`https://prano.group/api/auth/register/${token}`);
+        console.log(
+          "Sending request to:",
+          `https://prano.group/api/auth/register/${token}`
+        );
+
+        const response = await axios.get(
+          `https://prano.group/api/auth/register/${token}`
+        );
+
+        console.log("API Response:", response.data);
         setMessage(response.data.message || "Account activated successfully!");
-        setTimeout(() => navigate("/login"), 3000); // Redirect to login after activation
+
+        setTimeout(() => navigate("/login"), 3000);
       } catch (error) {
-        setMessage(error.response?.data?.message || "Activation failed. Please try again.");
+        console.error(
+          "Activation error:",
+          error.response?.data || error.message
+        );
+        setMessage(
+          error.response?.data?.message ||
+            "Activation failed. Please try again."
+        );
       } finally {
         setLoading(false);
       }
@@ -37,7 +55,13 @@ export default function ActivateAccount() {
         {loading ? (
           <p className="text-blue-500">Activating your account...</p>
         ) : (
-          <p className={`text-lg ${message.includes("successfully") ? "text-green-500" : "text-red-500"}`}>
+          <p
+            className={`text-lg ${
+              message.includes("successfully")
+                ? "text-green-500"
+                : "text-red-500"
+            }`}
+          >
             {message}
           </p>
         )}
