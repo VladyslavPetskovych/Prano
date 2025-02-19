@@ -47,5 +47,13 @@ router.post(
     authMiddleware.checkActionToken(EActionTokenType.FORGOT_PASSWORD),
     authController.setForgotPassword
 )
+router.post(
+    "/reactivate/:userId",
+    authMiddleware.checkAccessToken,
+    userMiddleware.checkUserRights("userId"),
+    commonMiddleware.isIdValid("userId"),
+    userMiddleware.isUserActivated("userId"),
+    authController.reactivate
+)
 
 module.exports = router

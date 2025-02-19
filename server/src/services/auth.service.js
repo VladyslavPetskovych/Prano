@@ -142,6 +142,21 @@ class AuthService {
             throw new ApiError(e.message, e.status)
         }
     }
+
+    async reactivate(userId) {
+        try {
+            const user = await User.findById(userId);
+
+            const actionToken = tokenService.generateActionToken({id: user._id}, EActionTokenType.ACTIVATE);
+
+            await Promise.all([
+                Action.create({actionToken, tokenType: EActionTokenType.ACTIVATE, _userId: user._id}),
+                emailService.sendMail(user.email, EEmailActions.WELCOME, {name: user.name, actionToken})
+            ])
+        } catch (e) {
+            throw new ApiError(e.message, e.status)
+        }
+    }
 }
 
 module.exports = new AuthService()

@@ -1,6 +1,7 @@
 const {User} = require("../models");
 const {ApiError} = require("../errors");
 const {UserEnum: {EUserRole}} = require("../enums");
+const {EUserStatus} = require("../enums/user.enum");
 
 
 class UserMiddleware {
@@ -66,6 +67,23 @@ class UserMiddleware {
                 }
 
                 throw new ApiError("User has no rights to view this", 403)
+            } catch (e) {
+                next(e)
+            }
+        }
+    }
+
+    isUserActivated(idField) {
+        return async (req, res, next) => {
+            try {
+                const user = await User.findById(req.params[idField]);
+                if (user.status === EUserStatus.ACTIVE) {
+                    throw new ApiError("User already has been activated", 400)
+                } else if (user.status === EUserStatus.BANNED) {
+                    throw new ApiError("Can not activate banned user", 400)
+                }
+
+                next()
             } catch (e) {
                 next(e)
             }

@@ -16,7 +16,7 @@ class AuthController {
             const {id: userId} = res.locals.tokenPayload;
             await authService.activate(userId)
 
-            return res.sendStatus(201)
+            return res.sendStatus(200)
         } catch (e) {
             next(e)
         }
@@ -70,6 +70,17 @@ class AuthController {
             const {id: userId} = res.locals.tokenPayload;
 
             await authService.setForgotPassword(password, userId)
+
+            return res.sendStatus(200)
+        } catch (e) {
+            next(e)
+        }
+    }
+
+    async reactivate(req, res, next) {
+        try {
+            const {userId} = req.params;
+            await authService.reactivate(userId)
 
             return res.sendStatus(200)
         } catch (e) {

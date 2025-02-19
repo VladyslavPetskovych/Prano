@@ -8,6 +8,7 @@ const {cronRunner} = require("./crons");
 
 const app = express();
 
+// TODO В майбутньому можна прибрати, якшо не потрібно використовувати API ззовні
 app.use(cors())
 
 app.use(express.json());
