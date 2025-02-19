@@ -6,12 +6,12 @@ const LoadingScreen = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(false);
-    }, 500); // Hide after 0.5 seconds
+    }, 400); 
 
-    return () => clearTimeout(timer); // Cleanup on unmount
+    return () => clearTimeout(timer); 
   }, []);
 
-  if (!isVisible) return null; // Hide component after timeout
+  if (!isVisible) return null; 
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-white z-50">

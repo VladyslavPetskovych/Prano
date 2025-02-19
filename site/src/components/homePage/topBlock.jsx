@@ -1,15 +1,27 @@
-import back from "../../assets/home/back.jpg";
+import { useState, useEffect } from "react";
+import back from "../../assets/home/back.webp";
 
 const TopBlock = () => {
+  const [bgLoaded, setBgLoaded] = useState(false);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = back;
+    img.onload = () => setBgLoaded(true);
+  }, []);
+
   return (
     <div className="relative h-[900px] w-full flex flex-col items-center justify-center overflow-hidden">
       <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${back})`,
-          height: "1200px", // Fixed height
-        }}
+        className={`absolute inset-0 bg-cover bg-center transition-opacity duration-500 ${
+          bgLoaded ? "opacity-100" : "opacity-0"
+        }`}
+        style={{ backgroundImage: `url(${back})` }}
       ></div>
+
+      {!bgLoaded && (
+        <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
+      )}
 
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/40"></div>
 
