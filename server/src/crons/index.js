@@ -5,5 +5,5 @@ module.exports = {
     cronRunner: () => {
         removeOldTokens.start()
         removeOldPasswords.start()
-    }
+    },
 }
