@@ -1,8 +1,11 @@
 import classNames from "classnames";
-import React from 'react';
+import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const BurgerMenu = ({ opened, toggleOpened }) => {
+  const isAuth = useSelector((state) => state.auth.isAuth); 
+
   return (
     <div>
       <div
@@ -33,8 +36,12 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
           <Link to="/blog" className="text-xl hover:opacity-75 border">
             Блог
           </Link>
-          <Link to="/register" className="text-xl hover:opacity-75">
-            Кабінет
+
+          <Link
+            to={isAuth ? "/account" : "/login"}
+            className="text-xl hover:opacity-75"
+          >
+            {isAuth ? "Профіль" : "Кабінет"}
           </Link>
         </div>
       )}
