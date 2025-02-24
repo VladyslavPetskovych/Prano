@@ -12,6 +12,7 @@ const postSchema = new Schema(
         },
         images: {
             type: [String],
+            default: []
         },
     },
     {

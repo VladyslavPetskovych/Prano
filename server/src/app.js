@@ -1,6 +1,7 @@
 const express = require("express")
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require("path");
 
 const {authRouter, userRouter, postRouter} = require("./routers");
 const {configs} = require("./configs");
@@ -13,6 +14,8 @@ app.use(cors())
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
+app.use("/postImages",express.static(path.join(__dirname, "../postImages")))
 
 app.use("/auth", authRouter)
 app.use("/posts", postRouter)
