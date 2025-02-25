@@ -21,25 +21,46 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
 
       {opened && (
         <div className="absolute top-16 right-0 w-full bg-coolBlue text-white py-4 space-y-4 flex flex-col items-center">
-          <Link to="/about" className="text-xl hover:opacity-75">
+          <Link
+            to="/about"
+            className="text-xl hover:opacity-75"
+            onClick={toggleOpened}
+          >
             Про нас
           </Link>
-          <Link to="/services" className="text-xl hover:opacity-75">
+          <Link
+            to="/services"
+            className="text-xl hover:opacity-75"
+            onClick={toggleOpened}
+          >
             Послуги
           </Link>
-          <Link to="/price" className="text-xl hover:opacity-75">
+          <Link
+            to="/price"
+            className="text-xl hover:opacity-75"
+            onClick={toggleOpened}
+          >
             Ціни
           </Link>
-          <Link to="/contacts" className="text-xl hover:opacity-75">
+          <Link
+            to="/contacts"
+            className="text-xl hover:opacity-75"
+            onClick={toggleOpened}
+          >
             Контакти
           </Link>
-          <Link to="/blog" className="text-xl hover:opacity-75 border">
+          <Link
+            to="/blog"
+            className="text-xl hover:opacity-75 border"
+            onClick={toggleOpened}
+          >
             Блог
           </Link>
 
           <Link
             to={isAuth ? "/account" : "/login"}
             className="text-xl hover:opacity-75"
+            onClick={toggleOpened}
           >
             {isAuth ? "Профіль" : "Кабінет"}
           </Link>

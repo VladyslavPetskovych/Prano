@@ -3,6 +3,7 @@ import { TopBlock } from "../components/homePage/topBlock.jsx";
 import About from "../components/homePage/about.jsx";
 import CareArtBlock from "../components/homePage/CareArtBlock.jsx";
 import Shoe from "../components/homePage/shoe.jsx";
+import HowItWorks from "../components/homePage/howItWorks.jsx";
 
 const Home = () => {
   return (
@@ -12,7 +13,7 @@ const Home = () => {
         <CareArtBlock />
         <Shoe />
       </div>
-
+      <HowItWorks/>
       <EndlessPossibilities />
       <About />
     </div>
