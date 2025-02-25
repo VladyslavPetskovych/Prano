@@ -15,7 +15,7 @@ app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.use("/postImages",express.static(path.join(__dirname, "../postImages")))
+app.use("/postImages", express.static(path.join(__dirname, "../postImages")))
 
 app.use("/auth", authRouter)
 app.use("/posts", postRouter)

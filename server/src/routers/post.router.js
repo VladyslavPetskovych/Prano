@@ -63,5 +63,23 @@ router.delete(
     postMiddleware.isPostExist("postId"),
     postController.deleteById
 )
+router.post(
+    "/:postId/images",
+    authMiddleware.checkAccessToken,
+    userMiddleware.checkUserRights(),
+    commonMiddleware.isIdValid("postId"),
+    postMiddleware.isPostExist("postId"),
+    upload.array("images"),
+    postController.addImages
+)
+router.delete(
+    "/:postId/images",
+    authMiddleware.checkAccessToken,
+    userMiddleware.checkUserRights(),
+    commonMiddleware.isIdValid("postId"),
+    postMiddleware.isPostExist("postId"),
+    commonMiddleware.isBodyValid(PostValidator.deleteImage),
+    postController.deleteImage
+)
 
 module.exports = router

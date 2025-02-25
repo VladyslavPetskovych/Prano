@@ -2,6 +2,7 @@ const path = require("path");
 const fs = require("fs");
 
 const {postService} = require("../services");
+const {ApiError} = require("../errors");
 
 class PostController {
     async findAll(req, res, next) {
@@ -21,20 +22,20 @@ class PostController {
             const imgPath = path.join(__dirname, `../../postImages/${createdPost._id}`)
             fs.mkdirSync(imgPath, {recursive: true})
 
-            if (req.files) {
-                const imagePaths = req.files.map(file => {
-                    const newFilePath = path.join(imgPath, file.filename)
-                    fs.renameSync(file.path, newFilePath)
-
-                    return `${createdPost._id}/${file.filename}`
-                });
-
-                const updatedPost = await postService.updateById(createdPost._id, {images: imagePaths});
-
-                return res.json(updatedPost)
+            if (!req.files.length) {
+                return res.json(createdPost)
             }
 
-            return res.json(createdPost)
+            const imagePaths = req.files.map(file => {
+                const newFilePath = path.join(imgPath, file.filename)
+                fs.renameSync(file.path, newFilePath)
+
+                return `${createdPost._id}/${file.filename}`
+            });
+
+            const updatedPost = await postService.updateById(createdPost._id, {images: imagePaths});
+
+            return res.json(updatedPost)
         } catch (e) {
             next(e)
         }
@@ -70,6 +71,49 @@ class PostController {
             await postService.deleteById(postId)
 
             return res.sendStatus(200)
+        } catch (e) {
+            next(e)
+        }
+    }
+
+    async addImages(req, res, next) {
+        try {
+            const {postId} = req.params;
+            const post = await postService.findById(postId);
+
+            const imgPath = path.join(__dirname, `../../postImages/${post._id}`)
+            fs.mkdirSync(imgPath, {recursive: true})
+
+            if (!req.files.length) {
+                throw new ApiError("No images provided", 400)
+            }
+
+            const imagePaths = req.files.map(file => {
+                const newFilePath = path.join(imgPath, file.filename)
+                fs.renameSync(file.path, newFilePath)
+
+                return `${post._id}/${file.filename}`
+            });
+
+            const updatedPost = await postService.updateById(post._id, {$push: {images: imagePaths}});
+
+            return res.json(updatedPost)
+        } catch (e) {
+            next(e)
+        }
+    }
+
+    async deleteImage(req, res, next) {
+        try {
+            const {postId} = req.params;
+            const {image} = req.body;
+
+            const imgPath = path.join(__dirname, `../../postImages/${image}`)
+            fs.rmSync(imgPath, {recursive: true, force: true})
+
+            const updatedPost = await postService.updateById(postId, {$pull: {images: image}});
+
+            return res.json(updatedPost)
         } catch (e) {
             next(e)
         }
