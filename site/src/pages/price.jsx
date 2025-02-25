@@ -4,7 +4,7 @@ import PriceTable from "../components/price/priceTable";
 
 function Price() {
   return (
-    <div>
+    <div className="pt-24">
       <PriceGrid/>
       <PriceTable/>
     </div>

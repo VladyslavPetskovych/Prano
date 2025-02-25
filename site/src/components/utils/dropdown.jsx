@@ -1,33 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";  
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-function Dropdown({ label, options }) {
+function Dropdown({ label }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { pathname } = useLocation();
-  
+  const navigate = useNavigate();
   const isAuth = useSelector((state) => state.auth.isAuth);
 
-  const updatedOptions = isAuth
+  const options = isAuth
     ? [
-        { label: "Мій акаунт", href: "/account" },
-        { label: "Вийти", href: "/logout" },
+        { label: "Хімчистка", href: "/services#cleaning" },
+        { label: "Прання", href: "/services#laundry" },
+        { label: "Чистка взуття", href: "/services#shoes-cleaning" },
+        { label: "Ремонт взуття", href: "/services#shoes-repair" },
+        { label: "Ремонт одягу", href: "/services#clothing-repair" },
       ]
-    : options; 
+    : [
+        { label: "Хімчистка", href: "/services#cleaning" },
+        { label: "Прання", href: "/services#laundry" },
+      ];
 
-  useEffect(() => {
-    if (pathname === "/services") {
-      setTimeout(() => {
-        const hash = window.location.hash;
-        if (hash) {
-          const element = document.querySelector(hash);
-          if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
-          }
-        }
-      }, 100);
-    }
-  }, [pathname]);
+  const handleMainClick = () => {
+    navigate("/services");
+    setIsOpen(false);
+  };
+
+  const handleItemClick = (href) => {
+    navigate(href);
+    setIsOpen(false);
+  };
 
   return (
     <div
@@ -35,22 +36,24 @@ function Dropdown({ label, options }) {
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <Link to="/services">
-        <button className="px-4 py-2 text-white hover:bg-bg-coolBlue hover:opacity-75 focus:outline-none">
-          {label}
-        </button>
-      </Link>
+    
+      <button
+        onClick={handleMainClick}
+        className="px-4 py-2 text-white hover:bg-blue-600 hover:opacity-75 focus:outline-none"
+      >
+        {label}
+      </button>
 
       {isOpen && (
-        <div className="absolute left-0 mt-0 w-40 bg-white text-black shadow-lg z-10">
-          {updatedOptions.map((option, index) => (
-            <Link
-              to={option.href}
+        <div className="absolute left-0 mt-0 w-48 bg-white text-black shadow-lg z-10 rounded-md overflow-hidden">
+          {options.map((option, index) => (
+            <button
               key={index}
-              className="block px-4 py-2 hover:bg-gray-200"
+              onClick={() => handleItemClick(option.href)}
+              className="block w-full text-left px-4 py-2 hover:bg-gray-200"
             >
               {option.label}
-            </Link>
+            </button>
           ))}
         </div>
       )}
