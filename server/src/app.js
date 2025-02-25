@@ -1,8 +1,9 @@
 const express = require("express")
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require("path");
 
-const {authRouter, userRouter} = require("./routers");
+const {authRouter, userRouter, postRouter} = require("./routers");
 const {configs} = require("./configs");
 const {cronRunner} = require("./crons");
 
@@ -14,7 +15,10 @@ app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+app.use("/postImages", express.static(path.join(__dirname, "../postImages")))
+
 app.use("/auth", authRouter)
+app.use("/posts", postRouter)
 app.use("/users", userRouter)
 app.use((err, req, res, next) => {
     const status = err.status || 500;

@@ -1,4 +1,4 @@
 module.exports = {
     emailConstants: require("./email.constants"),
-    regexConstants: require("./regex.constants")
+    regexConstants: require("./regex.constants"),
 }
