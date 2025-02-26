@@ -1,23 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Fetch stored token and user from localStorage
-const storedToken = localStorage.getItem("token");
-const storedUser = localStorage.getItem("user");
-
-// If there's a user, parse it; otherwise, set it to null
-let parsedUser = null;
-try {
-  if (storedUser) {
-    parsedUser = JSON.parse(storedUser);
-  }
-} catch (error) {
-  console.error("Error parsing user data from localStorage", error);
-}
+const storedAccessToken = localStorage.getItem("accessToken");
+const storedRefreshToken = localStorage.getItem("refreshToken");
+const storedUserId = localStorage.getItem("userId");
 
 const initialState = {
-  isAuth: !!storedToken, // Check if there's a token (authenticated)
-  token: storedToken || null,
-  user: parsedUser, // Use the parsed user or null if there's an error
+  isAuth: !!storedAccessToken, 
+  accessToken: storedAccessToken || null,
+  refreshToken: storedRefreshToken || null,
+  userId: storedUserId || null, 
+  user: null, 
 };
 
 const authSlice = createSlice({
@@ -25,25 +17,36 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      state.isAuth = true;
-      state.token = action.payload.token;
-      state.user = action.payload.user;
+      const { accessToken, refreshToken, userId, user } = action.payload;
 
-      // Store token and user in localStorage
-      localStorage.setItem("token", action.payload.token);
-      localStorage.setItem("user", JSON.stringify(action.payload.user));
+      state.isAuth = true;
+      state.accessToken = accessToken;
+      state.refreshToken = refreshToken;
+      state.userId = userId; 
+      state.user = user; 
+
+  
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+      localStorage.setItem("userId", userId); 
     },
     logout: (state) => {
       state.isAuth = false;
-      state.token = null;
-      state.user = null;
+      state.accessToken = null;
+      state.refreshToken = null;
+      state.userId = null;
+      state.user = null; 
 
-      // Remove token and user from localStorage
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("userId");
+    },
+    setUser: (state, action) => {
+     
+      state.user = action.payload;
     },
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout, setUser } = authSlice.actions;
 export default authSlice.reducer;

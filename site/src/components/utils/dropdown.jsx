@@ -39,7 +39,7 @@ function Dropdown({ label }) {
     
       <button
         onClick={handleMainClick}
-        className="px-4 py-2 text-white hover:bg-blue-600 hover:opacity-75 focus:outline-none"
+        className="px-4 py-2 text-white  hover:opacity-75 focus:outline-none"
       >
         {label}
       </button>

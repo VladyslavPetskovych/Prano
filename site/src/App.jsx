@@ -19,6 +19,8 @@ import Account from "./pages/account.jsx";
 import Login from "./pages/login.jsx";
 import Register from "./pages/register.jsx";
 import ActivateAccount from "./components/utils/ActivateAccount.jsx"
+import PrivateRoute from "./components/adminpanel/privateRoute.jsx"
+import AdminPanel from "./components/adminpanel/adminpanel.jsx";
 
 import { Provider } from "react-redux";
 import store from "./redux";
@@ -56,6 +58,8 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/activate/:token" element={<ActivateAccount />} />
+
+          <Route path="/admin" element={<PrivateRoute element={AdminPanel} />} />
         </Routes>
         <Footer />
       </Router>
