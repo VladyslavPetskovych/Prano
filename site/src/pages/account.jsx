@@ -27,7 +27,6 @@ const fetchUserData = async (userId, accessToken, dispatch) => {
 
     console.log("Fetched User Data:", response.data);
 
-    // Dispatch the setUser action to store the user data in Redux
     dispatch(setUser(response.data));
   } catch (error) {
     console.error("Error fetching user data:", error);
@@ -38,18 +37,17 @@ const Account = () => {
   const dispatch = useDispatch();
   const isAuth = useSelector((state) => state.auth.isAuth);
   const userId = useSelector((state) => state.auth.userId);
-  const accessToken = useSelector((state) => state.auth.accessToken); // Now using Redux for accessToken
+  const accessToken = useSelector((state) => state.auth.accessToken); 
   const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     logLocalStorageData();
 
-    // Ensure accessToken and userId are synced between localStorage and Redux
     const storedAccessToken = localStorage.getItem("accessToken");
     const storedUserId = localStorage.getItem("userId");
 
     if (!accessToken && storedAccessToken) {
-      // If no accessToken in Redux, use the one from localStorage
+    
       dispatch(
         setUser({ accessToken: storedAccessToken, userId: storedUserId })
       );
@@ -58,7 +56,7 @@ const Account = () => {
     if (userId && accessToken) {
       fetchUserData(userId, accessToken, dispatch);
     }
-  }, [accessToken, userId, dispatch]); // Re-fetch if accessToken or userId changes
+  }, [accessToken, userId, dispatch]); 
 
   if (!isAuth) {
     return <Navigate to="/login" />;
