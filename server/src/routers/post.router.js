@@ -13,7 +13,6 @@ const router = Router();
 const upload = multer({
     storage: multer.diskStorage({
         destination: (req, file, cb) => {
-            const {title} = req.body;
             const imgPath = path.join(__dirname, `../../temp/`);
             fs.mkdirSync(imgPath, {recursive: true})
             cb(null, imgPath)
