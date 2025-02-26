@@ -7,6 +7,29 @@ class UserService {
         return await User.find()
     }
 
+    async findAllWithPagination(query) {
+        try {
+            const {page = 1, limit = 10, sortedBy = "createdAt", ...searchObject} = query;
+            const skip = +limit * (+page - 1)
+
+            const [users, usersTotalCount, usersSearchCount] = await Promise.all([
+                User.find(searchObject).sort(sortedBy).limit(+limit).skip(skip),
+                User.countDocuments(),
+                User.countDocuments(searchObject),
+            ])
+
+            return {
+                page: +page,
+                perPage: +limit,
+                itemsCount: usersTotalCount,
+                itemsFound: usersSearchCount,
+                data: users
+            }
+        } catch (e) {
+            throw new ApiError(e.message, e.status)
+        }
+    }
+
     async findById(id) {
         return await User.findById(id);
     }

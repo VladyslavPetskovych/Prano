@@ -9,6 +9,29 @@ class PostService {
         return await Post.find()
     }
 
+    async findAllWithPagination(query) {
+        try {
+            const {page = 1, limit = 10, sortedBy = "createdAt", ...searchObject} = query;
+            const skip = +limit * (+page - 1)
+
+            const [posts, postsTotalCount, postsSearchCount] = await Promise.all([
+                Post.find(searchObject).sort(sortedBy).limit(+limit).skip(skip),
+                Post.countDocuments(),
+                Post.countDocuments(searchObject),
+            ]);
+
+            return {
+                page: +page,
+                perPage: +limit,
+                itemsCount: postsTotalCount,
+                itemsFound: postsSearchCount,
+                data: posts
+            }
+        } catch (e) {
+            throw new ApiError(e.message, e.status)
+        }
+    }
+
     async create(data, files) {
         try {
             const createdPost = await Post.create(data);
