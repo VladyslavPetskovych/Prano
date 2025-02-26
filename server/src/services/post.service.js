@@ -1,12 +1,36 @@
+const path = require("path");
+const fs = require("fs");
+
 const {Post} = require("../models");
+const {ApiError} = require("../errors");
 
 class PostService {
     async findAll() {
         return await Post.find()
     }
 
-    async create(data) {
-        return await Post.create(data)
+    async create(data, files) {
+        try {
+            const createdPost = await Post.create(data);
+
+            const imgPath = path.join(__dirname, `../../postImages/${createdPost._id}`)
+            fs.mkdirSync(imgPath, {recursive: true})
+
+            if (!files.length) {
+                return createdPost
+            }
+
+            const imagePaths = files.map(file => {
+                const newFilePath = path.join(imgPath, file.filename)
+                fs.renameSync(file.path, newFilePath)
+
+                return `${createdPost._id}/${file.filename}`
+            });
+
+            return await Post.findOneAndUpdate({_id: createdPost._id}, {images: imagePaths}, {returnDocument: "after"});
+        } catch (e) {
+            throw new ApiError(e.message, e.status)
+        }
     }
 
     async findById(id) {
@@ -18,7 +42,47 @@ class PostService {
     }
 
     async deleteById(id) {
-        return await Post.deleteOne({_id: id})
+        try {
+            const imgPath = path.join(__dirname, `../../postImages/${id}`)
+            fs.rmSync(imgPath, {recursive: true, force: true})
+
+            await Post.deleteOne({_id: id})
+        } catch (e) {
+            throw new ApiError(e.message, e.status)
+        }
+    }
+
+    async addImagesToPost(id, files) {
+        try {
+            const imgPath = path.join(__dirname, `../../postImages/${id}`)
+            fs.mkdirSync(imgPath, {recursive: true})
+
+            if (!files.length) {
+                throw new ApiError("No images provided", 400)
+            }
+
+            const imagePaths = files.map(file => {
+                const newFilePath = path.join(imgPath, file.filename)
+                fs.renameSync(file.path, newFilePath)
+
+                return `${id}/${file.filename}`
+            });
+
+            return await Post.findOneAndUpdate({_id: id}, {$push: {images: imagePaths}}, {returnDocument: "after"});
+        } catch (e) {
+            throw new ApiError(e.message, e.status)
+        }
+    }
+
+    async deleteImageFromPost(id, filePath) {
+        try {
+            const imgPath = path.join(__dirname, `../../postImages/${filePath}`)
+            fs.rmSync(imgPath, {recursive: true, force: true})
+
+            return await Post.findOneAndUpdate({_id: id}, {$pull: {images: filePath}}, {returnDocument: "after"});
+        } catch (e) {
+            throw new ApiError(e.message, e.status)
+        }
     }
 }
 
