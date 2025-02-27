@@ -11,7 +11,10 @@ class PostService {
 
     async findAllWithPagination(query) {
         try {
-            const {page = 1, limit = 10, sortedBy = "createdAt", ...searchObject} = query;
+            const queryStr = JSON.stringify(query)
+            const queryObj = JSON.parse(queryStr.replace(/\b(regex|options)\b/, (match) => `$${match}`))
+
+            const {page = 1, limit = 10, sortedBy = "createdAt", ...searchObject} = queryObj;
             const skip = +limit * (+page - 1)
 
             const [posts, postsTotalCount, postsSearchCount] = await Promise.all([
