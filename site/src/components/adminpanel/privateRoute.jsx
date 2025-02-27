@@ -7,7 +7,7 @@ const PrivateRoute = ({ element: Element, ...rest }) => {
 
   if (!user || user.role !== "admin") {
  
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
 
   return <Element {...rest} />;
