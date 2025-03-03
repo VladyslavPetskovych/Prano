@@ -1,4 +1,4 @@
-const {userService} = require("../services");
+const {userService, ccService} = require("../services");
 
 class UserController {
     async findAll(req, res, next) {
@@ -39,6 +39,17 @@ class UserController {
             await userService.banById(userId);
 
             return res.sendStatus(200)
+        } catch (e) {
+            next(e)
+        }
+    }
+
+    async findCcDataById(req, res, next) {
+        try {
+            const {customerId} = req.params;
+            const {data} = await ccService.getCustomer(customerId);
+
+            return res.json(data)
         } catch (e) {
             next(e)
         }

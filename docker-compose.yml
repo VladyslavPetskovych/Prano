@@ -34,6 +34,7 @@ services:
       - SECRET_SALT=${SECRET_SALT}
       - NO_REPLY_EMAIL=${NO_REPLY_EMAIL}
       - NO_REPLY_PASSWORD=${NO_REPLY_PASSWORD}
+      - CC_API_KEY=${CC_API_KEY}
     volumes:
       - ./server:/app
       - /app/node_modules
@@ -71,16 +72,16 @@ services:
       - web
     restart: unless-stopped
 # TODO Тимчасово закоментив, щоб сертбот не намагався поновити сертифікати
-#  certbot:
-#    image: certbot/certbot
-#    volumes:
-#      - ./certbot/conf:/etc/letsencrypt
-#      - ./certbot/www:/var/www/certbot
-#    command: certonly --webroot -w /var/www/certbot --force-renewal --email ${CERT_EMAIL} -d ${DOMAIN} --agree-tos
-#    networks:
-#      - prano-app
-#    depends_on:
-#      - nginx
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email ${CERT_EMAIL} -d ${DOMAIN} --agree-tos
+    networks:
+      - prano-app
+    depends_on:
+      - nginx
 
 volumes: # /var/lib/docker
   mongo_data:

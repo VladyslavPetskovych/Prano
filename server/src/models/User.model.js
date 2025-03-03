@@ -4,6 +4,10 @@ const {UserEnum: {EUserStatus, EUserRole}} = require("../enums");
 
 const userSchema = new Schema(
     {
+        ccId: {
+            type: Number,
+            default: null,
+        },
         name: {
             type: String,
             required: true,

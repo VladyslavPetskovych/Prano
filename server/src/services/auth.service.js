@@ -4,6 +4,7 @@ const {ApiError} = require("../errors");
 const tokenService = require("./token.service");
 const emailService = require("./email.service");
 const {EmailEnum: {EEmailActions}, TokenEnum: {EActionTokenType}, UserEnum: {EUserStatus}} = require("../enums");
+const ccService = require("./cc.service");
 
 class AuthService {
     async register(data) {
@@ -26,10 +27,13 @@ class AuthService {
 
     async activate(userId) {
         try {
+            const user = await User.findById(userId);
+            const {data} = await ccService.addCustomer({customerName: user.name, customerTel: user.phone, customerEmail: user.email});
+
             await Promise.all([
-                User.updateOne({_id: userId}, {status: EUserStatus.ACTIVE}),
-                Action.deleteMany({_userId: userId, tokenType: EActionTokenType.ACTIVATE})
-            ])
+                User.updateOne({_id: userId}, {status: EUserStatus.ACTIVE, ccId: data.CustomerID}),
+                Action.deleteMany({_userId: userId, tokenType: EActionTokenType.ACTIVATE}),
+            ]);
         } catch (e) {
             throw new ApiError(e.message, e.status)
         }

@@ -38,13 +38,18 @@ router.delete(
     userMiddleware.isUserExistByReqParams("userId"),
     userController.banById
 )
-
 router.post(
     "/set-admin/:userId",
     // TODO В майбутньому треба буде розкоментувати
     // authMiddleware.checkAccessToken,
     // userMiddleware.checkUserRights(),
     userController.setAdmin
+)
+router.get(
+    "/cc/:customerId",
+    authMiddleware.checkAccessToken,
+    userMiddleware.checkUserRights(),
+    userController.findCcDataById
 )
 
 module.exports = router
