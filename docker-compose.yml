@@ -71,7 +71,6 @@ services:
     depends_on:
       - web
     restart: unless-stopped
-# TODO Тимчасово закоментив, щоб сертбот не намагався поновити сертифікати
   certbot:
     image: certbot/certbot
     volumes:
