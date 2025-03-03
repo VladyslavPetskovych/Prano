@@ -3,6 +3,7 @@ const fs = require("fs");
 
 const {Post} = require("../models");
 const {ApiError} = require("../errors");
+const {QueryParser} = require("../utils");
 
 class PostService {
     async findAll() {
@@ -11,8 +12,7 @@ class PostService {
 
     async findAllWithPagination(query) {
         try {
-            const queryStr = JSON.stringify(query)
-            const queryObj = JSON.parse(queryStr.replace(/\b(regex|options)\b/, (match) => `$${match}`))
+            const queryObj = QueryParser.parse(query);
 
             const {page = 1, limit = 10, sortedBy = "createdAt", ...searchObject} = queryObj;
             const skip = +limit * (+page - 1)

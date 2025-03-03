@@ -1,6 +1,8 @@
 const {User, Action} = require("../models");
 const {UserEnum: {EUserStatus, EUserRole}} = require("../enums");
 const {ApiError} = require("../errors");
+const {QueryParser} = require("../utils");
+const ccService = require("./cc.service");
 
 class UserService {
     async findAll() {
@@ -9,8 +11,7 @@ class UserService {
 
     async findAllWithPagination(query) {
         try {
-            const queryStr = JSON.stringify(query)
-            const queryObj = JSON.parse(queryStr.replace(/\b(regex|options)\b/, (match) => `$${match}`))
+            const queryObj = QueryParser.parse(query);
 
             const {page = 1, limit = 10, sortedBy = "createdAt", ...searchObject} = queryObj;
             const skip = +limit * (+page - 1)
@@ -38,7 +39,19 @@ class UserService {
     }
 
     async updateById(id, data) {
-        return await User.findOneAndUpdate({_id: id}, {...data}, {returnDocument: "after"});
+        try {
+            const updatedUser = await User.findOneAndUpdate({_id: id}, {...data}, {returnDocument: "after"});
+            if (updatedUser.status === EUserStatus.ACTIVE) {
+                await ccService.updateCustomer(updatedUser.ccId, {
+                    customerName: updatedUser.name,
+                    customerTel: updatedUser.phone
+                })
+            }
+
+            return updatedUser;
+        } catch (e) {
+            throw new ApiError(e.message, e.status)
+        }
     }
 
     async banById(id) {

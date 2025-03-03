@@ -1,5 +1,7 @@
 module.exports = {
     authService: require("./auth.service"),
+    axiosService: require("./axios.service"),
+    ccService: require("./cc.service"),
     emailService: require("./email.service"),
     passwordService: require("./password.service"),
     postService: require("./post.service"),
