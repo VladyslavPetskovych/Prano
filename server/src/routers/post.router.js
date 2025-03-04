@@ -23,7 +23,7 @@ const upload = multer({
     }),
     fileFilter: (req, file, cb) => {
         if (!['image/png', 'image/jpeg', 'image/webp'].includes(file.mimetype)) {
-            return cb(new ApiError("File is not allowed", 400))
+            return cb(new ApiError(`Files type of ${file.mimetype} is not allowed`, 400))
         }
 
         cb(null, true)

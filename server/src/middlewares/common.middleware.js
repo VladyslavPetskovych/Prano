@@ -1,4 +1,5 @@
 const {isObjectIdOrHexString} = require("mongoose");
+const fs = require("fs");
 
 const {ApiError} = require("../errors");
 
@@ -24,6 +25,10 @@ class CommonMiddleware {
             try {
                 const {error, value} = validator.validate(req.body);
                 if (error) {
+                    if (req.files) {
+                        req.files.forEach(file => fs.unlinkSync(file.path))
+                    }
+
                     throw new ApiError(error.message, 400);
                 }
 
