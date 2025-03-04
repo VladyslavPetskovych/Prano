@@ -54,19 +54,19 @@ const CreatePost = ({ refreshPosts }) => {
   return (
     <div className="bg-slate-200 min-h-[50vh] flex items-center justify-center px-5">
       <div className="bg-white p-8 rounded-lg shadow-lg w-[100%] md:w-[50%]">
-        <h2 className="text-2xl font-bold mb-4 text-center">Create Post</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">Створити пост</h2>
         {error && <p className="text-red-500 text-center">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
-            placeholder="Title"
+            placeholder="Заголовок"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className="border p-2 w-full"
             required
           />
           <textarea
-            placeholder="Description"
+            placeholder="Опис"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             className="border p-2 w-full"
@@ -83,7 +83,7 @@ const CreatePost = ({ refreshPosts }) => {
             className="bg-blue-500 w-full text-white p-2"
             disabled={loading}
           >
-            {loading ? "Creating..." : "Create Post"}
+            {loading ? "Creating..." : "Додати пост"}
           </button>
         </form>
       </div>

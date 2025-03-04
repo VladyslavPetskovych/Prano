@@ -37,7 +37,7 @@ const Account = () => {
   const dispatch = useDispatch();
   const isAuth = useSelector((state) => state.auth.isAuth);
   const userId = useSelector((state) => state.auth.userId);
-  const accessToken = useSelector((state) => state.auth.accessToken); 
+  const accessToken = useSelector((state) => state.auth.accessToken);
   const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
@@ -47,7 +47,6 @@ const Account = () => {
     const storedUserId = localStorage.getItem("userId");
 
     if (!accessToken && storedAccessToken) {
-    
       dispatch(
         setUser({ accessToken: storedAccessToken, userId: storedUserId })
       );
@@ -56,7 +55,7 @@ const Account = () => {
     if (userId && accessToken) {
       fetchUserData(userId, accessToken, dispatch);
     }
-  }, [accessToken, userId, dispatch]); 
+  }, [accessToken, userId, dispatch]);
 
   if (!isAuth) {
     return <Navigate to="/login" />;
@@ -77,16 +76,13 @@ const Account = () => {
       <h2 className="text-3xl font-bold text-center text-gray-800 mb-4 mt-9">
         Мій профіль
       </h2>
-      <p className="text-center text-gray-600 mb-6">
-        Залиште своє замовлення і менеджер зв'яжеться з Вами{" "}
-        <span className="font-semibold">{user?.email}</span>{" "}
-      </p>
+      <p className="text-center text-gray-600 mb-6">Профіль</p>
 
       {user?.role === "admin" && (
         <div className="text-center mb-6">
           <Link
-            to="/admin" 
-            className="bg-blue-500 text-white px-6 py-3 rounded-lg text-xl font-semibold hover:bg-blue-600 transition"
+            to="/admin"
+            className="block w-full max-w-xs mx-auto bg-blue-500 text-white px-6 py-3 rounded-lg text-lg sm:text-xl font-semibold hover:bg-blue-600 transition"
           >
             Перейти до панелі адміністратора
           </Link>
