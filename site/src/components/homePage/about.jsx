@@ -1,17 +1,15 @@
 import React from "react";
 import backScroll from "../../assets/home/backScroll.jpg";
-
+import TowelButton from "../utils/towelButton";
 function About() {
   return (
     <div className="relative w-full h-screen">
- 
       <img
         src={backScroll}
         alt="Background"
         className="w-full h-full object-cover"
       />
 
- 
       <div className="absolute inset-0 bg-black bg-opacity-70"></div>
 
       <div className="absolute inset-0 flex items-center justify-center text-white text-center px-6">
@@ -37,6 +35,7 @@ function About() {
             навіть найделікатніші тканини. Контроль кожного етапу гарантує
             бездоганний результат для кожного клієнта.
           </p>
+          <TowelButton></TowelButton>
         </div>
       </div>
     </div>

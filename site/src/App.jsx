@@ -9,6 +9,7 @@ import Home from "./pages/home.jsx";
 import Services from "./pages/services.jsx";
 import Cleaning from "./pages/cleaning.jsx";
 import Laundry from "./pages/laundry.jsx";
+import Blog from "./pages/blogList.jsx"
 
 import ShoesCleaning from "./pages/shoesCleaning.jsx";
 
@@ -48,6 +49,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<Home />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/blog" element={<Blog />} />
           <Route path="/services/cleaning" element={<Cleaning />} />
           <Route path="/services/laundry" element={<Laundry />} />
           <Route path="/services/shoes-cleaning" element={<ShoesCleaning />} />
