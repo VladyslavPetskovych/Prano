@@ -103,7 +103,7 @@ class PostService {
     async deleteImageFromPost(id, filePath) {
         try {
             const imgPath = path.join(__dirname, `../../postImages/${filePath}`)
-            fs.rmSync(imgPath, {recursive: true, force: true})
+            fs.unlinkSync(imgPath)
 
             return await Post.findOneAndUpdate({_id: id}, {$pull: {images: filePath}}, {returnDocument: "after"});
         } catch (e) {
