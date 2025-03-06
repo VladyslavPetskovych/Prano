@@ -4,7 +4,6 @@ function EndlessPossibilities() {
   return (
     <section className="bg-gray-900 py-16 text-white">
       <div className="container mx-auto px-6 flex flex-col md:flex-row items-center">
-        {/* Text Section */}
         <div className="md:w-1/3">
           <h2 className="text-4xl font-extrabold mb-6 text-amber-400">
             Необмежені Можливості
@@ -31,7 +30,6 @@ function EndlessPossibilities() {
           </ul>
         </div>
 
-        {/* Image Section */}
         <div className="md:w-1/3 mt-8 md:mt-0 md:pl-12 flex justify-center relative">
           <div className="relative flex flex-col md:flex-row gap-4">
             <img
