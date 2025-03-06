@@ -1,12 +1,16 @@
 const Joi = require("joi");
 
-class PostValidator {
+class ProductValidator {
     static title = Joi.string().min(3).max(45).trim()
     static description = Joi.string().min(5).trim()
+    static priceFrom = Joi.number()
+    static priceTo = Joi.number().greater(Joi.ref("priceFrom"))
 
     static create = Joi.object({
         title: this.title.required(),
         description: this.description.required(),
+        priceFrom: this.priceFrom.required(),
+        priceTo: this.priceTo.required(),
     })
 
     static update = Joi.object({
@@ -14,9 +18,10 @@ class PostValidator {
         description: this.description,
     })
 
-    static deleteImage = Joi.object({
-        image: Joi.string().trim().required()
+    static changePrice = Joi.object({
+        priceFrom: this.priceFrom.required(),
+        priceTo: this.priceTo.required(),
     })
 }
 
-module.exports = PostValidator
+module.exports = ProductValidator
