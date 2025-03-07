@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import CustomButton from "../utils/customButton";
-import PostManagement from "./postManagment";
-
+import CustomButton from "../components/utils/customButton";
+import PostManagement from "../components/adminpanel/post/postManagment";
+import PriceServiceManagment from "../components/adminpanel/priceService/priceServiceManagment"
 const AdminPanel = () => {
   const [view, setView] = useState("posts");
 
@@ -36,16 +36,12 @@ const AdminPanel = () => {
             variant={view === "prices" ? "default" : "outline"}
             className="py-2 px-4 text-lg"
           >
-            Редагувати ціни
+            Редагувати ціни і послуги
           </CustomButton>
         </div>
 
         {view === "posts" && <PostManagement />}
-        {view === "prices" && (
-          <div className="text-center text-xl text-gray-700">
-            Price Management Section
-          </div>
-        )}
+        {view === "prices" && <PriceServiceManagment/>}
       </div>
     </div>
   );

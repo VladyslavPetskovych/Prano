@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import EditPost from "./editPost";
-import DeletePost from "./deletePost";
+import EditPost from "./editPost.jsx";
+import DeletePost from "./deletePost.jsx";
 
 const EditButton = ({ onEdit }) => (
   <button
