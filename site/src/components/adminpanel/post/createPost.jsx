@@ -9,7 +9,7 @@ const CreatePost = ({ refreshPosts }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const { accessToken } = useSelector((state) => state.auth); 
+  const { accessToken } = useSelector((state) => state.auth);
 
   const handleImageChange = (e) => {
     setImages(e.target.files);

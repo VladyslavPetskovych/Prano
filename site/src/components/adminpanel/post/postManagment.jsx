@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import CreatePost from "./createPost";
 import PostItem from "./postItem";
-import Pagination from "./pagination"; 
+import Pagination from "../pagination";
 
 const PostManagement = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1); 
-  const [totalPages, setTotalPages] = useState(1); 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const fetchPosts = async (page = 1) => {
     try {
@@ -17,12 +17,12 @@ const PostManagement = () => {
       const response = await axios.get(
         `https://prano.group/api/posts?page=${page}&limit=10`
       );
-      console.log("API Response:", response.data); 
+      console.log("API Response:", response.data);
 
       setPosts(response.data.data);
       setTotalPages(
         Math.ceil(response.data.itemsCount / response.data.perPage)
-      ); 
+      );
     } catch (err) {
       setError("Failed to fetch posts");
     } finally {
@@ -32,7 +32,7 @@ const PostManagement = () => {
 
   useEffect(() => {
     fetchPosts(currentPage);
-  }, [currentPage]); 
+  }, [currentPage]);
 
   const handleDeleteSuccess = (deletedPostId) => {
     setPosts((prevPosts) =>
@@ -61,7 +61,6 @@ const PostManagement = () => {
     <div>
       <h2 className="text-2xl font-bold bg-slate-200 p-5">Manage Posts</h2>
       <CreatePost refreshPosts={() => fetchPosts(currentPage)} />{" "}
-  
       <ul className="flex flex-wrap gap-4 justify-center">
         {posts.map((post) => (
           <PostItem

@@ -24,9 +24,6 @@ function About() {
             пріоритети!
           </p>
 
-          <div className="border-t border-gray-500 w-20 mx-auto my-6"></div>
-          <div className="border-t border-gray-500 w-20 mx-auto my-6"></div>
-
           <h2 className="text-3xl font-semibold mt-6 mb-4">
             Висока якість послуг
           </h2>
