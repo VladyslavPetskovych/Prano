@@ -3,26 +3,19 @@ const {QueryParser} = require("../utils");
 const {Product} = require("../models");
 
 class ProductService {
-    async findAll() {
-        return await Product.find()
-    }
-
-    async findAllWithPagination(query) {
+    async findAll(query) {
         try {
             const queryObj = QueryParser.parse(query);
 
-            const {page = 1, limit = 10, sortedBy = "createdAt", ...searchObject} = queryObj;
-            const skip = +limit * (+page - 1)
+            const {sortedBy = "createdAt", ...searchObject} = queryObj;
 
             const [products, productsTotalCount, productsSearchCount] = await Promise.all([
-                Product.find(searchObject).sort(sortedBy).limit(+limit).skip(skip),
+                Product.find(searchObject).sort(sortedBy),
                 Product.countDocuments(),
                 Product.countDocuments(searchObject),
             ]);
 
             return {
-                page: +page,
-                perPage: +limit,
                 itemsCount: productsTotalCount,
                 itemsFound: productsSearchCount,
                 data: products,

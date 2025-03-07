@@ -3,7 +3,7 @@ const {postService} = require("../services");
 class PostController {
     async findAll(req, res, next) {
         try {
-            const data = await postService.findAllWithPagination(req.query);
+            const data = await postService.findAll(req.query);
 
             return res.json(data)
         } catch (e) {

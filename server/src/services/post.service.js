@@ -6,11 +6,7 @@ const {ApiError} = require("../errors");
 const {QueryParser} = require("../utils");
 
 class PostService {
-    async findAll() {
-        return await Post.find()
-    }
-
-    async findAllWithPagination(query) {
+    async findAll(query) {
         try {
             const queryObj = QueryParser.parse(query);
 

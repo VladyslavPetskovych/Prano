@@ -3,7 +3,7 @@ const {productService} = require("../services");
 class ProductController {
     async findAll(req, res, next) {
         try {
-            const data = await productService.findAllWithPagination(req.query);
+            const data = await productService.findAll(req.query);
 
             return res.json(data)
         } catch (e) {

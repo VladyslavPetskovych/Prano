@@ -5,11 +5,7 @@ const {QueryParser} = require("../utils");
 const ccService = require("./cc.service");
 
 class UserService {
-    async findAll() {
-        return await User.find()
-    }
-
-    async findAllWithPagination(query) {
+    async findAll(query) {
         try {
             const queryObj = QueryParser.parse(query);
 
