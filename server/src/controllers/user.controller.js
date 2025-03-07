@@ -3,7 +3,7 @@ const {userService, ccService} = require("../services");
 class UserController {
     async findAll(req, res, next) {
         try {
-            const data = await userService.findAllWithPagination(req.query);
+            const data = await userService.findAll(req.query);
 
             return res.json(data)
         } catch (e) {

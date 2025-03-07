@@ -3,11 +3,7 @@ const {QueryParser} = require("../utils");
 const {Product} = require("../models");
 
 class ProductService {
-    async findAll() {
-        return await Product.find()
-    }
-
-    async findAllWithPagination(query) {
+    async findAll(query) {
         try {
             const queryObj = QueryParser.parse(query);
 
