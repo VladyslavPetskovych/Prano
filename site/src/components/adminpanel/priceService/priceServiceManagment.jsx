@@ -14,14 +14,12 @@ const PriceServiceManagement = () => {
   const fetchServices = async (page = 1) => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        `https://prano.group/api/products?page=${page}&limit=10`
-      );
+      const response = await axios.get(`https://prano.group/api/products`);
       console.log("API Response:", response.data);
 
       setServices(response.data.data);
       setTotalPages(
-        Math.ceil(response.data.itemsCount / response.data.perPage)
+        Math.ceil(response.data.itemsCount / response.data.data.length)
       );
     } catch (err) {
       setError("Failed to fetch price services");
@@ -58,20 +56,19 @@ const PriceServiceManagement = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold bg-slate-200 p-5">
+    <div className="p-2">
+      <h2 className="text-2xl font-bold bg-slate-200 p-4">
         Редагувати послуги і ціни
       </h2>
       <CreatePriceService refreshServices={() => fetchServices(currentPage)} />
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto my-6">
         <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-md">
           <thead>
             <tr className="bg-gray-100 border-b border-gray-300">
               <th className="p-3 text-left">Назва</th>
-              <th className="p-3 text-left w-64 break-words">Опис</th>
-
-              <th className="p-3 text-left">Ціна</th>
+              <th className="p-3 text-left  break-words">Опис</th>
+              <th className="p-3 text-left">Ціна (від - до)</th>
               <th className="p-3 text-left">Дії</th>
             </tr>
           </thead>
@@ -87,12 +84,6 @@ const PriceServiceManagement = () => {
           </tbody>
         </table>
       </div>
-
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
     </div>
   );
 };

@@ -70,7 +70,7 @@ const CreatePriceService = ({ refreshServices }) => {
   };
 
   return (
-    <div className="bg-slate-200 min-h-[50vh] flex items-center justify-center px-5">
+    <div className="bg-slate-200 min-h-[50vh] flex items-center justify-center p-5 ">
       <div className="bg-white p-8 rounded-lg shadow-lg w-[100%] md:w-[50%]">
         <h2 className="text-2xl font-bold mb-4 text-center">
           Створити послугу

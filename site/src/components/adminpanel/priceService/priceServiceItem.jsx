@@ -1,148 +1,148 @@
 import React, { useState } from "react";
-import { updateService, deleteService } from "./priceServiceApi.js";
+import {
+  updateService,
+  updateServicePrice,
+  deleteService,
+} from "./priceServiceApi";
 
 const PriceServiceItem = ({ service, onEditSuccess, onDeleteSuccess }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [editedService, setEditedService] = useState({ ...service });
+  const [formData, setFormData] = useState({
+    title: service.title,
+    description: service.description,
+    priceFrom: service.priceFrom,
+    priceTo: service.priceTo,
+  });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEditedService({ ...editedService, [name]: value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handlePriceChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: Number(e.target.value) });
   };
 
   const handleSave = async () => {
     setLoading(true);
-    const payload = {};
+    setError(null);
 
-    if (editedService.title !== service.title)
-      payload.title = editedService.title;
-    if (editedService.description !== service.description)
-      payload.description = editedService.description;
-    if (editedService.priceFrom !== service.priceFrom)
-      payload.priceFrom = Number(editedService.priceFrom);
-    if (editedService.priceTo !== service.priceTo)
-      payload.priceTo = Number(editedService.priceTo);
+    const textResponse = await updateService(service._id, {
+      title: formData.title,
+      description: formData.description,
+    });
 
-    const response = await updateService(service._id, payload);
-    if (response.success) {
-      onEditSuccess(editedService);
+    const priceResponse = await updateServicePrice(service._id, {
+      priceFrom: formData.priceFrom,
+      priceTo: formData.priceTo,
+    });
+
+    if (textResponse.success && priceResponse.success) {
+      onEditSuccess({ ...service, ...formData });
       setIsEditing(false);
     } else {
-      alert(response.message);
+      setError(textResponse.message || priceResponse.message);
     }
+
     setLoading(false);
   };
 
   const handleDelete = async () => {
-    if (!window.confirm("Ви впевнені, що хочете видалити послугу?")) return;
-
-    setLoading(true);
-    const response = await deleteService(service._id);
-    if (response.success) {
-      onDeleteSuccess(service._id);
-    } else {
-      alert(response.message);
+    if (window.confirm("Ви впевнені, що хочете видалити цю послугу?")) {
+      setLoading(true);
+      const response = await deleteService(service._id);
+      if (response.success) {
+        onDeleteSuccess(service._id);
+      } else {
+        setError(response.message);
+      }
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
     <tr className="border-b border-gray-300">
-      <td className="p-3">
-        {isEditing ? (
-          <input
-            type="text"
-            name="title"
-            value={editedService.title}
-            onChange={handleChange}
-            className="border p-1 w-full"
-          />
-        ) : (
-          service.title
-        )}
-      </td>
-
-      <td className="p-3 w-64 break-words">
-        {isEditing ? (
-          <input
-            type="text"
-            name="description"
-            value={editedService.description}
-            onChange={handleChange}
-            className="border p-1 w-full"
-          />
-        ) : (
-          <div className="whitespace-pre-wrap break-words">
-            {service.description}
-          </div>
-        )}
-      </td>
-
-      <td className="p-2">
-        {isEditing ? (
-          <input
-            type="number"
-            name="priceFrom"
-            value={editedService.priceFrom}
-            onChange={handleChange}
-            className="border p-1 w-full"
-          />
-        ) : (
-          `Від ${service.priceFrom}`
-        )}
-      </td>
-
-      <td className="p-2">
-        {isEditing ? (
-          <input
-            type="number"
-            name="priceTo"
-            value={editedService.priceTo}
-            onChange={handleChange}
-            className="border p-1 w-full"
-          />
-        ) : (
-          `До ${service.priceTo} `
-        )}
-      </td>
-
-      <td className="p-3 flex gap-2">
-        {isEditing ? (
-          <>
+      {isEditing ? (
+        <>
+          <td className="p-3">
+            <input
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded"
+            />
+          </td>
+          <td className="p-3">
+            <input
+              type="text"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded"
+            />
+          </td>
+          <td className="p-3">
+            <input
+              type="number"
+              name="priceFrom"
+              value={formData.priceFrom}
+              onChange={handlePriceChange}
+              className="w-20 p-2 border border-gray-300 rounded"
+            />
+            <span className="mx-1">-</span>
+            <input
+              type="number"
+              name="priceTo"
+              value={formData.priceTo}
+              onChange={handlePriceChange}
+              className="w-20 p-2 border border-gray-300 rounded"
+            />
+          </td>
+          <td className="p-3 flex gap-2">
             <button
               onClick={handleSave}
-              className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition"
-              disabled={loading}
+              className="px-4 py-2 bg-blue-500 text-white rounded"
             >
               {loading ? "Збереження..." : "Зберегти"}
             </button>
             <button
               onClick={() => setIsEditing(false)}
-              className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-600 transition"
-              disabled={loading}
+              className="px-4 py-2 bg-gray-400 text-white rounded"
             >
               Скасувати
             </button>
-          </>
-        ) : (
-          <>
+          </td>
+        </>
+      ) : (
+        <>
+          <td className="p-3">{service.title}</td>
+          <td className="p-3  break-words">{service.description}</td>
+          <td className="p-3">
+            {service.priceFrom} - {service.priceTo} грн
+          </td>
+          <td className="p-3 flex gap-2">
             <button
               onClick={() => setIsEditing(true)}
-              className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition"
+              className="px-4 py-2 bg-yellow-500 text-white rounded"
             >
-              Змінити
+              ✍️
             </button>
             <button
               onClick={handleDelete}
-              className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
-              disabled={loading}
+              className="px-4 py-2 bg-red-500 text-white rounded"
             >
-              {loading ? "Видалення..." : "Видалити"}
+              {loading ? "Видалення..." : "🗑️"}
             </button>
-          </>
-        )}
-      </td>
+          </td>
+        </>
+      )}
+      {error && (
+        <td colSpan="4" className="text-red-500">
+          {error}
+        </td>
+      )}
     </tr>
   );
 };
