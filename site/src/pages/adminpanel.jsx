@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import CustomButton from "../components/utils/customButton";
 import PostManagement from "../components/adminpanel/post/postManagment";
-import PriceServiceManagment from "../components/adminpanel/priceService/priceServiceManagment"
+import PriceServiceManagment from "../components/adminpanel/priceService/priceServiceManagment";
+import UserManagement from "../components/adminpanel/user/userManagment";
+
 const AdminPanel = () => {
   const [view, setView] = useState("posts");
 
@@ -38,10 +40,17 @@ const AdminPanel = () => {
           >
             Редагувати ціни і послуги
           </CustomButton>
+          <CustomButton
+            onClick={() => setView("users")}
+            variant={view === "users" ? "default" : "outline"}
+            className="py-2 px-4 text-lg"
+          >
+            Управління користувачами
+          </CustomButton>
         </div>
-
         {view === "posts" && <PostManagement />}
-        {view === "prices" && <PriceServiceManagment/>}
+        {view === "prices" && <PriceServiceManagment />}
+        {view === "users" && <UserManagement />}{" "}
       </div>
     </div>
   );
