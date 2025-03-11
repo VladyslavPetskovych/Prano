@@ -13,4 +13,12 @@ module.exports = {
         templateName: "password-changed",
         subject: "Password has been changed",
     },
+    [EEmailActions.ORDER_CREATED_MANAGER]: {
+        templateName: "order-created-manager",
+        subject: "New order!!!",
+    },
+    [EEmailActions.ORDER_CREATED_USER]: {
+        templateName: "order-created-user",
+        subject: "Order has been created",
+    },
 }

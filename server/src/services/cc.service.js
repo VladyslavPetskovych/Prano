@@ -26,6 +26,14 @@ class CcService {
             throw new ApiError(e.message, e.status)
         }
     }
+
+    async deleteCustomer(id) {
+        try {
+            return await axiosService.post(urls.customer.deleteCustomer, {customerID: id})
+        } catch (e) {
+            throw new ApiError(e.message, e.status)
+        }
+    }
 }
 
 module.exports = new CcService()

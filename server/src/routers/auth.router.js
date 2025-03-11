@@ -52,7 +52,7 @@ router.post(
     authMiddleware.checkAccessToken,
     userMiddleware.checkUserRights("userId"),
     commonMiddleware.isIdValid("userId"),
-    userMiddleware.isUserActivated("userId"),
+    userMiddleware.isUserInactive("userId"),
     authController.reactivate
 )
 
