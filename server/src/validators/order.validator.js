@@ -8,6 +8,7 @@ class OrderValidator {
     static email = Joi.string().email({minDomainSegments: 2, tlds: {allow: false}}).trim();
     static clothType = Joi.string().max(45).trim()
     static productType = Joi.string().max(45).trim()
+    static note = Joi.string().max(200).trim()
 
     static create = Joi.object({
         name: this.name.required(),
@@ -15,6 +16,7 @@ class OrderValidator {
         email: this.email.required(),
         clothType: this.clothType.required(),
         productType: this.productType.required(),
+        note: this.note.required(),
     })
 }
 

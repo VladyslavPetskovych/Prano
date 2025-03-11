@@ -11,7 +11,7 @@ const limiter = rateLimit({
     windowMs: 2 * 60 * 1000,
     max: 1,
     message: "Too many requests, try again after 2 minutes",
-    keyGenerator: (req) => req.get("Authorization")
+    keyGenerator: (_, res) => res.locals.tokenPayload.id
 });
 
 router.post(
