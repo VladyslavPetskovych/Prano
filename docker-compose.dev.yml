@@ -37,6 +37,7 @@ services:
       - NO_REPLY_EMAIL=${NO_REPLY_EMAIL}
       - NO_REPLY_PASSWORD=${NO_REPLY_PASSWORD}
       - CC_API_KEY=${CC_API_KEY}
+      - MANAGER_EMAIL=${MANAGER_EMAIL}
     volumes:
       - ./server:/app
       - /app/node_modules
