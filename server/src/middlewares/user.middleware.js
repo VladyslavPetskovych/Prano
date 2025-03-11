@@ -73,7 +73,7 @@ class UserMiddleware {
         }
     }
 
-    isUserActivated(idField) {
+    isUserInactive(idField) {
         return async (req, res, next) => {
             try {
                 const user = await User.findById(req.params[idField]);
@@ -87,6 +87,20 @@ class UserMiddleware {
             } catch (e) {
                 next(e)
             }
+        }
+    }
+
+    async isUserActive(req, res, next) {
+        try {
+            const {id: userId} = res.locals.tokenPayload;
+            const user = await User.findById(userId);
+            if (user.status !== EUserStatus.ACTIVE) {
+                throw new ApiError("User is not active", 400)
+            }
+
+            next()
+        } catch (e) {
+            next(e)
         }
     }
 }

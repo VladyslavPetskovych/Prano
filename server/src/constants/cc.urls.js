@@ -5,6 +5,7 @@ urls = {
         addCustomer: "/addCustomer",
         getCustomer: "/getCustomer",
         updateCustomer: "/updateCustomer",
+        deleteCustomer: "/deleteCustomer",
     },
 }
 

@@ -50,6 +50,23 @@ class UserService {
         }
     }
 
+    async deleteById(id) {
+        try {
+            const userToDelete = await User.findById(id);
+            if (userToDelete.role === EUserRole.ADMIN) {
+                throw new ApiError("You can not delete another admin", 400)
+            }
+
+            await Promise.all([
+                Action.deleteMany({_userId: id}),
+                User.deleteOne({_id: id}),
+                ccService.deleteCustomer(userToDelete.ccId)
+            ])
+        } catch (e) {
+            throw new ApiError(e.message, e.status)
+        }
+    }
+
     async banById(id) {
         try {
             const userToBan = await User.findById(id);

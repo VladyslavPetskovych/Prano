@@ -36,6 +36,14 @@ router.delete(
     userMiddleware.checkUserRights(),
     commonMiddleware.isIdValid("userId"),
     userMiddleware.isUserExistByReqParams("userId"),
+    userController.deleteById
+)
+router.post(
+    "/ban/:userId",
+    authMiddleware.checkAccessToken,
+    userMiddleware.checkUserRights(),
+    commonMiddleware.isIdValid("userId"),
+    userMiddleware.isUserExistByReqParams("userId"),
     userController.banById
 )
 router.post(
