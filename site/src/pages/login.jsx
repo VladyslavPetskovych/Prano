@@ -15,7 +15,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      // Step 1: Call login API
+   
       const response = await axios.post("https://prano.group/api/auth/login", {
         email,
         password,
@@ -24,15 +24,13 @@ function Login() {
       const { accessToken, refreshToken, userId } = response.data;
 
       if (userId) {
-        // Step 2: Store tokens and userId in Redux and localStorage
+       
         dispatch(login({ accessToken, refreshToken, userId }));
 
-        // Store in localStorage for persistence
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
-        localStorage.setItem("userId", userId); // Store userId
+        localStorage.setItem("userId", userId); 
 
-        // Redirect to account page
         navigate("/account");
       } else {
         console.error("User ID is missing from the response.");

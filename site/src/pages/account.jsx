@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { logout, setUser } from "../redux/authSlice"; // Import setUser action
 import OrderForm from "../components/account/orderForm";
 import OrderHistory from "../components/account/orderHistory";
 import axios from "axios";
-import { Link } from "react-router-dom"; // Import Link for navigation
+import { Link } from "react-router-dom"; 
+import ReactivateButton from "../components/login/reactivateButton";
 
 const logLocalStorageData = () => {
   console.log("🔹 Stored Data in LocalStorage:");
@@ -32,6 +33,7 @@ const fetchUserData = async (userId, accessToken, dispatch) => {
     console.error("Error fetching user data:", error);
   }
 };
+
 
 const Account = () => {
   const dispatch = useDispatch();
@@ -77,6 +79,10 @@ const Account = () => {
         Мій профіль
       </h2>
       <p className="text-center text-gray-600 mb-6">Профіль</p>
+
+      {user?.status === "inactive" && (
+        <ReactivateButton userId={userId} accessToken={accessToken} />
+      )}
 
       {user?.role === "admin" && (
         <div className="text-center mb-6">
