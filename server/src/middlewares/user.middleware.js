@@ -73,20 +73,18 @@ class UserMiddleware {
         }
     }
 
-    isUserInactive(idField) {
-        return async (req, res, next) => {
-            try {
-                const user = await User.findById(req.params[idField]);
-                if (user.status === EUserStatus.ACTIVE) {
-                    throw new ApiError("User already has been activated", 400)
-                } else if (user.status === EUserStatus.BANNED) {
-                    throw new ApiError("Can not activate banned user", 400)
-                }
-
-                next()
-            } catch (e) {
-                next(e)
+    async isUserInactive(req, res, next) {
+        try {
+            const user = await User.findOne({email: req.body.email});
+            if (user.status === EUserStatus.ACTIVE) {
+                throw new ApiError("User already has been activated", 400)
+            } else if (user.status === EUserStatus.BANNED) {
+                throw new ApiError("Can not activate banned user", 400)
             }
+
+            next()
+        } catch (e) {
+            next(e)
         }
     }
 
