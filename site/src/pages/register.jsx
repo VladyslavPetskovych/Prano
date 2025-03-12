@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/authSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function RegistrationPage() {
   const [formData, setFormData] = useState({
@@ -14,7 +14,9 @@ export default function RegistrationPage() {
   });
 
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -37,20 +39,27 @@ export default function RegistrationPage() {
 
     setLoading(true);
     try {
-      await console.log(userData);
       const response = await axios.post(
         "https://prano.group/api/auth/register",
         userData
       );
 
-      console.log("Registered successfully:", response.data);
       dispatch(login(response.data));
+      localStorage.setItem("accessToken", response.data.accessToken);
+      localStorage.setItem("userId", response.data.userId);
+
+      setMessage(
+        "Лист для підтвердження відправлено. Будь ласка, перевірте свою пошту."
+      );
+
+      setTimeout(() => navigate("/login"), 3000);
     } catch (error) {
       console.error("Error during registration:", error);
-      alert(
-        "Registration failed: " +
-          (error.response?.data?.message || error.message)
-      );
+      if (error.response && error.response.status === 409) {
+        setMessage("Цей email вже зареєстровано. Спробуйте інший.");
+      } else {
+        setMessage("Сталася помилка. Спробуйте ще раз.");
+      }
     } finally {
       setLoading(false);
     }
@@ -60,6 +69,9 @@ export default function RegistrationPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6">Реєстрація</h2>
+        {message && (
+          <p className="text-center text-green-600 mb-4">{message}</p>
+        )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
