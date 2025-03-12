@@ -14,9 +14,9 @@ class AuthController {
     async activate(req, res, next) {
         try {
             const {id: userId} = res.locals.tokenPayload;
-            await authService.activate(userId)
+            const payload = await authService.activate(userId)
 
-            return res.sendStatus(200)
+            return res.json(payload)
         } catch (e) {
             next(e)
         }
@@ -79,8 +79,7 @@ class AuthController {
 
     async reactivate(req, res, next) {
         try {
-            const {userId} = req.params;
-            await authService.reactivate(userId)
+            await authService.reactivate(req.body.email)
 
             return res.sendStatus(200)
         } catch (e) {

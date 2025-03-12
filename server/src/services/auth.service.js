@@ -34,6 +34,11 @@ class AuthService {
                 User.updateOne({_id: userId}, {status: EUserStatus.ACTIVE, ccId: data.CustomerID}),
                 Action.deleteMany({_userId: userId, tokenType: EActionTokenType.ACTIVATE}),
             ]);
+
+            const tokenPair = tokenService.generateTokenPair({id: user._id});
+            await Token.create({...tokenPair, _userId: user._id})
+
+            return {userId: user._id, ...tokenPair}
         } catch (e) {
             throw new ApiError(e.message, e.status)
         }
@@ -41,6 +46,10 @@ class AuthService {
 
     async login(credentials, user) {
         try {
+            if (user.status === EUserStatus.INACTIVE) {
+                throw new ApiError("User not activated", 403)
+            }
+
             const isMatched = await passwordService.compare(credentials.password, user.password);
             if (!isMatched) {
                 throw new ApiError("Invalid email or password", 401);
@@ -147,15 +156,14 @@ class AuthService {
         }
     }
 
-    async reactivate(userId) {
+    async reactivate(email) {
         try {
-            const user = await User.findById(userId);
-
+            const user = await User.findOne({email: email});
             const actionToken = tokenService.generateActionToken({id: user._id}, EActionTokenType.ACTIVATE);
 
             await Promise.all([
                 Action.create({actionToken, tokenType: EActionTokenType.ACTIVATE, _userId: user._id}),
-                emailService.sendMail(user.email, EEmailActions.WELCOME, {name: user.name, actionToken})
+                emailService.sendMail(data.email, EEmailActions.WELCOME, {name: data.name, actionToken})
             ])
         } catch (e) {
             throw new ApiError(e.message, e.status)

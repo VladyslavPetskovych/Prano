@@ -38,6 +38,10 @@ class UserValidator {
     static setForgotPassword = Joi.object({
         password: this.password.required(),
     });
+
+    static reactivate = Joi.object({
+        email: this.email.required(),
+    });
 }
 
 module.exports = UserValidator

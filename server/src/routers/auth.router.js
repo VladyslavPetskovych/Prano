@@ -4,17 +4,26 @@ const {commonMiddleware, userMiddleware, authMiddleware} = require("../middlewar
 const {UserValidator} = require("../validators");
 const {authController} = require("../controllers");
 const {TokenEnum: {EActionTokenType}} = require("../enums");
+const {rateLimit} = require("express-rate-limit");
+
+const limiter = rateLimit({
+    windowMs: 30 * 60 * 1000,
+    max: 10,
+    message: "Too many requests, try again after 30 minutes",
+});
 
 const router = Router();
 
 router.post(
     "/register",
+    limiter,
     commonMiddleware.isBodyValid(UserValidator.create),
     userMiddleware.findAndThrowByReqBody("email"),
     authController.register
 )
 router.post(
     "/register/:token",
+    limiter,
     authMiddleware.checkActionToken(EActionTokenType.ACTIVATE),
     authController.activate
 )
@@ -37,22 +46,24 @@ router.post(
 )
 router.post(
     "/password/forgot",
+    limiter,
     commonMiddleware.isBodyValid(UserValidator.forgotPassword),
     userMiddleware.isUserExistByReqBody("email"),
     authController.forgotPassword
 )
 router.post(
     "/password/restore/:token",
+    limiter,
     commonMiddleware.isBodyValid(UserValidator.setForgotPassword),
     authMiddleware.checkActionToken(EActionTokenType.FORGOT_PASSWORD),
     authController.setForgotPassword
 )
 router.post(
-    "/reactivate/:userId",
-    authMiddleware.checkAccessToken,
-    userMiddleware.checkUserRights("userId"),
-    commonMiddleware.isIdValid("userId"),
-    userMiddleware.isUserInactive("userId"),
+    "/reactivate",
+    limiter,
+    commonMiddleware.isBodyValid(UserValidator.reactivate),
+    userMiddleware.isUserExistByReqBody("email"),
+    userMiddleware.isUserInactive,
     authController.reactivate
 )
 
