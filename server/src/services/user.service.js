@@ -61,8 +61,11 @@ class UserService {
             await Promise.all([
                 Action.deleteMany({_userId: id}),
                 User.deleteOne({_id: id}),
-                ccService.deleteCustomer(userToDelete.ccId)
             ])
+
+            if (userToDelete.ccId) {
+               await ccService.deleteCustomer(userToDelete.ccId)
+            }
         } catch (e) {
             throw new ApiError(e.message, e.status)
         }
