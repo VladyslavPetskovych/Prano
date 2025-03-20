@@ -19,6 +19,7 @@ router.post(
     limiter,
     commonMiddleware.isBodyValid(UserValidator.create),
     userMiddleware.findAndThrowByReqBody("email"),
+    userMiddleware.findAndThrowByReqBody("phone"),
     authController.register
 )
 router.post(
