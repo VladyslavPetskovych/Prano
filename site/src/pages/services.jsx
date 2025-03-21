@@ -1,5 +1,10 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import DryCleaning from "../components/services/dryCleaning";
+import Laundry from "../components/services/laundry";
+import Shoe from "../components/services/shoeCleaning";
+import SewingRepair from "../components/services/repairClothes";
+import ShoeRepair from "../components/services/shoeRepair"
 
 function Services() {
   const { hash } = useLocation();
@@ -16,32 +21,27 @@ function Services() {
   }, [hash]);
 
   return (
-    <div className="p-6 pt-32">
+    <div className=" ">
       <h1 className="text-2xl font-bold mb-4">Наші Послуги</h1>
 
-      <section id="cleaning" className="mb-96">
-        <h2 className="text-xl font-semibold">Хімчистка</h2>
-        <p>Опис послуги хімчистки...</p>
+      <section id="cleaning">
+        <DryCleaning />
       </section>
 
-      <section id="laundry" className="mb-96">
-        <h2 className="text-xl font-semibold">Пральня</h2>
-        <p>Опис послуги пральні...</p>
+      <section id="laundry">
+        <Laundry />
       </section>
 
-      <section id="shoes-cleaning" className="mb-96">
-        <h2 className="text-xl font-semibold">Чистка і реставрація взуття</h2>
-        <p>Опис послуги чистки взуття...</p>
+      <section id="shoes-cleaning">
+        <Shoe />
       </section>
 
-      <section id="shoes-repair" className="mb-96">
-        <h2 className="text-xl font-semibold">Ремонт взуття</h2>
-        <p>Опис послуги ремонту взуття...</p>
+      <section id="clothing-repair">
+        <SewingRepair />
       </section>
 
-      <section id="clothing-repair" className="mb-96">
-        <h2 className="text-xl font-semibold">Ремонт одягу</h2>
-        <p>Опис послуги ремонту одягу...</p>
+      <section id="shoes-repair">
+        <ShoeRepair />
       </section>
     </div>
   );
