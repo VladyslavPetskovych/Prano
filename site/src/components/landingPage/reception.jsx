@@ -10,17 +10,18 @@ function Reception() {
 
   return (
     <div className="flex items-center justify-between relative w-full bg-coolBlue my-10 py-5  overflow-hidden">
-      <img
-        src={kid}
-        alt=""
-        className="w-[60%] md:w-1/3"
-        data-aos="fade-left"
-      />
+      <img src={kid} alt="" className="w-[60%] md:w-1/2" data-aos="fade-left" />
       <p
-        className="absolute text-center right-4 md:bottom-10 bottom-4 text-gray-700 drop-shadow-lg shadow-2xl bg-white text-xs md:text-xl font-bold  w-2/3 p-5 pr-5"
+        className="absolute text-center right-12 top-[6vw] md:top-16  text-gray-700 drop-shadow-lg shadow-2xl bg-white text-xs md:text-xl font-bold  w-1/3 md:p-5 pr-5"
         data-aos="fade-right"
       >
-       Безпечні і перевірені засоби для виведення плям
+        Дбайливий догляд за Вашими речами
+      </p>
+      <p
+        className="absolute text-center right-4 md:bottom-12 bottom-4 text-gray-700 drop-shadow-lg shadow-2xl bg-white text-xs md:text-xl font-bold  w-2/3 p-3 pr-5"
+        data-aos="fade-right"
+      >
+        Безпечні та перевірені засоби для виведення плям
       </p>
     </div>
   );
