@@ -38,12 +38,8 @@ const LandingPage = () => {
 
           <div className="relative z-10 max-w-lg p-8 rounded-2xl shadow-2xl backdrop-blur-md bg-white/10 text-white text-center">
             <h1 className="text-4xl font-bold mb-4 text-yellow-400 drop-shadow-lg">
-              Пральня Prano скоро відкриється!
+              Prano хімчистка-пральня-ремонт взуття.
             </h1>
-            <p className="text-lg mb-6 text-gray-300">
-              Ми працюємо над тим, щоб зробити прання ще зручнішим для вас.
-              Скоро відкриття – слідкуйте за новинами!
-            </p>
             <div className="text-3xl font-semibold bg-gray-800 px-6 py-3 rounded-xl shadow-md transition-all duration-300 hover:bg-gray-700">
               {formatTime(timeLeft)}
             </div>
