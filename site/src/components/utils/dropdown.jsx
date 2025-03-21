@@ -1,24 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 function Dropdown({ label }) {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-  const isAuth = useSelector((state) => state.auth.isAuth);
 
-  const options = isAuth
-    ? [
-        { label: "Хімчистка", href: "/services#cleaning" },
-        { label: "Прання", href: "/services#laundry" },
-        { label: "Чистка взуття", href: "/services#shoes-cleaning" },
-        { label: "Ремонт взуття", href: "/services#shoes-repair" },
-        { label: "Ремонт одягу", href: "/services#clothing-repair" },
-      ]
-    : [
-        { label: "Хімчистка", href: "/services#cleaning" },
-        { label: "Прання", href: "/services#laundry" },
-      ];
+  const options = [
+    { label: "Хімчистка", href: "/services#cleaning" },
+    { label: "Прання", href: "/services#laundry" },
+    { label: "Чистка взуття", href: "/services#shoes-cleaning" },
+    { label: "Ремонт взуття", href: "/services#shoes-repair" },
+    { label: "Ремонт одягу", href: "/services#clothing-repair" },
+  ];
 
   const handleMainClick = () => {
     navigate("/services");
@@ -36,10 +29,9 @@ function Dropdown({ label }) {
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-    
       <button
         onClick={handleMainClick}
-        className="px-4 py-2 text-white  hover:opacity-75 focus:outline-none"
+        className="px-4 py-2 text-white hover:opacity-75 focus:outline-none"
       >
         {label}
       </button>

@@ -8,14 +8,15 @@ import { Link } from "react-router-dom";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // Для повідомлень
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setErrorMessage(""); // Очищуємо повідомлення перед запитом
 
     try {
-   
       const response = await axios.post("https://prano.group/api/auth/login", {
         email,
         password,
@@ -24,12 +25,10 @@ function Login() {
       const { accessToken, refreshToken, userId } = response.data;
 
       if (userId) {
-       
         dispatch(login({ accessToken, refreshToken, userId }));
-
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
-        localStorage.setItem("userId", userId); 
+        localStorage.setItem("userId", userId);
 
         navigate("/account");
       } else {
@@ -40,6 +39,17 @@ function Login() {
         "Login error:",
         error.response?.data?.message || error.message
       );
+
+      // Обробка статусу 403 (користувач не активований)
+      if (error.response?.status === 403) {
+        setErrorMessage(
+          "Ваш акаунт не активовано. Перевірте пошту для активації."
+        );
+      } else {
+        setErrorMessage(
+          error.response?.data?.message || "Помилка входу. Спробуйте ще раз."
+        );
+      }
     }
   };
 
@@ -47,6 +57,12 @@ function Login() {
     <div className="flex pt-32 min-h-screen items-center justify-center bg-gray-100">
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold text-center">Увійти</h2>
+
+        {/* Відображення повідомлення про помилку */}
+        {errorMessage && (
+          <p className="text-center text-red-500 font-medium">{errorMessage}</p>
+        )}
+
         <form className="mt-4" onSubmit={handleLogin}>
           <input
             className="w-full p-2 border rounded mb-2"

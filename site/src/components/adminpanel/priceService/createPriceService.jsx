@@ -54,7 +54,7 @@ const CreatePriceService = ({ refreshServices }) => {
       });
 
       alert("Послугу успішно створено!");
-      refreshServices(); 
+      refreshServices();
       setTitle("");
       setDescription("");
       setPriceFrom("");
@@ -96,7 +96,7 @@ const CreatePriceService = ({ refreshServices }) => {
             type="number"
             placeholder="Ціна від"
             value={priceFrom}
-            onChange={(e) => setPriceFrom(e.target.value)}
+            onChange={(e) => setPriceFrom(Number(e.target.value))}
             className="border p-2 w-full"
             required
           />
@@ -104,10 +104,11 @@ const CreatePriceService = ({ refreshServices }) => {
             type="number"
             placeholder="Ціна до"
             value={priceTo}
-            onChange={(e) => setPriceTo(e.target.value)}
+            onChange={(e) => setPriceTo(Number(e.target.value))}
             className="border p-2 w-full"
             required
           />
+
           <button
             type="submit"
             className="bg-blue-500 w-full text-white p-2"

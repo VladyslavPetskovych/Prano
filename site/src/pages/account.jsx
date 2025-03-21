@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { logout, setUser } from "../redux/authSlice"; // Import setUser action
+import { logout, setUser } from "../redux/authSlice"; 
 import OrderForm from "../components/account/orderForm";
 import OrderHistory from "../components/account/orderHistory";
 import axios from "axios";

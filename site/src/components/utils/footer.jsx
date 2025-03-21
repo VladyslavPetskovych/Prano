@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import {
   FaFacebookF,
   FaTwitter,
@@ -29,7 +31,7 @@ function Footer() {
           <div>
             <h3 className="font-bold text-lg">Контакти</h3>
             <ul className="mt-4 text-sm space-y-2">
-              <li>📍 123 Вулиця, Місто, Львів, Україна</li>
+              <li>📍 Вулиця Липинського 54, Львів, Україна</li>
               <li>📞 38012345678</li>
               <li>✉️ pranolviv@gmail.com</li>
             </ul>
@@ -38,9 +40,30 @@ function Footer() {
           <div>
             <h3 className="font-bold text-lg">Послуги</h3>
             <ul className="mt-4 text-sm space-y-2">
-              <li>Ремонт та корекція одягу</li>
-              <li>Виведення плям</li>
-              <li>Праска та прасування</li>
+              <li>
+                <Link
+                  to="/services#clothing-repair"
+                  className="text-blue-600 hover:underline"
+                >
+                  Ремонт та корекція одягу
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/services#cleaning"
+                  className="text-blue-600 hover:underline"
+                >
+                  Виведення плям
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/services#laundry"
+                  className="text-blue-600 hover:underline"
+                >
+                  Праска та прасування
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
