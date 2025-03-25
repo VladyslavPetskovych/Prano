@@ -4,19 +4,19 @@ import { Calendar, Shirt, Truck } from "lucide-react";
 const HowItWorks = () => {
   const steps = [
     {
-      icon: <Calendar size={60} className="text-green-500" />,
+      icon: <Calendar size={60} className="text-slate-500" />,
       title: "Запис",
       description:
         "Замовте збір і доставку через наш додаток або залиште речі в магазині. Ви також можете надіслати їх через наш LIVE CHAT бот!",
     },
     {
-      icon: <Shirt size={60} className="text-green-500" />,
+      icon: <Shirt size={60} className="text-slate-500" />,
       title: "Чистка",
       description:
         "Усі отримані речі проходять індивідуальну перевірку, чистку та контроль якості на найвищому рівні. Доступні також послуги з ремонту одягу.",
     },
     {
-      icon: <Truck size={60} className="text-green-500" />,
+      icon: <Truck size={60} className="text-slate-500" />,
       title: "Доставка",
       description:
         "Ми повернемо ваші речі протягом 3 робочих днів кур'єрською доставкою або ви можете забрати їх у магазині. Доступні експрес-послуги.",

@@ -71,7 +71,7 @@ const LandingPage = () => {
         <div className="w-full  -mt-12 ">
           <Contact />
         </div>
-        <p className="p-10 text-3xl font-bold text-yellow-500 text-center -mt-16">
+        <p className="p-10 text-3xl font-bold text-yellow-500 text-center -mt-16 ">
           Наші можливості
         </p>
         <NovaPost />
