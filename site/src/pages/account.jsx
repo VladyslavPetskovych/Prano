@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { logout, setUser } from "../redux/authSlice"; 
+import { logout, setUser } from "../redux/authSlice";
 import OrderForm from "../components/account/orderForm";
 import OrderHistory from "../components/account/orderHistory";
 import axios from "axios";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import ReactivateButton from "../components/login/reactivateButton";
 
 const logLocalStorageData = () => {
@@ -33,7 +33,6 @@ const fetchUserData = async (userId, accessToken, dispatch) => {
     console.error("Error fetching user data:", error);
   }
 };
-
 
 const Account = () => {
   const dispatch = useDispatch();
@@ -65,20 +64,20 @@ const Account = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-gray-100 flex flex-col pt-32 relative px-4">
-      <button
-        onClick={() => {
-          logLocalStorageData();
-          dispatch(logout());
-        }}
-        className="absolute top-28 right-12 bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-600 transition"
-      >
-        Вийти
-      </button>
-
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-4 mt-9">
-        Мій профіль
-      </h2>
-      <p className="text-center text-gray-600 mb-6">Профіль</p>
+      <div className="flex items-center justify-between mb-8">
+        <h2 className="text-3xl font-bold text-center text-gray-800 ">
+          Мій профіль
+        </h2>
+        <button
+          onClick={() => {
+            logLocalStorageData();
+            dispatch(logout());
+          }}
+          className=" bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-600 transition"
+        >
+          Вийти
+        </button>
+      </div>
 
       {user?.status === "inactive" && (
         <ReactivateButton userId={userId} accessToken={accessToken} />
@@ -96,7 +95,7 @@ const Account = () => {
       )}
 
       <div className="flex flex-col-reverse md:flex-row justify-center items-start w-full max-w-6xl mx-auto gap-12">
-        <div className="w-full md:w-2/5 lg:w-1/3">
+        <div className="w-full md:w-1/5 lg:w-1/4">
           <OrderHistory />
         </div>
 
