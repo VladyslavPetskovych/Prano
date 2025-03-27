@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import CheckBox from "./checkBox";
 
 const OrderForm = () => {
+  const [isChecked, setIsChecked] = useState(false);
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg  w-full max-w-md mx-auto">
+    <div className="bg-white p-6 rounded-lg shadow-lg   w-full lg:w-[60%]">
       <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
         Оформлення замовлення
       </h3>
@@ -25,6 +27,13 @@ const OrderForm = () => {
           type="email"
           name="email"
           placeholder="Email"
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          required
+        />
+        <textarea
+          type="text"
+          name="note"
+          placeholder="Додаткові побажання"
           className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
           required
         />
@@ -51,10 +60,18 @@ const OrderForm = () => {
           <option value="Ремонт одягу">Ремонт одягу</option>
           <option value="Прасування">Прасування</option>
         </select>
-
+        <CheckBox
+          isChecked={isChecked}
+          onChange={() => setIsChecked(!isChecked)}
+        />
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-3 rounded-lg text-lg font-medium hover:bg-blue-600 transition duration-300"
+          disabled={!isChecked} 
+          className={`w-full py-3 rounded-lg text-lg font-medium transition duration-300 ${
+            isChecked
+              ? "bg-blue-500 text-white hover:bg-blue-600"
+              : "bg-gray-400 text-gray-200 cursor-not-allowed"
+          }`}
         >
           Оформити замовлення
         </button>

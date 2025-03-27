@@ -4,7 +4,7 @@ import AboutUs from "../components/contactPage/about";
 
 function Contacts() {
   return (
-    <div>
+    <div className="pt-12">
      <Contact backgroundClass={"bg-black"} />
       <AboutUs />
     </div>

@@ -94,14 +94,9 @@ const Account = () => {
         </div>
       )}
 
-      <div className="flex flex-col-reverse md:flex-row justify-center items-start w-full max-w-6xl mx-auto gap-12">
-        <div className="w-full md:w-1/5 lg:w-1/4">
-          <OrderHistory />
-        </div>
-
-        <div className="w-full md:w-3/5 lg:w-2/3">
-          <OrderForm />
-        </div>
+      <div className="flex flex-col-reverse md:flex-row justify-center items-start w-full max-w-6xl mx-auto gap-12 mb-32">
+        <OrderHistory />
+        <OrderForm />
       </div>
     </div>
   );

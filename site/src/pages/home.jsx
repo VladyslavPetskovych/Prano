@@ -4,6 +4,7 @@ import About from "../components/homePage/about.jsx";
 import CareArtBlock from "../components/homePage/CareArtBlock.jsx";
 import Shoe from "../components/homePage/shoe.jsx";
 import HowItWorks from "../components/homePage/howItWorks.jsx";
+import ReviewsSlider from "../components/homePage/reviewsSlider.jsx";
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
       </div>
       <HowItWorks/>
       <EndlessPossibilities />
+      <ReviewsSlider/>
       <About />
     </div>
   );
