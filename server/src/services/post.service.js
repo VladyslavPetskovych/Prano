@@ -35,15 +35,15 @@ class PostService {
         try {
             const createdPost = await Post.create(data);
 
-            const imgPath = path.join(__dirname, `../../postImages/${createdPost._id}`)
-            fs.mkdirSync(imgPath, {recursive: true})
-
             if (!files.length) {
                 return createdPost
             }
 
+            const directoryPath = path.join(__dirname, `../../images/postImages/${createdPost._id}`)
+            fs.mkdirSync(directoryPath, {recursive: true})
+
             const imagePaths = files.map(file => {
-                const newFilePath = path.join(imgPath, file.filename)
+                const newFilePath = path.join(directoryPath, file.filename)
                 fs.renameSync(file.path, newFilePath)
 
                 return `${createdPost._id}/${file.filename}`
@@ -65,7 +65,7 @@ class PostService {
 
     async deleteById(id) {
         try {
-            const imgPath = path.join(__dirname, `../../postImages/${id}`)
+            const imgPath = path.join(__dirname, `../../images/postImages/${id}`)
             fs.rmSync(imgPath, {recursive: true, force: true})
 
             await Post.deleteOne({_id: id})
@@ -76,12 +76,12 @@ class PostService {
 
     async addImagesToPost(id, files) {
         try {
-            const imgPath = path.join(__dirname, `../../postImages/${id}`)
-            fs.mkdirSync(imgPath, {recursive: true})
-
             if (!files.length) {
                 throw new ApiError("No images provided", 400)
             }
+
+            const imgPath = path.join(__dirname, `../../images/postImages/${id}`)
+            fs.mkdirSync(imgPath, {recursive: true})
 
             const imagePaths = files.map(file => {
                 const newFilePath = path.join(imgPath, file.filename)
@@ -98,7 +98,7 @@ class PostService {
 
     async deleteImageFromPost(id, filePath) {
         try {
-            const imgPath = path.join(__dirname, `../../postImages/${filePath}`)
+            const imgPath = path.join(__dirname, `../../images/postImages/${filePath}`)
             fs.unlinkSync(imgPath)
 
             return await Post.findOneAndUpdate({_id: id}, {$pull: {images: filePath}}, {returnDocument: "after"});

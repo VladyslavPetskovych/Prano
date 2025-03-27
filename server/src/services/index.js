@@ -1,4 +1,5 @@
 module.exports = {
+    advertisementService: require("./advertisement.service"),
     authService: require("./auth.service"),
     axiosService: require("./axios.service"),
     ccService: require("./cc.service"),
