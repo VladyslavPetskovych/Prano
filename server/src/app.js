@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
 
-const {authRouter, userRouter, postRouter, productRouter, orderRouter} = require("./routers");
+const {authRouter, userRouter, postRouter, productRouter, orderRouter, advertisementRouter} = require("./routers");
 const {configs} = require("./configs");
 const {cronRunner} = require("./crons");
 
@@ -15,8 +15,10 @@ app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.use("/postImages", express.static(path.join(__dirname, "../postImages")))
+app.use("/advertisementImages", express.static(path.join(__dirname, "../images/advertisementImages")))
+app.use("/postImages", express.static(path.join(__dirname, "../images/postImages")))
 
+app.use("/advertisement", advertisementRouter)
 app.use("/auth", authRouter)
 app.use("/orders", orderRouter)
 app.use("/posts", postRouter)
