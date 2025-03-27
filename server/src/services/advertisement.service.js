@@ -55,6 +55,12 @@ class AdvertisementService {
                 throw new ApiError("No images provided", 400)
             }
 
+            const advertisement = await Advertisement.findById(id);
+            if (advertisement.image && advertisement.image.length !== 0) {
+                const imgPath = path.join(__dirname, `../../images/advertisementImages/${advertisement.image}`)
+                fs.unlinkSync(imgPath)
+            }
+
             const directoryPath = path.join(__dirname, `../../images/advertisementImages/${id}`)
             fs.mkdirSync(directoryPath, {recursive: true})
 
