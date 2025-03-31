@@ -11,10 +11,19 @@ class AdvertisementService {
 
     async create(data, file) {
         try {
-            const createdAdvertisement = await Advertisement.create(data)
+            const oldAdvertisement = await Advertisement.findOne({});
+
+            const createdAdvertisement = await Advertisement.findOneAndReplace({}, data, { upsert: true, returnNewDocument: true });
 
             if (!file) {
                 return createdAdvertisement
+            }
+
+            if (oldAdvertisement && oldAdvertisement.image) {
+                const oldFilePath = path.join(__dirname, `../../images/advertisementImages/${oldAdvertisement.image}`);
+                if (fs.existsSync(oldFilePath)) {
+                    fs.unlinkSync(oldFilePath);
+                }
             }
 
             const directoryPath = path.join(__dirname, `../../images/advertisementImages/${createdAdvertisement._id}`)
