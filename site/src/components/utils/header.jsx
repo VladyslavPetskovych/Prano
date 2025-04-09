@@ -8,7 +8,6 @@ function Header() {
   const [opened, setOpened] = useState(false);
 
   const isAuth = useSelector((state) => state.auth.isAuth);
-  const user = useSelector((state) => state.auth.user);
 
   const buttonStyle =
     "px-4 py-2 mx-1 text-white hover:bg-bg-coolBlue hover:opacity-75 focus:outline-none";
@@ -21,7 +20,11 @@ function Header() {
   ];
 
   return (
-    <nav className="fixed z-50 w-full mt-7 bg-coolBlue h-16 flex items-center justify-between px-6 font-playfair">
+    <nav
+      className={`fixed z-50 w-full mt-7 h-16 flex items-center justify-between px-6 font-playfair transition-all duration-300 ${
+        opened ? "bg-slate-600" : "bg-coolBlue"
+      }`}
+    >
       <h1 className="text-white text-2xl font-bold">Prano</h1>
       <div className="hidden md:flex items-center space-x-5 text-xl">
         <Link to="/about" className={buttonStyle}>

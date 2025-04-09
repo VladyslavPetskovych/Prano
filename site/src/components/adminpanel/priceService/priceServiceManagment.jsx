@@ -57,7 +57,7 @@ const PriceServiceManagement = () => {
 
   return (
     <div className="p-2">
-      <h2 className="text-2xl font-bold bg-slate-200 p-4">
+      <h2 className="text-xl font-bold bg-slate-200 p-4">
         Редагувати послуги і ціни
       </h2>
       <CreatePriceService refreshServices={() => fetchServices(currentPage)} />

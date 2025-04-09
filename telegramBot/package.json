@@ -1,7 +1,7 @@
 {
   "name": "telegrambot",
   "version": "1.0.0",
-  "main": "appBot.js", 
+  "main": "appBot.js",
   "scripts": {
     "start": "nodemon appBot.js"
   },
@@ -12,6 +12,7 @@
     "axios": "^1.8.4",
     "dotenv": "^16.4.7",
     "node-telegram-bot-api": "^0.66.0",
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "redis": "^4.7.0"
   }
 }

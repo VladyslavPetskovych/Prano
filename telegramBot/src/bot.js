@@ -5,3 +5,5 @@ const tokenT = process.env.token;
 const bot = new TelegramApi(tokenT, { polling: true });
 
 module.exports = bot;
+
+console.log("1 bot.js")

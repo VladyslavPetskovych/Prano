@@ -5,23 +5,22 @@ import shoeImg from "../../assets/home/shoe.jpg";
 
 function Shoe() {
   useEffect(() => {
-    AOS.init({ duration: 1000, once: false,});
+    AOS.init({ duration: 1000, once: false });
   }, []);
 
   return (
-    <div className=" text-white py-3 px-5 overflow-hidden">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 ">
+    <div className="text-white py-3 px-5 overflow-hidden group">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div
-          className="relative group overflow-hidden md:col-span-3 min-h-[500px]"
+          className="relative overflow-hidden md:col-span-3 min-h-[500px]"
           data-aos="fade-right"
         >
-       
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: `url(${shoeImg})` }}
           ></div>
 
-          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+          <div className="absolute inset-0 bg-black bg-opacity-60 group-hover:bg-opacity-50 transition duration-500"></div>
 
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4 z-10">
             <h1

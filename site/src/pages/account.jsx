@@ -7,6 +7,8 @@ import OrderHistory from "../components/account/orderHistory";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import ReactivateButton from "../components/login/reactivateButton";
+import TelegramAccaunt from "../components/account/telegramAccaunt";
+import userpng from "../assets/account/userpng.png";
 
 const logLocalStorageData = () => {
   console.log("🔹 Stored Data in LocalStorage:");
@@ -65,17 +67,21 @@ const Account = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-gray-100 flex flex-col pt-32 relative px-4">
       <div className="flex items-center justify-between mb-8">
-        <h2 className="text-3xl font-bold text-center text-gray-800 ">
-          Мій профіль
-        </h2>
+        <div className="flex flex-row items-center justify-center">
+          <img className="bg-slate-300 rounded-full h-12 mr-3" src={userpng} alt="alterimg" />
+          <h2 className="text-xl font-bold text-center text-gray-800 ">
+            {user?.name ? user.name : "Вітаємо, користувач!"}
+          </h2>
+        </div>
+
         <button
           onClick={() => {
             logLocalStorageData();
             dispatch(logout());
           }}
-          className=" bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-600 transition"
+          className=" bg-red-500 text-white px-4 py-2 rounded-lg text-xs font-medium hover:bg-red-600 transition"
         >
-          Вийти
+          Вийти з блікового запису
         </button>
       </div>
 
@@ -94,9 +100,12 @@ const Account = () => {
         </div>
       )}
 
-      <div className="flex flex-col-reverse md:flex-row justify-center items-start w-full max-w-6xl mx-auto gap-12 mb-32">
+      <TelegramAccaunt />
+      <div className="flex flex-col-reverse md:flex-row justify-evenly items-start w-full mx-auto gap-6 mb-32">
         <OrderHistory />
-        <OrderForm />
+        <OrderForm user={user} />
+        <p></p>
+        <p></p>
       </div>
     </div>
   );

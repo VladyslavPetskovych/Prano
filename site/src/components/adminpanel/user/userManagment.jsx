@@ -90,7 +90,7 @@ const UserManagement = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 text-center">
+      <h2 className="text-xl  font-bold text-gray-800 mb-4 text-center">
         Управління користувачами
       </h2>
       <div className="bg-white shadow-md rounded-lg p-4 md:p-6 overflow-x-auto">
