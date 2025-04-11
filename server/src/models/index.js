@@ -2,6 +2,7 @@ module.exports = {
     Action: require("./Action.model"),
     Advertisement: require("./Advertisement.model"),
     OldPassword: require("./OldPassword.model"),
+    Order: require("./Order.model"),
     Post: require("./Post.model"),
     Product: require("./Product.model"),
     Token: require("./Token.model"),

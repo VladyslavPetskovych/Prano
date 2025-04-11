@@ -14,6 +14,14 @@ const limiter = rateLimit({
     keyGenerator: (_, res) => res.locals.tokenPayload.id
 });
 
+router.get(
+    "/:userId",
+    authMiddleware.checkAccessToken,
+    userMiddleware.checkUserRights("userId"),
+    commonMiddleware.isIdValid("userId"),
+    userMiddleware.isUserExistByReqParams("userId"),
+    orderController.findByUserId
+)
 router.post(
     "/",
     authMiddleware.checkAccessToken,

@@ -7,6 +7,9 @@ urls = {
         updateCustomer: "/updateCustomer",
         deleteCustomer: "/deleteCustomer",
     },
+    order: {
+        getOrders: "/getOrders",
+    },
 }
 
 module.exports = {

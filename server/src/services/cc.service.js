@@ -34,6 +34,14 @@ class CcService {
             throw new ApiError(e.message, e.status)
         }
     }
+
+    async getOrdersByCustomerId(id) {
+        try {
+            return await axiosService.post(urls.order.getOrders, {customerID: id})
+        } catch (e) {
+            throw new ApiError(e.message, e.status)
+        }
+    }
 }
 
 module.exports = new CcService()
