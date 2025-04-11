@@ -32,7 +32,7 @@ function Footer() {
             <h3 className="font-bold text-lg">Контакти</h3>
             <ul className="mt-4 text-sm space-y-2">
               <li>📍 Вулиця Липинського 54, Львів, Україна</li>
-              <li>📞 38012345678</li>
+              <li>📞 380663214671</li>
               <li>✉️ pranolviv@gmail.com</li>
             </ul>
           </div>

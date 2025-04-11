@@ -9,7 +9,7 @@ function NovaPost() {
   }, []);
 
   return (
-    <div className="flex items-center justify-between  w-full bg-coolBlue  pl-5 overflow-hidden ">
+    <div className="flex items-center justify-between  w-full bg-Nblue  pl-5 overflow-hidden ">
       <p
         className="text-center text-gray-700 drop-shadow-lg shadow-2xl bg-white text-xs md:text-xl font-bold w-full md:w-1/2 p-5"
         data-aos="fade-right"

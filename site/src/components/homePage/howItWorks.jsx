@@ -25,7 +25,7 @@ const HowItWorks = () => {
 
   return (
     <div className="w-full py-12 bg-gray-100 text-center">
-      <h2 className="text-3xl font-bold text-gray-800 mb-8">Як це працює</h2>
+      <h2 className="text-3xl font-bold font-roboto text-gray-800 mb-8">Як це працює ?</h2>
       <div className="flex flex-col md:flex-row justify-center items-center gap-10">
         {steps.map((step, index) => (
           <div key={index} className="flex flex-col items-center max-w-sm text-center">
