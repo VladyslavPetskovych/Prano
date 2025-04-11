@@ -37,7 +37,7 @@ function Dropdown({ label }) {
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 mt-0 w-48 bg-white text-black shadow-lg z-10 rounded-md overflow-hidden">
+        <div className="absolute left-0 mt-0 w-48 bg-white  shadow-lg z-10 rounded-md overflow-hidden">
           {options.map((option, index) => (
             <button
               key={index}

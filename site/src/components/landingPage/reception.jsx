@@ -9,9 +9,9 @@ function Reception() {
   }, []);
 
   return (
-    <div className="w-full bg-gradient-to-b from-blue-200 to-coolBlue my-10 py-12 px-6 md:px-10 lg:px-16 flex items-center justify-center overflow-hidden relative">
+    <div className="w-full bg-Nblue my-10 py-12 px-6 md:px-10 lg:px-16 flex items-center justify-center overflow-hidden relative">
       <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-6 md:gap-10 lg:gap-16 w-full max-w-5xl">
-        {/* Image Section */}
+
         <div
           className="w-full md:w-1/2 flex justify-center"
           data-aos="fade-left"
@@ -23,7 +23,6 @@ function Reception() {
           />
         </div>
 
-        {/* Text Section */}
         <ul className="w-full md:w-1/2 space-y-4 md:space-y-5">
           {[
             "Дбайливий догляд за Вашими речами",

@@ -4,6 +4,10 @@ export default {
   theme: {
     extend: {
       colors: {
+        Ndark: "#22282B",
+        Ngold: "#CEB27F",
+        Nblue: "#2F7E99",
+
         logoGray: "#575757", // C0 M0 Y0 K80
         backgroundBeige: "#ebd8b2", // C10 M15 Y35 K0
         pureWhite: "#FFFFFF", // C0 M0 Y0 K0
@@ -13,11 +17,21 @@ export default {
         lightGray: "#dadada", // C0 M0 Y0 K20
       },
       fontFamily: {
-        geologica: ['Geologica', 'sans-serif'], 
+        geologica: ["Geologica", "sans-serif"],
         playfair: ["'Playfair Display'", "serif"],
+        roboto: ["Roboto Slab", "sans-serif"],
+        condensed: ['"Roboto Condensed"', "sans-serif"],
+      },
+      animation: {
+        marquee: "marquee 30s linear infinite",
+      },
+      keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
       },
     },
   },
-
   plugins: [require("tailwind-hamburgers")],
 };

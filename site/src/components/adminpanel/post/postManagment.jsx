@@ -59,7 +59,7 @@ const PostManagement = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold bg-slate-200 p-5">Manage Posts</h2>
+      <h2 className="text-xl font-bold bg-slate-200 p-5">Керування постами</h2>
       <CreatePost refreshPosts={() => fetchPosts(currentPage)} />{" "}
       <ul className="flex flex-wrap gap-4 justify-center">
         {posts.map((post) => (

@@ -5,6 +5,8 @@ import Footer from "../components/utils/footer";
 import Contact from "../components/contactPage/contact";
 import NovaPost from "../components/landingPage/novaPost";
 import Receiption from "../components/landingPage/reception";
+import darkCat from "../assets/logo/svgTextCatGold.svg"
+import OurPartners from "../components/homePage/ourPartners";
 
 const LandingPage = () => {
   const targetDate = new Date("2025-05-20T00:00:00").getTime();
@@ -29,16 +31,17 @@ const LandingPage = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-950 to-gray-900 text-white text-center font-geologica">
+      <div className="  flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-Ndark to-gray-900 text-white text-center font-geologica">
         <div
-          className="min-h-screen w-full flex items-center justify-center bg-cover bg-center relative"
+          className="min-h-screen w-full px-3 flex items-center justify-center bg-cover bg-center relative"
           style={{ backgroundImage: `url(${water})` }}
         >
-          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+          <div className="absolute inset-0 bg-black bg-opacity-60"></div>
 
-          <div className="relative z-10 max-w-lg p-8 rounded-2xl shadow-2xl backdrop-blur-md bg-white/10 text-white text-center">
-            <h1 className="text-4xl font-bold mb-4 text-yellow-400 drop-shadow-lg">
-              Prano хімчистка-пральня-ремонт взуття.
+          <div className="relative z-10 max-w-lg p-8 py-16 rounded-2xl shadow-2xl backdrop-blur-md bg-Ndark text-white text-center">
+            <img src={darkCat} alt="" className="pb-16" />
+            <h1 className="text-3xl font-condensed mb-4 text-Ngold drop-shadow-lg">
+            хімчистка-пральня-ремонт взуття.
             </h1>
             <div className="text-3xl font-semibold bg-gray-800 px-6 py-3 rounded-xl shadow-md transition-all duration-300 hover:bg-gray-700">
               {formatTime(timeLeft)}
@@ -71,11 +74,12 @@ const LandingPage = () => {
         <div className="w-full  -mt-12 ">
           <Contact />
         </div>
-        <p className="p-10 text-3xl font-bold text-yellow-500 text-center -mt-16 ">
+        <p className="text-3xl pt-8 sm:text-4xl font-bold text-center mb-12 text-Ngold relative inline-block after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue ">
           Наші можливості
         </p>
         <NovaPost />
         <Receiption />
+        <OurPartners/>
       </div>
       <Footer />
     </>

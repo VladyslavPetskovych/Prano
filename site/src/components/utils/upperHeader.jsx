@@ -1,31 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
 import phone from "/src/assets/icons/phone.png";
 import mail from "/src/assets/icons/mail.png";
 
-function upperHeader() {
+function UpperHeader() {
+  const [notification, setNotification] = useState("");
+
+  const handleCopy = (text) => {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        setNotification(`${text} скопійовано!`);
+        setTimeout(() => {
+          setNotification("");
+        }, 2000);
+      })
+      .catch((err) => {
+        console.error("Не вдалося скопіювати: ", err);
+      });
+  };
+
   return (
-    <div className="fixed z-50 w-full h-7 bg-white flex  justify-between items-center">
-      <p className="hidden md:block"></p>
-      <div className="flex flew-row justify-start ml-3 px-3 md:px-10">
-        <div className="ml-2 flex items-center gap-2">
-          <img
-            src={phone}
-            alt=""
-            className="h-5 w-5 object-contain align-middle"
-          />
-          <p className="leading-none flex items-center">38012345678</p>
-        </div>
-        <div className="md:ml-16 ml-5 flex items-center gap-2 ">
-          <img
-            src={mail}
-            alt=""
-            className="h-5 w-5 object-contain align-middle"
-          />
-          <p>pranolviv@gmail.com</p>
+    <>
+      <div className="fixed top-0  z-50 w-full h-7 bg-white shadow-sm flex justify-end items-center px-4 md:px-10">
+        <div className="flex flex-row  justify-end items-center gap-8 text-sm text-gray-800 ml-2 md:ml-0">
+          {/* Phone */}
+          <div
+            className="flex items-center gap-2 cursor-pointer"
+            onClick={() => handleCopy("+38012345678")}
+          >
+            <img src={phone} alt="phone" className="h-4 w-4 object-contain" />
+            <span className="italic hover:underline">+380663214671</span>
+          </div>
+
+          {/* Email */}
+          <div
+            className="flex items-center gap-2 cursor-pointer"
+            onClick={() => handleCopy("pranolviv@gmail.com")}
+          >
+            <img src={mail} alt="mail" className="h-4 w-4 object-contain" />
+            <span className="italic hover:underline">pranolviv@gmail.com</span>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Bottom notification */}
+      {notification && (
+        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-sm px-4 py-2 rounded-md shadow-lg transition-opacity duration-300 z-50">
+          {notification}
+        </div>
+      )}
+    </>
   );
 }
 
-export default upperHeader;
+export default UpperHeader;

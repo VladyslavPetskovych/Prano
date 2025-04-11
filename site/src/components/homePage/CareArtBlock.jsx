@@ -13,7 +13,7 @@ function CareArtBlock() {
     <div className="text-white py-4 px-5 overflow-hidden">
       <div className="flex justify-center">
         <h2
-          className="font-playfair text-3xl text-black md:text-4xl font-bold my-7 p-4 inline-block bg-white text-center"
+          className="font-playfair text-2xl text-black md:text-3xl font-bold my-7 p-4 inline-block bg-white text-center"
           data-aos="fade-up"
         >
           МИСТЕЦТВО ДОГЛЯДУ ЗА РЕЧАМИ

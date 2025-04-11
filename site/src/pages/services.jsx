@@ -5,6 +5,7 @@ import Laundry from "../components/services/laundry";
 import Shoe from "../components/services/shoeCleaning";
 import SewingRepair from "../components/services/repairClothes";
 import ShoeRepair from "../components/services/shoeRepair"
+import  TopPart  from "../components/services/topPart";
 
 function Services() {
   const { hash } = useLocation();
@@ -21,8 +22,8 @@ function Services() {
   }, [hash]);
 
   return (
-    <div className=" ">
-      <h1 className="text-2xl font-bold mb-4">Наші Послуги</h1>
+    <div className="">
+      <TopPart/>
 
       <section id="cleaning">
         <DryCleaning />

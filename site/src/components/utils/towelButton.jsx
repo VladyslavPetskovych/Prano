@@ -4,24 +4,27 @@ import towel from "../../assets/utils/towel.jpg";
 function TowelButton() {
   return (
     <button
-      className="relative px-10 py-6 text-white text-lg font-semibold rounded-lg shadow-lg"
+      className="relative px-5 py-3 rounded-lg shadow-xl overflow-hidden"
       style={{
         backgroundImage: `url(${towel})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        transition: "background-position 0.3s ease-in-out",
+        transition: "transform 0.2s ease-in-out, filter 0.3s ease-in-out",
       }}
-      onMouseEnter={(e) =>
-        (e.currentTarget.style.backgroundPosition = "top left")
-      }
-      onMouseLeave={(e) =>
-        (e.currentTarget.style.backgroundPosition = "center")
-      }
+      onMouseEnter={(e) => {
+      
+        e.currentTarget.style.transform = "scale(1.05)";
+      }}
+      onMouseLeave={(e) => {
+ 
+        e.currentTarget.style.transform = "scale(1)";
+      }}
     >
-      <span className="relative z-10 text-white text-lg font-bold drop-shadow-[4px_4px_10px_black]">
+      <span className="relative z-10 text-white text-base font-extrabold tracking-wide uppercase drop-shadow-[2px_2px_5px_rgba(0,0,0,0.7)]">
         Замовити послугу
       </span>
-      <div className="absolute inset-0 bg-black opacity-5 rounded-lg"></div>
+
+      <div className="absolute inset-0 bg-black opacity-15 rounded-lg backdrop-blur-sm"></div>
     </button>
   );
 }
