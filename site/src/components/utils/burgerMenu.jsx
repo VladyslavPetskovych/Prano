@@ -31,7 +31,7 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
 
       {/* Mobile Menu */}
       {opened && (
-        <div className="absolute h-screen mt-5 right-0 w-full bg-coolBlue text-white py-6 space-y-3 flex flex-col items-start pl-16">
+        <div className="absolute h-screen mt-5 right-0 w-full bg-black text-white py-6 space-y-3 flex flex-col items-start pl-16">
           <Link
             to="/about"
             className="text-2xl hover:opacity-80 transition ease-in-out duration-200"
@@ -47,6 +47,13 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
               servicesOpen ? "" : ""
             }`}
           >
+            <span
+              className={`ml-2 transform transition duration-200 ${
+                servicesOpen ? "rotate-180" : ""
+              }`}
+            >
+              ▼
+            </span>
             Послуги
             <span
               className={`ml-2 transform transition duration-200 ${
@@ -93,8 +100,6 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
           >
             {isAuth ? "Профіль" : "Кабінет"}
           </Link>
-
-  
         </div>
       )}
     </div>

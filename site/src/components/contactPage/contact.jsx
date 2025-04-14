@@ -23,7 +23,7 @@ const Contacts = ({ backgroundClass }) => {
 
   return (
     <div className={`min-h-screen ${backgroundClass} text-white `}>
-      <div className="max-w-6xl mx-auto px-6 pt-20">
+      <div className="max-w-6xl mx-auto flex justify-center flex-col w-full px-6 pt-20">
         <h2 className="text-3xl  sm:text-4xl font-bold text-center  text-Ngold relative inline-block after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue mb-7">
           Наші відділення
         </h2>

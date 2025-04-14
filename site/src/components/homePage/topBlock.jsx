@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import back from "../../assets/home/back.webp";
+import logo from "../../assets/logo/pranoTextGold.svg";
 
 const TopBlock = () => {
   const [bgLoaded, setBgLoaded] = useState(false);
@@ -26,23 +27,19 @@ const TopBlock = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/40"></div>
 
       <div className="relative z-10 text-center px-6">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white drop-shadow-lg">
-          Прано
-        </h1>
+        <img src={logo} alt="" className="w-64 md:w-96 mx-auto" />
 
-        <p className="text-lg sm:text-xl text-gray-300 mt-4 max-w-2xl mx-auto leading-relaxed">
-          Ми пропонуємо високоякісні послуги прання та хімчистки, які
-          забезпечать чистоту та свіжість вашого одягу. Дбайливий підхід до
+        <p className="md:text-2xl text-xl font-geologica font-bold text-white mt-4 max-w-2xl mx-auto leading-relaxed shadow-md p-2 bg-opacity-20 bg-black rounded">
+          Ми пропонуємо високоякісні послуги прання, хімчистки та ремонту одягу. Дбайливий підхід до
           кожної речі — ваш одяг у надійних руках.
         </p>
 
         <a
           href="#services"
-          className="mt-6 inline-block bg-[#d3b768] text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-lg hover:bg-[#c4a75c] transition duration-300"
+          className="mt-6 inline-block font-bold bg-Ngold text-white text-lg  py-3 px-8 rounded-lg shadow-lg hover:bg-[#c4a75c] transition duration-300"
         >
           Замовити послугу
         </a>
-     
       </div>
     </div>
   );

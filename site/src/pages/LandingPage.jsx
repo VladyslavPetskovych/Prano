@@ -36,7 +36,7 @@ const LandingPage = () => {
           className="min-h-screen w-full px-3 flex items-center justify-center bg-cover bg-center relative"
           style={{ backgroundImage: `url(${water})` }}
         >
-          <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+          <div className="absolute inset-0 bg-black bg-opacity-10"></div>
 
           <div className="relative z-10 max-w-lg p-8 py-16 rounded-2xl shadow-2xl backdrop-blur-md bg-Ndark text-white text-center">
             <img src={darkCat} alt="" className="pb-16" />

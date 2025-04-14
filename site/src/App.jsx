@@ -24,12 +24,12 @@ import { Provider } from "react-redux";
 import store from "./redux";
 
 import LoadingScreen from "./components/utils/loadingScreen.jsx";
-import LandingPage from "./pages/LandingPage.jsx"
+import LandingPage from "./pages/LandingPage.jsx";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
   // кнопка для переключення тимчасової сторінки  ТРЕБА ЗАМІНИТИ ЗНАЧЕННЯ БУЛЬКИ
-  const isMaintenanceMode = true; 
+  const isMaintenanceMode = true;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -47,8 +47,7 @@ const App = () => {
     <Provider store={store}>
       <Router>
         {isMaintenanceMode ? (
-          <LandingPage /> 
-          
+          <LandingPage />
         ) : (
           <>
             <UpperHeader />
