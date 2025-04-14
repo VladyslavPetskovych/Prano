@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Dropdown from "./dropdown";
 import { BurgerMenu } from "./burgerMenu";
 import { useSelector } from "react-redux";
+import logo from '../../assets/logo/svgTextCatGold.svg'
 
 function Header() {
   const [opened, setOpened] = useState(false);
@@ -21,11 +22,11 @@ function Header() {
 
   return (
     <nav
-      className={`fixed z-50 w-full mt-7 h-16 flex items-center justify-between px-6 font-playfair transition-all duration-300 ${
-        opened ? "bg-slate-600" : "bg-coolBlue"
+      className={`fixed z-50 w-full mt-7 h-16 flex items-center  justify-between px-6 font-playfair transition-all duration-300 ${
+        opened ? "bg-Ndark" : "bg-Ndark"
       }`}
     >
-      <h1 className="text-white text-2xl font-bold">Prano</h1>
+      <img src={logo} alt="logo" className="h-12" />
       <div className="hidden md:flex items-center space-x-5 text-xl">
         <Link to="/about" className={buttonStyle}>
           Про нас

@@ -94,10 +94,8 @@ function ReviewsSlider() {
   };
 
   return (
-    <div className=" mx-auto  mb-3 pb-10  bg-gray-100 rounded-lg shadow-lg">
-      <h2
-        className="font-playfair mx-auto text-3xl text-black md:text-4xl font-bold my-3 p-4  bg-white text-center"
-      >
+    <div className=" flex flex-col  mt-8 pb-10  bg-gray-100 rounded-lg shadow-lg">
+      <h2 className="text-3xl text-center sm:text-4xl font-bold font-roboto   text-Ndark relative inline-block after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue mb-7">
         Відгуки наших клієнтів
       </h2>
       <Slider {...settings} key={sliderKey}>

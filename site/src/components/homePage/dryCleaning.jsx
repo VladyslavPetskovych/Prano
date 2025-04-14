@@ -20,7 +20,7 @@ function dryCleaning() {
               className="text-xl md:text-2xl font-semibold drop-shadow-lg"
               data-aos="zoom-in"
             >
-              Хімчистка
+              ХІМЧИСТКА
             </h3>
             <button
               className="mt-4 border border-white px-6 py-2 text-lg font-medium hover:bg-white hover:text-black transition duration-300"
@@ -44,7 +44,7 @@ function dryCleaning() {
               className="text-xl md:text-2xl font-semibold drop-shadow-lg"
               data-aos="zoom-in"
             >
-              Прання
+              ПРАННЯ
             </h3>
             <button
               className="mt-4 border border-white px-6 py-2 text-lg font-medium hover:bg-white hover:text-black transition duration-300"

@@ -20,7 +20,7 @@ function TowelButton() {
         e.currentTarget.style.transform = "scale(1)";
       }}
     >
-      <span className="relative z-10 text-white text-base font-extrabold tracking-wide uppercase drop-shadow-[2px_2px_5px_rgba(0,0,0,0.7)]">
+      <span className="relative z-10 text-Ndark text-base font-extrabold tracking-wide uppercase drop-shadow-[2px_2px_5px_rgba(0,0,0,0.7)]">
         Замовити послугу
       </span>
 

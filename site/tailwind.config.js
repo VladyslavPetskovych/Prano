@@ -24,6 +24,7 @@ export default {
       },
       animation: {
         marquee: "marquee 30s linear infinite",
+        fadeIn: 'fadeIn 1s ease-out forwards',
       },
       keyframes: {
         marquee: {

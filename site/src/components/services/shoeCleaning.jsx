@@ -3,7 +3,7 @@ import shoeCleaning from "../../assets/service/shoes.jpg";
 
 function ShoeCleaningRepair() {
   return (
-    <section className="bg-gradient-to-r from-blue-800 via-blue-600 to-blue-400 py-6 px-4">
+    <section className=" py-6 px-4">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-1 bg-white rounded-3xl shadow-xl overflow-hidden">
         <div className="p-8 flex flex-col justify-center text-center md:text-left space-y-6">
           <h2 className="text-4xl font-extrabold text-gray-800 tracking-wide">
