@@ -28,7 +28,7 @@ function Header() {
     >
       <img src={logo} alt="logo" className="h-12" />
       <div className="hidden md:flex items-center space-x-5 text-xl">
-        <Link to="/about" className={buttonStyle}>
+        <Link to="/" className={buttonStyle}>
           Про нас
         </Link>
         <Dropdown label="Послуги" options={servicesOptions} />

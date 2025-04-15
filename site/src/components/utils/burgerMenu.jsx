@@ -33,7 +33,7 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
       {opened && (
         <div className="absolute h-screen mt-5 right-0 w-full bg-black text-white py-6 space-y-3 flex flex-col items-start pl-16">
           <Link
-            to="/about"
+            to="/"
             className="text-2xl hover:opacity-80 transition ease-in-out duration-200"
             onClick={toggleOpened}
           >
