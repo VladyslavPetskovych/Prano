@@ -5,14 +5,14 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --omit=optional
+RUN npm i
 
 COPY . .
 
 RUN npm run build
 
 # Production stage
-FROM nginx:alpine AS production
+FROM nginx:1.27.4-alpine AS production
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
