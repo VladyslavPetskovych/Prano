@@ -1,18 +1,18 @@
 # Development stage
-FROM node:alpine AS development
+FROM node:20-alpine AS development
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm i
+RUN npm ci
 
 COPY . .
 
 RUN npm run build
 
 # Production stage
-FROM nginx:alpine AS production
+FROM node:20-alpine AS production
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
