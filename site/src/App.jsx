@@ -29,7 +29,7 @@ import LandingPage from "./pages/LandingPage.jsx";
 const App = () => {
   const [loading, setLoading] = useState(true);
   // кнопка для переключення тимчасової сторінки  ТРЕБА ЗАМІНИТИ ЗНАЧЕННЯ БУЛЬКИ
-  const isMaintenanceMode = true;
+  const isMaintenanceMode = false;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -54,7 +54,6 @@ const App = () => {
             <Header />
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/about" element={<Home />} />
               <Route path="/services" element={<Services />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:id" element={<BlogDetails />} />
