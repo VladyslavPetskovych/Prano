@@ -11,6 +11,7 @@ const pages = ['/', '/services', '/price', '/blog', '/contacts']
 
 pages.forEach(url => sitemap.write({ url }))
 
+
 sitemap.end()
 
 
