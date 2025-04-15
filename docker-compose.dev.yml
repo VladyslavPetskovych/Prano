@@ -5,12 +5,46 @@ services:
     image: mongo:7.0.12
     ports:
       - "27017:27017"
-    env_file:
-      - .env
+    environment:
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_USER=${MONGO_USER}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
     volumes:
       - mongo_data:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
     networks:
       - prano-app
+    restart: unless-stopped
+
+  api:
+    build:
+      context: ./server
+      target: development
+    environment:
+      - DB_URL=${DB_URL}
+      - FRONT_URL=${FRONT_URL}
+      - JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}
+      - JWT_ACCESS_EXPIRES_IN=${JWT_ACCESS_EXPIRES_IN}
+      - JWT_ACTIVATE_SECRET=${JWT_ACTIVATE_SECRET}
+      - JWT_ACTIVATE_EXPIRES_IN=${JWT_ACTIVATE_EXPIRES_IN}
+      - JWT_FORGOT_SECRET=${JWT_FORGOT_SECRET}
+      - JWT_FORGOT_EXPIRES_IN=${JWT_FORGOT_EXPIRES_IN}
+      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
+      - JWT_REFRESH_EXPIRES_IN=${JWT_REFRESH_EXPIRES_IN}
+      - SECRET_SALT=${SECRET_SALT}
+      - NO_REPLY_EMAIL=${NO_REPLY_EMAIL}
+      - NO_REPLY_PASSWORD=${NO_REPLY_PASSWORD}
+      - CC_API_KEY=${CC_API_KEY}
+      - MANAGER_EMAIL=${MANAGER_EMAIL}
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    networks:
+      - prano-app
+    depends_on:
+      - mongo
     restart: unless-stopped
 
   web:
@@ -23,8 +57,8 @@ services:
     command: npm run dev -- --host
     networks:
       - prano-app
-    #    depends_on:
-    #      - api
+    depends_on:
+      - api
     restart: unless-stopped
 
   nginx:
@@ -36,7 +70,6 @@ services:
     networks:
       - prano-app
     depends_on:
-      #      - api
       - web
     restart: unless-stopped
 
