@@ -56,7 +56,7 @@ services:
     restart: unless-stopped
 
   nginx:
-    image: nginx:alpine
+    image: nginx:1.27.4-alpine
     environment:
       - DOMAIN=${DOMAIN}
     ports:
