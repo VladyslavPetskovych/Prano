@@ -13,6 +13,7 @@ pages.forEach(url => sitemap.write({ url }))
 
 sitemap.end()
 
+
 streamToPromise(sitemap).then(() => {
   console.log('✅ sitemap.xml generated')
 })
