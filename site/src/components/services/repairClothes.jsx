@@ -3,8 +3,8 @@ import sewingRepair from "../../assets/service/sewingRepair.jpg";
 
 function SewingRepair() {
   return (
-    <section className=" py-6 px-4">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-1 bg-white rounded-3xl shadow-xl overflow-hidden">
+    <section className=" my-6 py-6 mx-6 rounded-2xl bg-gray-50  shadow-xl">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-1 bg-white rounded-3xl  overflow-hidden">
         <div className="p-8 flex flex-col justify-center text-center md:text-left space-y-6">
           <h2 className="text-4xl font-extrabold text-gray-800 tracking-wide">
             Шиття та ремонт одягу

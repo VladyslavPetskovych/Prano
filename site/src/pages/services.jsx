@@ -22,7 +22,7 @@ function Services() {
   }, [hash]);
 
   return (
-    <div className="bg-gradient-to-t from-Ngold via-Nblue to-Nblue">
+    <div className="bg-gradient-to-t from-Ngold via-Nblue to-Nblue pb-5">
       <TopPart/>
 
       <section id="cleaning">

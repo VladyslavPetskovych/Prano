@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import shoeImg from "../../assets/home/shoe.jpg";
+import { Link } from "react-router-dom";
 
 function Shoe() {
   useEffect(() => {
@@ -29,12 +30,13 @@ function Shoe() {
             >
               РЕМОНТ ВЗУТТЯ <br /> І АКСЕСУАРІВ
             </h1>
-            <button
+            <Link
+              to="/services#shoes-repair"
               className="mt-6 px-6 py-2 border border-white text-white uppercase hover:bg-white hover:text-black transition"
               data-aos="fade-up"
             >
               Дізнатися більше
-            </button>
+            </Link>
           </div>
         </div>
       </div>

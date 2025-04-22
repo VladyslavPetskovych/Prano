@@ -65,10 +65,10 @@ const Account = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-gray-100 flex flex-col pt-32 relative px-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-200 to-gray-200 flex flex-col pt-32 relative px-4">
       <div className="flex items-center justify-between mb-8">
         <div className="flex flex-row items-center justify-center">
-          <img className="bg-slate-300 rounded-full h-12 mr-3" src={userpng} alt="alterimg" />
+          <img className="bg-slate-300 rounded-full h-10 mr-3" src={userpng} alt="alterimg" />
           <h2 className="text-xl font-bold text-center text-gray-800 ">
             {user?.name ? user.name : "Вітаємо, користувач!"}
           </h2>
@@ -79,9 +79,9 @@ const Account = () => {
             logLocalStorageData();
             dispatch(logout());
           }}
-          className=" bg-red-500 text-white px-4 py-2 rounded-lg text-xs font-medium hover:bg-red-600 transition"
+          className=" bg-red-500 text-white px-2 md:px-4 py-2 rounded-lg text-xs font-medium hover:bg-red-600 transition"
         >
-          Вийти з блікового запису
+          Вийти з профілю
         </button>
       </div>
 
