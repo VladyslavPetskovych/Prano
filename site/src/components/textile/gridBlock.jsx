@@ -55,14 +55,14 @@ const GridBlock = () => {
 
   return (
     <div className="py-16 px-6 md:px-16 bg-Nblue text-white">
-      <div className="flex flex-row items-center justify-center mb-8">
+      <div className="flex flex-col md:flex-row items-center justify-center mb-8">
         <h2
           className="text-xl md:text-3xl font-bold text-center  tracking-tight text-white drop-shadow-md"
           style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.7)" }}
         >
           Наші послуги по догляду за текстилем
         </h2>
-        <img src={log} alt="" className="w-32 mx-9" />
+        <img src={log} alt="" className="w-32 mx-9 " />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
