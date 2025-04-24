@@ -14,6 +14,11 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
     { label: "Ремонт взуття", href: "/services#shoes-repair" },
     { label: "Ремонт одягу", href: "/services#clothing-repair" },
   ];
+  const navItems = [
+    { label: "Ціни", route: "/pricing" },
+    { label: "Контакти", route: "/contacts" },
+    { label: "Блог", route: "/blog" },
+  ];
 
   return (
     <div>
@@ -81,10 +86,10 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
           )}
 
           {/* Other Links */}
-          {["Ціни", "Контакти", "Блог"].map((label, index) => (
+          {navItems.map(({ label, route }, index) => (
             <Link
               key={index}
-              to={`/${label}`}
+              to={route}
               className="text-2xl hover:opacity-80 transition ease-in-out duration-200"
               onClick={toggleOpened}
             >
