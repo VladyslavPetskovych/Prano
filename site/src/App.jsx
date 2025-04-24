@@ -31,6 +31,7 @@ import LandingPage from "./pages/LandingPage.jsx";
 const App = () => {
   const [loading, setLoading] = useState(true);
   // кнопка для переключення тимчасової сторінки  ТРЕБА ЗАМІНИТИ ЗНАЧЕННЯ БУЛЬКИ
+  // на значення з бекенду
   const isMaintenanceMode = false;
 
   useEffect(() => {
