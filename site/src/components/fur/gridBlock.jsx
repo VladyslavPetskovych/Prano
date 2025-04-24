@@ -54,21 +54,27 @@ const GridBlock = () => {
 
   return (
     <div className="py-16 px-6 md:px-16 bg-Ngold text-white">
-      <h2 className="text-4xl font-bold text-center mb-16 tracking-tight text-Ndark drop-shadow-md">
+      <h2
+        className="text-4xl font-bold text-center mb-16 tracking-tight text-white drop-shadow-md"
+        style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.7)" }}
+      >
         Наші Послуги
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-12 ">
         {cards.map((card) => (
-          <div key={card.id} className="flex flex-col items-start group">
+          <div
+            key={card.id}
+            className="flex flex-col items-start group bg-Ndark p-3 rounded-2xl"
+          >
             <img
               src={card.img}
               alt={card.header}
               className="w-full h-72 rounded-2xl object-cover mb-6 shadow-lg transition-transform duration-300 group-hover:scale-105"
             />
-            <h3 className="text-2xl font-semibold mb-3 text-Ndark tracking-tight drop-shadow-sm group-hover:underline decoration-2 underline-offset-4 transition">
+            <h3 className="text-2xl font-semibold mb-3 text-white tracking-tight drop-shadow-sm group-hover:underline decoration-2 underline-offset-4 transition">
               {card.header}
             </h3>
-            <p className="text-base text-Ndark leading-relaxed opacity-80 drop-shadow-sm">
+            <p className="text-base text-white leading-relaxed opacity-80 drop-shadow-sm">
               {card.description}
             </p>
           </div>
