@@ -1,10 +1,11 @@
 import React from "react";
 import textileMain from "../../assets/textile/textileMain.jpg";
 import { Link } from "react-router-dom";
+import CatLogo from "../../assets/logo/CatLogoGold.svg";
 
 function TopBlock() {
   return (
-    <div className="bg-Ndark text-white py-20 px-6 md:px-20 flex flex-col md:flex-row items-center justify-between gap-12">
+    <div className="bg-Ndark text-white py-12 px-6 md:px-20 flex flex-col md:flex-row items-center justify-between gap-12">
       <div className="w-full md:w-1/2 relative group">
         <img
           src={textileMain}
@@ -15,9 +16,13 @@ function TopBlock() {
       </div>
 
       <div className="w-full md:w-1/2 text-center md:text-left space-y-6">
-        <h1 className="text-3xl font-extrabold leading-tight tracking-tight">
-          Оновіть свій гардероб вже сьогодні
-        </h1>
+        <div className="flex md:flex-row   gap-4">
+          <h1 className="text-2xl font-extrabold leading-tight tracking-tight">
+            Оновіть свій гардероб вже сьогодні
+          </h1>
+          
+        </div>
+
         <p className="text-lg md:text-xl text-white/80 leading-relaxed">
           Відкрийте для себе преміальне текстильне обслуговування разом з{" "}
           <span className="font-semibold text-Ngold">Prano</span>. Ми пропонуємо

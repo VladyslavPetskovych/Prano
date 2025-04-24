@@ -36,7 +36,7 @@ function AdvertManagement() {
 
     try {
       await axios.post(API_URL, formData, {
-        headers: { Authorization: `Bearer ${accessToken}` },
+        headers: { Authorization: `${accessToken}` },
       });
       fetchAdverts();
       setNewAdvert({ title: "", description: "", image: null });
@@ -124,7 +124,7 @@ function AdvertManagement() {
           >
             <div className="flex flex-col w-full md:w-2/3">
               <h3 className="font-bold text-lg">{advert.title}</h3>
-              <p className="text-gray-700">{advert.description}</p>
+              <p className="text-gray-700 ">{advert.description}</p>
               <img
                 src={`https://prano.group/api/advertisementImages/${advert.image}`}
                 alt={advert.title}

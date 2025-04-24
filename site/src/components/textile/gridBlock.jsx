@@ -5,6 +5,7 @@ import grid3 from "../../assets/textile/grid3.jpg";
 import grid4 from "../../assets/textile/grid4.jpg";
 import grid5 from "../../assets/textile/grid5.jpeg";
 import grid6 from "../../assets/textile/grid6.jpeg";
+import log from "../../assets/logo/CatLogoDark.svg";
 
 const GridBlock = () => {
   const cards = [
@@ -54,12 +55,16 @@ const GridBlock = () => {
 
   return (
     <div className="py-16 px-6 md:px-16 bg-Nblue text-white">
-      <h2
-        className="text-4xl font-bold text-center mb-16 tracking-tight text-white drop-shadow-md"
-        style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.7)" }}
-      >
-        Наші послуги по догляду за текстилем
-      </h2>
+      <div className="flex flex-row items-center justify-center mb-8">
+        <h2
+          className="text-xl md:text-3xl font-bold text-center  tracking-tight text-white drop-shadow-md"
+          style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.7)" }}
+        >
+          Наші послуги по догляду за текстилем
+        </h2>
+        <img src={log} alt="" className="w-32 mx-9" />
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
         {cards.map((card) => (
           <div
