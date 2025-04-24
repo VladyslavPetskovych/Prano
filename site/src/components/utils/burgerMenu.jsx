@@ -15,7 +15,7 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
     { label: "Ремонт одягу", href: "/services#clothing-repair" },
   ];
   const navItems = [
-    { label: "Ціни", route: "/pricing" },
+    { label: "Ціни", route: "/price" },
     { label: "Контакти", route: "/contacts" },
     { label: "Блог", route: "/blog" },
   ];
