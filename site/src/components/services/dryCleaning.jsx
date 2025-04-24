@@ -4,14 +4,16 @@ import twoPeople from "../../assets/videos/twoPeople.mp4";
 
 function DryCleaning() {
   return (
-    <section className="py-6 mx-6 rounded-md bg-gray-50  shadow-xl">
-      {/* Video + Content in same row for md and up */}
-      <h2 className="text-4xl mx-auto font-extrabold text-gray-800 tracking-wide text-center mb-5">
+    <section className="py-12 px-6 mx-6 md:px-12 rounded-2xl bg-gray-50 shadow-xl">
+      {/* Section Heading */}
+      <h2 className="text-4xl md:text-5xl mx-auto font-extrabold text-gray-800 tracking-wide text-center mb-12">
         Хімчистка
       </h2>
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-1 mb-8 font-condensed ">
+
+      {/* Video + Content */}
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 mb-16">
         {/* Video */}
-        <div className="w-full md:w-1/2 overflow-hidden rounded-xl  shadow-xl">
+        <div className="w-full md:w-1/2 overflow-hidden rounded-2xl shadow-xl">
           <video
             src={twoPeople}
             autoPlay
@@ -23,14 +25,14 @@ function DryCleaning() {
         </div>
 
         {/* Content */}
-        <div className="w-full md:w-1/2 bg-white rounded-3xl overflow-hidden flex flex-col justify-center p-8 space-y-6">
-          <p className="text-lg md:text-2xl text-gray-600 leading-relaxed">
+        <div className="w-full md:w-1/2 bg-white rounded-3xl flex flex-col justify-center p-8 md:p-10 space-y-8 shadow-lg">
+          <p className="text-lg md:text-2xl text-gray-700 leading-relaxed">
             Професійна хімчистка – це безпечний та ефективний спосіб видалення
             складних забруднень без пошкодження тканин. Ми використовуємо
             сучасні технології та екологічно чисті засоби для досягнення
             ідеального результату.
           </p>
-          <ul className="space-y-4 text-gray-700 text-lg">
+          <ul className="space-y-5 text-gray-800 text-lg">
             {[
               "Делікатне очищення дорогих тканин",
               "Видалення плям без пошкодження матеріалу",
@@ -56,15 +58,15 @@ function DryCleaning() {
         </div>
       </div>
 
-      {/* Image below */}
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-6 p-6">
+      {/* Image + Text */}
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8">
         {/* Text */}
         <div className="w-full md:w-1/2">
-          <p className="text-lg text-gray-600 leading-relaxed md:text-2xl font-condensed ">
+          <p className="text-lg md:text-2xl text-gray-700 leading-relaxed">
             Ми беремо на себе відповідальність за чистоту Ваших речей. Беремося
             навіть за найскладніші плями, і будемо тримати Вас в курсі кожної
-            процедури. При складних забрудненнях, ми зателефонуємо до Вас
-            узгодити, які речовини будуть використанні, і які можливі наслідки
+            процедури. При складних забрудненнях ми зателефонуємо до Вас
+            узгодити, які речовини будуть використані, і які можливі наслідки
             залишаться на одязі.
           </p>
         </div>
@@ -74,7 +76,7 @@ function DryCleaning() {
           <img
             src={dryCleaningg}
             alt="Dry cleaning process"
-            className="w-full max-h-96 rounded-xl object-cover shadow-lg hover:scale-105 transition-transform duration-300"
+            className="w-full max-h-[450px] rounded-2xl object-cover shadow-xl hover:scale-105 transition-transform duration-300"
           />
         </div>
       </div>

@@ -3,6 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import fur from "../../assets/home/fur.webp";
 import textile from "../../assets/home/textile.jpg";
+import { Link } from "react-router-dom";
 
 function CareArtBlock() {
   useEffect(() => {
@@ -13,7 +14,7 @@ function CareArtBlock() {
     <div className="text-white py-4 px-5 overflow-hidden">
       <div className="flex justify-center">
         <h2
-          className="text-xl  md:text-3xl font-bold mt-2 p-3 font-roboto text-center bg-white text-Ndark relative inline-block after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue mb-7"
+          className="text-xl  md:text-3xl font-bold mt-2 p-3 md:px-24 font-roboto text-center bg-white text-Ndark relative inline-block after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue mb-7"
           data-aos="fade-up"
         >
           МИСТЕЦТВО ДОГЛЯДУ ЗА РЕЧАМИ
@@ -37,12 +38,13 @@ function CareArtBlock() {
             >
               ДОГЛЯД ЗА ТЕКСТИЛЬНИМ ОДЯГОМ
             </h3>
-            <button
+            <Link
+              to="/textile"
               className="mt-4 border border-white px-6 py-2 text-lg font-medium hover:bg-white hover:text-black transition duration-300"
               data-aos="fade-up"
             >
               ДІЗНАТИСЯ БІЛЬШЕ
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -62,12 +64,13 @@ function CareArtBlock() {
             >
               ЧИСТКА РЕЧЕЙ ЗІ ШКІРИ І ХУТРА
             </h3>
-            <button
+            <Link
+              to="/fur"
               className="mt-4 border border-white px-6 py-2 text-lg font-medium hover:bg-white hover:text-black transition duration-300"
               data-aos="fade-up"
             >
               ДІЗНАТИСЯ БІЛЬШЕ
-            </button>
+            </Link>
           </div>
         </div>
       </div>

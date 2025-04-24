@@ -1,6 +1,7 @@
 import React from "react";
 import dryCleaningPhoto from "../../assets/home/drycleaning.jpg";
 import laundryPhoto from "../../assets/home/laundryy.jpg";
+import { Link } from "react-router-dom";
 
 function dryCleaning() {
   return (
@@ -22,12 +23,13 @@ function dryCleaning() {
             >
               ХІМЧИСТКА
             </h3>
-            <button
-              className="mt-4 border border-white px-6 py-2 text-lg font-medium hover:bg-white hover:text-black transition duration-300"
+            <Link
+              to="/services#cleaning"
+              className="mt-4 border border-white px-6 py-2 text-lg font-medium text-white uppercase hover:bg-white hover:text-black transition duration-300"
               data-aos="fade-up"
             >
               ДІЗНАТИСЯ БІЛЬШЕ
-            </button>
+            </Link>
           </div>
         </div>
         <div
@@ -46,12 +48,13 @@ function dryCleaning() {
             >
               ПРАННЯ
             </h3>
-            <button
+            <Link
+             to="/services#laundry"
               className="mt-4 border border-white px-6 py-2 text-lg font-medium hover:bg-white hover:text-black transition duration-300"
               data-aos="fade-up"
             >
               ДІЗНАТИСЯ БІЛЬШЕ
-            </button>
+            </Link> 
           </div>
         </div>
       </div>

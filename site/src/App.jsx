@@ -8,7 +8,8 @@ import Footer from "./components/utils/footer.jsx";
 import Home from "./pages/home.jsx";
 import Services from "./pages/services.jsx";
 import Blog from "./pages/blogList.jsx";
-
+import Textile from "./pages/textile.jsx";
+import Fur from "./pages/fur.jsx"
 import BlogDetails from "./pages/blogDetails.jsx";
 
 import Price from "./pages/price.jsx";
@@ -19,6 +20,7 @@ import Register from "./pages/register.jsx";
 import ActivateAccount from "./components/utils/ActivateAccount.jsx";
 import PrivateRoute from "./components/adminpanel/privateRoute.jsx";
 import AdminPanel from "./pages/adminpanel.jsx";
+import ScrollToTop from "./components/utils/scrollToTop.jsx";
 
 import { Provider } from "react-redux";
 import store from "./redux";
@@ -29,7 +31,7 @@ import LandingPage from "./pages/LandingPage.jsx";
 const App = () => {
   const [loading, setLoading] = useState(true);
   // кнопка для переключення тимчасової сторінки  ТРЕБА ЗАМІНИТИ ЗНАЧЕННЯ БУЛЬКИ
-  const isMaintenanceMode = true;
+  const isMaintenanceMode = false;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -50,6 +52,7 @@ const App = () => {
           <LandingPage />
         ) : (
           <>
+            <ScrollToTop />
             <UpperHeader />
             <Header />
             <Routes>
@@ -67,6 +70,8 @@ const App = () => {
                 path="/admin"
                 element={<PrivateRoute element={AdminPanel} />}
               />
+              <Route path="/textile" element={<Textile />} />
+              <Route path="/fur" element={<Fur />} />
             </Routes>
             <Footer />
           </>

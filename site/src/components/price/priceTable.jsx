@@ -21,9 +21,9 @@ function PriceTable() {
 
   return (
     <div className="p-4 sm:p-8 font-sans bg-gray-50">
-      <h1 className="text-center text-2xl sm:text-3xl font-extrabold text-gray-800 mb-6 sm:mb-8">
-        Ціни на прання і хімчистку
-      </h1>
+      <h2 className="text-3xl w-full mx-auto  sm:text-4xl font-bold font-roboto text-center  text-Ndark relative inline-block after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue mb-7">
+        Ціни на прання і хімчистку:
+      </h2>
 
       {/* Loader and error messages */}
       {loading ? (

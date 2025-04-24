@@ -56,9 +56,10 @@ const OrderForm = ({ user }) => {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg w-full lg:w-[40%]">
-      <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
+      <h2 className="md:text-3xl text-xl font-bold font-roboto text-Ndark text-center mb-8 relative after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue">
         Оформлення замовлення
-      </h3>
+      </h2>
+
       <form className="space-y-4" onSubmit={handleSubmit}>
         <input
           type="text"

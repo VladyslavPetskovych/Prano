@@ -26,7 +26,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <button
         onClick={handlePrev}
         disabled={currentPage <= 1}
-        className="px-3 py-2 text-sm font-medium bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
+        className="px-3 py-2 text-sm font-medium bg-Nblue text-white rounded hover:bg-blue-600 disabled:opacity-50"
       >
         назад
       </button>
@@ -38,7 +38,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <button
         onClick={handleNext}
         disabled={currentPage >= totalPages}
-        className="px-3 py-2 text-sm font-medium bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
+        className="px-3 py-2 text-sm font-medium bg-Nblue text-white rounded hover:bg-blue-600 disabled:opacity-50"
       >
         Вперед
       </button>
