@@ -1,6 +1,6 @@
 const {ApiError} = require("../errors");
-const {tokenService} = require("../services");
-const {Token, Action} = require("../models");
+const {tokenService, telegramService} = require("../services");
+const {Token, Action, TelegramUser} = require("../models");
 const {TokenEnum: {ETokenType}} = require("../enums");
 
 class AuthMiddleware {
@@ -74,6 +74,27 @@ class AuthMiddleware {
             } catch (e) {
                 next(e)
             }
+        }
+    }
+
+    async checkChatId(req, res, next) {
+        try {
+            const chatId = req.get("Authorization");
+
+            if (!chatId) {
+                throw new ApiError("No chat id", 401)
+            }
+
+            const entity = await TelegramUser.findOne({chatId: chatId});
+            if (!entity) {
+                throw new ApiError("Chat id not valid", 401)
+            }
+
+            res.locals.userId = entity._userId
+
+            next()
+        } catch (e) {
+            next(e)
         }
     }
 }

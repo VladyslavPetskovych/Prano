@@ -4,5 +4,6 @@ module.exports = {
     orderController: require("./order.controller"),
     postController: require("./post.controller"),
     productController: require("./product.controller"),
+    telegramController: require("./telegram.controller"),
     userController: require("./user.controller"),
 }
