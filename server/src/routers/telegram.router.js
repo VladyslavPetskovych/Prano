@@ -13,9 +13,14 @@ router.post(
     telegramController.login
 )
 router.get(
+    "/user",
+    authMiddleware.checkChatId,
+    telegramController.findUser
+)
+router.get(
     "/orders",
     authMiddleware.checkChatId,
-    telegramController.findOrdersByChatId
+    telegramController.findOrders
 )
 
 module.exports = router
