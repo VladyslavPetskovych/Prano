@@ -1,6 +1,6 @@
 const {ApiError} = require("../errors");
 const {UserEnum: {EUserStatus}} = require("../enums");
-const {TelegramUser} = require("../models");
+const {TelegramUser, User} = require("../models");
 
 class TelegramService {
     async login(credentials, user) {
@@ -15,6 +15,8 @@ class TelegramService {
             } else {
                 await TelegramUser.create({chatId: credentials.chatId, _userId: user.id})
             }
+
+            return await User.findById(user._id)
         } catch (e) {
             throw new ApiError(e.message, e.status)
         }
