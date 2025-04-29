@@ -1,19 +1,24 @@
 const bot = require("../bot");
+const redisClient = require("../redis");
 
-module.exports = function start(msg) {
+module.exports = async function start(msg) {
+  console.log("/start command");
 
-  console.log("/start command")
+  const chatId = msg.chat.id.toString();
 
-  const chatId = msg.chat.id;
+  const phone = await redisClient.get(chatId);
 
   const message =
     "Привіт, це бот для перевірки інформації про Ваші замовлення у компанії Prano.\n" +
     "Широкий спектр послуг. Детальніше на сайті: https://prano.group\n\n" +
     "Є запитання? [Чат з менеджером](https://t.me/Royalreservation) ✍️👩‍💼";
 
+  const keyboardButtons = [["👤 Профіль", "💰 Ціни", "🧾 Замовлення"]];
+  if (phone) keyboardButtons.push(["🚪 Вийти"]);
+
   const keyboard = {
     reply_markup: {
-      keyboard: [["👤 Профіль", "💰 Ціни", "🧾 Замовлення"]],
+      keyboard: keyboardButtons,
       resize_keyboard: true,
       one_time_keyboard: false,
     },
