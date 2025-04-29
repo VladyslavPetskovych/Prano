@@ -1,67 +1,42 @@
 import React from "react";
 import shoeCleaning from "../../assets/service/shoes.jpg";
 
+const features = [
+  "Видалення плям та забруднень",
+  "Реставрація кольору та матеріалу",
+  "Професійний догляд",
+];
+
 function ShoeCleaningRepair() {
   return (
     <section className="my-6 py-6 mx-6 rounded-2xl bg-gray-50  shadow-xl">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-1 bg-white rounded-3xl  overflow-hidden">
         <div className="p-8 flex flex-col justify-center text-center md:text-left space-y-6">
           <h2 className="text-4xl font-extrabold text-gray-800 tracking-wide">
-            Чистка взуття
+            Хімчистка та реставрація взуття
           </h2>
           <p className="text-lg text-gray-600 leading-relaxed">
-            Ми пропонуємо професійну чистку та ремонт взуття, щоб повернути йому
-            первозданний вигляд і продовжити термін служби. Використовуємо
-            тільки якісні та безпечні засоби.
+            Відновлюємо колір, текстуру, внутрішню частину та зовнішній вигляд.
+            Взуття повертається доглянутим, чистим та підготовленим до носіння.
           </p>
-          <ul className="space-y-2 text-gray-700 text-lg">
-            <li className="flex items-start gap-4">
-              <svg
-                className="w-6 h-6 mt-1 text-blue-600 flex-shrink-0"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0 2a10 10 0 1 1 0-20 10 10 0 0 1 0 20z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <span className="text-left">Видалення плям та забруднень</span>
-            </li>
-            <li className="flex items-start gap-4">
-              <svg
-                className="w-6 h-6 mt-1 text-blue-600 flex-shrink-0"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0 2a10 10 0 1 1 0-20 10 10 0 0 1 0 20z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <span className="text-left">
-                Реставрація кольору та матеріалу
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <svg
-                className="w-6 h-6 mt-1 text-blue-600 flex-shrink-0"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0 2a10 10 0 1 1 0-20 10 10 0 0 1 0 20z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <span className="text-left">Професійний догляд</span>
-            </li>
+          <ul className=" text-gray-700  text-lg flex flex-col items-start justify-center ">
+            {features.map((feature, index) => (
+              <li key={index} className="flex items-start ">
+                <svg
+                  className="w-3 h-3 mt-2 mx-3 text-Ndark flex-shrink-0"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0 2a10 10 0 1 1 0-20 10 10 0 0 1 0 20z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                <span className="text-left">{feature}</span>
+              </li>
+            ))}
           </ul>
         </div>
 
