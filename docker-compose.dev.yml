@@ -73,8 +73,34 @@ services:
       - web
     restart: unless-stopped
 
+  redis:
+    image: redis:8.0-rc1-alpine
+    volumes:
+      - redis_data:/data
+    networks:
+      - prano-app
+    restart: unless-stopped
+
+  tgbot:
+    build:
+      context: ./telegramBot
+    environment:
+      - token = ${TG_BOT_TOKEN}
+      - REDIS_URL = ${REDIS_URL}
+    volumes:
+      - ./telegramBot:/app
+      - /app/node_modules
+    networks:
+      - prano-app
+    depends_on:
+      - api
+      - redis
+    restart: unless-stopped
+
 volumes: # /var/lib/docker
   mongo_data:
+
+  redis_data:
 networks:
   prano-app:
     driver: bridge
