@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Dropdown from "./dropdown";
 import { BurgerMenu } from "./burgerMenu";
 import { useSelector } from "react-redux";
-import logo from "../../assets/logo/svgTextCatGold.svg";
+import logo from "../../assets/logo/prano_logo_no_bg.png";
 
 function Header() {
   const [opened, setOpened] = useState(false);

@@ -10,8 +10,8 @@ export default function ActivateAccount() {
 
   useEffect(() => {
     if (!token) {
-      console.error("No token found in URL.");
-      setMessage("Invalid activation link.");
+      console.error("У URL відсутній токен.");
+      setMessage("Недійсне посилання для активації.");
       setLoading(false);
       return;
     }
@@ -19,7 +19,7 @@ export default function ActivateAccount() {
     const activateAccount = async () => {
       try {
         console.log(
-          "Sending request to:",
+          "Надсилання запиту до:",
           `https://prano.group/api/auth/register/${token}`
         );
 
@@ -27,18 +27,18 @@ export default function ActivateAccount() {
           `https://prano.group/api/auth/register/${token}`
         );
 
-        console.log("API Response:", response.data);
-        setMessage(response.data.message || "Account activated successfully!");
+        console.log("Відповідь API:", response.data);
+        setMessage(response.data.message || "Акаунт успішно активовано!");
 
         setTimeout(() => navigate("/login"), 3000);
       } catch (error) {
         console.error(
-          "Activation error:",
+          "Помилка активації:",
           error.response?.data || error.message
         );
         setMessage(
           error.response?.data?.message ||
-            "Activation failed. Please try again."
+            "Не вдалося активувати акаунт. Спробуйте ще раз."
         );
       } finally {
         setLoading(false);
@@ -51,15 +51,13 @@ export default function ActivateAccount() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-        <h2 className="text-2xl font-bold mb-4">Account Activation</h2>
+        <h2 className="text-2xl font-bold mb-4">Активація акаунта</h2>
         {loading ? (
-          <p className="text-blue-500">Activating your account...</p>
+          <p className="text-blue-500">Активація акаунта...</p>
         ) : (
           <p
             className={`text-lg ${
-              message.includes("successfully")
-                ? "text-green-500"
-                : "text-red-500"
+              message.includes("успішно") ? "text-green-500" : "text-red-500"
             }`}
           >
             {message}
