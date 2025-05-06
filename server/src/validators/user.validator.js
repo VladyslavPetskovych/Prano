@@ -8,6 +8,7 @@ class UserValidator {
     static email = Joi.string().email({minDomainSegments: 2, tlds: {allow: false}}).trim();
     static phone = Joi.string().regex(regexConstants.PHONE).trim()
     static password = Joi.string().regex(regexConstants.PASSWORD).trim();
+    static chatId = Joi.string()
 
     static create = Joi.object({
         name: this.name.required(),
@@ -41,6 +42,11 @@ class UserValidator {
 
     static reactivate = Joi.object({
         email: this.email.required(),
+    });
+
+    static telegramLogin = Joi.object({
+        chatId: this.chatId.required(),
+        phone: this.phone.required(),
     });
 }
 

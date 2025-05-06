@@ -8,6 +8,7 @@ module.exports = {
     passwordService: require("./password.service"),
     postService: require("./post.service"),
     productService: require("./product.service"),
+    telegramService: require("./telegram.service"),
     tokenService: require("./token.service"),
     userService: require("./user.service"),
 }
