@@ -1,18 +1,17 @@
+// auth.js
 const bot = require("../bot");
 const redisClient = require("../redis");
 const axios = require("axios");
 
 module.exports = async function auth(msg) {
-  const chatId = msg.chat.id.toString(); // 🛠 Виправлено: .toString()
+  const chatId = msg.chat.id.toString();
 
-  // Перевірка, чи вже є номер телефону в Redis
   const phone = await redisClient.get(chatId);
   if (phone) {
     bot.sendMessage(chatId, "Ви вже авторизовані.");
     return;
   }
 
-  // Кнопка для надання номера
   const keyboard = {
     reply_markup: {
       keyboard: [
@@ -24,7 +23,7 @@ module.exports = async function auth(msg) {
         ],
       ],
       resize_keyboard: true,
-      one_time_keyboard: true,
+      one_time_keyboard: false,
     },
   };
 
@@ -37,7 +36,7 @@ module.exports = async function auth(msg) {
 
 // Обробка контакту користувача
 bot.on("contact", async (msg) => {
-  const chatId = msg.chat.id.toString(); // 🛠 Завжди перетворюй на рядок
+  const chatId = msg.chat.id.toString();
   const phone = msg.contact.phone_number.startsWith("+")
     ? msg.contact.phone_number
     : "+" + msg.contact.phone_number;
@@ -54,7 +53,7 @@ bot.on("contact", async (msg) => {
     console.log("API response:", response.data);
 
     if (response.status === 200) {
-      await redisClient.set(chatId, phone); // 🛠 ключ як string
+      await redisClient.set(chatId, phone);
 
       const keyboard = {
         reply_markup: {
@@ -72,7 +71,18 @@ bot.on("contact", async (msg) => {
       );
     }
   } catch (error) {
-    console.error("❌ Помилка авторизації:", error.message);
-    bot.sendMessage(chatId, "⚠️ Помилка авторизації. Спробуйте пізніше.");
+    if (error.response && error.response.status === 404) {
+      bot.sendMessage(
+        chatId,
+        "⚠️ Вас не знайдено в системі.\n\nБудь ласка, спершу зареєструйтесь на сайті: [https://prano.group](https://prano.group)",
+        {
+          parse_mode: "Markdown",
+          disable_web_page_preview: true,
+        }
+      );
+    } else {
+      console.error("❌ Помилка авторизації:", error.message);
+      bot.sendMessage(chatId, "⚠️ Помилка авторизації. Спробуйте пізніше.");
+    }
   }
 });

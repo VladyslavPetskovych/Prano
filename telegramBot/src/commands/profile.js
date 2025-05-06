@@ -8,21 +8,17 @@ module.exports = async function profile(msg) {
 
   const phone = await redisClient.get(chatId);
 
-  // Якщо користувач не авторизований
   if (!phone) {
-    auth(msg); // Запускаємо авторизацію
+    auth(msg);
     return;
   }
 
   try {
-    // Отримуємо дані про користувача з бекенду
-    const response = await axios.post(
-      "https://prano.group/api/telegram/login",
-      {
-        phone,
-        chatId,
-      }
-    );
+    const response = await axios.get("https://prano.group/api/telegram/user", {
+      headers: {
+        Authorization: chatId.toString(), 
+      },
+    });
 
     const userData = response.data;
 
