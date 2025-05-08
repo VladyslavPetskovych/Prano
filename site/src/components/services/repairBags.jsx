@@ -1,23 +1,24 @@
 import React from "react";
-import shoeCleaning from "../../assets/service/shoes.jpg";
+import purse from "../../assets/service/purse.webp";
 
 const features = [
-  "Видалення плям та забруднень",
-  "Реставрація кольору та матеріалу",
-  "Професійний догляд",
+  "Підгонка одягу по фігурі",
+  "Заміна блискавок та ґудзиків",
+  "Реставрація тканин та підшивання",
 ];
 
-function ShoeCleaningRepair() {
+function SewingRepair() {
   return (
-    <section className="my-6 py-9 mx-6 rounded-2xl bg-gray-50  shadow-xl" id="shoes-cleaning">
+    <section className=" my-6 py-9 mx-6 rounded-2xl bg-gray-50  shadow-xl" id="repair-bags">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-1 bg-white rounded-3xl  overflow-hidden">
         <div className="p-8 flex flex-col justify-center text-center md:text-left space-y-6">
           <h2 className="text-4xl font-extrabold text-gray-800 tracking-wide">
-            Хімчистка та реставрація взуття
+            Реставрація сумок та аксесуарів
           </h2>
           <p className="text-lg text-gray-600 leading-relaxed">
-            Відновлюємо колір, текстуру, внутрішню частину та зовнішній вигляд.
-            Взуття повертається доглянутим, чистим та підготовленим до носіння.
+            Повертаємо життя шкіряним та текстильним виробам: гаманцям, сумкам,
+            ременям. Відновлюємо структуру, блиск, фурнітуру, робимо глибоку
+            чистку і догляд.
           </p>
           <ul className=" text-gray-700  text-lg flex flex-col items-start justify-center ">
             {features.map((feature, index) => (
@@ -42,8 +43,8 @@ function ShoeCleaningRepair() {
 
         <div className="relative flex justify-center items-center px-6 pb-6 md:p-6">
           <img
-            src={shoeCleaning}
-            alt="Shoe cleaning process"
+            src={purse}
+            alt="Sewing and repair process"
             className="w-full max-h-96 rounded-xl object-cover shadow-lg hover:scale-105 transition-transform duration-300"
           />
         </div>
@@ -52,4 +53,4 @@ function ShoeCleaningRepair() {
   );
 }
 
-export default ShoeCleaningRepair;
+export default SewingRepair;
