@@ -13,6 +13,7 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
     { label: "Чистка взуття", href: "/services#shoes-cleaning" },
     { label: "Ремонт взуття", href: "/services#shoes-repair" },
     { label: "Ремонт одягу", href: "/services#clothing-repair" },
+    { label: "Реставрація сумок", href: "/services#repair-bags" },
   ];
   const navItems = [
     { label: "Ціни", route: "/price" },
