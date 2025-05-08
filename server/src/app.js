@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
 
-const {authRouter, userRouter, postRouter, productRouter, orderRouter, advertisementRouter} = require("./routers");
+const {authRouter, userRouter, postRouter, productRouter, orderRouter, advertisementRouter, telegramRouter} = require("./routers");
 const {configs} = require("./configs");
 const {cronRunner} = require("./crons");
 
@@ -23,6 +23,7 @@ app.use("/auth", authRouter)
 app.use("/orders", orderRouter)
 app.use("/posts", postRouter)
 app.use("/products", productRouter)
+app.use("/telegram", telegramRouter)
 app.use("/users", userRouter)
 app.use((err, req, res, next) => {
     const status = err.status || 500;
