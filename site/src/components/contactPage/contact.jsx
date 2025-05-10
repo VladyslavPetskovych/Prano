@@ -25,7 +25,7 @@ const Contacts = ({ backgroundClass }) => {
     <div className={`min-h-screen ${backgroundClass} text-white `}>
       <div className="max-w-6xl mx-auto flex justify-center flex-col w-full px-6 pt-20">
         <h2 className="text-3xl  sm:text-4xl font-bold text-center  text-Ngold relative inline-block after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue mb-7">
-          Наші відділення
+          Наші пункти прийому
         </h2>
 
         <div className="grid md:grid-cols-3 gap-6 text-gray-300 px-10">
@@ -38,7 +38,7 @@ const Contacts = ({ backgroundClass }) => {
                 console.log("Selected map URL:", location.mapUrl);
               }}
             >
-              <h3 className="text-xl font-semibold text-white">Відділення</h3>
+              <h3 className="text-xl font-semibold text-white">Пункт прийому</h3>
               <p className="mt-2">{location.name}</p>
             </div>
           ))}

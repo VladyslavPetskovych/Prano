@@ -6,6 +6,7 @@ import Shoe from "../components/services/shoeCleaning";
 import SewingRepair from "../components/services/repairClothes";
 import ShoeRepair from "../components/services/shoeRepair";
 import TopPart from "../components/services/topPart";
+import RepairBag from "../components/services/repairBags";
 
 function Services() {
   const { hash } = useLocation();
@@ -25,24 +26,28 @@ function Services() {
     <div className="bg-gradient-to-t from-Ngold via-Nblue to-Nblue pb-5">
       <TopPart />
 
-      <section id="cleaning">
+      <section >
         <DryCleaning />
       </section>
 
-      <section id="laundry">
+      <section >
         <Laundry />
       </section>
 
-      <section id="shoes-cleaning">
+      <section >
         <Shoe />
       </section>
 
-      <section id="shoes-repair">
+      <section >
         <ShoeRepair />
       </section>
 
-      <section id="clothing-repair">
+      <section >
         <SewingRepair />
+      </section>
+
+      <section >
+        <RepairBag />
       </section>
     </div>
   );

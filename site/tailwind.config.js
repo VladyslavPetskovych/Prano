@@ -21,10 +21,12 @@ export default {
         playfair: ["'Playfair Display'", "serif"],
         roboto: ["Roboto Slab", "sans-serif"],
         condensed: ['"Roboto Condensed"', "sans-serif"],
+        tinos: ["Tinos", "serif"],
+        manrope: ["Manrope", "sans-serif"],
       },
       animation: {
         marquee: "marquee 30s linear infinite",
-        fadeIn: 'fadeIn 1s ease-out forwards',
+        fadeIn: "fadeIn 1s ease-out forwards",
       },
       keyframes: {
         marquee: {

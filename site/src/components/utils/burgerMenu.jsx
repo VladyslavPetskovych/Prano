@@ -13,6 +13,7 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
     { label: "Чистка взуття", href: "/services#shoes-cleaning" },
     { label: "Ремонт взуття", href: "/services#shoes-repair" },
     { label: "Ремонт одягу", href: "/services#clothing-repair" },
+    { label: "Реставрація сумок", href: "/services#repair-bags" },
   ];
   const navItems = [
     { label: "Ціни", route: "/price" },
@@ -22,7 +23,6 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
 
   return (
     <div>
-      {/* Burger Icon */}
       <div
         className={classNames(`tham tham-e-squeeze !text-white tham-w-8`, {
           "tham-active": opened,
@@ -34,9 +34,8 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {opened && (
-        <div className="absolute h-screen mt-5 right-0 w-full bg-black text-white py-6 space-y-3 flex flex-col items-start pl-16">
+        <div className="absolute h-screen   mt-5 right-0 w-full bg-black text-white py-6 space-y-3 flex flex-col items-start pl-16">
           <Link
             to="/"
             className="text-2xl hover:opacity-80 transition ease-in-out duration-200"
@@ -45,10 +44,9 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
             Про нас
           </Link>
 
-          {/* Services Dropdown */}
           <button
             onClick={() => setServicesOpen(!servicesOpen)}
-            className={`text-2xl flex items-center transition ease-in-out duration-200  ${
+            className={`text-2xl -ml-5 flex items-center transition ease-in-out duration-200  ${
               servicesOpen ? "" : ""
             }`}
           >
@@ -69,14 +67,14 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
             </span>
           </button>
 
-          {/* Dropdown items */}
+ 
           {servicesOpen && (
             <div className="w-full flex flex-col items-start space-y-1 mt-2 pl-4">
               {services.map((service, index) => (
                 <Link
                   key={index}
                   to={service.href}
-                  className="text-lg text-gray-200  transition duration-200"
+                  className="text-lg py-1 text-gray-200  transition duration-200"
                   onClick={toggleOpened}
                 >
                   ○ {service.label}
@@ -85,7 +83,6 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
             </div>
           )}
 
-          {/* Other Links */}
           {navItems.map(({ label, route }, index) => (
             <Link
               key={index}
@@ -97,7 +94,6 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
             </Link>
           ))}
 
-          {/* Profile Link */}
           <Link
             to={isAuth ? "/account" : "/login"}
             className="text-2xl hover:opacity-80 transition ease-in-out duration-200"

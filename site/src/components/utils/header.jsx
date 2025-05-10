@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Dropdown from "./dropdown";
 import { BurgerMenu } from "./burgerMenu";
 import { useSelector } from "react-redux";
-import logo from "../../assets/logo/svgTextCatGold.svg";
+import logo from "../../assets/logo/prano_logo_no_bg.png";
 
 function Header() {
   const [opened, setOpened] = useState(false);
@@ -16,8 +16,10 @@ function Header() {
   const servicesOptions = [
     { label: "Хімчистка", href: "/services#cleaning" },
     { label: "Пральня", href: "/services#laundry" },
-    { label: "Чистка і реставрація взуття", href: "/services#shoes-cleaning" },
+    { label: "Чистка взуття", href: "/services#shoes-cleaning" },
     { label: "Ремонт взуття", href: "/services#shoes-repair" },
+    { label: "Ремонт одягу", href: "/services#clothing-repair" },
+    { label: "Реставрація сумок", href: "/services#repair-bags" },
   ];
 
   return (
@@ -26,9 +28,10 @@ function Header() {
         opened ? "bg-Ndark" : "bg-Ndark"
       }`}
     >
-      <Link to="/">
-        <img src={logo} alt="logo" className="h-12" />
+      <Link to="/" onClick={() => setOpened(false)}>
+        <img src={logo} alt="logo" className="h-12 pt-1" />
       </Link>
+
       <div className="hidden md:flex items-center space-x-5 text-xl">
         <Link to="/" className={buttonStyle}>
           Про нас
