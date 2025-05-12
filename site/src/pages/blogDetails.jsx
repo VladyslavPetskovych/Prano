@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 
 const formatDate = (dateString) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -32,7 +33,27 @@ const BlogDetails = () => {
 
   return (
     <div className="bg-Ngold w-full py-32 px-4">
-      <div className="max-w-3xl mx-auto p-6   bg-white shadow-lg rounded-lg border">
+      {/* SEO dynamic data */}
+      <Helmet>
+        <title>{blog.title} | Prano Group</title>
+        <meta name="description" content={blog.description?.slice(0, 150)} />
+        <meta property="og:title" content={blog.title} />
+        <meta
+          property="og:description"
+          content={blog.description?.slice(0, 150)}
+        />
+        <meta
+          property="og:image"
+          content={`https://prano.group/api/postImages/${blog.images?.[0]}`}
+        />
+        <meta property="og:type" content="article" />
+        <meta
+          property="og:url"
+          content={`https://prano.group/blog/${blog._id}`}
+        />
+      </Helmet>
+
+      <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg border">
         <img
           src={`https://prano.group/api/postImages/${blog.images?.[0]}`}
           alt={blog.title}

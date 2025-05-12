@@ -18,7 +18,7 @@ function TopBlock() {
       <div className="w-full md:w-1/2 text-center md:text-left space-y-6">
         <div className="flex md:flex-row   gap-4">
           <h1 className="text-2xl font-extrabold leading-tight tracking-tight">
-            Оновіть свій гардероб вже сьогодні
+            Потурбуйтесь про свій гардероб вже сьогодні
           </h1>
           
         </div>
@@ -26,7 +26,7 @@ function TopBlock() {
         <p className="text-lg md:text-xl text-white/80 leading-relaxed">
           Відкрийте для себе преміальне текстильне обслуговування разом з{" "}
           <span className="font-semibold text-Ngold">Prano</span>. Ми пропонуємо
-          професійні послуги з догляду, ремонту та зберігання текстильних
+          професійні послуги з догляду та ремонту текстильних
           виробів — з любов’ю до якості та деталей.
         </p>
 
