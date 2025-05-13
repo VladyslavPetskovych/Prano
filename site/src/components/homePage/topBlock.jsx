@@ -37,6 +37,9 @@ const TopBlock = () => {
         <a
           href="#services"
           className="mt-6 inline-block font-bold bg-Ngold text-white text-lg  py-3 px-8 rounded-lg shadow-lg hover:bg-[#c4a75c] transition duration-300"
+        style={{
+          textShadow: "4px 4px 4px rgba(0, 0, 0, 0.5)",
+        }}
         >
           Замовити послугу
         </a>

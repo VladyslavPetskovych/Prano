@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import SearchInput from "./searchInput";
 
 function PriceTable() {
   const [products, setProducts] = useState([]);
@@ -10,7 +11,7 @@ function PriceTable() {
     axios
       .get("https://prano.group/api/products")
       .then((response) => {
-        setProducts(response.data.data); // Accessing data from 'data' key
+        setProducts(response.data.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -20,12 +21,9 @@ function PriceTable() {
   }, []);
 
   return (
-    <div className="p-4 sm:p-8 font-sans bg-gray-50">
-      <h2 className="text-3xl w-full mx-auto  sm:text-4xl font-bold font-roboto text-center  text-Ndark relative inline-block after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue mb-7">
-        Ціни на прання і хімчистку:
-      </h2>
+    <div className="px-4 sm:p-6 font-sans bg-gray-50">
+      <SearchInput />
 
-      {/* Loader and error messages */}
       {loading ? (
         <p className="text-center text-gray-600">Завантаження...</p>
       ) : error ? (
@@ -53,7 +51,6 @@ function PriceTable() {
             </tbody>
           </table>
 
-          {/* Card layout for smaller screens */}
           <div className="sm:hidden">
             {products.map((product) => (
               <div
