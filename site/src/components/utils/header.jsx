@@ -15,10 +15,10 @@ function Header() {
 
   const servicesOptions = [
     { label: "Хімчистка", href: "/services#cleaning" },
-    { label: "Пральня", href: "/services#laundry" },
+    { label: "Прання", href: "/services#laundry" },
     { label: "Чистка взуття", href: "/services#shoes-cleaning" },
     { label: "Ремонт взуття", href: "/services#shoes-repair" },
-    { label: "Ремонт одягу", href: "/services#clothing-repair" },
+    { label: "Ремонт одягу", href: "/services#repair-clothes" },
     { label: "Реставрація сумок", href: "/services#repair-bags" },
   ];
 
