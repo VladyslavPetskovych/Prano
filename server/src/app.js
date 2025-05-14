@@ -3,7 +3,16 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
 
-const {authRouter, userRouter, postRouter, productRouter, orderRouter, advertisementRouter, telegramRouter} = require("./routers");
+const {
+    authRouter,
+    userRouter,
+    postRouter,
+    productRouter,
+    orderRouter,
+    advertisementRouter,
+    telegramRouter,
+    merchandiseRouter
+} = require("./routers");
 const {configs} = require("./configs");
 const {cronRunner} = require("./crons");
 
@@ -20,6 +29,7 @@ app.use("/postImages", express.static(path.join(__dirname, "../images/postImages
 
 app.use("/advertisement", advertisementRouter)
 app.use("/auth", authRouter)
+app.use("/merchandise", merchandiseRouter)
 app.use("/orders", orderRouter)
 app.use("/posts", postRouter)
 app.use("/products", productRouter)

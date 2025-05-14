@@ -4,6 +4,7 @@ module.exports = {
     axiosService: require("./axios.service"),
     ccService: require("./cc.service"),
     emailService: require("./email.service"),
+    merchandiseService: require("./merchandise.service"),
     orderService: require("./order.service"),
     passwordService: require("./password.service"),
     postService: require("./post.service"),
