@@ -1,5 +1,5 @@
 # Development stage
-FROM node:20-slim AS development
+FROM node:20-alpine AS development
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ COPY . .
 CMD ["npm", "run", "dev"]
 
 # Production stage
-FROM node:20-slim AS production
+FROM node:20-alpine AS production
 
 WORKDIR /app
 

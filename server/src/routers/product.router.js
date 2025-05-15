@@ -37,14 +37,5 @@ router.delete(
     productMiddleware.isProductExist("productId"),
     productController.deleteById
 )
-router.put(
-    "/:productId/price",
-    authMiddleware.checkAccessToken,
-    userMiddleware.checkUserRights(),
-    commonMiddleware.isIdValid("productId"),
-    productMiddleware.isProductExist("productId"),
-    commonMiddleware.isBodyValid(ProductValidator.changePrice),
-    productController.updateById
-)
 
 module.exports = router
