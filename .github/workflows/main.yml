@@ -3,19 +3,46 @@ on:
     branches:
       - main
   workflow_dispatch:
-  
+
 jobs:
   run_pull:
     name: run pull
     runs-on: ubuntu-22.04
     
     steps:
-    - name: install ssh keys
-      run: |
-        install -m 600 -D /dev/null ~/.ssh/id_rsa
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
-    - name: connect and pull
-      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && docker compose down --remove-orphans && git checkout ${{ secrets.MAIN_BRANCH }} && git pull && docker compose up -d --build && exit"
-    - name: cleanup
-      run: rm -rf ~/.ssh
+      - name: install ssh keys
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts`
+
+      - name: connect and deploy with safe cleanup
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} '
+            cd ${{ secrets.WORK_DIR }} && \
+            echo "🔄 Updating code..." && \
+            docker compose down --remove-orphans && \
+            git checkout ${{ secrets.MAIN_BRANCH }} && git pull && \
+            docker compose up -d --build
+
+            echo "📊 Checking disk usage..."
+            USED=$(df -h / | tail -1 | awk "{print \$5}" | tr -d "%")
+            echo "Disk usage: $USED%"
+
+            if [ "$USED" -ge 80 ]; then
+              echo "⚠️ Disk usage is over 80%. Running cleanup..."
+
+              docker image prune -af
+              docker container prune -f
+              docker builder prune -af
+
+              echo "🧹 Pruning volumes except mongo_data and redis_data..."
+              docker volume ls -qf dangling=true | grep -v -E "^(prano-app_mongo_data|prano-app_redis_data)$" | xargs -r docker volume rm
+
+            else
+              echo "✅ Disk usage under control. No cleanup needed."
+            fi
+          '
+
+      - name: cleanup
+        run: rm -rf ~/.ssh
