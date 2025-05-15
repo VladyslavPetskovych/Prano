@@ -65,12 +65,18 @@ const GridBlock = () => {
       </Helmet>
 
       <div className="flex flex-col md:flex-row items-center justify-center mb-8">
+        <h1
+          className="text-white text-xl md:text-3xl font-extrabold tracking-wide after:content-[''] after:block after:w-32 after:h-1 after:mt-3 after:mx-auto after:bg-Ngold"
+          style={{
+            textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+          }}
+        >
+          НАШІ ПОСЛУГИ ПО ДОГЛЯДУ ЗА ТЕКСТИЛЕМ
+        </h1>
         <h2
           className="text-xl md:text-3xl font-bold text-center  tracking-tight text-white drop-shadow-md"
           style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.7)" }}
-        >
-          Наші послуги по догляду за текстилем
-        </h2>
+        ></h2>
         <img
           src={log}
           alt="Логотип компанії TextileClean"
@@ -82,12 +88,12 @@ const GridBlock = () => {
         {cards.map((card) => (
           <div
             key={card.id}
-            className="flex flex-col items-start group bg-Ndark p-4 rounded-2xl shadow-lg transition-transform hover:-translate-y-1"
+            className="flex flex-col items-start group bg-Ndark p-5 rounded-2xl shadow-lg transition-transform "
           >
             <img
               src={card.img}
               alt={card.header}
-              className="w-full h-72 rounded-xl object-cover mb-6 shadow-md transition-transform duration-300 group-hover:scale-105"
+              className="w-full h-72 rounded-xl object-cover mb-6 shadow-md transition-transform duration-300 hover:scale-105"
             />
             <h3 className="text-2xl font-semibold mb-3 text-white tracking-tight group-hover:text-Ngold transition">
               {card.header}

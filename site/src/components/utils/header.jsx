@@ -24,12 +24,12 @@ function Header() {
 
   return (
     <nav
-      className={`fixed z-50 w-full mt-7 h-16 flex items-center  justify-between px-6 font-playfair transition-all duration-300 ${
+      className={`fixed z-50 w-full mt-7 h-16 flex items-center font-tinos justify-between px-6 transition-all duration-300 ${
         opened ? "bg-Ndark" : "bg-Ndark"
       }`}
     >
       <Link to="/" onClick={() => setOpened(false)}>
-        <img src={logo} alt="logo" className="h-12 pt-1" />
+        <img src={logo} alt="logo" className="h-12 pt-1 object-contain" />
       </Link>
 
       <div className="hidden md:flex items-center space-x-5 text-xl">

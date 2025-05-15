@@ -36,7 +36,7 @@ function OurPartners() {
 
   return (
     <div className="flex flex-col w-full overflow-hidden bg-gray-100 py-10">
-      <h2 className="text-3xl  sm:text-4xl font-bold text-center mb-12 text-gray-800 relative inline-block after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue">
+      <h2 className="text-3xl  sm:text-4xl font-bold font-tinos text-center mb-12 text-gray-800 relative inline-block after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue">
         Наші партнери
       </h2>
 
