@@ -1,5 +1,5 @@
 import React from "react";
-import weasel from "../../assets/logo/laska.jpg";
+import weasel from "../../assets/logo/whiteCat.jpg";
 
 const AboutUs = () => {
   return (

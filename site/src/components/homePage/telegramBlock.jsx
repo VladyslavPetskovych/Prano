@@ -23,7 +23,7 @@ export default function AutomationBlock() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col  items-start justify-center pr-8 text-gray-700">
+      <div className="flex flex-col  items-start justify-center font-manrope pr-8 text-gray-700">
         <a
           href="https://t.me/Prano_Lviv_bot"
           target="_blank"
@@ -36,10 +36,10 @@ export default function AutomationBlock() {
         </a>
       </div>
       <div className="p-3 w-full lg:w-1/2 ">
-        <h2 className="text-Nblue text-center text-2xl md:text-4xl font-bold mb-4">
+        <h2 className="text-Nblue text-center text-2xl md:text-4xl font-bold mb-4 font-tinos">
           ЗРУЧНИЙ ТЕЛЕГРАМ БОТ:
         </h2>
-        <ul className="text-base md:text-lg ">
+        <ul className="text-base md:text-lg font-manrope">
           <li className="flex items-start  text-gray-700 mb-2">
             <FaCheckCircle className="text-Nblue mr-4 w-6 h-6 flex-shrink-0" />
             Перевіряй статус замовлень швидко у Telegram чат-боті

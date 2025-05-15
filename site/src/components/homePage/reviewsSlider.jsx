@@ -94,7 +94,7 @@ function ReviewsSlider() {
   };
 
   return (
-    <div className=" flex flex-col  mt-8 pb-10  bg-white rounded-lg shadow-lg">
+    <div className=" flex flex-col  mt-8 pb-10  bg-white rounded-lg shadow-lg font-tinos">
       <h2 className="text-3xl text-center sm:text-4xl font-bold font-tinos   text-Ndark relative inline-block after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue mb-7">
         Відгуки наших клієнтів
       </h2>

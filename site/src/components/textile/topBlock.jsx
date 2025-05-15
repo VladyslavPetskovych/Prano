@@ -17,21 +17,25 @@ function TopBlock() {
 
       <div className="w-full md:w-1/2 text-center md:text-left space-y-6">
         <div className="flex md:flex-row   gap-4">
-          <h1 className="text-2xl font-extrabold leading-tight tracking-tight">
+          <h1 className="text-2xl md:text-4xl font-extrabold font-tinos leading-tight tracking-tight">
             Потурбуйтесь про свій гардероб вже сьогодні
           </h1>
-          
         </div>
 
         <p className="text-lg md:text-xl text-white/80 leading-relaxed">
           Відкрийте для себе преміальне текстильне обслуговування разом з{" "}
           <span className="font-semibold text-Ngold">Prano</span>. Ми пропонуємо
-          професійні послуги з догляду та ремонту текстильних
-          виробів — з любов’ю до якості та деталей.
+          професійні послуги з догляду та ремонту текстильних виробів — з
+          любов’ю до якості та деталей.
         </p>
 
         <Link to="/price">
-          <button className="mt-4 bg-Ngold text-Ndark font-bold px-8 py-3 rounded-xl shadow-md hover:bg-opacity-80 transition-all duration-300">
+          <button
+            className="mt-6 inline-block font-bold bg-Ngold hover:bg-opacity-90 text-white text-lg py-3 px-8 rounded-lg shadow-lg  transition duration-300"
+            style={{
+              textShadow: "4px 4px 4px rgba(0, 0, 0, 0.5)",
+            }}
+          >
             ДИВИТИСЬ ЦІНИ
           </button>
         </Link>
