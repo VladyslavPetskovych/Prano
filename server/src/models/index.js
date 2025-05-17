@@ -1,6 +1,7 @@
 module.exports = {
     Action: require("./Action.model"),
     Advertisement: require("./Advertisement.model"),
+    Category: require("./Category.model"),
     Merchandise: require("./Merchandise.model"),
     OldPassword: require("./OldPassword.model"),
     Order: require("./Order.model"),

@@ -4,7 +4,7 @@ class MerchandiseValidator {
     static title = Joi.string().min(3).max(45).trim()
     static price = Joi.number().min(1)
     static secondPrice = Joi.number().min(1)
-    static order = Joi.number().min(1)
+    static order = Joi.number().integer().min(1)
 
     static create = Joi.object({
         title: this.title.required(),

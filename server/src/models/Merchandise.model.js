@@ -1,4 +1,5 @@
-const {Schema, model} = require("mongoose");
+const {Schema, model, Types} = require("mongoose");
+const Category = require("./Category.model");
 
 const merchandiseSchema = new Schema(
     {
@@ -17,6 +18,11 @@ const merchandiseSchema = new Schema(
             type: Number,
             required: true,
         },
+        categoryId: {
+            type: Types.ObjectId,
+            required: true,
+            ref: Category,
+        }
     },
     {
         versionKey: false,
