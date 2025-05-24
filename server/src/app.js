@@ -37,7 +37,7 @@ app.use("/posts", postRouter)
 app.use("/products", productRouter)
 app.use("/telegram", telegramRouter)
 app.use("/users", userRouter)
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
     const status = err.status || 500;
 
     return res.status(status).json({
