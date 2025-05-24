@@ -1,5 +1,5 @@
 const {QueryParser} = require("../utils");
-const {Merchandise} = require("../models");
+const {Merchandise, Category} = require("../models");
 const {ApiError} = require("../errors");
 
 class MerchandiseService {
@@ -7,18 +7,15 @@ class MerchandiseService {
         try {
             const queryObj = QueryParser.parse(query);
 
-            const {page = 1, limit = 10, sortedBy = "order", ...searchObject} = queryObj;
-            const skip = +limit * (+page - 1)
+            const {sortedBy = "categoryId order", ...searchObject} = queryObj;
 
             const [merchandises, merchandisesTotalCount, merchandisesSearchCount] = await Promise.all([
-                Merchandise.find(searchObject).sort(sortedBy).limit(+limit).skip(skip),
+                Merchandise.find(searchObject).sort(sortedBy),
                 Merchandise.countDocuments(),
                 Merchandise.countDocuments(searchObject),
             ]);
 
             return {
-                page: +page,
-                perPage: +limit,
                 itemsCount: merchandisesTotalCount,
                 itemsFound: merchandisesSearchCount,
                 data: merchandises
@@ -30,7 +27,13 @@ class MerchandiseService {
 
     async create(data) {
         try {
-            const countDocuments = await Merchandise.countDocuments();
+            const {categoryId} = data;
+            const category = await Category.findById(categoryId);
+            if (!category) {
+                throw new ApiError("Category not found", 404)
+            }
+
+            const countDocuments = await Merchandise.countDocuments(categoryId);
 
             const toCreate = {...data, order: countDocuments + 1}
 
@@ -51,9 +54,15 @@ class MerchandiseService {
     async deleteById(id) {
         try {
             const merchandise = await Merchandise.findById(id);
-            await Merchandise.updateMany({order: {$gt: merchandise.order}}, {$inc: {order: -1}})
 
-            await Merchandise.deleteOne({_id: id})
+            await Promise.all([
+                Merchandise.updateMany({
+                    categoryId: merchandise.categoryId,
+                    order: {$gt: merchandise.order}
+                }, {$inc: {order: -1}}),
+                Merchandise.deleteOne({_id: id})
+            ])
+
         } catch (e) {
             throw new ApiError(e.message, e.status)
         }
@@ -63,12 +72,13 @@ class MerchandiseService {
         try {
             const merchandise = await Merchandise.findById(id);
 
+            const categoryId = merchandise.categoryId;
             const oldOrder = merchandise.order;
 
             if (newOrder > oldOrder) {
-                await Merchandise.updateMany({order: {$gt: oldOrder, $lte: newOrder}}, {$inc: {order: -1}})
+                await Merchandise.updateMany({categoryId, order: {$gt: oldOrder, $lte: newOrder}}, {$inc: {order: -1}})
             } else if (newOrder < oldOrder) {
-                await Merchandise.updateMany({order: {$gte: newOrder, $lt: oldOrder}}, {$inc: {order: 1}})
+                await Merchandise.updateMany({categoryId, order: {$gte: newOrder, $lt: oldOrder}}, {$inc: {order: 1}})
             } else {
                 return merchandise
             }

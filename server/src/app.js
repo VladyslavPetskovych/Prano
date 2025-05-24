@@ -11,7 +11,8 @@ const {
     orderRouter,
     advertisementRouter,
     telegramRouter,
-    merchandiseRouter
+    merchandiseRouter,
+    categoryRouter
 } = require("./routers");
 const {configs} = require("./configs");
 const {cronRunner} = require("./crons");
@@ -29,7 +30,8 @@ app.use("/postImages", express.static(path.join(__dirname, "../images/postImages
 
 app.use("/advertisement", advertisementRouter)
 app.use("/auth", authRouter)
-app.use("/merchandise", merchandiseRouter)
+app.use("/categories", categoryRouter)
+app.use("/merchandises", merchandiseRouter)
 app.use("/orders", orderRouter)
 app.use("/posts", postRouter)
 app.use("/products", productRouter)
