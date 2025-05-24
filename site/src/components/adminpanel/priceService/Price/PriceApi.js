@@ -1,0 +1,48 @@
+// PriceApi.js
+import axios from "axios";
+
+const API_URL = "https://prano.group/api/merchandises";
+const CATEGORY_URL = "https://prano.group/api/categories";
+
+const getToken = () => localStorage.getItem("accessToken");
+
+export const createMerchandise = async (data, token) => {
+  console.log("Sending merchandise data:", data);
+
+  return axios.post(`${API_URL}`, data, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `${token || getToken()}`,
+    },
+  });
+};
+
+export const getCategories = async (token) => {
+  return axios.get(CATEGORY_URL, {
+    headers: {
+      Authorization: `${token || getToken()}`,
+    },
+  });
+};
+export const deleteCategory = async (id, token) => {
+  return axios.delete(`${CATEGORY_URL}/${id}`, {
+    headers: {
+      Authorization: `${token || getToken()}`,
+    },
+  });
+};
+
+export const createCategory = async (title, token) => {
+  console.log("request!!!!");
+
+  return axios.post(
+    CATEGORY_URL,
+    { title },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token || getToken()}`,
+      },
+    }
+  );
+};

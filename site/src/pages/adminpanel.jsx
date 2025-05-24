@@ -41,7 +41,7 @@ const AdminPanel = () => {
             variant={view === "prices" ? "default" : "outline"}
             className="py-1 px-2 text-base m-1"
           >
-            Редагувати ціни і послуги
+            Редагувати послуги і ціни 
           </CustomButton>
           <CustomButton
             onClick={() => setView("users")}
