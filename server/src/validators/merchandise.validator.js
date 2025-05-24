@@ -5,11 +5,13 @@ class MerchandiseValidator {
     static price = Joi.number().min(1)
     static secondPrice = Joi.number().min(1)
     static order = Joi.number().integer().min(1)
+    static categoryId = Joi.string().hex().length(24).trim()
 
     static create = Joi.object({
         title: this.title.required(),
         price: this.price.required(),
         secondPrice: this.secondPrice,
+        categoryId: this.categoryId.required()
     })
 
     static update = Joi.object({
