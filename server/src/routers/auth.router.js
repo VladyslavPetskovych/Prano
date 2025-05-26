@@ -16,7 +16,7 @@ const router = Router();
 
 router.post(
     "/register",
-    limiter,
+    //limiter,
     commonMiddleware.isBodyValid(UserValidator.create),
     userMiddleware.findAndThrowByReqBody("email"),
     userMiddleware.findAndThrowByReqBody("phone"),
