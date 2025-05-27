@@ -29,7 +29,7 @@ function UpperHeader() {
             onClick={() => handleCopy("+38012345678")}
           >
             <img src={phone} alt="phone" className="h-4 w-4 object-contain " />
-            <span className="italic hover:underline font-bold">+380663214671</span>
+            <span className="italic hover:underline font-bold">+3806632146**</span>
           </div>
 
           {/* Email */}

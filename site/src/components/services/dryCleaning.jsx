@@ -4,8 +4,8 @@ import twoPeople from "../../assets/videos/twoPeople.mp4";
 
 function DryCleaning() {
   return (
-    <section className="py-16 px-6 mx-6 md:px-12 rounded-2xl bg-gray-50 shadow-xl">
-      <h2 className="text-4xl md:text-5xl mx-auto font-extrabold text-gray-800 tracking-wide text-center mb-12">
+    <section className="py-12 px-6 mx-6 md:px-12 rounded-2xl bg-gray-50 shadow-xl">
+      <h2 className="text-2xl md:text-4xl mx-auto font-extrabold text-gray-800 tracking-wide text-center mb-12">
         Хімчистка одягу
       </h2>
 

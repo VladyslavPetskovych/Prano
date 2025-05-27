@@ -1,8 +1,7 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import grid1 from "../../assets/fur/grid1.jpg";
 import grid2 from "../../assets/fur/grid2.jpg";
-import grid3 from "../../assets/fur/grid3.jpg";
-import grid4 from "../../assets/fur/grid4.jpg";
 import grid5 from "../../assets/fur/grid5.jpg";
 import grid6 from "../../assets/fur/grid6.jpg";
 
@@ -24,27 +23,13 @@ const GridBlock = () => {
     },
     {
       id: 3,
-      img: grid3,
-      header: "Індивідуальне перешивання хутра",
-      description:
-        "Перетворюємо застарілі хутряні вироби на сучасні стилі завдяки майстерному крою.",
-    },
-    {
-      id: 4,
-      img: grid4,
-      header: "Професійне зберігання хутра",
-      description:
-        "Захистіть хутряні вироби в умовах оптимального мікроклімату під час теплих місяців.",
-    },
-    {
-      id: 5,
       img: grid5,
       header: "Професійні зміни фасону",
       description:
         "Ідеальна посадка та стиль вашого хутра завдяки нашим послугам з підгонки.",
     },
     {
-      id: 6,
+      id: 4,
       img: grid6,
       header: "Реставрація вінтажного хутра",
       description:
@@ -54,13 +39,38 @@ const GridBlock = () => {
 
   return (
     <div className="py-16 px-6 md:px-16 bg-Ngold text-white">
+      <Helmet>
+        <title>Наші послуги з догляду та ремонту хутра | FurCare</title>
+        <meta
+          name="description"
+          content="Пропонуємо професійне чищення, ремонт, зміну фасону та реставрацію вінтажного хутра. Якість, на яку ви можете покластися."
+        />
+        <meta
+          name="keywords"
+          content="чищення хутра, ремонт хутра, реставрація хутра, зміна фасону, догляд за хутром"
+        />
+        <meta name="author" content="FurCare" />
+        <meta
+          property="og:title"
+          content="Наші послуги з догляду та ремонту хутра | FurCare"
+        />
+        <meta
+          property="og:description"
+          content="Професійні послуги з чищення, ремонту та реставрації хутряних виробів."
+        />
+        <meta property="og:image" content={grid1} />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="uk_UA" />
+      </Helmet>
+
       <h2
         className="text-4xl font-bold text-center mb-16 tracking-tight text-white drop-shadow-md"
         style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.7)" }}
       >
         Наші Послуги
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-12 ">
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         {cards.map((card) => (
           <div
             key={card.id}

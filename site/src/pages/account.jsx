@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { logout, setUser } from "../redux/authSlice";
 import OrderForm from "../components/account/orderForm";
-import OrderHistory from "../components/account/orderHistory";
+import OrderHistory from "../components/account/orderHistory/orderHistory";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import ReactivateButton from "../components/login/reactivateButton";
@@ -68,7 +68,11 @@ const Account = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-200 to-gray-200 flex flex-col pt-32 relative px-4">
       <div className="flex items-center justify-between mb-8">
         <div className="flex flex-row items-center justify-center">
-          <img className="bg-slate-300 rounded-full h-10 mr-3" src={userpng} alt="alterimg" />
+          <img
+            className="bg-slate-300 rounded-full h-10 mr-3"
+            src={userpng}
+            alt="alterimg"
+          />
           <h2 className="text-xl font-bold text-center text-gray-800 ">
             {user?.name ? user.name : "Вітаємо, користувач!"}
           </h2>

@@ -7,7 +7,6 @@ const getAuthHeaders = () => {
   return { Authorization: `${token}`, "Content-Type": "application/json" };
 };
 
-// ✅ Export update functions
 export const updateService = async (serviceId, updatedData) => {
   try {
     const payload = {
@@ -30,36 +29,6 @@ export const updateService = async (serviceId, updatedData) => {
   }
 };
 
-// ✅ Export price update function
-export const updateServicePrice = async (serviceId, priceData) => {
-  try {
-    if (priceData.priceFrom >= priceData.priceTo) {
-      return {
-        success: false,
-        message: "priceTo має бути більшим за priceFrom",
-      };
-    }
-
-    const payload = {
-      priceFrom: priceData.priceFrom,
-      priceTo: priceData.priceTo,
-    };
-
-    await axios.put(`${API_URL}/${serviceId}/price`, payload, {
-      headers: getAuthHeaders(),
-    });
-
-    return { success: true };
-  } catch (error) {
-    console.error("Error updating price:", error);
-    return {
-      success: false,
-      message: error.response?.data?.message || "Помилка при оновленні ціни!",
-    };
-  }
-};
-
-// ✅ Export delete function
 export const deleteService = async (serviceId) => {
   try {
     await axios.delete(`${API_URL}/${serviceId}`, {
