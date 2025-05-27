@@ -1,17 +1,11 @@
 import React, { useState } from "react";
-import {
-  updateService,
-  updateServicePrice,
-  deleteService,
-} from "./priceServiceApi";
+import { updateService, deleteService } from "./ServiceApi";
 
 const PriceServiceItem = ({ service, onEditSuccess, onDeleteSuccess }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     title: service.title,
     description: service.description,
-    priceFrom: service.priceFrom,
-    priceTo: service.priceTo,
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -20,29 +14,20 @@ const PriceServiceItem = ({ service, onEditSuccess, onDeleteSuccess }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handlePriceChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: Number(e.target.value) });
-  };
-
   const handleSave = async () => {
     setLoading(true);
     setError(null);
 
-    const textResponse = await updateService(service._id, {
+    const response = await updateService(service._id, {
       title: formData.title,
       description: formData.description,
     });
 
-    const priceResponse = await updateServicePrice(service._id, {
-      priceFrom: formData.priceFrom,
-      priceTo: formData.priceTo,
-    });
-
-    if (textResponse.success && priceResponse.success) {
+    if (response.success) {
       onEditSuccess({ ...service, ...formData });
       setIsEditing(false);
     } else {
-      setError(textResponse.message || priceResponse.message);
+      setError(response.message);
     }
 
     setLoading(false);
@@ -83,23 +68,6 @@ const PriceServiceItem = ({ service, onEditSuccess, onDeleteSuccess }) => {
               className="w-full p-2 border border-gray-300 rounded"
             />
           </td>
-          <td className="p-3">
-            <input
-              type="number"
-              name="priceFrom"
-              value={formData.priceFrom}
-              onChange={handlePriceChange}
-              className="w-20 p-2 border border-gray-300 rounded"
-            />
-            <span className="mx-1">-</span>
-            <input
-              type="number"
-              name="priceTo"
-              value={formData.priceTo}
-              onChange={handlePriceChange}
-              className="w-20 p-2 border border-gray-300 rounded"
-            />
-          </td>
           <td className="p-3 flex gap-2">
             <button
               onClick={handleSave}
@@ -118,10 +86,7 @@ const PriceServiceItem = ({ service, onEditSuccess, onDeleteSuccess }) => {
       ) : (
         <>
           <td className="p-3">{service.title}</td>
-          <td className="p-3  break-words">{service.description}</td>
-          <td className="p-3">
-            {service.priceFrom} - {service.priceTo} грн
-          </td>
+          <td className="p-3 break-words">{service.description}</td>
           <td className="p-3 flex gap-2">
             <button
               onClick={() => setIsEditing(true)}
@@ -139,7 +104,7 @@ const PriceServiceItem = ({ service, onEditSuccess, onDeleteSuccess }) => {
         </>
       )}
       {error && (
-        <td colSpan="4" className="text-red-500">
+        <td colSpan="3" className="text-red-500">
           {error}
         </td>
       )}

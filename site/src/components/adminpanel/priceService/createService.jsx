@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-const CreatePriceService = ({ refreshServices }) => {
+const CreateService = ({ refreshServices }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [priceFrom, setPriceFrom] = useState("");
-  const [priceTo, setPriceTo] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -27,11 +25,6 @@ const CreatePriceService = ({ refreshServices }) => {
       setLoading(false);
       return;
     }
-    if (!priceFrom || !priceTo || priceFrom <= 0 || priceTo <= priceFrom) {
-      setError("Некоректні ціни. 'priceTo' має бути більше за 'priceFrom'.");
-      setLoading(false);
-      return;
-    }
     if (!accessToken) {
       setError("Доступ заборонено. Відсутній токен.");
       setLoading(false);
@@ -41,8 +34,6 @@ const CreatePriceService = ({ refreshServices }) => {
     const serviceData = {
       title,
       description,
-      priceFrom: Number(priceFrom),
-      priceTo: Number(priceTo),
     };
 
     try {
@@ -57,8 +48,6 @@ const CreatePriceService = ({ refreshServices }) => {
       refreshServices();
       setTitle("");
       setDescription("");
-      setPriceFrom("");
-      setPriceTo("");
     } catch (err) {
       setError(
         "Не вдалося створити послугу. Перевірте дані та спробуйте ще раз."
@@ -70,7 +59,7 @@ const CreatePriceService = ({ refreshServices }) => {
   };
 
   return (
-    <div className="bg-slate-200 min-h-[50vh] flex items-center justify-center p-5 ">
+    <div className="bg-slate-200 min-h-[30vh] flex items-center justify-center p-3">
       <div className="bg-white p-8 rounded-lg shadow-lg w-[100%] md:w-[50%]">
         <h2 className="text-2xl font-bold mb-4 text-center">
           Створити послугу
@@ -92,23 +81,6 @@ const CreatePriceService = ({ refreshServices }) => {
             className="border p-2 w-full"
             required
           />
-          <input
-            type="number"
-            placeholder="Ціна від"
-            value={priceFrom}
-            onChange={(e) => setPriceFrom(Number(e.target.value))}
-            className="border p-2 w-full"
-            required
-          />
-          <input
-            type="number"
-            placeholder="Ціна до"
-            value={priceTo}
-            onChange={(e) => setPriceTo(Number(e.target.value))}
-            className="border p-2 w-full"
-            required
-          />
-
           <button
             type="submit"
             className="bg-blue-500 w-full text-white p-2"
@@ -122,4 +94,4 @@ const CreatePriceService = ({ refreshServices }) => {
   );
 };
 
-export default CreatePriceService;
+export default CreateService;

@@ -33,7 +33,6 @@ import PrivateRoute from "./components/adminpanel/privateRoute.jsx";
 import AdminPanel from "./pages/adminpanel.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 
-// 👇 Компонент обгортка для логіки завантаження на зміну маршруту
 const AppContent = ({ isMaintenanceMode }) => {
   const location = useLocation();
   const [routeLoading, setRouteLoading] = useState(false);
@@ -42,12 +41,9 @@ const AppContent = ({ isMaintenanceMode }) => {
     setRouteLoading(true);
     const timer = setTimeout(() => {
       setRouteLoading(false);
-    }, 500); // можна змінити тривалість
-
+    }, 500);
     return () => clearTimeout(timer);
   }, [location.pathname]);
-
-  if (routeLoading) return <LoadingScreen />;
 
   return isMaintenanceMode ? (
     <LandingPage />
@@ -56,6 +52,7 @@ const AppContent = ({ isMaintenanceMode }) => {
       <ScrollToTop />
       <UpperHeader />
       <Header />
+      {routeLoading && <LoadingScreen />} {/* <- показуємо поверх */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/services" element={<Services />} />
