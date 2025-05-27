@@ -17,6 +17,38 @@ export const createMerchandise = async (data, token) => {
   });
 };
 
+export const updateMerchandise = async (id, data, token) => {
+  return axios.patch(`${API_URL}/${id}`, data, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `${token || getToken()}`,
+    },
+  });
+};
+
+export const updateMerchandiseOrder = async (id, order, token) => {
+  console.log("📦 Payload to PATCH /order:", { order });
+
+  return axios.patch(
+    `https://prano.group/api/merchandises/${id}/order`,
+    { order },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token || localStorage.getItem("accessToken")}`,
+      },
+    }
+  );
+};
+
+export const deleteMerchandise = async (id, token) => {
+  return axios.delete(`${API_URL}/${id}`, {
+    headers: {
+      Authorization: `${token || getToken()}`,
+    },
+  });
+};
+
 export const getCategories = async (token) => {
   return axios.get(CATEGORY_URL, {
     headers: {

@@ -13,7 +13,14 @@ const useMerchandiseForm = (refreshServices) => {
 
   const { accessToken } = useSelector((state) => state.auth);
 
-  const handleSubmit = async (e, title, price, secondPrice, category) => {
+  const handleSubmit = async (
+    e,
+    title,
+    price,
+    secondPrice,
+    category,
+    order
+  ) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -40,22 +47,29 @@ const useMerchandiseForm = (refreshServices) => {
     }
 
     try {
-      await createMerchandise(
-        {
-          title,
-          price: Number(price),
-          secondPrice: Number(secondPrice),
-          categoryId: category,
-        },
-        accessToken
-      );
+      const newMerch = {
+        title,
+        price: Number(price),
+        secondPrice: Number(secondPrice),
+        categoryId: category,
+      };
+
+      // ✅ Include `order` only if it's a valid number and not empty
+      if (order !== "" && !isNaN(order)) {
+        newMerch.order = Number(order);
+      }
+
+      await createMerchandise(newMerch, accessToken);
 
       alert("Товар успішно створено!");
       refreshServices();
+
+      // Reset fields
       setTitle("");
       setPrice("");
       setSecondPrice("");
       setCategory("");
+      setOrder(""); // <-- make sure `setOrder` exists in your state
     } catch (err) {
       setError("Не вдалося створити товар. Перевірте дані.");
       console.error(err);

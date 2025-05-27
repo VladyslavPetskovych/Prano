@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import CreateService from "./Price/createService";
+import CreateService from "./createService";
 import CreatePrice from "./Price/createPrices";
 import ServiceItem from "./ServiceItem";
 import PriceItem from "./Price/priceItem";
 import Pagination from "../pagination";
+import { deleteMerchandise } from "./Price/PriceApi";
 
 const PriceServiceManagement = () => {
   const [services, setServices] = useState([]);
@@ -14,19 +15,24 @@ const PriceServiceManagement = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [viewMode, setViewMode] = useState("services");
 
+  const [categories, setCategories] = useState([]);
+
   const fetchData = async (page = 1) => {
     try {
       setLoading(true);
-      const endpoint =
-        viewMode === "services"
-          ? "https://prano.group/api/products"
-          : "https://prano.group/api/merchandises";
-      const response = await axios.get(endpoint);
-      console.log("API Response:", response.data);
 
-      setServices(response.data.data);
+      const merchRes = await axios.get("https://prano.group/api/merchandises");
+      const categoryRes = await axios.get("https://prano.group/api/categories");
+      console.log("📥 0000", categoryRes.data);
+      setCategories(categoryRes.data);
+
+      console.log("📥 Merchandises:", merchRes.data.data);
+      console.log("📥 Categories:", categoryRes.data);
+
+      setServices(merchRes.data.data);
+
       setTotalPages(
-        Math.ceil(response.data.itemsCount / response.data.data.length)
+        Math.ceil(merchRes.data.itemsCount / merchRes.data.data.length)
       );
     } catch (err) {
       setError("Не вдалося отримати дані.");
@@ -48,7 +54,15 @@ const PriceServiceManagement = () => {
       prev.map((item) => (item._id === updatedItem._id ? updatedItem : item))
     );
   };
-
+  const handleDeleteMerchandise = async (id) => {
+    try {
+      await deleteMerchandise(id);
+      setServices((prev) => prev.filter((item) => item._id !== id));
+    } catch (err) {
+      console.error("Error deleting merchandise:", err);
+      alert("Failed to delete merchandise.");
+    }
+  };
 
   if (loading) return <p>Завантаження...</p>;
   if (error) return <p>{error}</p>;
@@ -109,19 +123,24 @@ const PriceServiceManagement = () => {
           <div className="overflow-x-auto my-3">
             <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-md">
               <thead>
-                <tr className="bg-gray-100 border-b border-gray-300">
-                  <th className="p-3 text-left">Назва</th>
-                  <th className="p-3 text-left">Ціна</th>
-                  <th className="p-3 text-left">Дії</th>
+                <tr>
+                  <th>Назва</th>
+                  <th>Ціна</th>
+                  <th>Друга ціна</th>
+                  <th>Порядок</th>
+                  <th>Категорія</th>
+                  <th>Дії</th>
                 </tr>
               </thead>
+
               <tbody>
                 {services.map((item) => (
                   <PriceItem
                     key={item._id}
                     service={item}
-                    onPriceEditSuccess={handleEditSuccess}
-                    onDeleteSuccess={handleDeleteSuccess}
+                    categories={categories}
+                    onEditSuccess={handleEditSuccess}
+                    onDeleteRequest={handleDeleteMerchandise}
                   />
                 ))}
               </tbody>

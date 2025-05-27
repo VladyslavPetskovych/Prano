@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
 import useCategoryManager from "./useCategoryManager";
 import useMerchandiseForm from "./useMerchandiseForm";
 import CategoryM from "./category";
@@ -21,6 +20,8 @@ const CreatePrice = ({ refreshServices }) => {
     handleSubmit,
   } = useMerchandiseForm(refreshServices);
 
+  const [order, setOrder] = useState(""); // ✅ new state
+
   const { categories, handleAddCategory, handleDeleteCategory } =
     useCategoryManager(newCategory, setNewCategory);
 
@@ -29,6 +30,7 @@ const CreatePrice = ({ refreshServices }) => {
       <div className="bg-white p-8 rounded-lg shadow-lg w-full md:w-1/2">
         <h2 className="text-2xl font-bold mb-4 text-center">Створити товар</h2>
         {error && <p className="text-red-500 text-center">{error}</p>}
+
         <CategoryM
           categories={categories}
           newCategory={newCategory}
@@ -38,7 +40,9 @@ const CreatePrice = ({ refreshServices }) => {
         />
 
         <form
-          onSubmit={(e) => handleSubmit(e, title, price, secondPrice, category)}
+          onSubmit={(e) =>
+            handleSubmit(e, title, price, secondPrice, category, order)
+          }
           className="space-y-4"
         >
           <input
@@ -63,9 +67,14 @@ const CreatePrice = ({ refreshServices }) => {
             value={secondPrice}
             onChange={(e) => setSecondPrice(e.target.value)}
             className="border p-2 w-full"
-            required
           />
-
+          <input
+            type="number"
+            placeholder="Порядок (необов'язково)"
+            value={order}
+            onChange={(e) => setOrder(e.target.value)}
+            className="border p-2 w-full"
+          />
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
