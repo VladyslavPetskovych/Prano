@@ -11,7 +11,8 @@ class MerchandiseValidator {
         title: this.title.required(),
         price: this.price.required(),
         secondPrice: this.secondPrice,
-        categoryId: this.categoryId.required()
+        categoryId: this.categoryId.required(),
+        order: this.order
     })
 
     static update = Joi.object({
