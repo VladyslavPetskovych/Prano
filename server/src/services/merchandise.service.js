@@ -27,17 +27,27 @@ class MerchandiseService {
 
     async create(data) {
         try {
-            const {categoryId} = data;
+            const {categoryId, order} = data;
             const category = await Category.findById(categoryId);
             if (!category) {
                 throw new ApiError("Category not found", 404)
             }
 
-            const countDocuments = await Merchandise.countDocuments(categoryId);
+            if (order) {
+                const conflict = await Merchandise.findOne({categoryId, order});
 
-            const toCreate = {...data, order: countDocuments + 1}
+                if (conflict) {
+                    await Merchandise.updateMany({categoryId, order: {$gte: order}}, {$inc: {order: 1}});
+                }
 
-            return await Merchandise.create(toCreate)
+                return await Merchandise.create(data);
+            }
+
+            const lastItem = await Merchandise.findOne({categoryId}).sort({order: -1}).select('order');
+
+            const nextOrder = lastItem ? lastItem.order + 1 : 1;
+
+            return await Merchandise.create({...data, order: nextOrder})
         } catch (e) {
             throw new ApiError(e.message, e.status)
         }
