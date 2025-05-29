@@ -16,7 +16,7 @@ class OrderValidator {
         email: this.email.required(),
         clothType: this.clothType.required(),
         productType: this.productType.required(),
-        note: this.note.required(),
+        note: this.note,
     })
 }
 
