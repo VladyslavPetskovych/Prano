@@ -54,7 +54,6 @@ services:
     volumes:
       - ./site:/app
       - /app/node_modules
-    command: npm run dev -- --host
     networks:
       - prano-app
     depends_on:

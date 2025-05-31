@@ -11,6 +11,8 @@ COPY . .
 
 RUN npm run build
 
+CMD ["npm", "run", "dev", "--", "--host"]
+
 # Production stage
 FROM nginx:1.27.4-alpine AS production
 
