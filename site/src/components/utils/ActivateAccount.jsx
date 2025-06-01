@@ -30,7 +30,7 @@ export default function ActivateAccount() {
         console.log("Відповідь API:", response.data);
         setMessage(response.data.message || "Акаунт успішно активовано!");
 
-        setTimeout(() => navigate("/login"), 3000);
+        setTimeout(() => navigate("/login"), 9000);
       } catch (error) {
         console.error(
           "Помилка активації:",

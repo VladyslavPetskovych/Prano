@@ -1,4 +1,4 @@
-import EndlessPossibilities from "../components/homePage/EndlessPossibilities.jsx";
+import EndlessPossibilities from "../components/homePage/PremiumService.jsx";
 import { TopBlock } from "../components/homePage/topBlock.jsx";
 import About from "../components/homePage/about.jsx";
 import CareArtBlock from "../components/homePage/CareArtBlock.jsx";
