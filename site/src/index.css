@@ -88,3 +88,32 @@ body {
 .animate-marquee-vertical {
   animation: marquee-vertical 20s linear infinite;
 }
+/* index.css або global.css */
+body.loading {
+  overflow: hidden;
+}
+/* Глобальний прелоадер */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background-color: white;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 6px solid #26577C;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

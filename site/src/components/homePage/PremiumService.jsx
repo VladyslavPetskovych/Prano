@@ -18,7 +18,7 @@ function EndlessPossibilities() {
             гарантуючи ідеальну чистоту та довговічність ваших речей.
           </p>
           <Link
-            to="/account"
+            to="/premium"
             className="mt-6 inline-block font-manrope bg-Ndark bg-opacity-80 text-white text-lg py-3 px-8 rounded-lg shadow-lg hover:bg-[#c4a75c] transition duration-300"
             style={{
               textShadow: "4px 4px 4px rgba(0, 0, 0, 0.5)",

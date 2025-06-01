@@ -32,6 +32,7 @@ import ActivateAccount from "./components/utils/ActivateAccount.jsx";
 import PrivateRoute from "./components/adminpanel/privateRoute.jsx";
 import AdminPanel from "./pages/adminpanel.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
+import Premium from "./pages/premium.jsx";
 
 const AppContent = ({ isMaintenanceMode }) => {
   const location = useLocation();
@@ -52,7 +53,7 @@ const AppContent = ({ isMaintenanceMode }) => {
       <ScrollToTop />
       <UpperHeader />
       <Header />
-      {routeLoading && <LoadingScreen />} {/* <- показуємо поверх */}
+      {routeLoading && <LoadingScreen />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/services" element={<Services />} />
@@ -62,6 +63,7 @@ const AppContent = ({ isMaintenanceMode }) => {
         <Route path="/contacts" element={<Contacts />} />
         <Route path="/account" element={<Account />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/premium" element={<Premium />} />
         <Route path="/register" element={<Register />} />
         <Route path="/activate/:token" element={<ActivateAccount />} />
         <Route path="/admin" element={<PrivateRoute element={AdminPanel} />} />
@@ -78,10 +80,23 @@ const App = () => {
   const isMaintenanceMode = false;
 
   useEffect(() => {
+    const preloader = document.getElementById("preloader");
+    document.body.classList.add("loading");
+
     const timer = setTimeout(() => {
       setInitialLoading(false);
+      document.body.classList.remove("loading");
+
+      if (preloader) {
+        preloader.classList.add("fade-out");
+        setTimeout(() => preloader.remove(), 300);
+      }
     }, 600);
-    return () => clearTimeout(timer);
+
+    return () => {
+      document.body.classList.remove("loading");
+      clearTimeout(timer);
+    };
   }, []);
 
   if (initialLoading) {
