@@ -8,9 +8,8 @@ const router = Router();
 
 router.get(
     "/",
-    // TODO В майбутньому треба буде розкоментувати
-    // authMiddleware.checkAccessToken,
-    // userMiddleware.checkUserRights(),
+    authMiddleware.checkAccessToken,
+    userMiddleware.checkUserRights(),
     userController.findAll
 )
 router.get(
@@ -48,9 +47,8 @@ router.post(
 )
 router.post(
     "/set-admin/:userId",
-    // TODO В майбутньому треба буде розкоментувати
-    // authMiddleware.checkAccessToken,
-    // userMiddleware.checkUserRights(),
+    authMiddleware.checkAccessToken,
+    userMiddleware.checkUserRights(),
     userController.setAdmin
 )
 router.get(

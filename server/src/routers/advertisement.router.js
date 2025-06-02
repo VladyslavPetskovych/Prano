@@ -55,5 +55,11 @@ router.delete(
     advertisementMiddleware.isAdvertisementExist("advertisementId"),
     advertisementController.deleteImage
 )
+router.post(
+    "/telegram/send/:advertisementId",
+    authMiddleware.checkAccessToken,
+    userMiddleware.checkUserRights(),
+    advertisementController.sendMessage
+)
 
 module.exports = router

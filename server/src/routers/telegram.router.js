@@ -22,5 +22,11 @@ router.get(
     authMiddleware.checkChatId,
     telegramController.findOrders
 )
+router.get(
+    "/users",
+    authMiddleware.checkAccessToken,
+    userMiddleware.checkUserRights(),
+    telegramController.findUsers
+)
 
 module.exports = router

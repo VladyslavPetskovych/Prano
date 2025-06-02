@@ -9,7 +9,7 @@ const router = Router();
 
 const limiter = rateLimit({
     windowMs: 2 * 60 * 1000,
-    max: 1,
+    max: 2,
     message: "Too many requests, try again after 2 minutes",
     keyGenerator: (_, res) => res.locals.tokenPayload.id
 });

@@ -8,7 +8,7 @@ const {rateLimit} = require("express-rate-limit");
 
 const limiter = rateLimit({
     windowMs: 30 * 60 * 1000,
-    max: 10,
+    max: 30,
     message: "Too many requests, try again after 30 minutes",
 });
 
@@ -16,7 +16,7 @@ const router = Router();
 
 router.post(
     "/register",
-    //limiter,
+    limiter,
     commonMiddleware.isBodyValid(UserValidator.create),
     userMiddleware.findAndThrowByReqBody("email"),
     userMiddleware.findAndThrowByReqBody("phone"),
