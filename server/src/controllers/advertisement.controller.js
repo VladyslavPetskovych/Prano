@@ -75,6 +75,17 @@ class AdvertisementController {
             next(e)
         }
     }
+
+    async sendMessage(req, res, next) {
+        try {
+            const {advertisementId} = req.params;
+            await advertisementService.sendMessage(advertisementId);
+
+            return res.sendStatus(200)
+        } catch (e) {
+            next(e)
+        }
+    }
 }
 
 module.exports = new AdvertisementController()

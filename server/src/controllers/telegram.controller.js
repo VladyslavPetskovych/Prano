@@ -30,6 +30,16 @@ class TelegramController {
             next(e)
         }
     }
+
+    async findUsers(req, res, next) {
+        try {
+            const user = await telegramService.findUsers(req.query);
+
+            return res.json(user)
+        } catch (e) {
+            next(e)
+        }
+    }
 }
 
 module.exports = new TelegramController()

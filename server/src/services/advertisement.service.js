@@ -3,6 +3,7 @@ const fs = require("fs");
 const {Advertisement} = require("../models");
 const {ApiError} = require("../errors");
 const path = require("path");
+const axios = require("axios");
 
 class AdvertisementService {
     async findAll() {
@@ -89,6 +90,16 @@ class AdvertisementService {
             fs.rmSync(imgPath, {recursive: true, force: true})
 
             return await Advertisement.findOneAndUpdate({_id: id}, {image: ""}, {returnDocument: "after"});
+        } catch (e) {
+            throw new ApiError(e.message, e.status)
+        }
+    }
+
+    async sendMessage(id) {
+        try {
+            const advertisementToSend = await Advertisement.findById(id);
+
+            await axios.post("http://tgbot:3333/send", advertisementToSend)
         } catch (e) {
             throw new ApiError(e.message, e.status)
         }
