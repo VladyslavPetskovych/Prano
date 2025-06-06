@@ -12,7 +12,7 @@ const OrderForm = ({ user }) => {
     phone: "",
     email: "",
     note: "",
-    productType: "", // <-- was "clothingType"
+    productType: "",
     clothType: "",
   });
 
@@ -23,7 +23,7 @@ const OrderForm = ({ user }) => {
         phone: user.phone || "",
         email: user.email || "",
         note: "",
-        productType: "", // <-- also changed here
+        productType: "",
         clothType: "",
       });
     }
@@ -41,11 +41,14 @@ const OrderForm = ({ user }) => {
     setIsLoading(true);
     setMessage("Відправка замовлення...");
 
+    const payload = Object.fromEntries(
+      Object.entries(formData).filter(([_, value]) => value !== "")
+    );
+
     try {
-      const response = await OrderRequest(formData);
+      const response = await OrderRequest(payload);
       setMessage("Замовлення успішно оформлено!");
       console.log("Order successful:", response);
-      // Optionally reset form here
     } catch (error) {
       setMessage("Помилка при оформленні замовлення. Спробуйте ще раз.");
       console.error("Order failed:", error);
