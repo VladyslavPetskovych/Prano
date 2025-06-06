@@ -10,7 +10,7 @@ class MerchandiseValidator {
 
     static create = Joi.object({
         title: this.title.required(),
-        quantity: this.quantity.required(),
+        quantity: this.quantity,
         price: this.price.required(),
         secondPrice: this.secondPrice,
         categoryId: this.categoryId.required(),
@@ -19,7 +19,7 @@ class MerchandiseValidator {
 
     static update = Joi.object({
         title: this.title,
-        quantity: this.quantity.required(),
+        quantity: this.quantity,
         price: this.price,
         secondPrice: this.secondPrice,
     })
