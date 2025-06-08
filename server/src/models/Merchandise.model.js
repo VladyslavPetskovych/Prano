@@ -9,7 +9,6 @@ const merchandiseSchema = new Schema(
         },
         quantity: {
             type: String,
-            required: true,
         },
         price: {
             type: Number,
