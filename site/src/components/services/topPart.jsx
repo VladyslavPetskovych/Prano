@@ -8,14 +8,14 @@ function TopPart() {
       id="cleaning"
     >
       <h1
-        className="text-white text-2xl md:text-4xl font-extrabold tracking-wide after:content-[''] after:block after:w-32 after:h-1 after:mt-3 after:mx-auto after:bg-Ngold"
+        className="text-white text-2xl md:text-4xl font-bold tracking-wide after:content-[''] after:block after:w-32 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue"
         style={{
-          textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+          textShadow: "4px 4px 8px rgba(0, 0, 0, 0.7)",
         }}
       >
         НАШІ ПОСЛУГИ
       </h1>
-      <img className="w-32" src={CatLogo} alt="" />
+      <img className="w-32 mx-3" src={CatLogo} alt="" />
     </div>
   );
 }

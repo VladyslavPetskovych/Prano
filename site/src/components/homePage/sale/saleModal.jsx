@@ -1,38 +1,64 @@
 import React from "react";
 
 function SaleModal({ onClose, deals }) {
+  // Беремо першу пропозицію, якщо вона є
+  const deal = deals?.[0];
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white p-6 rounded-2xl shadow-2xl w-11/12 max-w-lg relative h-[70vh] overflow-y-auto md:max-h-none">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-Ndark bg-opacity-60"> 
+      {/* Контейнер модалки */}
+      <div className="relative w-11/12 max-w-2xl overflow-hidden rounded-2xl bg-white shadow-2xl">
+        {/* Кнопка закриття */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 bg-gray-300 hover:bg-gray-400 text-black px-3 py-1 rounded-full"
+          className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-gray-800 transition hover:bg-gray-200"
         >
           ✕
         </button>
-        <h2 className="text-2xl font-bold mb-6 text-center text-black mt-8">
-          Спеціальні пропозиції🎁
-        </h2>
-        <ul className="space-y-4">
-          {deals.map((deal) => (
-            <li
-              key={deal._id}
-              className="p-4 border rounded-lg shadow-sm bg-gray-100"
-            >
-              <h3 className="font-semibold text-lg text-gray-900">
-                {deal.title}
-              </h3>
-              <p className="text-gray-700 mt-1">{deal.description}</p>
+
+        {/* Заголовок */}
+        <div className="bg-Ndark px-6 py-4 text-center">
+          <h2 className="text-2xl font-bold text-Ngold">
+            Спеціальна пропозиція 🎁
+          </h2>
+        </div>
+
+        {/* Тіло модалки */}
+        <div className="max-h-[65vh] overflow-y-auto px-6 py-6">
+          {deal ? (
+            <div className="mx-auto w-full overflow-hidden rounded-xl   shadow-sm transition hover:shadow-lg">
               {deal.image && (
-                <img
-                  src={`https://prano.group/api/advertisementImages/${deal.image}`}
-                  alt={deal.title}
-                  className="w-full h-auto rounded-lg mt-3 shadow-md"
-                />
+                <div className="h-52 w-full overflow-hidden ">
+                  <img
+                    src={`https://prano.group/api/advertisementImages/${deal.image}`}
+                    alt={deal.title}
+                    className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+                  />
+                </div>
               )}
-            </li>
-          ))}
-        </ul>
+              <div className="flex flex-col justify-between p-5">
+                <h3 className="text-xl font-semibold text-gray-900">
+                  {deal.title}
+                </h3>
+                <p className="mt-3 text-gray-700">{deal.description}</p>
+              </div>
+            </div>
+          ) : (
+            <p className="mt-8 text-center text-gray-500">
+              Наразі немає доступної пропозиції.
+            </p>
+          )}
+        </div>
+
+        {/* Футер з кнопкою Закрити */}
+        <div className="border-t border-gray-200 bg-gray-50 px-6 py-4 text-right">
+          <button
+            onClick={onClose}
+            className="rounded-md bg-gray-900 px-6 py-2 text-white transition hover:bg-gray-800"
+          >
+            Закрити
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -30,7 +30,7 @@ const TopBlock = () => {
       <div className="relative z-10 text-center px-6">
         <img src={logo} alt="" className="w-64 md:w-96 mx-auto" />
 
-        <p className="md:text-2xl text-xl  font-bold text-white mt-4 max-w-2xl mx-auto leading-relaxed shadow-md p-2 bg-opacity-20 bg-black rounded">
+        <p className="md:text-2xl text-xl  font-bold text-white mt-4 max-w-2xl mx-auto leading-relaxed shadow-md p-2 bg-opacity-20 bg-black rounded-2xl">
           Ми пропонуємо високоякісні послуги прання, хімчистки та ремонту одягу.
           Дбайливий підхід до кожної речі — ваш одяг у надійних руках.
         </p>
