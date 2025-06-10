@@ -33,6 +33,9 @@ import PrivateRoute from "./components/adminpanel/privateRoute.jsx";
 import AdminPanel from "./pages/adminpanel.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 import Premium from "./pages/premium.jsx";
+import PrivacyPolicy from "./pages/privacyPolicy.jsx";
+import NotFound from "./pages/NotFound.jsx";
+
 
 const AppContent = ({ isMaintenanceMode }) => {
   const location = useLocation();
@@ -69,6 +72,8 @@ const AppContent = ({ isMaintenanceMode }) => {
         <Route path="/admin" element={<PrivateRoute element={AdminPanel} />} />
         <Route path="/textile" element={<Textile />} />
         <Route path="/fur" element={<Fur />} />
+        <Route path="privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </>

@@ -42,7 +42,7 @@ const reviews = [
 
 const NextArrow = ({ onClick }) => (
   <button
-    className="absolute top-1/2 z-50 right-2 transform -translate-y-1/2 bg-gray-900 text-white p-2 rounded-full shadow-lg hover:bg-gray-700 transition-all duration-300"
+    className="absolute top-1/2 z-40 right-2 transform -translate-y-1/2 bg-gray-900 text-white p-2 rounded-full shadow-lg hover:bg-gray-700 transition-all duration-300"
     onClick={onClick}
   >
     <FaArrowRight size={24} />
@@ -51,7 +51,7 @@ const NextArrow = ({ onClick }) => (
 
 const PrevArrow = ({ onClick }) => (
   <button
-    className="absolute top-1/2 z-50 left-2  transform -translate-y-1/2 bg-gray-900 text-white p-2 rounded-full shadow-lg hover:bg-gray-700 transition-all duration-300"
+    className="absolute top-1/2 z-40 left-2  transform -translate-y-1/2 bg-gray-900 text-white p-2 rounded-full shadow-lg hover:bg-gray-700 transition-all duration-300"
     onClick={onClick}
   >
     <FaArrowLeft size={24} />

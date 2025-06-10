@@ -11,14 +11,14 @@ function SaleModal({ onClose, deals }) {
         {/* Кнопка закриття */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-gray-800 transition hover:bg-gray-200"
+          className="absolute top-3 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-gray-800 transition hover:bg-gray-200"
         >
           ✕
         </button>
 
         {/* Заголовок */}
-        <div className="bg-Ndark px-6 py-4 text-center">
-          <h2 className="text-2xl font-bold text-Ngold">
+        <div className="bg-Ndark px-8 py-4 pt-9 text-center">
+          <h2 className="text-xl font-bold text-Ngold">
             Спеціальна пропозиція 🎁
           </h2>
         </div>

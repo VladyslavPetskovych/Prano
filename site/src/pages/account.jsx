@@ -105,7 +105,7 @@ const Account = () => {
       )}
 
       <TelegramAccaunt />
-      <div className="flex flex-col-reverse md:flex-row justify-evenly items-start w-full mx-auto gap-6 mb-32">
+      <div className="flex flex-col-reverse md:flex-row justify-evenly items-start w-full mx-auto  mb-32">
         <OrderHistory />
         <OrderForm user={user} />
         <p></p>

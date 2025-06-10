@@ -35,7 +35,7 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
       </div>
 
       {opened && (
-        <div className="absolute h-screen   mt-5 right-0 w-full bg-black text-white py-6 space-y-3 flex flex-col items-start pl-16">
+        <div className="absolute h-screen z-50  mt-5 right-0 w-full bg-black text-white py-6 space-y-3 flex flex-col items-start pl-16">
           <Link
             to="/"
             className="text-2xl hover:opacity-80 transition ease-in-out duration-200"
