@@ -2,9 +2,12 @@ import { useState, useEffect } from "react";
 import back from "../../assets/home/back.webp";
 import logo from "../../assets/logo/pranoTextGold.svg";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 
 const TopBlock = () => {
   const [bgLoaded, setBgLoaded] = useState(false);
+  const isAuth = useSelector((state) => state.auth.isAuth);
 
   useEffect(() => {
     const img = new Image();
@@ -36,7 +39,7 @@ const TopBlock = () => {
         </p>
 
         <Link
-          to="/account"
+          to={isAuth ? "/account" : "/login"}
           className="mt-6 inline-block font-bold bg-Ndark bg-opacity-80 text-white text-lg py-3 px-8 rounded-lg shadow-lg hover:bg-[#c4a75c] transition duration-300"
           style={{
             textShadow: "4px 4px 4px rgba(0, 0, 0, 0.5)",

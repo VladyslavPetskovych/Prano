@@ -28,7 +28,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         disabled={currentPage <= 1}
         className="px-3 py-2 text-sm font-medium bg-Nblue text-white rounded hover:bg-blue-600 disabled:opacity-50"
       >
-        назад
+        Назад
       </button>
 
       <span className="px-4 py-2 text-sm font-semibold bg-gray-100 rounded">

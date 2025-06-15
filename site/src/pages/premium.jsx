@@ -1,13 +1,17 @@
 import React from "react";
 import Weasel from "../assets/videos/loopWeaselVideo.mp4";
+import HeroSection from "../components/premium/HeroSection";
 
 function Premium() {
   return (
-    <div className="min-h-screen bg-Ndark pt-36 font-tinos">
+    <div className="min-h-screen bg-Ndark pt-32 font-tinos">
       <div className="bg-Ngold">
         <h1 className="text-center text-4xl font-bold py-10 text-Ndark">
           Преміум послуги
         </h1>
+      </div>
+      <div>
+        <HeroSection/>
       </div>
       <div>
         <video

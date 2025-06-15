@@ -14,7 +14,7 @@ function Footer() {
     <footer className="bg-black text-white py-4">
       <div className="container mx-auto px-4">
         <div className="text-center text-sm py-2 border-b border-gray-700">
-          Здійснюємо доставку по Львову кур'єром і по Україні за допомогою Нової
+          Здійснюємо доставку по Львову кур'єром і по Україні за допомогою
           пошти
         </div>
 
@@ -44,7 +44,7 @@ function Footer() {
             <ul className="mt-4 text-sm space-y-2">
               <li>
                 <Link
-                  to="/services#clothing-repair"
+                  to="/services#repair-clothes"
                   className="text-blue-600 hover:underline"
                 >
                   Ремонт та корекція одягу
@@ -63,7 +63,23 @@ function Footer() {
                   to="/services#laundry"
                   className="text-blue-600 hover:underline"
                 >
-                  Праска та прасування
+                  Прання
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/services#shoes-repair"
+                  className="text-blue-600 hover:underline"
+                >
+                  Ремонт взуття
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/services#repair-bags"
+                  className="text-blue-600 hover:underline"
+                >
+                  Реставрація сумок
                 </Link>
               </li>
             </ul>

@@ -9,44 +9,55 @@ function Merchandise() {
   const [categories, setCategories] = useState([]);
   const [groupedData, setGroupedData] = useState({});
   const [isPremiumModalOpen, setPremiumModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+    fetchData(term);
+  };
+
+  const fetchData = async (query = "") => {
+    try {
+      const merchRes = await axios.get(
+        query
+          ? `https://prano.group/api/merchandises?title[regex]=${encodeURIComponent(
+              query
+            )}&title[options]=i`
+          : "https://prano.group/api/merchandises"
+      );
+
+      const categoryRes = await axios.get("https://prano.group/api/categories");
+
+      const merchArray = merchRes.data.data;
+      const categoriesArray = categoryRes.data.data;
+
+      setMerchandise(merchArray);
+      setCategories(categoriesArray);
+
+      const grouped = {};
+      categoriesArray.forEach((cat) => {
+        grouped[cat._id] = {
+          title: cat.title,
+          items: [],
+        };
+      });
+
+      merchArray.forEach((item) => {
+        if (grouped[item.categoryId]) {
+          grouped[item.categoryId].items.push(item);
+        }
+      });
+
+      setGroupedData(grouped);
+
+      if (merchArray.length === 0) {
+        console.warn("Нічого не знайдено за запитом:", query);
+      }
+    } catch (error) {
+      console.error("Помилка при завантаженні даних:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const merchRes = await axios.get(
-          "https://prano.group/api/merchandises"
-        );
-        const categoryRes = await axios.get(
-          "https://prano.group/api/categories"
-        );
-
-        const merchArray = merchRes.data.data;
-        const categoriesArray = categoryRes.data.data;
-        console.log("📥 Merchandises:", merchArray);
-        console.log("📥 Categories:", categoriesArray);
-        setMerchandise(merchArray);
-        setCategories(categoriesArray);
-
-        const grouped = {};
-        categoriesArray.forEach((cat) => {
-          grouped[cat._id] = {
-            title: cat.title,
-            items: [],
-          };
-        });
-
-        merchArray.forEach((item) => {
-          if (grouped[item.categoryId]) {
-            grouped[item.categoryId].items.push(item);
-          }
-        });
-
-        setGroupedData(grouped);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -56,7 +67,7 @@ function Merchandise() {
         <h2 className="text-3xl font-sans  font-extrabold  text-Nblack mb-6 md:mb-1 tracking-wide relative inline-block after:content-[''] after:block after:w-24 after:h-1 after:mt-4 after:mx-auto after:bg-Ngold">
           Ціни
         </h2>
-        <SearchInput />
+        <SearchInput onSearch={handleSearch} />
       </div>
 
       {Object.entries(groupedData).map(([categoryId, group]) => (
@@ -73,16 +84,11 @@ function Merchandise() {
                 <tr className="bg-Ngold/30 text-Nblack uppercase tracking-wider">
                   <th className="px-6 py-4 text-left w-1/2">Назва речі</th>
                   <th className="px-6 py-4 text-center w-1/8 hidden md:block">
-                    Од.
+             
                   </th>
                   <th className="px-6 py-4 text-center w-1/6">Ціна</th>
                   <th className="px-6 py-4 w-1/6">
-                    <div className="flex items-center justify-center gap-2 relative">
-                      <img
-                        src={CatLogo}
-                        alt="logo"
-                        className="w-9 object-contain"
-                      />
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-2 relative">
                       <span>Ціна Преміум</span>
 
                       {/* знак питання */}
@@ -107,12 +113,16 @@ function Merchandise() {
                         : "bg-Ngold/30 hover:bg-Ngold/20"
                     } transition-colors duration-300 cursor-pointer`}
                   >
-                    <td className="px-6 py-4 truncate">{item.title}</td>
-                    <td className="px-6 py-4 text-center  hidden md:block">
+                    <td className="px-4 py-3 text-sm whitespace-normal break-words max-w-[140px] sm:max-w-none sm:text-base">
+                      {item.title}
+                    </td>
+                    <td className="px-2 py-4 text-center text-sm border-l border-gray-300 hidden md:table-cell">
                       шт.
                     </td>
-                    <td className="px-6 py-4 text-center">{item.price}</td>
-                    <td className="px-6 py-4 text-center">
+                    <td className="px-2 py-4 text-center text-sm border-l border-gray-300">
+                      {item.price}
+                    </td>
+                    <td className="px-2 py-4 text-center text-sm border-l border-gray-300">
                       {item.secondPrice}
                     </td>
                   </tr>
