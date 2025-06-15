@@ -55,19 +55,19 @@ const OrderForm = ({ user }) => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg w-full lg:w-[40%]">
-      <h2 className="md:text-3xl text-xl font-bold font-roboto text-Ndark text-center mb-8 relative after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue">
+    <div className="w-full bg-white/60 backdrop-blur-xl p-8 rounded-3xl shadow-xl transition-all duration-300">
+      <h2 className="md:text-3xl text-2xl font-bold font-roboto text-Ndark text-center mb-8 relative after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue">
         Оформлення замовлення
       </h2>
 
-      <form className="space-y-4" onSubmit={handleSubmit}>
+      <form className="space-y-5" onSubmit={handleSubmit}>
         <input
           type="text"
           name="name"
           value={formData.name}
           onChange={handleChange}
           placeholder="Ім'я"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-400 focus:outline-none"
           required
         />
         <input
@@ -76,7 +76,7 @@ const OrderForm = ({ user }) => {
           value={formData.phone}
           onChange={handleChange}
           placeholder="Телефон"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-400 focus:outline-none"
           required
         />
         <input
@@ -85,7 +85,7 @@ const OrderForm = ({ user }) => {
           value={formData.email}
           onChange={handleChange}
           placeholder="Email"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-400 focus:outline-none"
           required
         />
         <textarea
@@ -93,14 +93,14 @@ const OrderForm = ({ user }) => {
           value={formData.note}
           onChange={handleChange}
           placeholder="Додаткові побажання"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-400 focus:outline-none"
         />
 
         <select
           name="clothType"
           value={formData.clothType}
           onChange={handleChange}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-400 focus:outline-none"
           required
         >
           <option value="">Оберіть тип одягу</option>
@@ -114,7 +114,7 @@ const OrderForm = ({ user }) => {
           name="productType"
           value={formData.productType}
           onChange={handleChange}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-400 focus:outline-none"
           required
         >
           <option value="">Оберіть тип послуги</option>
@@ -127,10 +127,11 @@ const OrderForm = ({ user }) => {
           isChecked={isChecked}
           onChange={() => setIsChecked(!isChecked)}
         />
+
         <button
           type="submit"
           disabled={!isChecked || isLoading}
-          className={`w-full py-3 rounded-lg text-lg font-medium transition duration-300 ${
+          className={`w-full py-4 rounded-xl text-lg font-semibold transition duration-300 ${
             isChecked && !isLoading
               ? "bg-blue-500 text-white hover:bg-blue-600"
               : "bg-gray-400 text-gray-200 cursor-not-allowed"
@@ -140,7 +141,7 @@ const OrderForm = ({ user }) => {
         </button>
 
         {message && (
-          <p className="text-center text-sm text-gray-700 mt-2">{message}</p>
+          <p className="text-center text-sm text-gray-800 mt-4">{message}</p>
         )}
       </form>
     </div>

@@ -65,16 +65,17 @@ const Account = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-200 to-gray-200 flex flex-col pt-32 relative px-4">
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex flex-row items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-gray-100 pt-32 px-4 font-tinos text-gray-800 relative overflow-x-hidden">
+      {/* ХЕДЕР — залишено без змін */}
+      <div className="flex flex-col md:flex-row justify-between items-center bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-lg mb-12">
+        <div className="flex items-center gap-4">
           <img
-            className="bg-slate-300 rounded-full h-10 mr-3"
+            className="w-12 h-12 rounded-full bg-slate-300"
             src={userpng}
-            alt="alterimg"
+            alt="user"
           />
-          <h2 className="text-xl font-bold text-center text-gray-800 ">
-            {user?.name ? user.name : "Вітаємо, користувач!"}
+          <h2 className="text-2xl font-bold text-gray-900">
+            {user?.name ? `Вітаємо, ${user.name}!` : "Вітаємо, користувач!"}
           </h2>
         </div>
 
@@ -83,33 +84,44 @@ const Account = () => {
             logLocalStorageData();
             dispatch(logout());
           }}
-          className=" bg-red-500 text-white px-2 md:px-4 py-2 rounded-lg text-xs font-medium hover:bg-red-600 transition"
+          className="mt-4 md:mt-0 bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-xl text-sm font-semibold transition"
         >
           Вийти з профілю
         </button>
       </div>
 
+      {/* 🔹 Сповіщення про статус */}
       {user?.status === "inactive" && (
-        <ReactivateButton userId={userId} accessToken={accessToken} />
+        <div className="mb-8">
+          <ReactivateButton userId={userId} accessToken={accessToken} />
+        </div>
       )}
 
+      {/* 🔹 Кнопка для адміна */}
       {user?.role === "admin" && (
         <div className="text-center mb-6">
           <Link
             to="/admin"
-            className="block w-full max-w-xs mx-auto bg-blue-500 text-white px-6 py-3 rounded-lg text-lg sm:text-xl font-semibold hover:bg-blue-600 transition"
+            className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-2xl text-lg font-semibold shadow transition"
           >
-            Перейти до панелі адміністратора
+            Панель адміністратора
           </Link>
         </div>
       )}
 
-      <TelegramAccaunt />
-      <div className="flex flex-col-reverse md:flex-row justify-evenly items-start w-full mx-auto  mb-32">
-        <OrderHistory />
-        <OrderForm user={user} />
-        <p></p>
-        <p></p>
+      {/* 🔹 Telegram */}
+      <div className="mb-10 max-w-4xl mx-auto">
+        <TelegramAccaunt />
+      </div>
+
+      {/* 🔹 Основна частина — Історія та форма */}
+      <div className="flex flex-col-reverse lg:flex-row gap-12 justify-between items-start max-w-6xl mx-auto mb-20">
+        <div className="w-full lg:w-1/2 bg-white/60 backdrop-blur-md p-6 rounded-3xl shadow-lg transition-all">
+          <OrderHistory />
+        </div>
+        <div className="w-full lg:w-1/2 bg-white/60 backdrop-blur-md p-6 rounded-3xl shadow-lg transition-all">
+          <OrderForm user={user} />
+        </div>
       </div>
     </div>
   );

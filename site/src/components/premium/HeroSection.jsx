@@ -33,7 +33,7 @@ const HeroSection = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <button className="bg-gradient-to-r from-Ngold to-primary-300 text-Ndark px-8 py-4 rounded-2xl font-bold text-lg flex items-center gap-3 shadow-2xl hover:shadow-Ngold/25 transition-all duration-300 font-manrope">
             <Phone className="w-5 h-5" />
-            Детальніше про послугу
+            Замовити послугу
             <ArrowRight className="w-5 h-5" />
           </button>
 
