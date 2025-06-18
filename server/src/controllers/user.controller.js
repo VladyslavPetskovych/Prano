@@ -44,6 +44,17 @@ class UserController {
         }
     }
 
+    async activateById(req, res, next) {
+        try {
+            const {userId} = req.params;
+            const activatedUser = await userService.activateById(userId);
+
+            return res.json(activatedUser)
+        } catch (e) {
+            next(e)
+        }
+    }
+
     async banById(req, res, next) {
         try {
             const {userId} = req.params;

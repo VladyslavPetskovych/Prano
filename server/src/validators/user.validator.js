@@ -19,7 +19,14 @@ class UserValidator {
 
     static update = Joi.object({
         name: this.name,
-        phone: this.phone,
+    });
+
+    static updatePhone = Joi.object({
+        phone: this.phone.required()
+    });
+
+    static updateEmail = Joi.object({
+        email: this.email.required()
     });
 
     static login = Joi.object({
