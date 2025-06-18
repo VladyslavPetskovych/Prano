@@ -1,5 +1,5 @@
 const {User, Action} = require("../models");
-const {UserEnum: {EUserStatus, EUserRole}} = require("../enums");
+const {UserEnum: {EUserStatus, EUserRole}, TokenEnum: {EActionTokenType}} = require("../enums");
 const {ApiError} = require("../errors");
 const {QueryParser} = require("../utils");
 const ccService = require("./cc.service");
@@ -40,7 +40,8 @@ class UserService {
             if (updatedUser.status === EUserStatus.ACTIVE) {
                 await ccService.updateCustomer(updatedUser.ccId, {
                     customerName: updatedUser.name,
-                    customerTel: updatedUser.phone
+                    customerTel: updatedUser.phone,
+                    customerEmail: updatedUser.email
                 })
             }
 
@@ -66,6 +67,22 @@ class UserService {
             if (userToDelete.ccId) {
                await ccService.deleteCustomer(userToDelete.ccId)
             }
+        } catch (e) {
+            throw new ApiError(e.message, e.status)
+        }
+    }
+
+    async activateById(id) {
+        try {
+            const user = await User.findById(id);
+            const {data} = await ccService.addCustomer({customerName: user.name, customerTel: user.phone, customerEmail: user.email});
+
+            const [activatedUser] = await Promise.all([
+                User.findOneAndUpdate({_id: id}, {status: EUserStatus.ACTIVE, ccId: data.CustomerID}, {returnDocument: "after"}),
+                Action.deleteMany({_userId: id, tokenType: EActionTokenType.ACTIVATE}),
+            ]);
+
+            return activatedUser
         } catch (e) {
             throw new ApiError(e.message, e.status)
         }
