@@ -36,18 +36,23 @@ export default function RestorePassword() {
     try {
       await axios.post(
         `https://prano.group/api/auth/password/restore/${token}`,
-        {
-          password,
-        }
+        { password }
       );
 
       setMessage("Пароль успішно змінено. Зараз ви будете перенаправлені.");
       setTimeout(() => navigate("/login"), 4000);
     } catch (err) {
-      console.error("Restore password error:", err);
-      setError(
-        err.response?.data?.message || "Сталася помилка. Спробуйте ще раз."
-      );
+      console.error("Помилка при зміні паролю:", err);
+
+      const errorMsg = err.response?.data?.message;
+
+      if (errorMsg === "Password already used before") {
+        setError("Цей пароль вже використовувався раніше. Введіть інший.");
+      } else if (errorMsg === "Invalid or expired token") {
+        setError("Недійсний або прострочений токен. Запросіть нове посилання.");
+      } else {
+        setError(errorMsg || "Сталася помилка. Спробуйте ще раз.");
+      }
     } finally {
       setLoading(false);
     }

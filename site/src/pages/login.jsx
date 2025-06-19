@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/authSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState(""); // Для повідомлень
+  const [errorMessage, setErrorMessage] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setErrorMessage(""); // Очищуємо повідомлення перед запитом
+    setErrorMessage("");
 
     try {
       const response = await axios.post("https://prano.group/api/auth/login", {
@@ -32,29 +32,26 @@ function Login() {
 
         navigate("/account");
       } else {
-        console.error("User ID is missing from the response.");
+        setErrorMessage("Щось пішло не так. Спробуйте ще раз.");
       }
     } catch (error) {
-      console.error(
-        "Login error:",
-        error.response?.data?.message || error.message
-      );
+      console.error("Login error:", error);
+
+      const msg = error.response?.data?.message || "";
 
       if (error.response?.status === 403) {
-        // Користувач не активований
-        setErrorMessage(
-          "Ваш акаунт не активовано. Перевірте пошту для активації."
-        );
+        setErrorMessage("Ваш акаунт не активовано. Перевірте пошту.");
       } else if (error.response?.status === 404) {
-        // Користувач не знайдений
-        setErrorMessage(
-          "Користувача не знайдено. Перевірте правильність email або зареєструйтесь."
-        );
+        setErrorMessage("Користувача не знайдено. Перевірте email.");
+      } else if (
+        msg.includes("Invalid email or password") ||
+        error.response?.status === 401
+      ) {
+        setErrorMessage("Невірний email або пароль.");
+      } else if (msg.toLowerCase().includes("fails to match")) {
+        setErrorMessage("Пароль не відповідає вимогам.");
       } else {
-        // Інші помилки
-        setErrorMessage(
-          error.response?.data?.message || "Помилка входу. Спробуйте ще раз."
-        );
+        setErrorMessage("Помилка входу. Спробуйте пізніше.");
       }
     }
   };
