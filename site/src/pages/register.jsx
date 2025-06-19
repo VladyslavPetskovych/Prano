@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/authSlice";
 import { Link, useNavigate } from "react-router-dom";
+import RegistrationSuccess from "../components/utils/RegistrationSuccesses";
 
 export default function RegistrationPage() {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ export default function RegistrationPage() {
     password: "",
     confirmPassword: "",
   });
+
   const [errors, setErrors] = useState({
     phone: "",
     password: "",
@@ -19,6 +21,8 @@ export default function RegistrationPage() {
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,26 +32,29 @@ export default function RegistrationPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let normalizedPhone = formData.phone.trim();
 
-    // Automatically add "+" if missing
-    if (!normalizedPhone.startsWith("+")) {
-      normalizedPhone = "+" + normalizedPhone;
-    }
-
-    // Валідація номера телефону після нормалізації
-    const phoneRegex = /^\+380\d{9}$/;
-    if (!phoneRegex.test(normalizedPhone)) {
-      newErrors.phone =
-        "Невірний формат номера телефону. Приклад: +380981234567";
-      hasError = true;
-    }
+    setMessage("");
+    setErrors({ phone: "", password: "" });
 
     const newErrors = { phone: "", password: "" };
     let hasError = false;
 
- 
-    // Валідація пароля
+    const fullPhone = `+380${formData.phone}`;
+
+    if (!formData.phone || formData.phone.length < 9) {
+      newErrors.phone = "Введіть номер телефону повністю (9 цифр).";
+      hasError = true;
+    }
+
+    const backendPhoneRegex =
+      /^\(?\+[0-9]{1,3}\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})? ?(\w{1,10}\s?\d{1,6})?$/;
+
+    if (!backendPhoneRegex.test(fullPhone)) {
+      newErrors.phone =
+        "Невірний формат номера. Введіть 9 цифр після +380. Наприклад: 974547862";
+      hasError = true;
+    }
+
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     if (!passwordRegex.test(formData.password)) {
       newErrors.password =
@@ -55,21 +62,18 @@ export default function RegistrationPage() {
       hasError = true;
     }
 
-    // Перевірка підтвердження пароля
     if (formData.password !== formData.confirmPassword) {
       newErrors.password = "Паролі не співпадають";
       hasError = true;
     }
 
     setErrors(newErrors);
-
     if (hasError) return;
-    e.preventDefault();
 
     const userData = {
       name: formData.name,
       email: formData.email,
-      phone: normalizedPhone,
+      phone: fullPhone,
       password: formData.password,
     };
 
@@ -84,14 +88,22 @@ export default function RegistrationPage() {
       localStorage.setItem("accessToken", response.data.accessToken);
       localStorage.setItem("userId", response.data.userId);
 
-      setMessage(
-        "Лист для підтвердження відправлено. Будь ласка, перевірте свою пошту."
-      );
-
-      setTimeout(() => navigate("/login"), 10000);
+      setSuccess(true); // ✅ показуємо інший компонент
     } catch (error) {
       console.error("Error during registration:", error);
-      if (error.response && error.response.status === 409) {
+
+      if (
+        error.response?.status === 409 &&
+        error.response.data?.message === "User with this phone already exist"
+      ) {
+        setErrors((prev) => ({
+          ...prev,
+          phone: "Цей номер телефону вже зареєстровано. Спробуйте інший.",
+        }));
+      } else if (
+        error.response?.status === 409 &&
+        error.response.data?.message === "User with this email already exist"
+      ) {
         setMessage("Цей email вже зареєстровано. Спробуйте інший.");
       } else {
         setMessage("Сталася помилка. Спробуйте ще раз.");
@@ -101,9 +113,11 @@ export default function RegistrationPage() {
     }
   };
 
+  if (success) return <RegistrationSuccess />;
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+    <div className="min-h-dvh h-full w-full bg-gray-100 flex items-center justify-center pt-24 px-4">
+      <div className="bg-white p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-md overflow-y-auto">
         <h2 className="text-2xl font-bold text-center mb-6">Реєстрація</h2>
         {message && (
           <p className="text-center text-green-600 mb-4">{message}</p>
@@ -125,14 +139,26 @@ export default function RegistrationPage() {
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-Nblue"
           />
-          <input
-            type="text"
-            name="phone"
-            placeholder="Номер телефону"
-            value={formData.phone}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-Nblue"
-          />
+          <div className="relative">
+            <span className="absolute top-1/2 -translate-y-1/2 left-3 text-gray-500 select-none">
+              +380
+            </span>
+            <input
+              type="text"
+              name="phone"
+              placeholder="___ ___ ___"
+              value={formData.phone}
+              onChange={(e) => {
+                let digitsOnly = e.target.value.replace(/\D/g, "");
+                if (digitsOnly.startsWith("0")) {
+                  digitsOnly = digitsOnly.slice(1);
+                }
+                digitsOnly = digitsOnly.slice(0, 9);
+                setFormData({ ...formData, phone: digitsOnly });
+              }}
+              className="w-full pl-16 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-Nblue"
+            />
+          </div>
           {errors.phone && (
             <p className="text-sm text-red-500">{errors.phone}</p>
           )}
@@ -145,10 +171,6 @@ export default function RegistrationPage() {
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-Nblue"
           />
-          {errors.password && (
-            <p className="text-sm text-red-500">{errors.password}</p>
-          )}
-
           <input
             type="password"
             name="confirmPassword"
@@ -157,6 +179,9 @@ export default function RegistrationPage() {
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-Nblue"
           />
+          {errors.password && (
+            <p className="text-sm text-red-500">{errors.password}</p>
+          )}
           <div className="flex justify-center">
             <Link to="/login" className="text-blue-500 hover:underline">
               Вже маєте акаунт? Увійти

@@ -40,12 +40,18 @@ function Login() {
         error.response?.data?.message || error.message
       );
 
-      // Обробка статусу 403 (користувач не активований)
       if (error.response?.status === 403) {
+        // Користувач не активований
         setErrorMessage(
           "Ваш акаунт не активовано. Перевірте пошту для активації."
         );
+      } else if (error.response?.status === 404) {
+        // Користувач не знайдений
+        setErrorMessage(
+          "Користувача не знайдено. Перевірте правильність email або зареєструйтесь."
+        );
       } else {
+        // Інші помилки
         setErrorMessage(
           error.response?.data?.message || "Помилка входу. Спробуйте ще раз."
         );
@@ -54,40 +60,58 @@ function Login() {
   };
 
   return (
-    <div className="flex pt-32 min-h-screen items-center justify-center bg-gray-100">
+    <div className="flex items-center justify-center bg-gray-100 px-4 py-10 min-h-[100dvh]">
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold text-center">Увійти</h2>
 
-        {/* Відображення повідомлення про помилку */}
         {errorMessage && (
-          <p className="text-center text-red-500 font-medium">{errorMessage}</p>
+          <p className="text-center text-red-500 font-medium mt-4">
+            {errorMessage}
+          </p>
         )}
 
-        <form className="mt-4" onSubmit={handleLogin}>
+        <form className="mt-6" onSubmit={handleLogin}>
           <input
-            className="w-full p-2 border rounded mb-2"
+            className="w-full p-3 border border-gray-300 rounded mb-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
           <input
-            className="w-full p-2 border rounded mb-2"
+            className="w-full p-3 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Пароль"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
-          <div className="text-center my-4 text-gray-700">
+
+          <div className="text-center text-sm text-gray-700 mb-3">
             <span className="font-medium">Не зареєстровані?</span>
             <Link
               to="/register"
-              className="text-blue-500 mx-3 hover:text-blue-700 font-medium"
+              className="text-blue-500 mx-2 hover:text-blue-700 font-medium"
             >
               Зареєструйтесь в 2 кліки
             </Link>
           </div>
-          <button className="w-full bg-blue-500 text-white p-2 rounded">
+
+          <div className="text-center text-sm text-gray-700 mb-6">
+            <span className="font-medium">Забули пароль?</span>
+            <Link
+              to="/reset-password"
+              className="text-blue-500 mx-2 hover:text-blue-700 font-medium"
+            >
+              Відновити доступ
+            </Link>
+          </div>
+
+          <button
+            className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-600 transition"
+            type="submit"
+          >
             Увійти
           </button>
         </form>

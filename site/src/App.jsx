@@ -35,7 +35,8 @@ import LandingPage from "./pages/LandingPage.jsx";
 import Premium from "./pages/premium.jsx";
 import PrivacyPolicy from "./pages/privacyPolicy.jsx";
 import NotFound from "./pages/NotFound.jsx";
-
+import ResetPassword from "./pages/resetPassword.jsx";
+import RestorePassword from "./pages/restorePassword.jsx";
 
 const AppContent = ({ isMaintenanceMode }) => {
   const location = useLocation();
@@ -73,6 +74,8 @@ const AppContent = ({ isMaintenanceMode }) => {
         <Route path="/textile" element={<Textile />} />
         <Route path="/fur" element={<Fur />} />
         <Route path="privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/restore-password/:token" element={<RestorePassword />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
