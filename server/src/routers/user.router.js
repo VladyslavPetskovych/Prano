@@ -37,6 +37,34 @@ router.delete(
     userMiddleware.isUserExistByReqParams("userId"),
     userController.deleteById
 )
+router.patch(
+    "/:userId/phone",
+    authMiddleware.checkAccessToken,
+    userMiddleware.checkUserRights("userId"),
+    commonMiddleware.isIdValid("userId"),
+    userMiddleware.isUserExistByReqParams("userId"),
+    commonMiddleware.isBodyValid(UserValidator.updatePhone),
+    userMiddleware.findAndThrowByReqBody("phone"),
+    userController.updateById
+)
+router.patch(
+    "/:userId/email",
+    authMiddleware.checkAccessToken,
+    userMiddleware.checkUserRights(),
+    commonMiddleware.isIdValid("userId"),
+    userMiddleware.isUserExistByReqParams("userId"),
+    commonMiddleware.isBodyValid(UserValidator.updateEmail),
+    userMiddleware.findAndThrowByReqBody("email"),
+    userController.updateById
+)
+router.post(
+    "/activate/:userId",
+    authMiddleware.checkAccessToken,
+    userMiddleware.checkUserRights(),
+    commonMiddleware.isIdValid("userId"),
+    userMiddleware.isUserExistByReqParams("userId"),
+    userController.activateById
+)
 router.post(
     "/ban/:userId",
     authMiddleware.checkAccessToken,
