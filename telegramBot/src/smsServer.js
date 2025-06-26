@@ -3,7 +3,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const bot = require("./bot");
-const User = require("../../server/src/models/TelegramUser.model");
+const User = require("./TelegramUser.model");
 
 dotenv.config();
 
