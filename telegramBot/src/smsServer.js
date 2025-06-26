@@ -1,30 +1,48 @@
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const bot = require("./bot");
+const Users = require("../../server/src/models/Users"); 
 
+dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post(
-    "/send",
-    (req, res) => {
-        try {
-            const {title, description, image} = req.body;
+mongoose.connect(process.env.BD_ACCESS, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "❌ MongoDB connection error:"));
+db.once("open", () => {
+  console.log("✅ MongoDB connected");
+});
 
-            // send some message method...
-            console.log(`${title} - ${description}`)
+app.post("/send", async (req, res) => {
+  try {
+    const { title, description, image } = req.body;
 
-            return res.sendStatus(200)
-        } catch (e) {
-            return res.json({message: e.message, status: e.status})
-        }
+    const users = await Users.find({ chatId: { $exists: true, $ne: null } });
+
+    for (const user of users) {
+      await bot.sendMessage(user.chatId, `${title}\n\n${description}`);
+      if (image) {
+        await bot.sendPhoto(user.chatId, image);
+      }
     }
-)
+
+    console.log(`📨 Повідомлення надіслано ${users.length} користувачам`);
+    return res.sendStatus(200);
+  } catch (e) {
+    console.error("❌ Помилка надсилання:", e);
+    return res.status(500).json({ message: e.message || "Помилка на сервері" });
+  }
+});
 
 const PORT = 3333;
 app.listen(PORT, () => {
-    console.log(`🚀 Сервер зі сторони телеграм боту ${PORT}`);
+  console.log(`🚀 Сервер зі сторони телеграм боту ${PORT}`);
 });
-
-

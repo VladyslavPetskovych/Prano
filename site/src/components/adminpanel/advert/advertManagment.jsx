@@ -56,10 +56,10 @@ function AdvertManagement() {
     }
   };
 
-  const sendToTelegram = async () => {
+  const sendToTelegram = async (advertId) => {
     try {
       await axios.post(
-        TELEGRAM_API_URL,
+        `https://prano.group/api/advertisement/telegram/send/${advertId}`,
         {},
         {
           headers: { Authorization: `${accessToken}` },
@@ -118,25 +118,30 @@ function AdvertManagement() {
 
       <div className="w-full">
         {adverts.map((advert) => (
-          <div
-            key={advert._id}
-            className="p-4 bg-white shadow-md rounded mb-4 flex justify-between items-center"
-          >
-            <div className="flex flex-col w-full md:w-2/3">
-              <h3 className="font-bold text-lg">{advert.title}</h3>
-              <p className="text-gray-700 ">{advert.description}</p>
+          <div key={advert._id} className="...">
+            <div className="...">
+              <h3 className="...">{advert.title}</h3>
+              <p className="...">{advert.description}</p>
               <img
                 src={`https://prano.group/api/advertisementImages/${advert.image}`}
                 alt={advert.title}
-                className="w-32 h-auto rounded mt-2"
+                className="..."
               />
             </div>
-            <button
-              onClick={() => deleteAdvert(advert._id)}
-              className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition"
-            >
-              Видалити
-            </button>
+            <div className="flex flex-col gap-2">
+              <button
+                onClick={() => sendToTelegram(advert._id)}
+                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+              >
+                Надіслати в Telegram
+              </button>
+              <button
+                onClick={() => deleteAdvert(advert._id)}
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+              >
+                Видалити
+              </button>
+            </div>
           </div>
         ))}
       </div>
