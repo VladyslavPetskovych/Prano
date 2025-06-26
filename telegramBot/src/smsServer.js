@@ -30,7 +30,7 @@ app.post("/send", async (req, res) => {
     for (const user of users) {
       await bot.sendMessage(user.chatId, `${title}\n\n${description}`);
       if (image) {
-        await bot.sendPhoto(user.chatId, image);
+        await bot.sendPhoto(user.chatId, `https://prano.group/api/advertisementImages/${image}`);
       }
     }
 
