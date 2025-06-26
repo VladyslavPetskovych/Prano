@@ -79,7 +79,13 @@ function AdvertManagement() {
       <h2 className="text-xl font-bold mb-4">Управління пропозиціями</h2>
 
       <button
-        onClick={sendToTelegram}
+        onClick={() => {
+          if (adverts.length === 1) {
+            sendToTelegram(adverts[0]._id);
+          } else {
+            alert("Оголошення відсутнє або їх більше одного.");
+          }
+        }}
         className="bg-slate-400 py-2 px-6 rounded hover:bg-blue-300 transition mb-6"
       >
         Надіслати пропозицію користувачам в Телеграм
@@ -129,12 +135,6 @@ function AdvertManagement() {
               />
             </div>
             <div className="flex flex-col gap-2">
-              <button
-                onClick={() => sendToTelegram(advert._id)}
-                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-              >
-                Надіслати в Telegram
-              </button>
               <button
                 onClick={() => deleteAdvert(advert._id)}
                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
