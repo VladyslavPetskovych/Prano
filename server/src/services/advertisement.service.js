@@ -101,7 +101,14 @@ class AdvertisementService {
 
             await axios.post("http://tgbot:3333/send", advertisementToSend)
         } catch (e) {
-            throw new ApiError(e.data.message, e.status)
+            if (axios.isAxiosError(e)) {
+                const status  = e.response?.status  || 500;
+                const message =
+                    e.response?.data?.message ||             // те, що надіслав сервер
+                    e.message;                               // або стандартне "Request failed…"
+
+                throw new ApiError(message, status);
+            }
         }
     }
 }
