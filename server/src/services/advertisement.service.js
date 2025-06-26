@@ -101,7 +101,7 @@ class AdvertisementService {
 
             await axios.post("http://tgbot:3333/send", advertisementToSend)
         } catch (e) {
-            throw new ApiError(e.data.Error, e.status)
+            throw new ApiError(e.data.message, e.status)
         }
     }
 }
