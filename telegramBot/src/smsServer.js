@@ -3,7 +3,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const bot = require("./bot");
-const Users = require("../../server/src/models/Users"); 
+const User = require("../../server/src/models/TelegramUser.model");
 
 dotenv.config();
 
@@ -25,7 +25,7 @@ app.post("/send", async (req, res) => {
   try {
     const { title, description, image } = req.body;
 
-    const users = await Users.find({ chatId: { $exists: true, $ne: null } });
+    const users = await User.find({ chatId: { $exists: true, $ne: null } });
 
     for (const user of users) {
       await bot.sendMessage(user.chatId, `${title}\n\n${description}`);

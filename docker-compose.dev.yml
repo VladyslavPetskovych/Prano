@@ -86,6 +86,7 @@ services:
     environment:
       - token = ${TG_BOT_TOKEN}
       - REDIS_URL = ${REDIS_URL}
+      - BD_ACCESS=${DB_URL}
     volumes:
       - ./telegramBot:/app
       - /app/node_modules
