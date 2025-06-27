@@ -14,7 +14,10 @@ class AdvertisementService {
         try {
             const oldAdvertisement = await Advertisement.findOne({});
 
-            const createdAdvertisement = await Advertisement.findOneAndReplace({}, data, { upsert: true, returnNewDocument: true });
+            const createdAdvertisement = await Advertisement.findOneAndReplace({}, data, {
+                upsert: true,
+                returnNewDocument: true
+            });
 
             if (!file) {
                 return createdAdvertisement
@@ -102,13 +105,12 @@ class AdvertisementService {
             await axios.post("http://tgbot:3333/send", advertisementToSend)
         } catch (e) {
             if (axios.isAxiosError(e)) {
-                const status  = e.response?.status  || 500;
-                const message =
-                    e.response?.data?.message ||             // те, що надіслав сервер
-                    e.message;                               // або стандартне "Request failed…"
-
+                const status = e.response?.status || 500;
+                const message = e.response?.data?.message || e.message;
                 throw new ApiError(message, status);
             }
+
+            throw new ApiError(e.message, e.status);
         }
     }
 }
