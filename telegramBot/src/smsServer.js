@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const bot = require("./bot");
 const User = require("./TelegramUser.model");
 
+
 dotenv.config();
 
 const app = express();
@@ -28,9 +29,20 @@ app.post("/send", async (req, res) => {
     const users = await User.find({ chatId: { $exists: true, $ne: null } });
 
     for (const user of users) {
-      await bot.sendMessage(user.chatId, `${title}\n\n${description}`);
       if (image) {
-        await bot.sendPhoto(user.chatId, `https://prano.group/api/advertisementImages/${image}`);
+
+        await bot.sendPhoto(user.chatId, image, {
+          caption: `<b>${title}</b>\n\n${description}`,
+          parse_mode: "HTML",
+        });
+      } else {
+        await bot.sendMessage(
+          user.chatId,
+          `<b>${title}</b>\n\n${description}`,
+          {
+            parse_mode: "HTML",
+          }
+        );
       }
     }
 
