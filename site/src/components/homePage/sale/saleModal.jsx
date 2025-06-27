@@ -1,13 +1,17 @@
 import React from "react";
 
 function SaleModal({ onClose, deals }) {
-  // Беремо першу пропозицію, якщо вона є
   const deal = deals?.[0];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-Ndark bg-opacity-60"> 
-      {/* Контейнер модалки */}
-      <div className="relative w-11/12 max-w-2xl overflow-hidden rounded-2xl bg-white shadow-2xl">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-Ndark bg-opacity-60"
+      onClick={onClose} // Закриває при кліку по фону
+    >
+      <div
+        className="relative w-11/12 max-w-2xl overflow-hidden rounded-2xl bg-white shadow-2xl"
+        onClick={(e) => e.stopPropagation()} // Зупиняє клік всередині модалки
+      >
         {/* Кнопка закриття */}
         <button
           onClick={onClose}
@@ -26,9 +30,9 @@ function SaleModal({ onClose, deals }) {
         {/* Тіло модалки */}
         <div className="max-h-[65vh] overflow-y-auto px-6 py-6">
           {deal ? (
-            <div className="mx-auto w-full overflow-hidden rounded-xl   shadow-sm transition hover:shadow-lg">
+            <div className="mx-auto w-full overflow-hidden rounded-xl shadow-sm transition hover:shadow-lg">
               {deal.image && (
-                <div className="h-52 w-full overflow-hidden ">
+                <div className="h-52 w-full overflow-hidden">
                   <img
                     src={`https://prano.group/api/advertisementImages/${deal.image}`}
                     alt={deal.title}

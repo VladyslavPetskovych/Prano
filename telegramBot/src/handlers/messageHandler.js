@@ -18,7 +18,7 @@ bot.on("message", async (msg) => {
 
   // Виведення відповідних команд
   if (text === "👤 Профіль") profile(msg);
-  else if (text === "💰 Ціни") prices(msg);
+  else if (text === "💰 Послуги") prices(msg);
   else if (text === "🧾 Замовлення") orders(msg);
 
   // Обробка кнопки "🚪 Вийти"
