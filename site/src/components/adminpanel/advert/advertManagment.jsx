@@ -122,25 +122,30 @@ function AdvertManagement() {
         </CustomButton>
       </div>
 
-      <div className="w-full">
+      <div className="w-full max-w-2xl">
         {adverts.map((advert) => (
-          <div key={advert._id} className="...">
-            <div className="...">
-              <h3 className="...">{advert.title}</h3>
-              <p className="...">{advert.description}</p>
+          <div
+            key={advert._id}
+            className="relative bg-white rounded-lg shadow-lg overflow-hidden mb-6"
+          >
+            <button
+              onClick={() => deleteAdvert(advert._id)}
+              className="absolute top-3 right-3 bg-red-500 text-white px-4 py-3 text-sm rounded hover:bg-red-600 transition"
+            >
+              Видалити
+            </button>
+
+            {advert.image && (
               <img
                 src={`https://prano.group/api/advertisementImages/${advert.image}`}
                 alt={advert.title}
-                className="..."
+                className="w-full h-64 object-cover"
               />
-            </div>
-            <div className="flex flex-col gap-2">
-              <button
-                onClick={() => deleteAdvert(advert._id)}
-                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-              >
-                Видалити
-              </button>
+            )}
+
+            <div className="p-4">
+              <h3 className="text-xl font-bold mb-2">{advert.title}</h3>
+              <p className="text-gray-700">{advert.description}</p>
             </div>
           </div>
         ))}

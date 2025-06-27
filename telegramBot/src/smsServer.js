@@ -3,7 +3,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const bot = require("./bot");
-const Users = require("../../server/src/models/Users"); 
+const Users = require("../../server/src/models/Users");
 
 dotenv.config();
 
@@ -28,9 +28,19 @@ app.post("/send", async (req, res) => {
     const users = await Users.find({ chatId: { $exists: true, $ne: null } });
 
     for (const user of users) {
-      await bot.sendMessage(user.chatId, `${title}\n\n${description}`);
       if (image) {
-        await bot.sendPhoto(user.chatId, image);
+        await bot.sendPhoto(user.chatId, image, {
+          caption: `<b>${title}</b>\n\n${description}`,
+          parse_mode: "HTML",
+        });
+      } else {
+        await bot.sendMessage(
+          user.chatId,
+          `<b>${title}</b>\n\n${description}`,
+          {
+            parse_mode: "HTML",
+          }
+        );
       }
     }
 
