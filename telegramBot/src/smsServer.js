@@ -48,6 +48,7 @@ app.post("/send", async (req, res) => {
 
     console.log(`📨 Повідомлення надіслано ${users.length} користувачам`);
     return res.sendStatus(200);
+    
   } catch (e) {
     console.error("❌ Помилка надсилання:", e);
     return res.status(500).json({ message: e.message || "Помилка на сервері" });
