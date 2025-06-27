@@ -14,6 +14,7 @@ function NotFound() {
         404
       </FuzzyText>
       <h2 className="text-3xl font-semibold mt-6">Сторінку не знайдено</h2>
+      
       <p className="text-lg mt-4 max-w-xl text-center">
         Йой! Такої сторінки не існує або вона була переміщена.
       </p>
