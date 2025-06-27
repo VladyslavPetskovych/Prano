@@ -13,7 +13,7 @@ module.exports = async function start(msg) {
     "Широкий спектр послуг. Детальніше на сайті: https://prano.group\n\n" +
     "Є запитання? [Чат з менеджером](https://t.me/Royalreservation) ✍️👩‍💼";
 
-  const keyboardButtons = [["👤 Профіль", "💰 Ціни", "🧾 Замовлення"]];
+  const keyboardButtons = [["👤 Профіль", "💰 Послуги", "🧾 Замовлення"]];
   if (phone) keyboardButtons.push(["🚪 Вийти"]);
 
   const keyboard = {
