@@ -31,7 +31,7 @@ app.post("/send", async (req, res) => {
     for (const user of users) {
       if (image) {
 
-        await bot.sendPhoto(user.chatId, image, {
+        await bot.sendPhoto(user.chatId, `https://prano.group/api/advertisementImages/${image}`, {
           caption: `<b>${title}</b>\n\n${description}`,
           parse_mode: "HTML",
         });
