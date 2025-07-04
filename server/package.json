@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon ./src/app.js --legacy-watch ./src",
+    "dev": "nodemon ./src/app.js --watch ./src",
     "start": "node ./src/app.js"
   },
   "keywords": [],
