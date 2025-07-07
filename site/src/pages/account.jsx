@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { logout, setUser } from "../redux/authSlice";
+import { setUser } from "../redux/authSlice";
 import OrderForm from "../components/account/orderForm";
 import OrderHistory from "../components/account/orderHistory/orderHistory";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import ReactivateButton from "../components/login/reactivateButton";
 import TelegramAccaunt from "../components/account/telegramAccaunt";
-import userpng from "../assets/account/userpng.png";
+import AccountHeader from "../components/account/AccountHeader";
 
 const logLocalStorageData = () => {
   console.log("🔹 Stored Data in LocalStorage:");
@@ -43,6 +42,9 @@ const Account = () => {
   const accessToken = useSelector((state) => state.auth.accessToken);
   const user = useSelector((state) => state.auth.user);
 
+  const [checkingAuth, setCheckingAuth] = useState(true);
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+
   useEffect(() => {
     logLocalStorageData();
 
@@ -55,40 +57,31 @@ const Account = () => {
       );
     }
 
-    if (userId && accessToken) {
-      fetchUserData(userId, accessToken, dispatch);
+    if (storedUserId && storedAccessToken) {
+      fetchUserData(storedUserId, storedAccessToken, dispatch).finally(() => {
+        setCheckingAuth(false);
+      });
+    } else {
+      setCheckingAuth(false);
     }
   }, [accessToken, userId, dispatch]);
 
+  if (checkingAuth) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-gray-600">Перевірка авторизації...</p>
+      </div>
+    );
+  }
+
   if (!isAuth) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" replace />;
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-gray-100 pt-32 px-4 font-tinos text-gray-800 relative overflow-x-hidden">
-      {/* ХЕДЕР — залишено без змін */}
-      <div className="flex flex-col md:flex-row justify-between items-center bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-lg mb-12">
-        <div className="flex items-center gap-4">
-          <img
-            className="w-12 h-12 rounded-full bg-slate-300"
-            src={userpng}
-            alt="user"
-          />
-          <h2 className="text-2xl font-bold text-gray-900">
-            {user?.name ? `Вітаємо, ${user.name}!` : "Вітаємо, користувач!"}
-          </h2>
-        </div>
-
-        <button
-          onClick={() => {
-            logLocalStorageData();
-            dispatch(logout());
-          }}
-          className="mt-4 md:mt-0 bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-xl text-sm font-semibold transition"
-        >
-          Вийти з профілю
-        </button>
-      </div>
+      {/* ХЕДЕР */}
+      <AccountHeader user={user} />
 
       {/* 🔹 Сповіщення про статус */}
       {user?.status === "inactive" && (
@@ -97,30 +90,35 @@ const Account = () => {
         </div>
       )}
 
-      {/* 🔹 Кнопка для адміна */}
-      {user?.role === "admin" && (
-        <div className="text-center mb-6">
-          <Link
-            to="/admin"
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-2xl text-lg font-semibold shadow transition"
-          >
-            Панель адміністратора
-          </Link>
-        </div>
-      )}
-
       {/* 🔹 Telegram */}
       <div className="mb-10 max-w-4xl mx-auto">
         <TelegramAccaunt />
       </div>
 
-      {/* 🔹 Основна частина — Історія та форма */}
-      <div className="flex flex-col-reverse lg:flex-row gap-12 justify-between items-start max-w-6xl mx-auto mb-20">
-        <div className="w-full lg:w-1/2 bg-white/60 backdrop-blur-md p-6 rounded-3xl shadow-lg transition-all">
-          <OrderHistory />
-        </div>
-        <div className="w-full lg:w-1/2 bg-white/60 backdrop-blur-md p-6 rounded-3xl shadow-lg transition-all">
-          <OrderForm user={user} />
+      {/* 🔹 Основна частина */}
+      <div className="max-w-4xl mx-auto mb-10 bg-white/60 backdrop-blur-md p-6 rounded-3xl shadow-lg transition-all">
+        <OrderForm user={user} />
+      </div>
+
+      {/* 🔹 Кнопка і блок історії */}
+      <div className="max-w-4xl mx-auto mb-20">
+        <button
+          onClick={() => setIsHistoryOpen(!isHistoryOpen)}
+          className="block w-full text-center bg-gray-700 hover:bg-gray-800 text-white py-3 rounded-xl font-semibold transition"
+        >
+          {isHistoryOpen
+            ? "Сховати попередні замовлення"
+            : "Показати попередні замовлення"}
+        </button>
+
+        <div
+          className={`transition-all duration-500 overflow-hidden ${
+            isHistoryOpen ? "max-h-[2000px] mt-6" : "max-h-0"
+          }`}
+        >
+          <div className="mt-4 bg-white/60 backdrop-blur-md p-6 rounded-3xl shadow-lg">
+            <OrderHistory />
+          </div>
         </div>
       </div>
     </div>

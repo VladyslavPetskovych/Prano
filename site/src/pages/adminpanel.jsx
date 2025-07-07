@@ -22,7 +22,7 @@ const AdminPanel = () => {
           <CustomButton
             variant="link"
             onClick={() => (window.location.href = "/account")}
-            className="text-blue-500 bg-slate-200"
+            className="text-Nblue bg-slate-200"
           >
             Повернутись назад ↩️
           </CustomButton>
