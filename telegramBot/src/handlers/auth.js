@@ -57,7 +57,7 @@ bot.on("contact", async (msg) => {
 
       const keyboard = {
         reply_markup: {
-          keyboard: [["👤 Профіль", "💰 Ціни", "🧾 Замовлення"], ["🚪 Вийти"]],
+          keyboard: [["👤 Профіль", "💰 Послуги", "🧾 Замовлення"], ["🚪 Вийти"]],
           resize_keyboard: true,
           one_time_keyboard: false,
         },
