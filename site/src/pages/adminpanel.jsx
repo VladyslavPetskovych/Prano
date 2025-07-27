@@ -18,7 +18,6 @@ const AdminPanel = () => {
           <p className="text-red-500">
             Обережно, всі зміни тут, одразу з'являться на сайті!!!!
           </p>
-
           <CustomButton
             variant="link"
             onClick={() => (window.location.href = "/account")}
