@@ -5,24 +5,25 @@ import "slick-carousel/slick/slick-theme.css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import comp1 from "../../assets/slider/comparasin.jpg";
 import comp2 from "../../assets/slider/comparasin2.jpg";
-import comp3 from "../../assets/slider/comparasin3.webp";
+import comp3 from "../../assets/slider/comparasin3.jpg";
+import comp4 from "../../assets/slider/comparasin4.jpg";
 
 const reviews = [
   {
     id: 1,
-    text: "Дуже задоволена послугами цієї хімчистки! Мої речі виглядають як нові, жодної плями не залишилося.",
+    text: "Дуже задоволена послугами цієї хімчистки! Мої речі виглядають як нові.",
     author: "Ольга Петрова",
     image: comp1,
   },
   {
     id: 2,
-    text: "Чудовий сервіс! Здала свої улюблені чобітки, на яких були плями , і отримав його у бездоганному стані.",
+    text: "Чудовий сервіс! Здала свої улюблені чобітки, на яких були плями, і отримала їх у бездоганному стані.",
     author: "Андрій Мельник",
     image: comp2,
   },
   {
     id: 3,
-    text: "Хімчистка перевершила всі мої очікування! Навіть складні забруднення на пуховику вдалося повністю видалити.",
+    text: "Хімчистка перевершила всі мої очікування! Навіть складні забруднення вдалося повністю видалити.",
     author: "Марина Коваль",
     image: comp3,
   },
@@ -30,13 +31,7 @@ const reviews = [
     id: 4,
     text: "Дуже задоволена послугами цієї хімчистки! Мої речі виглядають як нові, жодної плями не залишилося.",
     author: "Ольга Петрова",
-    image: comp1,
-  },
-  {
-    id: 5,
-    text: "Чудовий сервіс! Здала свої улюблені чобітки, на яких були плями , і отримав його у бездоганному стані.",
-    author: "Андрій Мельник",
-    image: comp2,
+    image: comp4,
   },
 ];
 
@@ -110,9 +105,9 @@ function ReviewsSlider() {
               <p className="text-xl font-semibold text-gray-800">
                 "{review.text}"
               </p>
-              <span className="block mt-2 text-gray-600">
+              {/* <span className="block mt-2 text-gray-600">
                 - {review.author}
-              </span>
+              </span> */}
             </div>
           </div>
         ))}

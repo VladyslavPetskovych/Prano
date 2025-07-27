@@ -83,9 +83,7 @@ function Merchandise() {
               <thead>
                 <tr className="bg-Ngold/30 text-Nblack uppercase tracking-wider">
                   <th className="px-6 py-4 text-left w-1/2">Назва речі</th>
-                  <th className="px-6 py-4 text-center w-1/8 hidden md:block">
-             
-                  </th>
+                  <th className="px-6 py-4 text-center w-1/8 hidden md:block"></th>
                   <th className="px-6 py-4 text-center w-1/6">Ціна</th>
                   <th className="px-6 py-4 w-1/6">
                     <div className="flex flex-col md:flex-row items-center justify-center gap-2 relative">
@@ -117,8 +115,9 @@ function Merchandise() {
                       {item.title}
                     </td>
                     <td className="px-2 py-4 text-center text-sm border-l border-gray-300 hidden md:table-cell">
-                      шт.
+                      {item.quantity || "шт."}
                     </td>
+
                     <td className="px-2 py-4 text-center text-sm border-l border-gray-300">
                       {item.price}
                     </td>

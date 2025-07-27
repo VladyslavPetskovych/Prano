@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-import { getCategories, createCategory, deleteCategory } from "./PriceApi";
+import {
+  getCategories,
+  createCategory,
+  deleteCategory,
+  updateCategory,
+} from "./PriceApi";
 import { useSelector } from "react-redux";
 
 const useCategoryManager = (newCategory, setNewCategory) => {
@@ -28,11 +33,11 @@ const useCategoryManager = (newCategory, setNewCategory) => {
   }, [accessToken]);
 
   const handleAddCategory = async () => {
-    if (!newCategory) return;
+    if (!newCategory || newCategory.trim().length < 2) return;
 
     try {
-      const response = await createCategory(newCategory, accessToken);
-      console.log("Created category:", response.data);
+      const response = await createCategory(newCategory.trim(), accessToken);
+      console.log("✅ Створено категорію:", response.data);
 
       setCategories((prev) => ({
         ...prev,
@@ -42,11 +47,12 @@ const useCategoryManager = (newCategory, setNewCategory) => {
       setNewCategory("");
     } catch (error) {
       console.error(
-        "Failed to create category:",
+        "❌ Помилка створення категорії:",
         error.response?.data || error.message
       );
     }
   };
+
   const handleDeleteCategory = async (id) => {
     try {
       await deleteCategory(id, accessToken);
@@ -56,7 +62,24 @@ const useCategoryManager = (newCategory, setNewCategory) => {
         return updated;
       });
     } catch (error) {
-      console.error("Failed to delete category:", error);
+      console.error("❌ Помилка видалення категорії:", error);
+    }
+  };
+
+  const handleEditCategory = async (id, newTitle) => {
+    if (!newTitle || newTitle.trim().length < 2) return;
+
+    try {
+      await updateCategory(id, newTitle.trim(), accessToken);
+      setCategories((prev) => ({
+        ...prev,
+        [id]: {
+          ...prev[id],
+          title: newTitle.trim(),
+        },
+      }));
+    } catch (error) {
+      console.error("❌ Помилка при оновленні категорії:", error);
     }
   };
 
@@ -64,6 +87,7 @@ const useCategoryManager = (newCategory, setNewCategory) => {
     categories,
     handleAddCategory,
     handleDeleteCategory,
+    handleEditCategory,
   };
 };
 

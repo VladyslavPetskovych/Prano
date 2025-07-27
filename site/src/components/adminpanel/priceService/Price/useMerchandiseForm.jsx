@@ -8,6 +8,8 @@ const useMerchandiseForm = (refreshServices) => {
   const [secondPrice, setSecondPrice] = useState("");
   const [category, setCategory] = useState("");
   const [newCategory, setNewCategory] = useState("");
+  const [order, setOrder] = useState(""); // ✅ Додано
+  const [quantity, setQuantity] = useState(""); // ✅ Додано
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -19,7 +21,8 @@ const useMerchandiseForm = (refreshServices) => {
     price,
     secondPrice,
     category,
-    order
+    order,
+    quantity // ✅ Отримуємо
   ) => {
     e.preventDefault();
     setLoading(true);
@@ -35,7 +38,7 @@ const useMerchandiseForm = (refreshServices) => {
       setLoading(false);
       return;
     }
-    if (isNaN(secondPrice) || Number(secondPrice) <= 0) {
+    if (secondPrice && (isNaN(secondPrice) || Number(secondPrice) <= 0)) {
       setError("Друга ціна має бути додатнім числом.");
       setLoading(false);
       return;
@@ -45,16 +48,21 @@ const useMerchandiseForm = (refreshServices) => {
       setLoading(false);
       return;
     }
+    if (!quantity || quantity.length < 1 || quantity.length > 10) {
+      setError("Одиниця виміру обовʼязкова (наприклад: кг, шт).");
+      setLoading(false);
+      return;
+    }
 
     try {
       const newMerch = {
         title,
         price: Number(price),
-        secondPrice: Number(secondPrice),
+        secondPrice: secondPrice ? Number(secondPrice) : undefined,
         categoryId: category,
+        quantity: quantity.trim(), // ✅ включено
       };
 
-      // ✅ Include `order` only if it's a valid number and not empty
       if (order !== "" && !isNaN(order)) {
         newMerch.order = Number(order);
       }
@@ -69,7 +77,8 @@ const useMerchandiseForm = (refreshServices) => {
       setPrice("");
       setSecondPrice("");
       setCategory("");
-      setOrder(""); // <-- make sure `setOrder` exists in your state
+      setOrder("");
+      setQuantity(""); // ✅
     } catch (err) {
       setError("Не вдалося створити товар. Перевірте дані.");
       console.error(err);
@@ -89,6 +98,10 @@ const useMerchandiseForm = (refreshServices) => {
     setCategory,
     newCategory,
     setNewCategory,
+    order,
+    setOrder,
+    quantity,
+    setQuantity,
     loading,
     error,
     handleSubmit,

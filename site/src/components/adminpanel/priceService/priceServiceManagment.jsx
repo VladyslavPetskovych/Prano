@@ -21,19 +21,28 @@ const PriceServiceManagement = () => {
     try {
       setLoading(true);
 
-      const merchRes = await axios.get("https://prano.group/api/merchandises");
-      const categoryRes = await axios.get("https://prano.group/api/categories");
-      console.log("📥 0000", categoryRes.data);
-      setCategories(categoryRes.data);
+      if (viewMode === "services") {
+        const res = await axios.get("https://prano.group/api/products");
+        console.log("📥 Products Response:", res.data);
+        setServices(Array.isArray(res.data.data) ? res.data.data : []);
+        setTotalPages(1); // без пагінації
+      } else {
+        const merchRes = await axios.get(
+          "https://prano.group/api/merchandises"
+        );
+        const categoryRes = await axios.get(
+          "https://prano.group/api/categories"
+        );
 
-      console.log("📥 Merchandises:", merchRes.data.data);
-      console.log("📥 Categories:", categoryRes.data);
+        console.log("📥 Merchandises:", merchRes.data.data);
+        console.log("📥 Categories:", categoryRes.data);
 
-      setServices(merchRes.data.data);
-
-      setTotalPages(
-        Math.ceil(merchRes.data.itemsCount / merchRes.data.data.length)
-      );
+        setCategories(categoryRes.data);
+        setServices(merchRes.data.data);
+        setTotalPages(
+          Math.ceil(merchRes.data.itemsCount / merchRes.data.data.length)
+        );
+      }
     } catch (err) {
       setError("Не вдалося отримати дані.");
     } finally {
@@ -127,6 +136,7 @@ const PriceServiceManagement = () => {
                   <th>Назва</th>
                   <th>Ціна</th>
                   <th>Друга ціна</th>
+                  <th>К-сть</th>
                   <th>Порядок</th>
                   <th>Категорія</th>
                   <th>Дії</th>
@@ -134,15 +144,17 @@ const PriceServiceManagement = () => {
               </thead>
 
               <tbody>
-                {services.map((item) => (
-                  <PriceItem
-                    key={item._id}
-                    service={item}
-                    categories={categories}
-                    onEditSuccess={handleEditSuccess}
-                    onDeleteRequest={handleDeleteMerchandise}
-                  />
-                ))}
+                {services.map((item) =>
+                  viewMode === "prices" ? (
+                    <PriceItem
+                      key={item._id}
+                      service={item}
+                      categories={categories}
+                      onEditSuccess={handleEditSuccess}
+                      onDeleteRequest={handleDeleteMerchandise}
+                    />
+                  ) : null
+                )}
               </tbody>
             </table>
           </div>

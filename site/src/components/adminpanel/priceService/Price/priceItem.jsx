@@ -5,11 +5,11 @@ const PriceServiceItem = ({
   service,
   categories,
   onEditSuccess,
-  onDeleteRequest, // ✅ correct prop
+  onDeleteRequest,
 }) => {
-  const category = categories.data.find(
-    (cat) => cat._id === service.categoryId
-  );
+  const category = Array.isArray(categories?.data)
+    ? categories.data.find((cat) => cat._id === service.categoryId)
+    : null;
 
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -17,7 +17,9 @@ const PriceServiceItem = ({
     price: service.price,
     secondPrice: service.secondPrice || "",
     order: service.order || "",
+    quantity: service.quantity || "",
   });
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -38,6 +40,8 @@ const PriceServiceItem = ({
       updateData.price = Number(formData.price);
     if (formData.secondPrice !== service.secondPrice)
       updateData.secondPrice = Number(formData.secondPrice);
+    if (formData.quantity !== service.quantity)
+      updateData.quantity = formData.quantity;
 
     try {
       if (Object.keys(updateData).length > 0) {
@@ -61,7 +65,7 @@ const PriceServiceItem = ({
   const handleDelete = async () => {
     if (window.confirm("Ви впевнені, що хочете видалити цю позицію?")) {
       try {
-        await onDeleteRequest(service._id); // ✅ call parent
+        await onDeleteRequest(service._id);
       } catch (err) {
         console.error("Error deleting item:", err);
       }
@@ -101,6 +105,16 @@ const PriceServiceItem = ({
           </td>
           <td className="p-3">
             <input
+              type="text"
+              name="quantity"
+              value={formData.quantity}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="кг або шт"
+            />
+          </td>
+          <td className="p-3">
+            <input
               type="number"
               name="order"
               value={formData.order}
@@ -108,20 +122,21 @@ const PriceServiceItem = ({
               className="w-full p-2 border border-gray-300 rounded"
             />
           </td>
-          <td colSpan="2" className="p-3 flex gap-2">
+          <td>{category ? category.title : "Немає категорії"}</td>
+          <td className="p-3 flex gap-2">
             <button
               onClick={handleSave}
-              className="px-4 py-2 bg-blue-500 text-white rounded"
+              className="px-3 py-1 bg-blue-500 text-white rounded"
               disabled={loading}
             >
-              {loading ? "Збереження..." : "Зберегти"}
+              💾
             </button>
             <button
               onClick={() => setIsEditing(false)}
-              className="px-4 py-2 bg-gray-400 text-white rounded"
+              className="px-3 py-1 bg-gray-400 text-white rounded"
               disabled={loading}
             >
-              Скасувати
+              ✖
             </button>
           </td>
         </>
@@ -130,6 +145,7 @@ const PriceServiceItem = ({
           <td className="p-3">{service.title}</td>
           <td className="p-3">{service.price}</td>
           <td className="p-3">{service.secondPrice}</td>
+          <td className="p-3">{service.quantity || "—"}</td>
           <td className="p-3">{service.order}</td>
           <td>{category ? category.title : "Немає категорії"}</td>
           <td className="p-3 flex gap-2">
@@ -137,13 +153,13 @@ const PriceServiceItem = ({
               onClick={() => setIsEditing(true)}
               className="px-3 py-1 bg-yellow-500 text-white rounded"
             >
-              Редагувати
+              ✏️
             </button>
             <button
               onClick={handleDelete}
               className="px-3 py-1 bg-red-500 text-white rounded"
             >
-              Видалити
+              🗑️
             </button>
           </td>
         </>
