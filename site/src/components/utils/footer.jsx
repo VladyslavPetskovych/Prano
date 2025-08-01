@@ -1,21 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaLinkedinIn,
-  FaInstagram,
-  FaTelegram,
-} from "react-icons/fa";
+import { FaTiktok, FaInstagram, FaTelegram } from "react-icons/fa";
 
 function Footer() {
   return (
     <footer className="bg-black text-white py-4">
       <div className="container mx-auto px-4">
         <div className="text-center text-sm py-2 border-b border-gray-700">
-          Здійснюємо доставку по Львову кур'єром і по Україні за допомогою
-          пошти
+          Здійснюємо доставку по Львову кур'єром і по Україні за допомогою пошти
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6">
@@ -88,21 +81,32 @@ function Footer() {
 
         <div className="mt-2 border-t border-gray-700 py-2 text-center">
           <div className="my-4 flex justify-center space-x-4">
+            {/* TikTok */}
             <a
-              href="#"
-              className="bg-white text-red-500 p-2 rounded-full hover:bg-gray-200"
+              href="https://www.tiktok.com/@prano.group2?_t=ZM-8yKRhHt8ubI"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white text-black p-2 rounded-full hover:bg-gray-200"
             >
-              <FaFacebookF />
+              <FaTiktok />
             </a>
+
+            {/* Instagram */}
             <a
-              href="#"
-              className="bg-white text-red-500 p-2 rounded-full hover:bg-gray-200"
+              href="https://www.instagram.com/pranogroup"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white p-2 rounded-full hover:opacity-80"
             >
               <FaInstagram />
             </a>
+
+            {/* Telegram */}
             <a
-              href="#"
-              className="bg-white text-red-500 p-2 rounded-full hover:bg-gray-200"
+              href="https://t.me/Prano_Lviv_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#229ED9] text-white p-2 rounded-full hover:bg-[#1b8dbd]"
             >
               <FaTelegram />
             </a>

@@ -28,7 +28,7 @@ export default function AutomationBlock() {
           href="https://t.me/Prano_Lviv_bot"
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-4 border border-Nblue text-Nblue px-6 py-2 text-lg font-medium hover:bg-white hover:text-orange-400 transition duration-300"
+          className="mt-4   text-Nblue px-6 py-2 text-lg font-medium hover:bg-white hover:text-orange-400 transition duration-300"
           data-aos="fade-up"
         >
           <img src={pranologo} alt="logo prano" className="w-32" />
