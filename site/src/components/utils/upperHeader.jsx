@@ -12,7 +12,7 @@ function UpperHeader() {
         setNotification(`${text} скопійовано!`);
         setTimeout(() => {
           setNotification("");
-        }, 2000);
+        }, 1500);
       })
       .catch((err) => {
         console.error("Не вдалося скопіювати: ", err);
@@ -29,7 +29,7 @@ function UpperHeader() {
             onClick={() => handleCopy("+38012345678")}
           >
             <img src={phone} alt="phone" className="h-4 w-4 object-contain " />
-            <span className="italic hover:underline font-bold">+3806632146**</span>
+            <span className="italic hover:underline font-bold">+380771515111</span>
           </div>
 
           {/* Email */}
