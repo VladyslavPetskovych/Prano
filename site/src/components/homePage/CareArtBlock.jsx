@@ -17,7 +17,7 @@ function CareArtBlock() {
           className="text-xl  md:text-3xl font-bold mt-2 p-3 md:px-24 font-tinos text-center bg-white text-Ndark relative inline-block after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue mb-7"
           data-aos="fade-up"
         >
-          МИСТЕЦТВО ДОГЛЯДУ ЗА РЕЧАМИ
+          ДОСКОНАЛІСТЬ БЕЗ КОМПРОМІСІВ
         </h2>
       </div>
 

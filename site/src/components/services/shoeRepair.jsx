@@ -12,7 +12,7 @@ function ShoeRepair() {
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-1 bg-white rounded-3xl  overflow-hidden">
         <div className="p-8 flex flex-col justify-center text-center md:text-left space-y-6">
           <h2 className="text-4xl font-extrabold text-gray-800 tracking-wide">
-            Ремонт взуття
+            Реставрація взуття
           </h2>
           <p className="text-lg text-gray-600 leading-relaxed">
             Заміна підборів, фурнітури, підклеювання, реставрація шкіри та

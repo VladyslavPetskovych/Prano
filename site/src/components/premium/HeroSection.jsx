@@ -4,7 +4,7 @@ import { Phone, ArrowRight, Crown, Shield, Gem } from "lucide-react";
 const HeroSection = () => {
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-[90vh] flex items-center justify-center overflow-hidden"
       style={{
         backgroundImage: `linear-gradient(rgba(34, 40, 43, 0.8), rgba(47, 126, 153, 0.7)), url('https://images.pexels.com/photos/6766290/pexels-photo-6766290.jpeg')`,
         backgroundSize: "cover",
@@ -18,7 +18,7 @@ const HeroSection = () => {
         <div className="mb-8">
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-6 leading-snug font-tinos">
             Преміум догляд за вашою{" "}
-            <span className="bg-gradient-to-r from-Ngold via-primary-300 to-Nblue bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-Ngold via-primary-300 to-Ngold bg-clip-text text-transparent">
               брендовою колекцією
             </span>
           </h1>
@@ -30,13 +30,13 @@ const HeroSection = () => {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <button className="bg-gradient-to-r from-Ngold to-primary-300 text-Ndark px-6 py-3 sm:px-8 sm:py-4 rounded-2xl font-bold text-base sm:text-lg flex items-center gap-3 shadow-2xl hover:shadow-Ngold/25 transition-all duration-300 font-manrope">
+          <button className="bg-gradient-to-r from-Ngold to-Ngold text-Ndark px-6 py-3 sm:px-8 sm:py-4 rounded-2xl font-bold text-base sm:text-lg flex items-center gap-3 shadow-2xl hover:shadow-Ngold/25 transition-all duration-300 font-manrope">
             <Phone className="w-5 h-5" />
             Замовити послугу
             <ArrowRight className="w-5 h-5" />
           </button>
 
-          <button className="border-2 border-Nblue/70 text-Nblue px-6 py-3 sm:px-8 sm:py-4 rounded-2xl font-semibold text-base sm:text-lg backdrop-blur-md bg-Nblue/10 hover:bg-Nblue/20 transition-all duration-300 font-manrope">
+          <button className="border-2 border-Ngold/70 text-Ngold px-6 py-3 sm:px-8 sm:py-4 rounded-2xl font-semibold text-base sm:text-lg backdrop-blur-md bg-Nblue/10 hover:bg-Nblue/20 transition-all duration-300 font-manrope">
             Переглянути бренди
           </button>
         </div>
@@ -64,9 +64,7 @@ const HeroSection = () => {
       </div>
 
       <div className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2">
-        <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-Ngold/50 rounded-full flex justify-center">
-          <div className="w-1 h-2 sm:h-3 bg-Ngold/70 rounded-full mt-2"></div>
-        </div>
+        
       </div>
     </section>
   );

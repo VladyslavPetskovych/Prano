@@ -7,28 +7,27 @@ function Footer() {
   return (
     <footer className="bg-black text-white py-4">
       <div className="container mx-auto px-4">
-        <div className="text-center text-sm py-2 border-b border-gray-700">
-          Здійснюємо доставку по Львову кур'єром і по Україні за допомогою пошти
+        <div className="text-center  py-2 border-b font-bold text-lg border-gray-700">
+          Доставляємо по Львову кур'єром і по Україні — поштою
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6">
           <div>
-            <h3 className="font-bold text-lg">Про компанію</h3>
-            <p className="mt-4 text-sm">
-              Ми прагнемо до досконалості та задоволення клієнтів, забезпечуючи
-              високу якість і інноваційні рішення, які відповідають вашим
-              потребам.
-            </p>
+            <h3 className="font-bold text-lg">Контакти</h3>
+            <p>📞 380771515111</p>
+            <p>✉️ pranolviv@gmail.com</p>
+            <div className="mt-8">
+              <h3 className="font-bold ">Виробництво і головний офіс</h3>
+              <p>📍 Вулиця Липинського, 54, Львів </p>
+            </div>
           </div>
 
           <div>
-            <h3 className="font-bold text-lg">Контакти</h3>
+            <h3 className="font-bold text-lg">Пункти прийому</h3>
             <ul className="mt-4 text-sm space-y-2">
-              <li>📍 Вулиця Липинського 54, Львів, Україна</li>
-              <li>📍 Вулиця Під Дубом 26а, Львів, Україна</li>
-              <li>📍 Проспект Червоної Калини 60, Львів, Україна</li>
-              <li>📞 380771515111</li>
-              <li>✉️ pranolviv@gmail.com</li>
+              <li>📍 Вулиця Липинського, 54, Львів </li>
+              <li>📍 Вулиця Під Дубом, 26а, Львів</li>
+              <li>📍 Проспект Червоної Калини, 60, Львів</li>
             </ul>
           </div>
 
@@ -40,15 +39,7 @@ function Footer() {
                   to="/services#repair-clothes"
                   className="text-blue-600 hover:underline"
                 >
-                  Ремонт та корекція одягу
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/services#cleaning"
-                  className="text-blue-600 hover:underline"
-                >
-                  Виведення плям
+                  Хімчистка одягу
                 </Link>
               </li>
               <li>
@@ -59,14 +50,24 @@ function Footer() {
                   Прання
                 </Link>
               </li>
+              
               <li>
                 <Link
                   to="/services#shoes-repair"
                   className="text-blue-600 hover:underline"
                 >
-                  Ремонт взуття
+                  Чистка та реставрація взуття
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/services#repair-clothes"
+                  className="text-blue-600 hover:underline"
+                >
+                  Ремонт та корекція одягу
+                </Link>
+              </li>
+
               <li>
                 <Link
                   to="/services#repair-bags"

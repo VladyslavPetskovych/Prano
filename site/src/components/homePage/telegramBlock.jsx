@@ -37,21 +37,21 @@ export default function AutomationBlock() {
       </div>
       <div className="p-3 w-full lg:w-1/2 ">
         <h2 className="text-Nblue text-center text-2xl md:text-4xl font-bold mb-4 font-tinos">
-          ЗРУЧНИЙ ТЕЛЕГРАМ БОТ:
+          ЗРУЧНИЙ ТЕЛЕГРАМ-БОТ:
         </h2>
         <ul className="text-base md:text-lg font-manrope">
           <li className="flex items-start  text-gray-700 mb-2">
             <FaCheckCircle className="text-Nblue mr-4 w-6 h-6 flex-shrink-0" />
-            Перевіряй статус замовлень швидко у Telegram чат-боті
+            Перевіряйте статус замовлень швидко у Telegram чат-боті
           </li>
           <li className="flex items-start  text-gray-700 mb-2">
             <FaCheckCircle className="text-Nblue mr-4 w-6 h-6 flex-shrink-0" />
-            Отримай адреси пунктів прийому
+            Отримайте адреси пунктів прийому
           </li>
-          <li className="flex items-start  text-gray-700 mb-2">
+          {/* <li className="flex items-start  text-gray-700 mb-2">
             <FaCheckCircle className="text-Nblue mr-4 w-6 h-6 flex-shrink-0" />
-            Онлайн оплата Apple Pay / Google Pay
-          </li>
+            Онлайн-оплата Apple Pay / Google Pay
+          </li> */}
           <li className="flex items-start  text-gray-700 mb-2">
             <FaCheckCircle className="text-Nblue mr-4 w-6 h-6 flex-shrink-0" />
             Інформація про актуальні промокоди і знижки

@@ -19,7 +19,7 @@ function Premium() {
         />
 
         {/* Напівпрозорий контейнер для тексту */}
-        <div className="relative z-10 flex items-center justify-center min-h-[90vh] bg-black/40 px-4">
+        <div className="relative z-10 flex items-center justify-center min-h-[98vh] bg-black/40 px-4">
           <div className="w-full max-w-3xl bg-white/10 backdrop-blur-md p-5 sm:p-8 md:p-12 rounded-2xl shadow-lg text-white text-center">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
               Prano Premium — сервіс поза стандартами

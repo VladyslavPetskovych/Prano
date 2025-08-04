@@ -11,7 +11,7 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
     { label: "Хімчистка", href: "/services#cleaning" },
     { label: "Прання", href: "/services#laundry" },
     { label: "Чистка взуття", href: "/services#shoes-cleaning" },
-    { label: "Ремонт взуття", href: "/services#shoes-repair" },
+    { label: "Реставрація взуття", href: "/services#shoes-repair" },
     { label: "Ремонт одягу", href: "/services#clothing-repair" },
     { label: "Реставрація сумок", href: "/services#repair-bags" },
   ];
@@ -67,7 +67,6 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
             </span>
           </button>
 
- 
           {servicesOpen && (
             <div className="w-full flex flex-col items-start space-y-1 mt-2 pl-4">
               {services.map((service, index) => (

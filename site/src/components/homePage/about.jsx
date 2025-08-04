@@ -43,7 +43,7 @@ function About() {
       <div className="relative z-20 max-w-5xl mx-auto">
         <div className="bg-black/70 backdrop-blur-md rounded-3xl shadow-2xl px-6 sm:px-10 py-12 space-y-10">
           <h2 className="text-4xl md:text-5xl font-extrabold font-tinos text-white text-center">
-            Наші Цінності
+            Наші цінності
           </h2>
 
           <div className="space-y-8 font-manrope">

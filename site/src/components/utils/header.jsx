@@ -17,7 +17,7 @@ function Header() {
     { label: "Хімчистка", href: "/services#cleaning" },
     { label: "Прання", href: "/services#laundry" },
     { label: "Чистка взуття", href: "/services#shoes-cleaning" },
-    { label: "Ремонт взуття", href: "/services#shoes-repair" },
+    { label: "Реставрація взуття", href: "/services#shoes-repair" },
     { label: "Ремонт одягу", href: "/services#repair-clothes" },
     { label: "Реставрація сумок", href: "/services#repair-bags" },
   ];

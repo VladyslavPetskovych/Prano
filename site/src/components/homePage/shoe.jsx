@@ -28,7 +28,7 @@ function Shoe() {
               className="text-xl md:text-3xl font-bold uppercase"
               data-aos="zoom-in"
             >
-              РЕМОНТ ВЗУТТЯ <br /> І АКСЕСУАРІВ
+              РЕСТАВРАЦІЯ ВЗУТТЯ <br /> І АКСЕСУАРІВ
             </h1>
             <Link
               to="/services#shoes-repair"

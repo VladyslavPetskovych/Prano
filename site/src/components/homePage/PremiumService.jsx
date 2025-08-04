@@ -11,11 +11,10 @@ function EndlessPossibilities() {
         {/* Text Section */}
         <div className="w-full md:w-1/3 text-center flex flex-col items-center md:text-left">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-Ngold">
-            ПРЕМІУМ ПОСЛУГИ
+            ПРЕМІУМ-ПОСЛУГИ
           </h2>
           <p className="text-base sm:text-lg text-gray-300 mb-3">
-            Ми пропонуємо професійні послуги та преміум догляд за одягом,
-            гарантуючи ідеальну чистоту та довговічність ваших речей.
+            Професійний преміум-догляд за одягом, взуттям і сумками, ідеальна чистота та довговічність ваших речей.
           </p>
           <Link
             to="/premium"

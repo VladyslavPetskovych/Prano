@@ -15,7 +15,7 @@ function TopBlock() {
             className="text-4xl md:text-6xl font-bold text-white"
             style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.7)" }}
           >
-            Збережіть елегантність вашого хутра
+            Збережемо елегантність вашого хутра
           </h1>
           <img src={CatLogo} alt="Cat Logo" className="w-24 md:w-32" />
         </div>
@@ -25,7 +25,7 @@ function TopBlock() {
           style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.7)" }}
         >
           Забезпечте бездоганний вигляд і розкіш хутра з професійним доглядом
-          від Prano у Львові, присвяченим вічній елегантності.
+          від Prano у Львові.
         </p>
       </section>
 

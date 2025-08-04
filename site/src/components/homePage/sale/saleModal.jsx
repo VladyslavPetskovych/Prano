@@ -37,6 +37,9 @@ function SaleModal({ onClose, deals }) {
                     src={`https://prano.group/api/advertisementImages/${deal.image}`}
                     alt={deal.title}
                     className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+                    loading="lazy" // ✅ відкладене завантаження
+                    decoding="async" // ✅ асинхронне декодування
+                    sizes="(max-width: 768px) 100vw, 600px" // ✅ оптимізація для мобільних
                   />
                 </div>
               )}
