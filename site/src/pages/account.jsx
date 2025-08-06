@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { setUser } from "../redux/authSlice";
+import { login, setUser } from "../redux/authSlice";
 import OrderForm from "../components/account/orderForm";
 import OrderHistory from "../components/account/orderHistory/orderHistory";
 import axios from "axios";
@@ -29,6 +29,7 @@ const fetchUserData = async (userId, accessToken, dispatch) => {
 
     console.log("Fetched User Data:", response.data);
 
+    // зберігаємо користувача в Redux
     dispatch(setUser(response.data));
   } catch (error) {
     console.error("Error fetching user data:", error);
@@ -49,14 +50,22 @@ const Account = () => {
     logLocalStorageData();
 
     const storedAccessToken = localStorage.getItem("accessToken");
+    const storedRefreshToken = localStorage.getItem("refreshToken");
     const storedUserId = localStorage.getItem("userId");
 
-    if (!accessToken && storedAccessToken) {
+    // якщо Redux пустий, але є токени у localStorage → відновлюємо сесію через login
+    if (!accessToken && storedAccessToken && storedUserId) {
       dispatch(
-        setUser({ accessToken: storedAccessToken, userId: storedUserId })
+        login({
+          accessToken: storedAccessToken,
+          refreshToken: storedRefreshToken,
+          userId: storedUserId,
+          user: null,
+        })
       );
     }
 
+    // завантажуємо дані користувача
     if (storedUserId && storedAccessToken) {
       fetchUserData(storedUserId, storedAccessToken, dispatch).finally(() => {
         setCheckingAuth(false);
@@ -80,7 +89,7 @@ const Account = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-gray-100 pt-32 px-4 font-tinos text-gray-800 relative overflow-x-hidden">
-      {/* ХЕДЕР */}
+      {/* 🔹 Хедер */}
       <AccountHeader user={user} />
 
       {/* 🔹 Сповіщення про статус */}
@@ -100,7 +109,7 @@ const Account = () => {
         <OrderForm user={user} />
       </div>
 
-      {/* 🔹 Кнопка і блок історії */}
+      {/* 🔹 Історія замовлень */}
       <div className="max-w-4xl mx-auto mb-20">
         <button
           onClick={() => setIsHistoryOpen(!isHistoryOpen)}
