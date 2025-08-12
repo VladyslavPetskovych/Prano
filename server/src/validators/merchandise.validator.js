@@ -4,7 +4,7 @@ class MerchandiseValidator {
     static title = Joi.string().min(3).max(45).trim()
     static quantity = Joi.string().trim()
     static price = Joi.number().min(1)
-    static secondPrice = Joi.number().min(1)
+    static secondPrice = Joi.number().min(1).allow(null)
     static order = Joi.number().integer().min(1)
     static categoryId = Joi.string().hex().length(24).trim()
 
