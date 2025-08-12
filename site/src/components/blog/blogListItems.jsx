@@ -1,4 +1,5 @@
 import React from "react";
+import ReactMarkdown from "react-markdown"; // Імпорт бібліотеки для парсингу Markdown
 
 const formatDate = (dateString) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -21,9 +22,12 @@ const BlogListItems = ({ blogs }) => {
           <h3 className="text-2xl font-bold text-gray-900 mb-3">
             {blog.title}
           </h3>
+
+          {/* Парсинг Markdown опису поста */}
           <p className="text-gray-600 mb-6 line-clamp-3 text-base">
-            {blog.description}
+            <ReactMarkdown>{blog.description}</ReactMarkdown>
           </p>
+
           <div className="flex items-center justify-between w-full mt-auto">
             <p className="text-gray-500 text-sm">
               {formatDate(blog.createdAt)}

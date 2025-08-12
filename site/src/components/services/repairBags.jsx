@@ -2,7 +2,6 @@ import React from "react";
 import purse from "../../assets/service/purse.webp";
 
 const features = [
-  "Підгонка одягу по фігурі",
   "Заміна блискавок та ґудзиків",
   "Реставрація тканин та підшивання",
 ];

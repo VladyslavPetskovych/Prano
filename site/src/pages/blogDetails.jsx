@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { Helmet } from "react-helmet-async";
+import ReactMarkdown from "react-markdown"; // Імпорт бібліотеки для рендерингу Markdown
 
 const formatDate = (dateString) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -62,7 +63,11 @@ const BlogDetails = () => {
         <h1 className="text-3xl font-bold text-gray-800 mb-4 my-12">
           {blog.title}
         </h1>
-        <p className="text-gray-600 leading-relaxed">{blog.description}</p>
+
+        {/* Використовуємо ReactMarkdown для рендерингу Markdown контенту */}
+        <div className="text-gray-600 leading-relaxed">
+          <ReactMarkdown>{blog.description}</ReactMarkdown>
+        </div>
 
         <div className="flex flex-row items-center justify-between ">
           <p className="text-Ndark font-bold text-sm">
