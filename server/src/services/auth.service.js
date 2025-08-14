@@ -28,10 +28,11 @@ class AuthService {
     async activate(userId) {
         try {
             const user = await User.findById(userId);
-            const {data} = await ccService.addCustomer({customerName: user.name, customerTel: user.phone, customerEmail: user.email});
+            // const {data} = await ccService.addCustomer({customerName: user.name, customerTel: user.phone, customerEmail: user.email});
 
             await Promise.all([
-                User.updateOne({_id: userId}, {status: EUserStatus.ACTIVE, ccId: data.CustomerID}),
+                // User.updateOne({_id: userId}, {status: EUserStatus.ACTIVE, ccId: data.CustomerID}),
+                User.updateOne({_id: userId}, {status: EUserStatus.ACTIVE}),
                 Action.deleteMany({_userId: userId, tokenType: EActionTokenType.ACTIVATE}),
             ]);
 

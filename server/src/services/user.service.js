@@ -37,13 +37,13 @@ class UserService {
     async updateById(id, data) {
         try {
             const updatedUser = await User.findOneAndUpdate({_id: id}, {...data}, {returnDocument: "after"});
-            if (updatedUser.status === EUserStatus.ACTIVE) {
-                await ccService.updateCustomer(updatedUser.ccId, {
-                    customerName: updatedUser.name,
-                    customerTel: updatedUser.phone,
-                    customerEmail: updatedUser.email
-                })
-            }
+            // if (updatedUser.status === EUserStatus.ACTIVE) {
+            //     await ccService.updateCustomer(updatedUser.ccId, {
+            //         customerName: updatedUser.name,
+            //         customerTel: updatedUser.phone,
+            //         customerEmail: updatedUser.email
+            //     })
+            // }
 
             return updatedUser;
         } catch (e) {
@@ -64,9 +64,9 @@ class UserService {
                 User.deleteOne({_id: id}),
             ])
 
-            if (userToDelete.ccId) {
-               await ccService.deleteCustomer(userToDelete.ccId)
-            }
+            // if (userToDelete.ccId) {
+            //    await ccService.deleteCustomer(userToDelete.ccId)
+            // }
         } catch (e) {
             throw new ApiError(e.message, e.status)
         }
@@ -75,10 +75,11 @@ class UserService {
     async activateById(id) {
         try {
             const user = await User.findById(id);
-            const {data} = await ccService.addCustomer({customerName: user.name, customerTel: user.phone, customerEmail: user.email});
+            // const {data} = await ccService.addCustomer({customerName: user.name, customerTel: user.phone, customerEmail: user.email});
 
             const [activatedUser] = await Promise.all([
-                User.findOneAndUpdate({_id: id}, {status: EUserStatus.ACTIVE, ccId: data.CustomerID}, {returnDocument: "after"}),
+                // User.findOneAndUpdate({_id: id}, {status: EUserStatus.ACTIVE, ccId: data.CustomerID}, {returnDocument: "after"}),
+                User.findOneAndUpdate({_id: id}, {status: EUserStatus.ACTIVE}, {returnDocument: "after"}),
                 Action.deleteMany({_userId: id, tokenType: EActionTokenType.ACTIVATE}),
             ]);
 
