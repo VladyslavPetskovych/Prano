@@ -3,8 +3,8 @@ name: prano-app
 services:
   mongo:
     image: mongo:7.0.12
-#    ports:
-#      - "27017:27017"
+    ports:
+      - "27017:27017"
     environment:
       - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
