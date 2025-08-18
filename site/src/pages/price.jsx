@@ -5,10 +5,10 @@ import Merchendise from "../components/price/merchendise";
 
 function Price() {
   return (
-    <div className="pt-20 bg-white bg-opacity-70">
-      <PriceTopBlock />
+    <div className="pt-10 bg-white bg-opacity-70">
+      {/* <PriceTopBlock /> */}
       <div className="lg:mx-20 mx-3  rounded-xl">
-        <PriceTable />
+        {/* <PriceTable /> */}
         <Merchendise />
       </div>
     </div>

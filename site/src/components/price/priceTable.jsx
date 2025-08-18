@@ -21,7 +21,7 @@ function PriceTable() {
   }, []);
 
   return (
-    <section className="px-4 py-12 sm:px-8 bg-Ngold bg-opacity-40 rounded-3xl shadow-2xl border font-sans  hover:shadow-2xl">
+    <section className="px-4 pb-12 sm:px-8 bg-Ngold bg-opacity-40 rounded-3xl shadow-2xl border font-sans  hover:shadow-2xl">
       <div className="flex flex-col md:flex-row justify-center items-center mb-4 md:mb-16">
         <h2 className="text-3xl md:ml-36 font-extrabold text-center text-Nblack mb-6 md:mb-1 tracking-wide relative inline-block after:content-[''] after:block after:w-24 after:h-1 after:mt-4 after:mx-auto after:bg-Ngold">
           Опис послуг

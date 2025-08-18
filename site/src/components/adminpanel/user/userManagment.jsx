@@ -10,15 +10,36 @@ const UserManagement = () => {
   const accessToken = useSelector((state) => state.auth.accessToken);
 
   useEffect(() => {
+    // лог того, що відправляємо
+    console.groupCollapsed("🛰️ GET https://prano.group/api/users (request)");
+    console.log("headers.Authorization:", `${accessToken}`);
+    console.groupEnd();
+
     axios
       .get("https://prano.group/api/users", {
         headers: { Authorization: `${accessToken}` },
       })
       .then((response) => {
+        // детальний лог відповіді
+        console.groupCollapsed("📦 GET /api/users (response)");
+        console.log("status:", response.status, response.statusText);
+        console.log("headers:", response.headers);
+        console.log("data (raw):", response.data);
+        console.log("data.data (users?):", response.data?.data);
+        console.groupEnd();
+
         setUsers(response.data.data);
         setLoading(false);
       })
-      .catch(() => {
+      .catch((err) => {
+        // детальний лог помилки
+        console.groupCollapsed("❌ GET /api/users (error)");
+        console.log("message:", err?.message);
+        console.log("status:", err?.response?.status);
+        console.log("data:", err?.response?.data);
+        console.log("config:", err?.config);
+        console.groupEnd();
+
         setError("Помилка завантаження даних");
         setLoading(false);
       });

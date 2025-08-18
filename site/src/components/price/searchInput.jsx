@@ -13,8 +13,8 @@ function SearchInput({ onSearch }) {
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center w-full gap-4 md:gap-6">
-      <p className="text-black text-center text-lg md:text-xl font-bold tracking-wide">
+    <div className="flex flex-col md:flex-row justify-start items-center w-full gap-4 md:gap-6">
+      <p className="hidden md:block text-black text-center text-lg md:text-xl font-bold tracking-wide">
         Пошук
       </p>
 
