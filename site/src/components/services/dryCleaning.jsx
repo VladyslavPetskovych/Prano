@@ -54,14 +54,14 @@ function DryCleaning() {
       </div>
       {/* Second part of the section with text and image */}
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8">
-        <div className="w-full md:w-1/2 h-[400px] overflow-hidden rounded-2xl shadow-xl">
+        <div className="w-full md:w-1/2 h-full md:h-[400px] overflow-hidden rounded-2xl shadow-xl">
           <div className="w-full h-full bg-white rounded-2xl p-8 md:p-10 flex items-center shadow-lg">
             <p className="text-lg text-gray-700 leading-relaxed">
               Ми беремо на себе відповідальність за чистоту Ваших речей.
               Беремося навіть за найскладніші плями, і будемо тримати Вас в
               курсі кожної процедури. При складних забрудненнях ми зателефонуємо
-              до Вас, щоб узгодити, які речовини будуть використані, і які можливі
-              наслідки залишаться на одязі.
+              до Вас, щоб узгодити, які речовини будуть використані, і які
+              можливі наслідки залишаться на одязі.
             </p>
           </div>
         </div>
