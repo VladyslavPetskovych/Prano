@@ -8,6 +8,7 @@ import axios from "axios";
 import ReactivateButton from "../components/login/reactivateButton";
 import TelegramAccaunt from "../components/account/telegramAccaunt";
 import AccountHeader from "../components/account/AccountHeader";
+import api from "../api/api.js";
 
 const logLocalStorageData = () => {
   console.log("🔹 Stored Data in LocalStorage:");
@@ -18,7 +19,7 @@ const logLocalStorageData = () => {
 
 const fetchUserData = async (userId, accessToken, dispatch) => {
   try {
-    const response = await axios.get(
+    const response = await api.get(
       `https://prano.group/api/users/${userId}`,
       {
         headers: {
