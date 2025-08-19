@@ -71,9 +71,9 @@ api.interceptors.response.use(
     isRefreshing = true;
     try {
       const state = storeRef?.getState?.();
-      // const currentRefresh =
-      //   state?.auth?.refreshToken || localStorage.getItem("refreshToken");
-      const currentRefresh = localStorage.getItem("refreshToken");
+      const currentRefresh =
+        state?.auth?.refreshToken || localStorage.getItem("refreshToken");
+      console.log(!currentRefresh)
 
       if (!currentRefresh) {
         // Немає refresh — чистимо стан і кидаємо
@@ -85,11 +85,13 @@ api.interceptors.response.use(
       }
 
       // Використовуємо прямий axios, щоб не попасти у наші ж інтерсептори
-      const resp = await axios.post(REFRESH_URL, {
-        refreshToken: currentRefresh,
+      const resp = await axios.post(REFRESH_URL, {},{
+        headers: {
+          Authorization: `${currentRefresh}`,
+        },
       });
 
-      const { accessToken: newAT, refreshToken: newRT } = resp.data || {};
+      const { accessToken: newAT, refreshToken: newRT, userId } = resp.data || {};
       if (!newAT) throw new Error("No accessToken in refresh response");
 
       // Зберігаємо
@@ -98,10 +100,11 @@ api.interceptors.response.use(
 
       // Оновлюємо Redux (підлаштуй під свої екшени)
       storeRef?.dispatch?.({
-        type: "auth/login/fulfilled-like",
+        type: "auth/login",
         payload: {
           accessToken: newAT,
-          refreshToken: newRT || currentRefresh,
+          refreshToken: newRT,
+          userId
         },
       });
 
