@@ -71,8 +71,9 @@ api.interceptors.response.use(
     isRefreshing = true;
     try {
       const state = storeRef?.getState?.();
-      const currentRefresh =
-        state?.auth?.refreshToken || localStorage.getItem("refreshToken");
+      // const currentRefresh =
+      //   state?.auth?.refreshToken || localStorage.getItem("refreshToken");
+      const currentRefresh = localStorage.getItem("refreshToken");
 
       if (!currentRefresh) {
         // Немає refresh — чистимо стан і кидаємо
