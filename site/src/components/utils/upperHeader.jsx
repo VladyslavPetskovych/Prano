@@ -26,7 +26,7 @@ function UpperHeader() {
           {/* Phone */}
           <div
             className="flex items-center gap-2 cursor-pointer"
-            onClick={() => handleCopy("+38012345678")}
+            onClick={() => handleCopy("+380771515111")}
           >
             <img src={phone} alt="phone" className="h-4 w-4 object-contain " />
             <span className="italic hover:underline font-bold">+380771515111</span>
