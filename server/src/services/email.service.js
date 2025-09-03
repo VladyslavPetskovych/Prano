@@ -10,7 +10,9 @@ class EmailService {
 
     constructor() {
         this.#transporter = nodemailer.createTransport({
-            service: "gmail",
+            host: "smtp.office365.com",
+            secureConnection: true,
+            port: 587,
             auth: {
                 user: configs.NO_REPLY_EMAIL,
                 pass: configs.NO_REPLY_PASSWORD
