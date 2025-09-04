@@ -121,7 +121,7 @@ const Account = () => {
             : "Показати попередні замовлення"}
         </button>
 
-        <div
+        {/* <div
           className={`transition-all duration-500 overflow-hidden ${
             isHistoryOpen ? "max-h-[2000px] mt-6" : "max-h-0"
           }`}
@@ -129,7 +129,7 @@ const Account = () => {
           <div className="mt-4 bg-white/60 backdrop-blur-md p-6 rounded-3xl shadow-lg">
             <OrderHistory />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
