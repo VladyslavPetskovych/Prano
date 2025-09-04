@@ -10,8 +10,10 @@ class OrderService {
         try {
             const user = await User.findById(userId);
 
-            const {data} = await ccService.getOrdersByCustomerId(user.ccId);
-            return data.Orders
+            // const {data} = await ccService.getOrdersByCustomerId(user.ccId);
+            // return data.Orders
+
+            return await Order.find({_userId: userId})
         } catch (e) {
             throw new ApiError(e.message, e.status)
         }
