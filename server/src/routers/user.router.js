@@ -79,11 +79,11 @@ router.post(
     userMiddleware.checkUserRights(),
     userController.setAdmin
 )
-router.get(
-    "/cc/:customerId",
-    authMiddleware.checkAccessToken,
-    userMiddleware.checkUserRights(),
-    userController.findCcDataById
-)
+// router.get(
+//     "/cc/:customerId",
+//     authMiddleware.checkAccessToken,
+//     userMiddleware.checkUserRights(),
+//     userController.findCcDataById
+// )
 
 module.exports = router

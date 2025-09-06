@@ -21,6 +21,16 @@ class TelegramController {
         }
     }
 
+    async createOrder(req, res, next) {
+        try {
+            await orderService.create(res.locals.userId, req.body, true)
+
+            return res.sendStatus(200)
+        } catch (e) {
+            next(e)
+        }
+    }
+
     async findOrders(req, res, next) {
         try {
             const orders = await orderService.findByUserId(res.locals.userId);

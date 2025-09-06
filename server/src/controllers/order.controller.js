@@ -13,7 +13,7 @@ class OrderController {
 
     async create(req, res, next) {
         try {
-            await orderService.create(res.locals.tokenPayload.id, req.body)
+            await orderService.create(res.locals.tokenPayload.id, req.body, false)
 
             return res.sendStatus(200)
         } catch (e) {

@@ -10,12 +10,17 @@
 				Замовлення:
 			</p>
 			<p style="margin: 17px 0 0;">
+				{{#if fromTelegram}}
+					<b>Замовлення з телеграму</b>
+				{{/if}}
 				Ім'я: {{name}},
 				Email: {{email}},
 				Номер телефону: {{phone}},
 				Тип одягу: {{clothType}},
-				Тип послуги: {{productType}},
-				Нотатки: {{note}}
+				Тип послуги: {{productType}}
+				{{#if note}}
+					, Нотатки: {{note}}
+				{{/if}}
 			</p>
 		</td>
 	</tr>
@@ -25,7 +30,7 @@
 				Замовлено з такого профілю:
 			</p>
 			<p style="margin: 17px 0 0;">
-				СleanCloud Id: {{cleanCloudId}},
+<!--				СleanCloud Id: {{cleanCloudId}},-->
 				Ім'я: {{nameOfUser}},
 				Email: {{emailOfUser}},
 				Номер телефону: {{phoneOfUser}}
