@@ -90,7 +90,7 @@ class UserMiddleware {
 
     async isUserActive(req, res, next) {
         try {
-            const {id: userId} = res.locals.tokenPayload;
+            const userId = res.locals.tokenPayload?.id || res.locals.userId;
             const user = await User.findById(userId);
             if (user.status !== EUserStatus.ACTIVE) {
                 throw new ApiError("User is not active", 400)

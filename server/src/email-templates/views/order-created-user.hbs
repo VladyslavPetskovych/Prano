@@ -17,8 +17,10 @@
 				Email: {{email}},
 				Номер телефону: {{phone}},
 				Тип одягу: {{clothType}},
-				Тип послуги: {{productType}},
-				Нотатки: {{note}}
+				Тип послуги: {{productType}}
+				{{#if note}}
+					, Нотатки: {{note}}
+				{{/if}}
 			</p>
 		</td>
 	</tr>

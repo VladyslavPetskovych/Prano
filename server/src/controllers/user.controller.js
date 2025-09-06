@@ -66,16 +66,16 @@ class UserController {
         }
     }
 
-    async findCcDataById(req, res, next) {
-        try {
-            const {customerId} = req.params;
-            const {data} = await ccService.getCustomer(customerId);
-
-            return res.json(data)
-        } catch (e) {
-            next(e)
-        }
-    }
+    // async findCcDataById(req, res, next) {
+    //     try {
+    //         const {customerId} = req.params;
+    //         const {data} = await ccService.getCustomer(customerId);
+    //
+    //         return res.json(data)
+    //     } catch (e) {
+    //         next(e)
+    //     }
+    // }
 
     async setAdmin(req, res, next) {
         try {

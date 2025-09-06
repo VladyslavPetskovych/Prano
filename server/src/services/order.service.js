@@ -19,15 +19,16 @@ class OrderService {
         }
     }
 
-    async create(userId, data) {
+    async create(userId, data, fromTelegram) {
         try {
             const user = await User.findById(userId);
 
             const context = {
-                cleanCloudId: user.ccId,
+                // cleanCloudId: user.ccId,
                 nameOfUser: user.name,
                 emailOfUser: user.email,
                 phoneOfUser: user.phone,
+                fromTelegram,
                 ...data,
             }
 
