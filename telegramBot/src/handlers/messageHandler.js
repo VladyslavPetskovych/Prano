@@ -6,6 +6,7 @@ const profile = require("../commands/profile");
 const prices = require("../commands/prices");
 const orders = require("../commands/orders");
 const logout = require("../commands/exit");
+const createOrder = require("../commands/createOrder");
 
 bot.onText(/\/start/, (msg) => {
   start(msg);
@@ -19,7 +20,8 @@ bot.on("message", async (msg) => {
   // Виведення відповідних команд
   if (text === "👤 Профіль") profile(msg);
   else if (text === "💰 Послуги") prices(msg);
-  else if (text === "🧾 Замовлення") orders(msg);
+  else if (text === "✍️ Створити нове замовлення") createOrder(msg)
+  else if (text === "🧾 Ваша історія замовлень") orders(msg);
 
   // Обробка кнопки "🚪 Вийти"
   if (text === "🚪 Вийти") {
