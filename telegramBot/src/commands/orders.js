@@ -3,24 +3,19 @@ const bot = require("../bot");
 const redisClient = require("../redis");
 const axios = require("axios");
 
+// Форматування одного замовлення (попереднього)
 const formatOrder = (order) => {
-  const timestampToDate = (timestamp) => {
-    if (!timestamp || timestamp === "0") return "—";
-    const date = new Date(parseInt(timestamp) * 1000);
-    return date.toLocaleDateString("uk-UA");
-  };
+  const createdAt = new Date(order.createdAt).toLocaleDateString("uk-UA");
 
   return (
-    `🧾 *Замовлення №${order.id}*\n` +
-    `🧍‍♂️ Кількість речей: ${order.pieces}\n` +
-    `📦 Підсумок: ${order.summary.replace(/<br>/g, "\n")}\n` +
-    `💵 Сума: $${order.total}\n` +
-    `📅 Створено: ${timestampToDate(order.createdDate)}\n` +
-    `🚚 Доставка: ${timestampToDate(order.deliveryDate)} о ${
-      order.deliveryTime
-    }\n` +
-    `🧺 Статус: ${mapStatus(order.status)}\n` +
-    `[🔗 Переглянути квитанцію](https://prano.group/${order.receiptLink})`
+    `🧾 *Попереднє замовлення*\n` +
+    `👤 Клієнт: ${order.name}\n` +
+    `📞 Телефон: ${order.phone}\n` +
+    `✉️ Email: ${order.email}\n` +
+    `👕 Тип одягу: ${order.clothType}\n` +
+    `🧴 Послуга: ${order.productType}\n` +
+    `📝 Примітка:\n${order.note}\n` +
+    `📅 Дата створення: ${createdAt}`
   );
 };
 
