@@ -25,25 +25,19 @@ const OrderHistory = () => {
       const response = await axios.get(
         `https://prano.group/api/orders/${userId}`,
         {
-          headers: {
-            Authorization: accessToken,
-          },
+          headers: { Authorization: accessToken },
         }
       );
-      console.log("Fetched orders:", response.data);
-      setOrders(response.data);
-      sessionStorage.setItem(`orders_${userId}`, JSON.stringify(response.data));
+
+      console.log("Fetched orders raw data:", response.data);
+
+      // Беремо лише останні 4 замовлення
+      const lastOrders = response.data.slice(-4).reverse();
+
+      setOrders(lastOrders);
+      sessionStorage.setItem(`orders_${userId}`, JSON.stringify(lastOrders));
     } catch (err) {
-      if (
-        err.response?.status === 400 &&
-        err.response.data?.message?.includes("Rate Limit")
-      ) {
-        setError(
-          "🚫 Забагато запитів. Спробуйте ще раз через декілька секунд."
-        );
-      } else {
-        setError("⚠️ Не вдалося отримати замовлення.");
-      }
+      setError("⚠️ Не вдалося отримати замовлення.");
     } finally {
       setLoading(false);
     }
@@ -68,7 +62,9 @@ const OrderHistory = () => {
 
   return (
     <div className="p-6 bg-white rounded-base shadow-md">
-      <h2 className="text-xl font-semibold mb-4">Ваші попередні замовлення</h2>
+      <h2 className="text-xl font-semibold mb-4">
+        🧾 Ваші останні 4 замовлення
+      </h2>
 
       <button
         onClick={handleRefresh}
@@ -82,8 +78,9 @@ const OrderHistory = () => {
       {!loading && !error && orders.length === 0 && (
         <p>📭 У Вас поки немає замовлень.</p>
       )}
-      {orders.map((order) => (
-        <OrderCard key={order.id} order={order} />
+
+      {orders.map((order, index) => (
+        <OrderCard key={order._id || index} order={order} />
       ))}
     </div>
   );

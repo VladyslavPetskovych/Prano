@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
 import CheckBox from "./checkBox";
 import OrderRequest from "./orderRequest";
+import axios from "axios";
 
 const OrderForm = ({ user }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [clothTypes, setClothTypes] = useState([]); // збережемо типи одягу
 
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
     note: "",
-    productType: "", // <-- was "clothingType"
+    productType: "",
     clothType: "",
   });
 
@@ -23,11 +25,29 @@ const OrderForm = ({ user }) => {
         phone: user.phone || "",
         email: user.email || "",
         note: "",
-        productType: "", // <-- also changed here
+        productType: "",
         clothType: "",
       });
     }
   }, [user]);
+
+  useEffect(() => {
+    const fetchMerchandises = async () => {
+      try {
+        const response = await axios.get(
+          "https://prano.group/api/merchandises"
+        );
+        console.log("Merchandises:", response.data);
+
+        // беремо саме масив data
+        setClothTypes(response.data.data || []);
+      } catch (error) {
+        console.error("Помилка при завантаженні merchandises:", error);
+      }
+    };
+
+    fetchMerchandises();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +56,7 @@ const OrderForm = ({ user }) => {
       [name]: value,
     }));
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -45,7 +66,6 @@ const OrderForm = ({ user }) => {
       const response = await OrderRequest(formData);
       setMessage("Замовлення успішно оформлено!");
       console.log("Order successful:", response);
-      // Optionally reset form here
     } catch (error) {
       setMessage("Помилка при оформленні замовлення. Спробуйте ще раз.");
       console.error("Order failed:", error);
@@ -104,10 +124,11 @@ const OrderForm = ({ user }) => {
           required
         >
           <option value="">Оберіть тип одягу</option>
-          <option value="Футболка">Футболка</option>
-          <option value="Штани">Штани</option>
-          <option value="Куртка">Куртка</option>
-          <option value="Сукня">Сукня</option>
+          {clothTypes.map((item) => (
+            <option key={item._id} value={item.title}>
+              {item.title}
+            </option>
+          ))}
         </select>
 
         <select
@@ -119,8 +140,11 @@ const OrderForm = ({ user }) => {
         >
           <option value="">Оберіть тип послуги</option>
           <option value="Хімчистка">Хімчистка</option>
-          <option value="Ремонт одягу">Ремонт одягу</option>
-          <option value="Прасування">Прасування</option>
+          <option value="Хімчистка">Прання</option>
+          <option value="Ремонт одягу">Чистка взуття</option>
+          <option value="Ремонт одягу">Реставрація взуття</option>
+          <option value="Прасування">Ремонт одягу</option>
+          <option value="Ремонт одягу">Реставрація сумок</option>
         </select>
 
         <CheckBox
