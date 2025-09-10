@@ -70,10 +70,10 @@ export default function CategorySection({ title, description, items }) {
             <tr className="bg-Ngold/30 text-Nblack uppercase tracking-wider">
               <th className="px-6 py-4 text-left w-1/2">Назва одягу</th>
               <th className="px-6 py-4 text-center w-1/8 hidden md:block"></th>
-              <th className="px-6 py-4 text-center w-1/6">Ціна</th>
+              <th className="px-6 py-4 text-center w-1/6">Ціна "Стандарт"</th>
               <th className="px-6 py-4 w-1/6">
                 <div className="flex flex-col md:flex-row items-center justify-center gap-2">
-                  <span>Ціна Преміум</span>
+                  <span>Ціна "Преміум"</span>
                   <button
                     onClick={() => setPremiumModalOpen(true)}
                     className="text-Nblack text-lg ml-1 hover:text-Ngold transition-colors"
