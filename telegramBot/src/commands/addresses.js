@@ -4,20 +4,20 @@ module.exports = async (msg) => {
   const chatId = msg.chat.id;
 
   const info = `
-*Пункти прийому:*
+<b>Пункти прийому:</b>
 
-🏢 *[Вулиця Липинського, 54, Львів](https://share.google/jOYnBbJyAEzEZpRrb)*
+🏢 <a href="https://share.google/jOYnBbJyAEzEZpRrb">Вулиця Липинського, 54, Львів</a>
 Пн–Пт: 09:00–18:00
 Сб–Нд: вихідні
 
-🏢 *[Вулиця Під Дубом, 26а, Львів](https://share.google/4mPF1aXWlHxd3DMvI)*
+🏢 <a href="https://share.google/4mPF1aXWlHxd3DMv">Вулиця Під Дубом, 26а, Львів</a>
 Пн–Пт: 08:00–20:00
 Сб–Нд: 11:00–20:00
 
-🏢 *[Проспект Червоної Калини, 60, Львів](https://share.google/YQEd4nvvd4QF407ok)*
+🏢 <a href="https://share.google/YQEd4nvvd4QF407ok">Проспект Червоної Калини, 60, Львів</a>
 Пн–Пт: 08:00–20:00
 Сб–Нд: 11:00–20:00
   `;
 
-  await bot.sendMessage(chatId, info, { parse_mode: "Markdown" });
+  await bot.sendMessage(chatId, info, { parse_mode: "HTML" });
 };
