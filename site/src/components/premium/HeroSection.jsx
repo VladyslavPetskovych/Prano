@@ -30,15 +30,21 @@ const HeroSection = () => {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <button className="bg-gradient-to-r from-Ngold to-Ngold text-Ndark px-6 py-3 sm:px-8 sm:py-4 rounded-2xl font-bold text-base sm:text-lg flex items-center gap-3 shadow-2xl hover:shadow-Ngold/25 transition-all duration-300 font-manrope">
+          <button
+            onClick={() => (window.location.href = "tel:+380771515111")}
+            className="bg-gradient-to-r from-Ngold to-Ngold text-Ndark px-6 py-3 sm:px-8 sm:py-4 rounded-2xl font-bold text-base sm:text-lg flex items-center gap-3 shadow-2xl hover:shadow-Ngold/25 transition-all duration-300 font-manrope"
+          >
             <Phone className="w-5 h-5" />
             Замовити послугу
             <ArrowRight className="w-5 h-5" />
           </button>
 
-          <button className="border-2 border-Ngold/70 text-Ngold px-6 py-3 sm:px-8 sm:py-4 rounded-2xl font-semibold text-base sm:text-lg backdrop-blur-md bg-Nblue/10 hover:bg-Nblue/20 transition-all duration-300 font-manrope">
-            Переглянути бренди
-          </button>
+          <a
+            href="/price"
+            className="border-2 border-Ngold/70 text-Ngold px-6 py-3 sm:px-8 sm:py-4 rounded-2xl font-semibold text-base sm:text-lg backdrop-blur-md bg-Nblue/10 hover:bg-Nblue/20 transition-all duration-300 font-manrope flex justify-center items-center"
+          >
+            Переглянути ціни
+          </a>
         </div>
 
         <div className="mt-10 flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8 text-gray-300 text-sm font-manrope">
@@ -63,9 +69,7 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2">
-        
-      </div>
+      <div className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2"></div>
     </section>
   );
 };

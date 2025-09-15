@@ -24,13 +24,19 @@ function UpperHeader() {
       <div className="fixed top-0  z-50 w-full h-7 bg-white shadow-sm flex justify-end items-center px-4 md:px-10">
         <div className="flex flex-row  justify-end items-center gap-8 text-sm text-gray-800 ml-2 md:ml-0">
           {/* Phone */}
-          <div
+          <a
+            href="tel:+380771515111"
             className="flex items-center gap-2 cursor-pointer"
-            onClick={() => handleCopy("+380771515111")}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleCopy("+380771515111");
+            }}
           >
             <img src={phone} alt="phone" className="h-4 w-4 object-contain " />
-            <span className="italic hover:underline font-bold">+380771515111</span>
-          </div>
+            <span className="italic hover:underline font-bold">
+              +380771515111
+            </span>
+          </a>
 
           {/* Email */}
           <div
@@ -38,7 +44,9 @@ function UpperHeader() {
             onClick={() => handleCopy("pranolviv@gmail.com")}
           >
             <img src={mail} alt="mail" className="h-4 w-4 object-contain" />
-            <span className="italic hover:underline font-bold">pranolviv@gmail.com</span>
+            <span className="italic hover:underline font-bold">
+              pranolviv@gmail.com
+            </span>
           </div>
         </div>
       </div>
