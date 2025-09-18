@@ -68,7 +68,7 @@ export default function CategorySection({ title, description, items }) {
         <table className="min-w-full table-fixed border-collapse text-sm sm:text-base">
           <thead>
             <tr className="bg-Ngold/30 text-Nblack uppercase tracking-wider">
-              <th className="px-6 py-4 text-left w-1/2">Назва одягу</th>
+              <th className="px-6 py-4 text-left w-1/2">Назва </th>
               <th className="px-6 py-4 text-center w-1/8 hidden md:block"></th>
               <th className="px-6 py-4 text-center w-1/6">Ціна "Стандарт"</th>
               <th className="px-6 py-4 w-1/6">
