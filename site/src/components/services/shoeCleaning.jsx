@@ -9,15 +9,19 @@ const features = [
 
 function ShoeCleaningRepair() {
   return (
-    <section className="my-6 py-9 mx-6 rounded-2xl bg-gray-50  shadow-xl" id="shoes-cleaning">
+    <section
+      className="my-6 py-9 mx-6 rounded-2xl bg-gray-50  shadow-xl"
+      id="shoes-cleaning"
+    >
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-1 bg-white rounded-3xl  overflow-hidden">
         <div className="p-8 flex flex-col justify-center text-center md:text-left space-y-6">
           <h2 className="text-4xl font-extrabold text-gray-800 tracking-wide">
-            Хімчистка та реставрація взуття
+            Чистка взуття
           </h2>
           <p className="text-lg text-gray-600 leading-relaxed">
-            Відновлюємо колір, текстуру, внутрішню частину та зовнішній вигляд.
-            Взуття повертається доглянутим, чистим та підготовленим до носіння.
+            У реставрацію взуття входить чистка усього виробу (ззовні,
+            всередині, шнурівок, устілок, підошви), відновлення кольору,
+            усунення дрібних дефектів (подряпин, затертостей) на гладкій шкірі
           </p>
           <ul className=" text-gray-700  text-lg flex flex-col items-start justify-center ">
             {features.map((feature, index) => (
