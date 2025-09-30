@@ -1,55 +1,79 @@
 import React from "react";
 import shoeCleaning from "../../assets/service/shoes.jpg";
 
-const features = [
-  "Видалення плям та забруднень",
-  "Реставрація кольору та матеріалу",
-  "Професійний догляд",
-];
-
 function ShoeCleaningRepair() {
   return (
     <section
-      className="my-6 py-9 mx-6 rounded-2xl bg-gray-50  shadow-xl"
-      id="shoes-cleaning"
+      id="shoes-rest"
+      className="my-16 py-16 mx-6 md:mx-auto max-w-6xl font-manrope"
     >
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-1 bg-white rounded-3xl  overflow-hidden">
-        <div className="p-8 flex flex-col justify-center text-center md:text-left space-y-6">
-          <h2 className="text-4xl font-extrabold text-gray-800 tracking-wide">
-            Чистка взуття
+      {/* Заголовок + фото */}
+      <div className="grid grid-cols-1 md:grid-cols-2 bg-pureWhite rounded-3xl overflow-hidden shadow-xl border border-lightGray">
+        {/* Фото */}
+        <div className="relative">
+          <img
+            src={shoeCleaning}
+            alt="Реставрація та чистка взуття"
+            className="w-full h-full object-cover md:min-h-[500px] brightness-95 hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+
+        {/* Текстова частина */}
+        <div className="p-8 md:p-12 flex flex-col justify-center text-center md:text-left">
+          <h2 className="text-4xl md:text-5xl font-playfair font-bold text-Ndark mb-6">
+            Реставрація взуття
           </h2>
-          <p className="text-lg text-gray-600 leading-relaxed">
-            У реставрацію взуття входить чистка усього виробу (ззовні,
-            всередині, шнурівок, устілок, підошви), відновлення кольору,
-            усунення дрібних дефектів (подряпин, затертостей) на гладкій шкірі
+          <p className="text-lg text-logoGray leading-relaxed">
+            Оберіть догляд, що відповідає вашим потребам:{" "}
+            <span className="text-Ndark font-semibold">Стандарт</span> або{" "}
+            <span className="text-Ndark font-semibold">Преміум</span>. Кожен
+            пакет включає професійний сервіс з урахуванням усіх деталей.
           </p>
-          <ul className=" text-gray-700  text-lg flex flex-col items-start justify-center ">
-            {features.map((feature, index) => (
-              <li key={index} className="flex items-start ">
-                <svg
-                  className="w-3 h-3 mt-2 mx-3 text-Ndark flex-shrink-0"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0 2a10 10 0 1 1 0-20 10 10 0 0 1 0 20z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                <span className="text-left">{feature}</span>
-              </li>
-            ))}
+        </div>
+      </div>
+
+      {/* Блоки Стандарт / Преміум */}
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Стандарт */}
+        <div className="relative bg-pureWhite rounded-2xl border border-lightGray shadow-md hover:shadow-lg transition-shadow duration-300 p-8 flex flex-col">
+          <div className="absolute top-0 left-0 w-full h-2 bg-Nblue rounded-t-2xl"></div>
+          <h3 className="text-3xl font-playfair font-semibold text-Ndark mb-5 text-center md:text-left">
+            Стандарт
+          </h3>
+          <p className="text-logoGray text-lg mb-4">
+            У реставрацію взуття за доглядом «Стандарт» входить:
+          </p>
+          <ul className="space-y-2 text-Ndark text-lg">
+            <li>• Чистка всього виробу (ззовні та всередині)</li>
+            <li>• Чистка шнурівок, устілок, підошви</li>
+            <li>• Відновлення кольору</li>
+            <li>
+              • Усунення дрібних дефектів (подряпин, затертостей) на гладкій
+              шкірі
+            </li>
           </ul>
         </div>
 
-        <div className="relative flex justify-center items-center px-6 pb-6 md:p-6">
-          <img
-            src={shoeCleaning}
-            alt="Shoe cleaning process"
-            className="w-full max-h-96 rounded-xl object-cover shadow-lg hover:scale-105 transition-transform duration-300"
-          />
+        {/* Преміум */}
+        <div className="relative bg-Ndark text-pureWhite rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 p-8 flex flex-col">
+          <div className="absolute top-0 left-0 w-full h-2 bg-Ngold rounded-t-2xl"></div>
+          <h3 className="text-3xl font-playfair font-semibold text-pureWhite mb-5 text-center md:text-left">
+            Преміум
+          </h3>
+          <p className="text-lightGray text-lg mb-4">
+            За доглядом «Преміум» у реставрацію взуття входить:
+          </p>
+          <ul className="space-y-2 text-pureWhite text-lg">
+            <li>• Повна чистка всередині та ззовні</li>
+            <li>• Чистка шнурівок, устілок, підошви</li>
+            <li>• Відновлення кольору та усунення дрібних дефектів</li>
+            <li>• Поточні незначні ремонтні роботи</li>
+            <li>• Фарбування ранта підошви</li>
+            <li>• Дезінфекція</li>
+            <li>• Водовідштовхувальне покриття</li>
+            <li>• Робота головного технолога особисто</li>
+            <li>• Консультація та швидші терміни виконання</li>
+          </ul>
         </div>
       </div>
     </section>

@@ -9,7 +9,7 @@ const BurgerMenu = ({ opened, toggleOpened }) => {
 
   const services = [
     { label: "Хімчистка", href: "/services#cleaning" },
-    { label: "Прання", href: "/services#laundry" },
+    { label: "Прання постільної білизни та рушників", href: "/services#laundry" },
     { label: "Чистка взуття", href: "/services#shoes-cleaning" },
     { label: "Реставрація взуття", href: "/services#shoes-repair" },
     { label: "Ремонт одягу", href: "/services#clothing-repair" },

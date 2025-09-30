@@ -6,7 +6,7 @@ import Shoe from "../components/services/shoeCleaning";
 import SewingRepair from "../components/services/repairClothes";
 import ShoeRepair from "../components/services/shoeRepair";
 import TopPart from "../components/services/topPart";
-import RepairBag from "../components/services/repairBags";
+import BagRestoration from "../components/services/repairBags";
 
 function Services() {
   const { hash } = useLocation();
@@ -47,7 +47,7 @@ function Services() {
       </section>
 
       <section >
-        <RepairBag />
+        <BagRestoration />
       </section>
     </div>
   );

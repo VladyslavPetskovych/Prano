@@ -132,7 +132,7 @@ function Footer() {
                   to="/services#laundry"
                   className="text-blue-600 hover:underline"
                 >
-                  Прання
+                  Прання постільної білизни та рушників
                 </Link>
               </li>
               <li>
