@@ -31,7 +31,7 @@ function Shoe() {
               РЕСТАВРАЦІЯ ВЗУТТЯ <br /> І АКСЕСУАРІВ
             </h1>
             <Link
-              to="/services#shoes-repair"
+              to="/services#shoes-rest"
               className="mt-6 px-6 py-2 border border-white text-white uppercase hover:bg-white hover:text-black transition"
               data-aos="fade-up"
             >

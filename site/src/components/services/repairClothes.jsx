@@ -9,12 +9,15 @@ const clothingRepairFeatures = [
 
 function ClothingRepair() {
   return (
-    <section className="py-16 px-6 mx-6 md:px-12 rounded-2xl bg-gray-50 shadow-xl" id="repair-clothes">
+    <section
+      className="py-16 px-6 mx-6 md:mx-auto max-w-6xl rounded-2xl bg-gray-50 shadow-xl"
+      id="repair-clothes"
+    >
       <h2 className="text-4xl md:text-5xl mx-auto font-extrabold text-gray-800 tracking-wide text-center mb-12">
         Ремонт одягу
       </h2>
 
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8">
+      <div className="flex flex-col md:flex-row gap-8">
         <div className="w-full md:w-1/2 h-[400px] overflow-hidden rounded-2xl shadow-xl">
           <img
             src={repairImage}
@@ -26,7 +29,8 @@ function ClothingRepair() {
         <div className="w-full md:w-1/2 h-[400px] bg-white rounded-2xl shadow-lg p-8 md:p-10 flex flex-col justify-center space-y-6">
           <p className="text-lg text-gray-700 leading-relaxed">
             Відновлюємо улюблені речі: підганяємо по фігурі, лагодимо застібки,
-            підшиваємо та реставруємо тканину. Індивідуальний підхід до кожної речі.
+            підшиваємо та реставруємо тканину. Індивідуальний підхід до кожної
+            речі.
           </p>
           <ul className="text-gray-800 text-lg space-y-3">
             {clothingRepairFeatures.map((feature, index) => (

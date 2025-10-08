@@ -9,8 +9,11 @@ const features = [
 
 function Laundry() {
   return (
-    <section className="my-6 py-9 mx-6 rounded-2xl bg-gray-50  shadow-xl" id="laundry">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-1 bg-white rounded-3xl  overflow-hidden">
+    <section
+      className="mt-6 py-9 mx-6 md:mx-auto max-w-6xl rounded-2xl bg-gray-50 shadow-xl"
+      id="laundry"
+    >
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-1 bg-white rounded-3xl overflow-hidden">
         <div className="p-8 flex flex-col justify-center text-center md:text-left space-y-6">
           <h2 className="text-4xl font-extrabold text-gray-800 tracking-wide">
             Прання постільної білизни та рушників
@@ -20,9 +23,9 @@ function Laundry() {
             подальшим прасуванням та акуратною упаковкою — для бездоганної
             свіжості та комфорту.
           </p>
-          <ul className=" text-gray-700  text-lg flex flex-col items-start justify-center ">
+          <ul className="text-gray-700 text-lg flex flex-col items-start justify-center">
             {features.map((feature, index) => (
-              <li key={index} className="flex items-start ">
+              <li key={index} className="flex items-start">
                 <svg
                   className="w-3 h-3 mt-2 mx-3 text-Ndark flex-shrink-0"
                   xmlns="http://www.w3.org/2000/svg"
