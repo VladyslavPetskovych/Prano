@@ -1,7 +1,7 @@
 const Joi = require("joi");
 
 class MerchandiseValidator {
-    static title = Joi.string().min(3).max(45).trim()
+    static title = Joi.string().min(3).max(65).trim()
     static quantity = Joi.string().trim()
     static price = Joi.number().min(1)
     static secondPrice = Joi.number().min(1).allow(null)
