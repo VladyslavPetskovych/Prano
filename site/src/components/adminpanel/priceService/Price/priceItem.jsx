@@ -38,8 +38,12 @@ const PriceServiceItem = ({
     if (formData.title !== service.title) updateData.title = formData.title;
     if (formData.price !== service.price)
       updateData.price = Number(formData.price);
-    if (formData.secondPrice !== service.secondPrice)
-      updateData.secondPrice = Number(formData.secondPrice);
+    if (formData.secondPrice !== service.secondPrice) {
+      if (formData.secondPrice !== "" && formData.secondPrice !== null) {
+        updateData.secondPrice = Number(formData.secondPrice);
+      }
+    }
+
     if (formData.quantity !== service.quantity)
       updateData.quantity = formData.quantity;
 

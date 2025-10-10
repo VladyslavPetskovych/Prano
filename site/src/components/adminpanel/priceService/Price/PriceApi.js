@@ -18,6 +18,13 @@ export const createMerchandise = async (data, token) => {
 };
 
 export const updateMerchandise = async (id, data, token) => {
+  // ✅ видаляємо secondPrice, якщо воно порожнє
+  if (data.secondPrice === "" || data.secondPrice === null) {
+    delete data.secondPrice;
+  }
+
+  console.log("📦 PATCH на бекенд:", id, JSON.stringify(data, null, 2));
+
   return axios.patch(`${API_URL}/${id}`, data, {
     headers: {
       "Content-Type": "application/json",

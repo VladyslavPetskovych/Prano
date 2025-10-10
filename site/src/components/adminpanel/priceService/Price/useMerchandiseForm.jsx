@@ -8,8 +8,8 @@ const useMerchandiseForm = (refreshServices) => {
   const [secondPrice, setSecondPrice] = useState("");
   const [category, setCategory] = useState("");
   const [newCategory, setNewCategory] = useState("");
-  const [order, setOrder] = useState(""); // ✅ Додано
-  const [quantity, setQuantity] = useState(""); // ✅ Додано
+  const [order, setOrder] = useState("");
+  const [quantity, setQuantity] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -22,7 +22,7 @@ const useMerchandiseForm = (refreshServices) => {
     secondPrice,
     category,
     order,
-    quantity // ✅ Отримуємо
+    quantity
   ) => {
     e.preventDefault();
     setLoading(true);
@@ -55,13 +55,17 @@ const useMerchandiseForm = (refreshServices) => {
     }
 
     try {
+      // 👇 якщо поле заповнене — додаємо, інакше просто пропускаємо
       const newMerch = {
         title,
         price: Number(price),
-        secondPrice: secondPrice ? Number(secondPrice) : undefined,
         categoryId: category,
-        quantity: quantity.trim(), // ✅ включено
+        quantity: quantity.trim(),
       };
+
+      if (secondPrice !== "" && secondPrice !== null) {
+        newMerch.secondPrice = Number(secondPrice);
+      }
 
       if (order !== "" && !isNaN(order)) {
         newMerch.order = Number(order);
@@ -78,7 +82,7 @@ const useMerchandiseForm = (refreshServices) => {
       setSecondPrice("");
       setCategory("");
       setOrder("");
-      setQuantity(""); // ✅
+      setQuantity("");
     } catch (err) {
       setError("Не вдалося створити товар. Перевірте дані.");
       console.error(err);
