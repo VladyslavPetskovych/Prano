@@ -28,8 +28,8 @@ const useMerchandiseForm = (refreshServices) => {
     setLoading(true);
     setError(null);
 
-    if (title.length < 3 || title.length > 45) {
-      setError("Назва має бути від 3 до 45 символів.");
+    if (title.length < 3 || title.length > 65) {
+      setError("Назва має бути від 3 до 65 символів.");
       setLoading(false);
       return;
     }
@@ -48,21 +48,15 @@ const useMerchandiseForm = (refreshServices) => {
       setLoading(false);
       return;
     }
-    if (!quantity || quantity.length < 1 || quantity.length > 10) {
-      setError("Одиниця виміру обовʼязкова (наприклад: кг, шт).");
-      setLoading(false);
-      return;
-    }
 
     try {
-      // 👇 якщо поле заповнене — додаємо, інакше просто пропускаємо
       const newMerch = {
         title,
         price: Number(price),
         categoryId: category,
-        quantity: quantity.trim(),
       };
 
+      // 👇 додаємо тільки якщо заповнено
       if (secondPrice !== "" && secondPrice !== null) {
         newMerch.secondPrice = Number(secondPrice);
       }
@@ -71,12 +65,18 @@ const useMerchandiseForm = (refreshServices) => {
         newMerch.order = Number(order);
       }
 
+      if (quantity && quantity.trim() !== "") {
+        newMerch.quantity = quantity.trim();
+      }
+
+      console.log("📦 Відправляємо на бекенд:", newMerch);
+
       await createMerchandise(newMerch, accessToken);
 
       alert("Товар успішно створено!");
       refreshServices();
 
-      // Reset fields
+      // Reset полів
       setTitle("");
       setPrice("");
       setSecondPrice("");

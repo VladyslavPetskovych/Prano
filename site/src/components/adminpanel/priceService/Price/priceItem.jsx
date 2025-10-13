@@ -38,17 +38,22 @@ const PriceServiceItem = ({
     if (formData.title !== service.title) updateData.title = formData.title;
     if (formData.price !== service.price)
       updateData.price = Number(formData.price);
+
     if (formData.secondPrice !== service.secondPrice) {
       if (formData.secondPrice !== "" && formData.secondPrice !== null) {
         updateData.secondPrice = Number(formData.secondPrice);
       }
     }
 
-    if (formData.quantity !== service.quantity)
-      updateData.quantity = formData.quantity;
+    // 👇 якщо поле змінено, але пусте — відправляємо пусту стрічку
+    if (formData.quantity !== service.quantity) {
+      updateData.quantity =
+        formData.quantity.trim() === "" ? "" : formData.quantity.trim();
+    }
 
     try {
       if (Object.keys(updateData).length > 0) {
+        console.log("📦 PATCH на бекенд:", service._id, updateData);
         await updateMerchandise(service._id, updateData);
       }
 
