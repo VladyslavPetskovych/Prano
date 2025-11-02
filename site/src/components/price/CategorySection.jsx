@@ -68,10 +68,10 @@ export default function CategorySection({ title, description, items }) {
         <table className="min-w-full table-fixed border-collapse text-sm sm:text-base">
           <thead>
             <tr className="bg-Ngold/30 text-Nblack uppercase tracking-wider">
-              <th className="px-6 py-4 text-left w-1/2">Назва </th>
+              <th className="px-6 py-4 text-left w-2/3">Назва </th>
               <th className="px-6 py-4 text-center w-1/8 hidden md:block"></th>
-              <th className="px-6 py-4 text-center w-1/6">Ціна "Стандарт"</th>
-              <th className="px-6 py-4 w-1/6">
+              <th className="px-3 py-4 text-center w-[12%]">Ціна "Стандарт"</th>
+              <th className="px-6 py-4 w-[12%]">
                 <div className="flex flex-col md:flex-row items-center justify-center gap-2">
                   <span>Ціна "Преміум"</span>
                   <button
@@ -96,16 +96,16 @@ export default function CategorySection({ title, description, items }) {
                     : "bg-Ngold/30 hover:bg-Ngold/20"
                 } transition-colors duration-300`}
               >
-                <td className="px-4 py-3 text-sm whitespace-normal break-words max-w-[140px] sm:max-w-none sm:text-base">
+                <td className="px-5 py-3 text-sm whitespace-normal break-words max-w-[140px] sm:max-w-none sm:text-base">
                   {item.title}
                 </td>
                 <td className="px-2 py-4 text-center text-sm border-l border-gray-300 hidden md:table-cell">
                   {item.quantity || "шт."}
                 </td>
-                <td className="px-2 py-4 text-center text-sm border-l border-gray-300">
+                <td className="px-1 py-4 text-center text-sm border-l border-gray-300">
                   {item.price}
                 </td>
-                <td className="px-2 py-4 text-center text-sm border-l border-gray-300">
+                <td className="px-1 py-4 text-center text-sm border-l border-gray-300">
                   {item.secondPrice}
                 </td>
               </tr>
