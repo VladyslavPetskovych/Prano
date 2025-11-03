@@ -46,6 +46,8 @@ export default function Merchandise() {
           // ✅ Параметри акції
           discountPercent={30}
           discountEndTime="2025-12-31T23:59:59"
+          //           discountPercent={0}
+          // discountEndTime={null}
         />
       ))}
 
