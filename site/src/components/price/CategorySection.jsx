@@ -52,7 +52,9 @@ export default function CategorySection({ title, description, items }) {
           <tbody className="text-left font-manrope text-gray-700">
             {(items ?? []).map((item, i) => {
               const { title: itemTitle, price: std, secondPrice: pr } = item;
-              const noDiscount = isLeatherOrFur(itemTitle);
+
+              const isLeather = isLeatherOrFur(itemTitle);
+              const noDiscount = title === "Хімчистка" && isLeather;
 
               const stdDiscount = applyDiscount(std, itemTitle, title);
               const prDiscount = applyDiscount(pr, itemTitle, title);
