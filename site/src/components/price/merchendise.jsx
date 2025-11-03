@@ -43,6 +43,9 @@ export default function Merchandise() {
           title={group.title}
           description={matchedDescriptions[categoryId]}
           items={group.items}
+          // ✅ Параметри акції
+          discountPercent={30}
+          discountEndTime="2025-12-31T23:59:59"
         />
       ))}
 

@@ -2,6 +2,7 @@
 import React from "react";
 import SearchInput from "./searchInput";
 import CatLogo from "../../assets/logo/CatLogoDark.svg";
+import CountdownTimer from "./CountdownTimer"; // ✅ додали таймер
 
 export default function PricesHeader({
   onSearch,
@@ -12,13 +13,16 @@ export default function PricesHeader({
     <div className="w-full pt-10 px-4 sm:px-20">
       <div className="rounded-3xl px-4 sm:px-8 py-2">
         <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-4">
-  
           {showSearch && (
             <div className="w-full md:max-w-lg">
               <SearchInput onSearch={onSearch} />
             </div>
           )}
-
+          <div className="flex justify-center md:justify-end md:items-center mb-2 md:mb-3 order-first md:order-none md:mt-0">
+            <div className="transform scale-90 sm:scale-100 md:scale-110 md:mr-4">
+              <CountdownTimer end="2025-11-20T23:59:59" discount={30} />
+            </div>
+          </div>
           {/* Праворуч: заголовок + логотип */}
           <div className="w-full md:w-auto flex flex-col items-center md:flex-row md:items-center md:justify-end gap-3 sm:gap-4">
             {/* Для телефонів: тільки текст по центру */}
