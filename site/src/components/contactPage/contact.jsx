@@ -30,7 +30,7 @@ const Contacts = ({ backgroundClass }) => {
       mapUrl:
         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2570.1753545152216!2d24.028755676842647!3d49.85168537157929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473add1f9fef8889%3A0xc9a8b93c9b8d5a3b!2sPid%20Dubom%2026a%2C%20L'viv!5e0!3m2!1sen!2sua!4v1742389961538!5m2!1sen!2sua",
       schedule: {
-        "Пн-Пт": "08:00-20:00",
+        "Пн-Пт": "09:00-20:00",
         "Сб-Нд": "11:00-20:00",
       },
       images: [Dub1, Dub2, Dub3],
@@ -40,7 +40,7 @@ const Contacts = ({ backgroundClass }) => {
       mapUrl:
         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d557.3087632737922!2d24.053616723094002!3d49.79447513189752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473ae872838e9d97%3A0x7970f68cd0a5ad10!2sChervonoyi%20Kalyny%20Ave%2C%2060%2C%20L'viv!5e0!3m2!1sen!2sua!4v1742390497284!5m2!1sen!2sua",
       schedule: {
-        "Пн-Пт": "08:00-20:00",
+        "Пн-Пт": "09:00-20:00",
         "Сб-Нд": "11:00-20:00",
       },
       images: [Kal1, Kal2, Kal3],

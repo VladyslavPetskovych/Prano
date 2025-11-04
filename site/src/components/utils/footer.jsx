@@ -86,7 +86,7 @@ function Footer() {
                 <div className="mt-2 flex items-center gap-2 ml-6 text-xs text-gray-300">
                   <FiClock className="text-Ngold shrink-0" />
                   <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1">
-                    Пн–Пт: 08:00–20:00
+                    Пн–Пт: 09:00–20:00
                   </span>
                   <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1">
                     Сб–Нд: 11:00–20:00
@@ -105,7 +105,7 @@ function Footer() {
                 <div className="mt-2 flex items-center gap-2 ml-6 text-xs text-gray-300">
                   <FiClock className="text-Ngold shrink-0" />
                   <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1">
-                    Пн–Пт: 08:00–20:00
+                    Пн–Пт: 09:00–20:00
                   </span>
                   <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1">
                     Сб–Нд: 11:00–20:00
