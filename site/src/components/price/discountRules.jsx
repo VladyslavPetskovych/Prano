@@ -28,11 +28,24 @@ export const applyDiscount = (price, itemTitle, categoryTitle) => {
   // ❗ Якщо ціна не валідна — повертаємо як є
   if (Number.isNaN(base) || !discountPercent) return base;
 
-  // ❗ Блокуємо знижку для шкіри/хутра ТІЛЬКИ у "Хімчистці"
-  if (categoryTitle === "Хімчистка" && isLeatherOrFur(itemTitle)) {
+  // 🔹 Нормалізуємо назву
+  const normalizedTitle = itemTitle.toLowerCase().trim();
+
+  // ✅ Виняток для цього конкретного товару
+  const isExceptionItem =
+    normalizedTitle.includes("шуба штучна") ||
+    normalizedTitle.includes("дублянка штучна");
+
+  // ❗ Блокуємо знижку для шкіри/хутра ТІЛЬКИ у "Хімчистці",
+  // але пропускаємо виняток навіть якщо є "(без знижки)"
+  if (
+    categoryTitle === "Хімчистка" &&
+    isLeatherOrFur(itemTitle) &&
+    !isExceptionItem
+  ) {
     return base;
   }
 
-  // ✅ В інших категоріях шкіра може мати знижку
+  // ✅ Для виняткового товару діє 30% знижка
   return Math.round(base - base * (discountPercent / 100));
 };
