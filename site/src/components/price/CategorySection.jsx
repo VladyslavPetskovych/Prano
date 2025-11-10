@@ -10,12 +10,20 @@ export default function CategorySection({ title, description, items }) {
   const [isPremiumModalOpen, setPremiumModalOpen] = useState(false);
   const categoryDiscount = getCategoryDiscount(title);
 
+  // 🆕 Позначка "NEW" для "Чистка килимів"
+  const isNewCategory = title === "Чистка килимів";
+
   return (
     <div className="bg-white shadow-2xl rounded-3xl border border-Ngold/30 overflow-hidden border-Ndark hover:shadow-2xl">
       <div className="bg-Ngold py-5 px-4 sm:px-8 flex justify-between items-center flex-wrap gap-3">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-wide text-Nblack">
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-wide text-Nblack flex items-center gap-2">
             {title}
+            {isNewCategory && (
+              <span className="bg-red-600 mt-1 text-white text-xs font-bold px-2 py-0.5 rounded-lg shadow-md">
+                НОВИНКА
+              </span>
+            )}
           </h2>
 
           {description && (
@@ -25,7 +33,8 @@ export default function CategorySection({ title, description, items }) {
           )}
         </div>
 
-        {categoryDiscount > 0 && (
+        {/* 🔥 Показуємо знижку, якщо вона є */}
+        {categoryDiscount > 0 && !isNewCategory && (
           <div className="flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-1.5 rounded-xl bg-neutral-900 text-white border border-white/10 shadow-lg text-xs sm:text-sm font-semibold">
             −{categoryDiscount}% 🔥
           </div>
@@ -53,8 +62,6 @@ export default function CategorySection({ title, description, items }) {
 
           <tbody className="text-left font-manrope text-gray-700">
             {(items ?? []).map((item, i) => {
-              console.log("🧾 CategorySection item:", item);
-
               const {
                 title: itemTitle,
                 price: std,
@@ -68,7 +75,8 @@ export default function CategorySection({ title, description, items }) {
                 normalizedTitle.includes("шуба штучна") ||
                 normalizedTitle.includes("дублянка штучна");
               const noDiscount =
-                title === "Хімчистка" && isLeather && !isExceptionItem;
+                (title === "Хімчистка" && isLeather && !isExceptionItem) ||
+                title === "Чистка килимів"; 
 
               const stdDiscount = applyDiscount(std, itemTitle, title);
               const prDiscount = applyDiscount(pr, itemTitle, title);
@@ -88,7 +96,7 @@ export default function CategorySection({ title, description, items }) {
                     )}
                   </td>
 
-                  {/* ✅ Од. виміру */}
+                  {/* Од. виміру */}
                   <td className="px-2 py-3 text-center text-sm sm:text-base border-l whitespace-nowrap">
                     {quantity || "—"}
                   </td>
@@ -96,7 +104,7 @@ export default function CategorySection({ title, description, items }) {
                   {/* Стандарт */}
                   <td className="px-1 sm:px-2 py-3 text-center border-l whitespace-nowrap">
                     {std ? (
-                      !categoryDiscount || noDiscount ? (
+                      noDiscount ? (
                         `${std} грн`
                       ) : (
                         <div className="flex flex-col items-center text-red-600 font-bold">
@@ -114,7 +122,7 @@ export default function CategorySection({ title, description, items }) {
                   {/* Преміум */}
                   <td className="px-1 sm:px-2 py-3 text-center border-l whitespace-nowrap">
                     {pr ? (
-                      !categoryDiscount || noDiscount ? (
+                      noDiscount ? (
                         `${pr} грн`
                       ) : (
                         <div className="flex flex-col items-center text-red-600 font-bold">
