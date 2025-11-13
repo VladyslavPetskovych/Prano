@@ -11,8 +11,12 @@ const merchandiseSchema = new Schema(
             type: String,
         },
         price: {
-            type: Number,
+            type: Schema.Types.Mixed,
             required: true,
+            validate: {
+                validator: v => typeof v === 'number' || typeof v === 'string',
+                message: 'price must be a number or a string'
+            }
         },
         secondPrice: {
             type: Number,
