@@ -69,7 +69,7 @@ const CreatePrice = ({ refreshServices }) => {
             required
           />
           <input
-            type="number"
+            type="text"
             placeholder="Ціна"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
@@ -77,7 +77,7 @@ const CreatePrice = ({ refreshServices }) => {
             required
           />
           <input
-            type="number"
+            type="text"
             placeholder="Друга ціна"
             value={secondPrice}
             onChange={(e) => setSecondPrice(e.target.value)}
@@ -96,7 +96,6 @@ const CreatePrice = ({ refreshServices }) => {
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
             className="border p-2 w-full"
-            required
           />
 
           <select

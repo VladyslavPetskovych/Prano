@@ -75,8 +75,7 @@ export default function CategorySection({ title, description, items }) {
                 normalizedTitle.includes("шуба штучна") ||
                 normalizedTitle.includes("дублянка штучна");
               const noDiscount =
-                (title === "Хімчистка" && isLeather && !isExceptionItem) ||
-                title === "Чистка килимів"; 
+                (title === "Хімчистка" && isLeather && !isExceptionItem) 
 
               const stdDiscount = applyDiscount(std, itemTitle, title);
               const prDiscount = applyDiscount(pr, itemTitle, title);
@@ -98,21 +97,22 @@ export default function CategorySection({ title, description, items }) {
 
                   {/* Од. виміру */}
                   <td className="px-2 py-3 text-center text-sm sm:text-base border-l whitespace-nowrap">
-                    {quantity || "—"}
+                    {quantity || " "}
                   </td>
 
                   {/* Стандарт */}
+                  {/* Стандарт */}
                   <td className="px-1 sm:px-2 py-3 text-center border-l whitespace-nowrap">
                     {std ? (
-                      noDiscount ? (
-                        `${std} грн`
-                      ) : (
+                      stdDiscount < std ? (
                         <div className="flex flex-col items-center text-red-600 font-bold">
                           <span className="line-through text-gray-500 text-[11px] sm:text-sm">
                             {std} грн
                           </span>
                           <span>{stdDiscount} грн</span>
                         </div>
+                      ) : (
+                        <span>{std} грн</span>
                       )
                     ) : (
                       ""
@@ -122,15 +122,15 @@ export default function CategorySection({ title, description, items }) {
                   {/* Преміум */}
                   <td className="px-1 sm:px-2 py-3 text-center border-l whitespace-nowrap">
                     {pr ? (
-                      noDiscount ? (
-                        `${pr} грн`
-                      ) : (
+                      prDiscount < pr ? (
                         <div className="flex flex-col items-center text-red-600 font-bold">
                           <span className="line-through text-gray-500 text-[11px] sm:text-sm">
                             {pr} грн
                           </span>
                           <span>{prDiscount} грн</span>
                         </div>
+                      ) : (
+                        <span>{pr} грн</span>
                       )
                     ) : (
                       ""

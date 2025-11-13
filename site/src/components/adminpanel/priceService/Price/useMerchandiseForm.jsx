@@ -28,21 +28,19 @@ const useMerchandiseForm = (refreshServices) => {
     setLoading(true);
     setError(null);
 
+    // ✅ Перевірки
     if (title.length < 3 || title.length > 65) {
       setError("Назва має бути від 3 до 65 символів.");
       setLoading(false);
       return;
     }
-    if (isNaN(price) || Number(price) <= 0) {
-      setError("Ціна має бути додатнім числом.");
+
+    if (!price.trim()) {
+      setError("Поле 'Ціна' не може бути порожнім.");
       setLoading(false);
       return;
     }
-    if (secondPrice && (isNaN(secondPrice) || Number(secondPrice) <= 0)) {
-      setError("Друга ціна має бути додатнім числом.");
-      setLoading(false);
-      return;
-    }
+
     if (!category) {
       setError("Оберіть категорію.");
       setLoading(false);
@@ -50,15 +48,15 @@ const useMerchandiseForm = (refreshServices) => {
     }
 
     try {
+      // ✅ Тепер price зберігається як текст
       const newMerch = {
         title,
-        price: Number(price),
+        price: price.trim(),
         categoryId: category,
       };
 
-      // 👇 додаємо тільки якщо заповнено
-      if (secondPrice !== "" && secondPrice !== null) {
-        newMerch.secondPrice = Number(secondPrice);
+      if (secondPrice && secondPrice.trim() !== "") {
+        newMerch.secondPrice = secondPrice.trim();
       }
 
       if (order !== "" && !isNaN(order)) {
@@ -76,7 +74,7 @@ const useMerchandiseForm = (refreshServices) => {
       alert("Товар успішно створено!");
       refreshServices();
 
-      // Reset полів
+      // Скидаємо поля
       setTitle("");
       setPrice("");
       setSecondPrice("");
