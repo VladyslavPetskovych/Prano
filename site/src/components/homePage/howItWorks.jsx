@@ -30,20 +30,20 @@ const HowItWorks = () => {
   return (
     <div className="w-full">
       {/* 🖼️ Banner Section */}
-      <div className="relative w-full">
-        {/* Desktop banner */}
-        <img
-          src={pranoDesk}
-          alt="Banner Desktop"
-          className="hidden sm:block w-full h-auto object-cover"
-        />
-        {/* Mobile banner */}
-        <img
-          src={pranoMOB}
-          alt="Banner Mobile"
-          className="block sm:hidden w-full h-auto object-cover"
-        />
-      </div>
+      {/*<div className="relative w-full">*/}
+      {/*  /!* Desktop banner *!/*/}
+      {/*  <img*/}
+      {/*    src={pranoDesk}*/}
+      {/*    alt="Banner Desktop"*/}
+      {/*    className="hidden sm:block w-full h-auto object-cover"*/}
+      {/*  />*/}
+      {/*  /!* Mobile banner *!/*/}
+      {/*  <img*/}
+      {/*    src={pranoMOB}*/}
+      {/*    alt="Banner Mobile"*/}
+      {/*    className="block sm:hidden w-full h-auto object-cover"*/}
+      {/*  />*/}
+      {/*</div>*/}
 
       {/* Content Section */}
       <div className="w-full py-12 bg-gray-100 text-center">
