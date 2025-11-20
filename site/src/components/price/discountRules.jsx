@@ -20,7 +20,6 @@ export const getCategoryDiscount = (categoryTitle) => {
   return categoryDiscounts[categoryTitle] ?? 0;
 };
 
-// Розрахунок ціни зі знижкою
 export const applyDiscount = (price, itemTitle, categoryTitle) => {
   const base = Number(price);
   const discountPercent = getCategoryDiscount(categoryTitle);
@@ -49,3 +48,9 @@ export const applyDiscount = (price, itemTitle, categoryTitle) => {
   // ✅ Для виняткового товару діє 30% знижка
   return Math.round(base - base * (discountPercent / 100));
 };
+
+// // Розрахунок ціни зі знижкою (всі знижки відключені)
+// export const applyDiscount = (price, itemTitle, categoryTitle) => {
+//   return Number(price); // повертаємо просто базову ціну
+// };
+
