@@ -33,7 +33,7 @@ export default function CategorySection({ title, description, items }) {
           )}
         </div>
 
-        {/* 🔥 Показуємо знижку, якщо вона є */}
+        {/* 🔥 Показуємо категоріальну знижку, якщо вона є */}
         {categoryDiscount > 0 && !isNewCategory && (
           <div className="flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-1.5 rounded-xl bg-neutral-900 text-white border border-white/10 shadow-lg text-xs sm:text-sm font-semibold">
             −{categoryDiscount}% 🔥
@@ -70,12 +70,14 @@ export default function CategorySection({ title, description, items }) {
               } = item;
 
               const isLeather = isLeatherOrFur(itemTitle);
+
               const normalizedTitle = itemTitle.toLowerCase().trim();
               const isExceptionItem =
                 normalizedTitle.includes("шуба штучна") ||
                 normalizedTitle.includes("дублянка штучна");
-              const noDiscount =
-                (title === "Хімчистка" && isLeather && !isExceptionItem) 
+
+              // ✅ Спец-знижка для шкіри/хутра: 20%
+              const leatherSpecialDiscount = isLeather && !isExceptionItem;
 
               const stdDiscount = applyDiscount(std, itemTitle, title);
               const prDiscount = applyDiscount(pr, itemTitle, title);
@@ -88,9 +90,11 @@ export default function CategorySection({ title, description, items }) {
                   {/* Назва */}
                   <td className="px-4 sm:px-5 py-3 text-sm sm:text-base">
                     {itemTitle}
-                    {noDiscount && (
+
+                    {/* 🔥 Показуємо (-20%) для шкіри/хутра */}
+                    {leatherSpecialDiscount && (
                       <span className="ml-1 text-[10px] sm:text-xs text-red-500 font-semibold">
-                        (без знижки)
+                        (-20%)
                       </span>
                     )}
                   </td>
@@ -100,7 +104,6 @@ export default function CategorySection({ title, description, items }) {
                     {quantity || " "}
                   </td>
 
-                  {/* Стандарт */}
                   {/* Стандарт */}
                   <td className="px-1 sm:px-2 py-3 text-center border-l whitespace-nowrap">
                     {std ? (
