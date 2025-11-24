@@ -27,7 +27,7 @@ export default function CountdownTimer({ end, discount = 30 }) {
   if (t.finished)
     return (
       <div className="text-red-600 font-bold text-center text-lg">
-        Акція завершена
+        
       </div>
     );
 
