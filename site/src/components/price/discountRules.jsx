@@ -1,8 +1,7 @@
-// ❌ Слова, при яких знижка не діє ТІЛЬКИ В ХІМЧИСТЦІ
-// (тепер НЕ блокує знижку, бо шкіра/хутро отримують -20%)
+// ❌ Слова, при яких знижка НЕ блокується, але визначають -20%
 export const blockedWords = ["шкіра", "шкіря", "хутро", "хутря", "шуб"];
 
-// ✅ Категоріальні знижки (оновлено)
+// ✅ Категоріальні знижки
 export const categoryDiscounts = {
   Хімчистка: 50,
   "Реставрація сумок": 20,
@@ -17,7 +16,7 @@ export const isLeatherOrFur = (title = "") => {
   return blockedWords.some((w) => t.includes(w));
 };
 
-// Отримати відсоток знижки для категорії
+// Отримати знижку категорії
 export const getCategoryDiscount = (categoryTitle) => {
   return categoryDiscounts[categoryTitle] ?? 0;
 };
@@ -25,20 +24,23 @@ export const getCategoryDiscount = (categoryTitle) => {
 // Застосування знижки
 export const applyDiscount = (price, itemTitle, categoryTitle) => {
   const base = Number(price);
-  const discountPercent = getCategoryDiscount(categoryTitle);
+  let discountPercent = getCategoryDiscount(categoryTitle);
 
-  // ❗ Якщо ціна не валідна — повертаємо як є
+  // ❗ Якщо ціна не валідна або категорія без знижки
   if (Number.isNaN(base) || !discountPercent) return base;
 
   const normalizedTitle = itemTitle.toLowerCase().trim();
 
-  // Винятки (залишаємо, якщо треба)
+  // Винятки (залишаємо)
   const isExceptionItem =
     normalizedTitle.includes("шуба штучна") ||
     normalizedTitle.includes("дублянка штучна");
 
-  // ❗ Раніше блокуємо знижку для шкіри/хутра у хімчистці — тепер НІ,
-  // бо згідно нового ТЗ має бути -20%
+  // ❗ НОВЕ ПРАВИЛО:
+  // Якщо в назві є шкіра/хутро — знижка стає 20% незалежно від категорії (в т.ч. Хімчистка)
+  if (!isExceptionItem && isLeatherOrFur(normalizedTitle)) {
+    discountPercent = 20;
+  }
 
   // Розрахунок
   return Math.round(base - base * (discountPercent / 100));
