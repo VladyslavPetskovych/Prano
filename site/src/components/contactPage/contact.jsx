@@ -49,10 +49,11 @@ const Contacts = ({ backgroundClass }) => {
     },
     {
       name: "ТРЦ Леоленд, вулиця Мельника, 18",
+      isNew: true,
       mapUrl: "https://share.google/OaJV8oJu1oxagWepB",
       schedule: {
         "Пн-Пт": "09:00-20:00",
-        "Сб-Нд": "09:00-20:00",
+        "Сб-Нд": "11:00-20:00",
       },
       images: [Leo1],
     },
@@ -79,9 +80,28 @@ const Contacts = ({ backgroundClass }) => {
               }`}
               onClick={() => setSelectedLocation(location)}
             >
-              <h3 className="text-xl font-semibold text-white">
+              <h3 className="text-xl font-semibold text-white flex items-center gap-2">
                 {location.name}
+
+                {location.isNew && (
+                  <span
+                    className="
+        text-[10px] sm:text-xs 
+        px-2 py-1 
+        rounded-md 
+        font-bold 
+        bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500
+        text-black 
+        shadow-[0_0_8px_rgba(255,215,0,0.7)]
+        animate-[pulse_1.8s_ease-in-out_infinite]
+        border border-yellow-200
+      "
+                  >
+                    NEW
+                  </span>
+                )}
               </h3>
+
               <div className="mt-2 text-sm">
                 {Object.entries(location.schedule).map(([day, hours], i) => (
                   <p key={i}>

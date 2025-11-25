@@ -112,6 +112,41 @@ function Footer() {
                   </span>
                 </div>
               </li>
+
+              {/* Леоленд — новий пункт */}
+              <li>
+                <div className="flex items-start gap-2">
+                  <FiMapPin className="text-Ngold mt-0.5 shrink-0" />
+                  <p className="font-medium flex items-center gap-2">
+                    ТРЦ Леоленд, вулиця Мельника, 18
+                    <span
+                      className="
+          text-[10px] 
+          px-2 py-1 
+          rounded-md 
+          font-bold 
+          bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500
+          text-black 
+          shadow-[0_0_8px_rgba(255,215,0,0.7)]
+          animate-[pulse_1.8s_ease-in-out_infinite]
+          border border-yellow-200
+        "
+                    >
+                      NEW
+                    </span>
+                  </p>
+                </div>
+
+                <div className="mt-2 flex items-center gap-2 ml-6 text-xs text-gray-300">
+                  <FiClock className="text-Ngold shrink-0" />
+                  <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1">
+                    Пн–Пт: 09:00–20:00
+                  </span>
+                  <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1">
+                    Сб–Нд: 11:00–20:00
+                  </span>
+                </div>
+              </li>
             </ul>
           </div>
 
