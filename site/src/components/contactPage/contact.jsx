@@ -13,6 +13,8 @@ import Kal1 from "../../assets/contacts/kal1.webp";
 import Kal2 from "../../assets/contacts/kal2.webp";
 import Kal3 from "../../assets/contacts/kal3.webp";
 
+import Leo1 from "../../assets/contacts/leo1.png";
+
 const Contacts = ({ backgroundClass }) => {
   const locations = [
     {
@@ -45,6 +47,15 @@ const Contacts = ({ backgroundClass }) => {
       },
       images: [Kal1, Kal2, Kal3],
     },
+    {
+      name: "ТРЦ Леоленд, вулиця Мельника, 18",
+      mapUrl: "https://share.google/OaJV8oJu1oxagWepB",
+      schedule: {
+        "Пн-Пт": "09:00-20:00",
+        "Сб-Нд": "09:00-20:00",
+      },
+      images: [Leo1],
+    },
   ];
 
   const [selectedLocation, setSelectedLocation] = useState(locations[0]);
@@ -57,7 +68,7 @@ const Contacts = ({ backgroundClass }) => {
         </h2>
 
         {/* кнопки локацій */}
-        <div className="grid md:grid-cols-3 gap-6 text-gray-300 px-10">
+        <div className="grid md:grid-cols-4 gap-6 text-gray-300 px-10">
           {locations.map((location, index) => (
             <div
               key={index}
