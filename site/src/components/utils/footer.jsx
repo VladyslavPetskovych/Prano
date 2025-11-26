@@ -66,7 +66,7 @@ function Footer() {
                 <div className="flex items-start gap-2">
                   <FiMapPin className="text-Ngold mt-0.5 shrink-0" />
                   <p className="font-medium flex items-center gap-2">
-                    ТРЦ Леоленд, вулиця Мельника, 18
+                    ТРЦ Leoland, Мельника, 18
                     <span
                       className="
           text-[10px] 

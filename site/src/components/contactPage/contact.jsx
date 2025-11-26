@@ -48,9 +48,10 @@ const Contacts = ({ backgroundClass }) => {
       images: [Kal1, Kal2, Kal3],
     },
     {
-      name: "ТРЦ Леоленд, вулиця Мельника, 18",
+      name: "ТРЦ Leoland, Мельника, 18",
       isNew: true,
-      mapUrl: "https://share.google/OaJV8oJu1oxagWepB",
+      mapUrl:
+        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d454.9635633513673!2d24.003696040646695!3d49.8300069358789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473add00167a6f77%3A0x9e7c647088345292!2sPrano!5e0!3m2!1suk!2sua!4v1764143486532!5m2!1suk!2sua",
       schedule: {
         "Пн-Пт": "09:00-20:00",
         "Сб-Нд": "11:00-20:00",
@@ -63,13 +64,13 @@ const Contacts = ({ backgroundClass }) => {
 
   return (
     <div className={`min-h-screen ${backgroundClass} text-white`}>
-      <div className="max-w-6xl mx-auto flex justify-center flex-col w-full px-6 pt-20">
+      <div className="max-w-6xl mx-auto flex justify-center flex-col w-full px-5 pt-16">
         <h2 className="text-3xl sm:text-4xl font-bold text-center text-Ngold relative inline-block after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue mb-7">
           Наші пункти прийому
         </h2>
 
         {/* кнопки локацій */}
-        <div className="grid md:grid-cols-4 gap-6 text-gray-300 px-10">
+        <div className="grid md:grid-cols-4 gap-5 text-gray-300 px-8">
           {locations.map((location, index) => (
             <div
               key={index}
