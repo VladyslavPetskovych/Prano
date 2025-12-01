@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import PremiumInfoModal from "./PremiumInfoModal";
-import {
-  applyDiscount,
-  isLeatherOrFur,
-  getCategoryDiscount,
-} from "./discountRules";
+import { applyDiscount, getCategoryDiscount } from "./discountRules";
 
 export default function CategorySection({ title, description, items }) {
   const [isPremiumModalOpen, setPremiumModalOpen] = useState(false);
@@ -69,16 +65,7 @@ export default function CategorySection({ title, description, items }) {
                 quantity,
               } = item;
 
-              const isLeather = isLeatherOrFur(itemTitle);
-
-              const normalizedTitle = itemTitle.toLowerCase().trim();
-              const isExceptionItem =
-                normalizedTitle.includes("шуба штучна") ||
-                normalizedTitle.includes("дублянка штучна");
-
-              // ✅ Спец-знижка для шкіри/хутра: 20%
-              const leatherSpecialDiscount = isLeather && !isExceptionItem;
-
+              // Тепер немає спеціальних позначок для шкіри/хутра — усі винятки опрацьовуються у правилах знижки
               const stdDiscount = applyDiscount(std, itemTitle, title);
               const prDiscount = applyDiscount(pr, itemTitle, title);
 
@@ -90,13 +77,6 @@ export default function CategorySection({ title, description, items }) {
                   {/* Назва */}
                   <td className="px-4 sm:px-5 py-3 text-sm sm:text-base">
                     {itemTitle}
-
-                    {/* 🔥 Показуємо (-20%) для шкіри/хутра */}
-                    {leatherSpecialDiscount && (
-                      <span className="ml-1 text-[10px] sm:text-xs text-red-500 font-semibold">
-                        (-20%)
-                      </span>
-                    )}
                   </td>
 
                   {/* Од. виміру */}

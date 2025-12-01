@@ -3,6 +3,7 @@ import React from "react";
 import SearchInput from "./searchInput";
 import CatLogo from "../../assets/logo/CatLogoDark.svg";
 import CountdownTimer from "./CountdownTimer"; // ✅ додали таймер
+import prom1 from "../../assets/price/prom1.jpg"; // Імпорт зображення промо
 
 export default function PricesHeader({
   onSearch,
@@ -26,6 +27,7 @@ export default function PricesHeader({
           {/* Праворуч: заголовок + логотип */}
           <div className="w-full md:w-auto flex flex-col items-center md:flex-row md:items-center md:justify-end gap-3 sm:gap-4">
             {/* Для телефонів: тільки текст по центру */}
+            <img src={prom1} alt="" className="md:hidden" />
             <h2 className="block md:hidden text-3xl font-extrabold text-Nblack leading-tight text-center">
               {title}
             </h2>

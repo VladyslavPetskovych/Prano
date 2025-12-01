@@ -1,19 +1,9 @@
-// ❌ Слова, при яких знижка НЕ блокується, але визначають -20%
-export const blockedWords = ["шкіра", "шкіря", "хутро", "хутря", "шуб"];
+// discountRules_and_CategorySection.jsx
+// Оновлено: видалено всі інші знижки — залишено лише -50% для категорії "Хімчистка"
 
-// ✅ Категоріальні знижки
+// ✅ Категоріальнa знижка — тільки для Хімчистка
 export const categoryDiscounts = {
   Хімчистка: 50,
-  "Реставрація сумок": 20,
-  "Реставрація взуття": 20,
-  "Чистка шкіряного одягу": 20,
-  "Чистка хутра": 20,
-};
-
-// Перевірка назв на матеріал
-export const isLeatherOrFur = (title = "") => {
-  const t = title.toLowerCase();
-  return blockedWords.some((w) => t.includes(w));
 };
 
 // Отримати знижку категорії
@@ -22,26 +12,16 @@ export const getCategoryDiscount = (categoryTitle) => {
 };
 
 // Застосування знижки
-export const applyDiscount = (price, itemTitle, categoryTitle) => {
+// Тепер: є знижка лише коли категорія === "Хімчистка" (50%). Всі інші випадки — без змін.
+export const applyDiscount = (price, _itemTitle, categoryTitle) => {
   const base = Number(price);
-  let discountPercent = getCategoryDiscount(categoryTitle);
+  const discountPercent = getCategoryDiscount(categoryTitle);
 
-  // ❗ Якщо ціна не валідна або категорія без знижки
   if (Number.isNaN(base) || !discountPercent) return base;
 
-  const normalizedTitle = itemTitle.toLowerCase().trim();
-
-  // Винятки (залишаємо)
-  const isExceptionItem =
-    normalizedTitle.includes("шуба штучна") ||
-    normalizedTitle.includes("дублянка штучна");
-
-  // ❗ НОВЕ ПРАВИЛО:
-  // Якщо в назві є шкіра/хутро — знижка стає 20% незалежно від категорії (в т.ч. Хімчистка)
-  if (!isExceptionItem && isLeatherOrFur(normalizedTitle)) {
-    discountPercent = 20;
-  }
-
-  // Розрахунок
   return Math.round(base - base * (discountPercent / 100));
 };
+
+// -----------------------------------------------------------------------------
+// Компонент CategorySection (React)
+// -----------------------------------------------------------------------------
