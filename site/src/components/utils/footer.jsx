@@ -67,7 +67,7 @@ function Footer() {
                   <FiMapPin className="text-Ngold mt-0.5 shrink-0" />
                   <p className="font-medium flex items-center gap-2">
                     ТРЦ Leoland, Мельника, 18
-                    <span
+                    {/* <span
                       className="
           text-[10px] 
           px-2 py-1 
@@ -81,7 +81,7 @@ function Footer() {
         "
                     >
                       NEW
-                    </span>
+                    </span> */}
                   </p>
                 </div>
 
