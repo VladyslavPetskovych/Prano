@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import PremiumInfoModal from "./PremiumInfoModal";
-import { applyDiscount, getCategoryDiscount } from "./discountRules";
+// import { applyDiscount, getCategoryDiscount } from "./discountRules"; // 1. Commented out discount rules
 
 export default function CategorySection({ title, description, items }) {
   const [isPremiumModalOpen, setPremiumModalOpen] = useState(false);
-  const categoryDiscount = getCategoryDiscount(title);
+
+  // 2. Commented out category discount logic
+  // const categoryDiscount = getCategoryDiscount(title);
 
   // 🆕 Позначка "NEW" для "Чистка килимів"
   const isNewCategory = title === "Чистка килимів";
@@ -29,12 +31,12 @@ export default function CategorySection({ title, description, items }) {
           )}
         </div>
 
-        {/* 🔥 Показуємо категоріальну знижку, якщо вона є */}
-        {categoryDiscount > 0 && !isNewCategory && (
+        {/* 3. Commented out the discount badge in the header */}
+        {/* {categoryDiscount > 0 && !isNewCategory && (
           <div className="flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-1.5 rounded-xl bg-neutral-900 text-white border border-white/10 shadow-lg text-xs sm:text-sm font-semibold">
             −{categoryDiscount}% 🔥
           </div>
-        )}
+        )} */}
       </div>
 
       <div className="overflow-x-auto">
@@ -65,9 +67,10 @@ export default function CategorySection({ title, description, items }) {
                 quantity,
               } = item;
 
-              // Тепер немає спеціальних позначок для шкіри/хутра — усі винятки опрацьовуються у правилах знижки
-              const stdDiscount = applyDiscount(std, itemTitle, title);
+              // 4. Commented out discount application logic
+              /* const stdDiscount = applyDiscount(std, itemTitle, title);
               const prDiscount = applyDiscount(pr, itemTitle, title);
+              */
 
               return (
                 <tr
@@ -84,40 +87,14 @@ export default function CategorySection({ title, description, items }) {
                     {quantity || " "}
                   </td>
 
-                  {/* Стандарт */}
-                  <td className="px-1 sm:px-2 py-3 text-center border-l whitespace-nowrap">
-                    {std ? (
-                      stdDiscount < std ? (
-                        <div className="flex flex-col items-center text-red-600 font-bold">
-                          <span className="line-through text-gray-500 text-[11px] sm:text-sm">
-                            {std} грн
-                          </span>
-                          <span>{stdDiscount} грн</span>
-                        </div>
-                      ) : (
-                        <span>{std} грн</span>
-                      )
-                    ) : (
-                      ""
-                    )}
+                  {/* Стандарт - Simplified to show only the base price */}
+                  <td className="px-1 sm:px-2 py-3 text-center border-l whitespace-nowrap font-medium">
+                    {std ? `${std} грн` : ""}
                   </td>
 
-                  {/* Преміум */}
-                  <td className="px-1 sm:px-2 py-3 text-center border-l whitespace-nowrap">
-                    {pr ? (
-                      prDiscount < pr ? (
-                        <div className="flex flex-col items-center text-red-600 font-bold">
-                          <span className="line-through text-gray-500 text-[11px] sm:text-sm">
-                            {pr} грн
-                          </span>
-                          <span>{prDiscount} грн</span>
-                        </div>
-                      ) : (
-                        <span>{pr} грн</span>
-                      )
-                    ) : (
-                      ""
-                    )}
+                  {/* Преміум - Simplified to show only the base price */}
+                  <td className="px-1 sm:px-2 py-3 text-center border-l whitespace-nowrap font-medium">
+                    {pr ? `${pr} грн` : ""}
                   </td>
                 </tr>
               );
