@@ -26,8 +26,8 @@ export default function PricesHeader({
           </div>
           {/* Праворуч: заголовок + логотип */}
           <div className="w-full md:w-auto flex flex-col items-center md:flex-row md:items-center md:justify-end gap-3 sm:gap-4">
-            {/* Для телефонів: тільки текст по центру */}
-            <img src={prom1} alt="" className="md:hidden" />
+            {/* Для телефонів: тільки текст по центру
+            <img src={prom1} alt="" className="md:hidden" /> */}
             <h2 className="block md:hidden text-3xl font-extrabold text-Nblack leading-tight text-center">
               {title}
             </h2>
