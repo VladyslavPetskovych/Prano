@@ -25,7 +25,7 @@ const Contacts = ({ backgroundClass }) => {
       schedule: {
         "Пн-Пт": "09:00-19:00",
         Сб: "11:00-18:00",
-        Нд: "вихідні",
+        Нд: "вихідний",
       },
       images: [Lyp1, Lyp2, Lyp3],
     },
@@ -52,7 +52,7 @@ const Contacts = ({ backgroundClass }) => {
       images: [Kal1, Kal2, Kal3],
     },
     {
-      name: "ТРЦ Leoland, Мельника, 18",
+      name: "Мельника, 18",
       phone: "+380687430691",
       isNew: true,
       mapUrl:
