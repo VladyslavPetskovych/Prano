@@ -20,6 +20,28 @@ class OrderController {
             next(e)
         }
     }
+
+    async checkPhone(req, res, next) {
+        try {
+            const data = await orderService.checkPhone(req.body.phone);
+
+            return res.json(data)
+        } catch (e) {
+            next(e)
+        }
+    }
+
+    async createBySms(req, res, next) {
+        try {
+            const {smsId, code, orderData} = req.body;
+
+            await orderService.createBySms(smsId, code, orderData)
+
+            return res.sendStatus(200)
+        } catch (e) {
+            next(e)
+        }
+    }
 }
 
 module.exports = new OrderController()

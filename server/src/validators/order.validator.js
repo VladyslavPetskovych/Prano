@@ -18,6 +18,22 @@ class OrderValidator {
         productType: this.productType.required(),
         note: this.note,
     })
+
+    static checkPhone = Joi.object({
+        phone: this.phone.required(),
+    })
+
+    static createBySms = Joi.object({
+        smsId: Joi.number().required(),
+        code: Joi.number().min(0).max(9999).required(),
+        orderData: Joi.object({
+            name: this.name.required(),
+            email: this.email.required(),
+            clothType: this.clothType.required(),
+            productType: this.productType.required(),
+            note: this.note,
+        })
+    })
 }
 
 module.exports = OrderValidator

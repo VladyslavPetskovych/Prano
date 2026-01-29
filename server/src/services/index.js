@@ -10,6 +10,7 @@ module.exports = {
     passwordService: require("./password.service"),
     postService: require("./post.service"),
     productService: require("./product.service"),
+    smsService: require("./sms.service"),
     telegramService: require("./telegram.service"),
     tokenService: require("./token.service"),
     userService: require("./user.service"),

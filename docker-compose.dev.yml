@@ -37,6 +37,7 @@ services:
       - NO_REPLY_EMAIL=${NO_REPLY_EMAIL}
       - NO_REPLY_PASSWORD=${NO_REPLY_PASSWORD}
       - CC_API_KEY=${CC_API_KEY}
+      - SMS_API_KEY=${SMS_API_KEY}
       - MANAGER_EMAIL=${MANAGER_EMAIL}
     volumes:
       - ./server:/app
@@ -86,8 +87,8 @@ services:
     build:
       context: ./telegramBot
     environment:
-      - token = ${TG_BOT_TOKEN}
-      - REDIS_URL = ${REDIS_URL}
+      - token=${TG_BOT_TOKEN}
+      - REDIS_URL=${REDIS_URL}
       - BD_ACCESS=${DB_URL}
     volumes:
       - ./telegramBot:/app

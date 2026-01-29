@@ -1,19 +1,19 @@
 const axios = require("axios");
 
-const {ccUrls: {baseURL}} = require("../constants");
-const {configs} = require("../configs");
+const {smsUrls: {baseURL}} = require("../constants");
 const {ApiError} = require("../errors");
+const {configs} = require("../configs");
 
 const axiosService = axios.create({baseURL})
 
 axiosService.interceptors.request.use(req => {
-    req.data.api_token = configs.CC_API_KEY
+    req.data.auth = configs.SMS_API_KEY
 
-    return req
+    return req;
 })
 axiosService.interceptors.response.use(res => {
-    if (res.data.Error) {
-        throw new ApiError(res.data.Error, 400)
+    if (res.data.error) {
+        throw new ApiError(res.data.error, 400)
     }
     return res
 })
