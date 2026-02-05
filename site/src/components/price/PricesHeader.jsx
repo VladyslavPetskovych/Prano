@@ -26,7 +26,7 @@ export default function PricesHeader({
           </div>
           {/* Праворуч: заголовок + логотип */}
           <div className="w-full md:w-auto flex flex-col items-center md:flex-row md:items-center md:justify-end gap-3 sm:gap-4">
-            <img src={Promo20012025} alt="" className="md:hidden" />
+            {/* <img src={Promo20012025} alt="" className="md:hidden" /> */}
             <h2 className="block md:hidden text-3xl font-extrabold text-Nblack leading-tight text-center">
               {title}
             </h2>
