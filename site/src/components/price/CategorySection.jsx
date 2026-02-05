@@ -32,6 +32,8 @@ export default function CategorySection({ title, description, items }) {
     });
   }, [items, title]);
 
+  // ✅ If you want to HIDE the badge when discounts are disabled:
+  // const showBadge = false;
   const showBadge = !isNewCategory && (isHomeTextile || hasAnyDiscount);
 
   return (
@@ -54,11 +56,11 @@ export default function CategorySection({ title, description, items }) {
           )}
         </div>
 
-        {showBadge && (
+        {/* {showBadge && (
           <div className="flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-1.5 rounded-xl bg-neutral-900 text-white border border-white/10 shadow-lg text-xs sm:text-sm font-semibold">
             −20% 🔥
           </div>
-        )}
+        )} */}
       </div>
 
       <div className="overflow-x-auto">
@@ -89,65 +91,39 @@ export default function CategorySection({ title, description, items }) {
                 quantity,
               } = item;
 
-              const stdDiscount =
-                std != null ? applyDiscount(std, itemTitle, title) : std;
-              const prDiscount =
-                pr != null ? applyDiscount(pr, itemTitle, title) : pr;
-
-              const stdHasDiscount =
-                std != null && Number(stdDiscount) !== Number(std);
-              const prHasDiscount =
-                pr != null && Number(prDiscount) !== Number(pr);
+              // ✅ DISCOUNT LOGIC DISABLED (commented)
+              // const stdDiscount =
+              //   std != null ? applyDiscount(std, itemTitle, title) : std;
+              // const prDiscount =
+              //   pr != null ? applyDiscount(pr, itemTitle, title) : pr;
+              // const stdHasDiscount =
+              //   std != null && Number(stdDiscount) !== Number(std);
+              // const prHasDiscount =
+              //   pr != null && Number(prDiscount) !== Number(pr);
 
               return (
                 <tr
                   key={item._id ?? `${itemTitle}-${i}`}
                   className={i % 2 === 0 ? "bg-white" : "bg-Ngold/20"}
                 >
+                  {/* Назва */}
                   <td className="px-4 sm:px-5 py-3 text-sm sm:text-base">
                     {itemTitle}
                   </td>
 
+                  {/* Од. виміру */}
                   <td className="px-2 py-3 text-center text-sm sm:text-base border-l whitespace-nowrap">
                     {quantity || " "}
                   </td>
 
+                  {/* Стандарт (no discount view) */}
                   <td className="px-1 sm:px-2 py-3 text-center border-l whitespace-nowrap font-medium">
-                    {std ? (
-                      stdHasDiscount ? (
-                        <span className="inline-flex items-center gap-2">
-                          <span className="line-through text-gray-400">
-                            {std} грн
-                          </span>
-                          <span className="text-Nblack font-extrabold">
-                            {stdDiscount} грн
-                          </span>
-                        </span>
-                      ) : (
-                        `${std} грн`
-                      )
-                    ) : (
-                      ""
-                    )}
+                    {std ? `${std} грн` : ""}
                   </td>
 
+                  {/* Преміум (no discount view) */}
                   <td className="px-1 sm:px-2 py-3 text-center border-l whitespace-nowrap font-medium">
-                    {pr ? (
-                      prHasDiscount ? (
-                        <span className="inline-flex items-center gap-2">
-                          <span className="line-through text-gray-400">
-                            {pr} грн
-                          </span>
-                          <span className="text-Nblack font-extrabold">
-                            {prDiscount} грн
-                          </span>
-                        </span>
-                      ) : (
-                        `${pr} грн`
-                      )
-                    ) : (
-                      ""
-                    )}
+                    {pr ? `${pr} грн` : ""}
                   </td>
                 </tr>
               );
