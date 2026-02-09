@@ -19,16 +19,19 @@ class OrderValidator {
         note: this.note,
     })
 
-    static checkPhone = Joi.object({
+    static sendSms = Joi.object({
         phone: this.phone.required(),
+    })
+
+    static verifyPhone = Joi.object({
+        smsId: Joi.number().required(),
+        code: Joi.number().min(0).max(9999).required(),
     })
 
     static createBySms = Joi.object({
         smsId: Joi.number().required(),
-        code: Joi.number().min(0).max(9999).required(),
         orderData: Joi.object({
             name: this.name.required(),
-            email: this.email.required(),
             clothType: this.clothType.required(),
             productType: this.productType.required(),
             note: this.note,

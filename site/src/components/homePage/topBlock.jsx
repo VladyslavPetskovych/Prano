@@ -3,11 +3,13 @@ import back from "../../assets/home/back.webp";
 import logo from "../../assets/logo/pranoTextGold.svg";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import {QuickOrderModal} from "../quickOrderModal/index.js";
 
 
 const TopBlock = () => {
   const [bgLoaded, setBgLoaded] = useState(false);
   const isAuth = useSelector((state) => state.auth.isAuth);
+  const [isQuickOpen, setIsQuickOpen] = useState(false);
 
   useEffect(() => {
     const img = new Image();
@@ -37,15 +39,25 @@ const TopBlock = () => {
           Хімчистка одягу, прання, реставрація сумок і взуття у Львові. Преміум-послуги для вашого комфорту та стилю.
         </p>
 
-        <Link
-          to={isAuth ? "/account" : "/login"}
+        <button
+          onClick={() => {
+              if (isAuth) {
+                window.location.href = "/account"
+              } else {
+                setIsQuickOpen(true)
+              }
+          }}
           className="mt-6 inline-block font-bold bg-Ndark bg-opacity-80 text-white text-lg py-3 px-8 rounded-lg shadow-lg hover:bg-[#c4a75c] transition duration-300"
           style={{
             textShadow: "4px 4px 4px rgba(0, 0, 0, 0.5)",
           }}
         >
           Замовити послугу
-        </Link>
+        </button>
+
+          {!isAuth && isQuickOpen &&
+            <QuickOrderModal onClose={() => setIsQuickOpen(false)}/>
+          }
       </div>
     </div>
   );

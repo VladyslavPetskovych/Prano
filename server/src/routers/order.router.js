@@ -32,8 +32,13 @@ router.post(
 )
 router.post(
     "/quick",
-    commonMiddleware.isBodyValid(OrderValidator.checkPhone),
-    orderController.checkPhone
+    commonMiddleware.isBodyValid(OrderValidator.sendSms),
+    orderController.sendSms
+)
+router.post(
+    "/quick/confirm-code",
+    commonMiddleware.isBodyValid(OrderValidator.verifyPhone),
+    orderController.verifyPhone
 )
 router.post(
     "/quick/confirm",

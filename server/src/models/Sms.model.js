@@ -4,6 +4,7 @@ const smsSchema = new Schema(
     {
         smsId: {
             type: Number,
+            unique: true,
             required: true,
         },
         phone: {
@@ -14,6 +15,10 @@ const smsSchema = new Schema(
             type: Number,
             required: true,
         },
+        verified: {
+            type: Boolean,
+            default: false,
+        }
     },
     {
         versionKey: false,

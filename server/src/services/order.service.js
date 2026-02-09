@@ -43,14 +43,14 @@ class OrderService {
         }
     }
 
-    async checkPhone(phone) {
+    async sendSms(phone) {
         try {
             const smsCode = Math.floor(1000 + Math.random() * 9000)
 
             const smsId = Date.now()
 
             await Promise.all([
-                Sms.create({smsId, phone, smsCode}),
+                Sms.create({smsId, phone, smsCode, verified: false}),
                 smsService.send(smsId, phone, `Ваш код підтвердження:\n${smsCode}`)
             ])
 
@@ -60,9 +60,9 @@ class OrderService {
         }
     }
 
-    async createBySms(smsId, code, orderData) {
+    async verifyPhone(smsId, code) {
         try {
-            const record = await Sms.findOne({smsId});
+            const record = await Sms.findOne({ smsId });
 
             if (!record) {
                 throw new ApiError("Code expired or not found", 400);
@@ -72,7 +72,24 @@ class OrderService {
                 throw new ApiError("Invalid code", 400);
             }
 
-            await Sms.deleteOne({_id: record._id})
+            record.verified = true;
+            await record.save();
+        } catch (e) {
+            throw new ApiError(e.message, e.status || 500);
+        }
+    }
+
+    async createBySms(smsId, orderData) {
+        try {
+            const record = await Sms.findOne({smsId});
+
+            if (!record) {
+                throw new ApiError("Session expired", 400);
+            }
+
+            if (!record.verified) {
+                throw new ApiError("Phone not verified", 400);
+            }
 
             const context = {
                 quickOrder: true,
@@ -85,6 +102,8 @@ class OrderService {
                 emailService.sendMail(configs.MANAGER_EMAIL, EEmailActions.ORDER_CREATED_MANAGER, context),
                 smsService.send(++smsId, record.phone, "Ваше замовлення успішно створено. Очікуйте зворотного зв\'язку!")
             ])
+
+            await Sms.deleteOne({_id: record._id})
         } catch (e) {
             throw new ApiError(e.message, e.status)
         }

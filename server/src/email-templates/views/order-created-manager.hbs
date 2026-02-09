@@ -17,7 +17,9 @@
 					<b>Швидке замовлення</b>
 				{{/if}}
 				Ім'я: {{name}},
-				Email: {{email}},
+				{{#if email}}
+					Email: {{email}},
+				{{/if}}
 				Номер телефону: {{phone}},
 				Тип одягу: {{clothType}},
 				Тип послуги: {{productType}}
@@ -28,18 +30,18 @@
 		</td>
 	</tr>
 	{{#unless quickOrder}}
-	<tr>
-		<td style="text-align: center">
-			<p style="margin: 17px 0 0;">
-				Замовлено з такого профілю:
-			</p>
-			<p style="margin: 17px 0 0;">
-<!--				СleanCloud Id: {{cleanCloudId}},-->
-				Ім'я: {{nameOfUser}},
-				Email: {{emailOfUser}},
-				Номер телефону: {{phoneOfUser}}
-			</p>
-		</td>
-	</tr>
+		<tr>
+			<td style="text-align: center">
+				<p style="margin: 17px 0 0;">
+					Замовлено з такого профілю:
+				</p>
+				<p style="margin: 17px 0 0;">
+<!--					СleanCloud Id: {{cleanCloudId}},-->
+					Ім'я: {{nameOfUser}},
+					Email: {{emailOfUser}},
+					Номер телефону: {{phoneOfUser}}
+				</p>
+			</td>
+		</tr>
 	{{/unless}}
 </table>

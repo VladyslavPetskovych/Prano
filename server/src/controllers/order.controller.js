@@ -21,9 +21,9 @@ class OrderController {
         }
     }
 
-    async checkPhone(req, res, next) {
+    async sendSms(req, res, next) {
         try {
-            const data = await orderService.checkPhone(req.body.phone);
+            const data = await orderService.sendSms(req.body.phone);
 
             return res.json(data)
         } catch (e) {
@@ -31,11 +31,23 @@ class OrderController {
         }
     }
 
+    async verifyPhone(req, res, next) {
+        try {
+            const {smsId, code} = req.body;
+
+            await orderService.verifyPhone(smsId, code);
+
+            return res.sendStatus(200)
+        } catch (e) {
+            next(e)
+        }
+    }
+
     async createBySms(req, res, next) {
         try {
-            const {smsId, code, orderData} = req.body;
+            const {smsId, orderData} = req.body;
 
-            await orderService.createBySms(smsId, code, orderData)
+            await orderService.createBySms(smsId, orderData)
 
             return res.sendStatus(200)
         } catch (e) {
