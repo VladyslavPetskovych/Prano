@@ -42,7 +42,7 @@ const QuickOrderModal = ({onClose}) => {
     const sendOrder = async () => {
         try {
             // await axios.post("http://localhost:3000/orders/quick/confirm", {smsId, orderData});
-            await axios.post("https://prano.group/api/orders/quick/confirm", {smsId, code});
+            await axios.post("https://prano.group/api/orders/quick/confirm", {smsId, orderData});
 
             alert("Замовлення надіслано!");
             onClose();
