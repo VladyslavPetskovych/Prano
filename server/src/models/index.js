@@ -7,6 +7,7 @@ module.exports = {
     Order: require("./Order.model"),
     Post: require("./Post.model"),
     Product: require("./Product.model"),
+    Sms: require("./Sms.model"),
     Token: require("./Token.model"),
     TelegramUser: require("./TelegramUser.model"),
     User: require("./User.model"),
