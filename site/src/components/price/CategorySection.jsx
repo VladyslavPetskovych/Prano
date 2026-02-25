@@ -4,6 +4,19 @@ import { applyDiscount, isHomeTextileCategory } from "./discountRules";
 
 export default function CategorySection({ title, description, items }) {
   const [isPremiumModalOpen, setPremiumModalOpen] = useState(false);
+  const [sortOrder, setSortOrder] = useState("asc"); // "asc" = A-Z, "desc" = Z-A
+
+  const sortedItems = useMemo(() => {
+    const list = Array.isArray(items) ? [...items] : [];
+    return list.sort((a, b) => {
+      const nameA = (a?.title ?? "").toLowerCase();
+      const nameB = (b?.title ?? "").toLowerCase();
+      const cmp = nameA.localeCompare(nameB, "uk");
+      return sortOrder === "asc" ? cmp : -cmp;
+    });
+  }, [items, sortOrder]);
+
+  const toggleSort = () => setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
 
   // 🆕 Позначка "NEW" для "Чистка килимів"
   const isNewCategory = title === "Чистка килимів";
@@ -67,8 +80,12 @@ export default function CategorySection({ title, description, items }) {
         <table className="min-w-full table-fixed border-collapse text-[13px] sm:text-base">
           <thead>
             <tr className="bg-Ngold/30 text-Nblack uppercase tracking-wider">
-              <th className="px-4 sm:px-6 py-3 sm:py-4 text-left w-[45%]">
-                Назва
+              <th
+                className="px-4 sm:px-6 py-3 sm:py-4 text-left w-[45%] cursor-pointer select-none hover:bg-Ngold/50 transition-colors rounded-tl-lg"
+                onClick={toggleSort}
+                title={sortOrder === "asc" ? "Сортувати Z→A" : "Сортувати A→Z"}
+              >
+                Назва {sortOrder === "asc" ? "↑" : "↓"}
               </th>
               <th className="px-2 py-3 sm:py-4 text-center w-[12%]">
                 Од. виміру
@@ -83,7 +100,7 @@ export default function CategorySection({ title, description, items }) {
           </thead>
 
           <tbody className="text-left font-manrope text-gray-700">
-            {(items ?? []).map((item, i) => {
+            {sortedItems.map((item, i) => {
               const {
                 title: itemTitle,
                 price: std,
