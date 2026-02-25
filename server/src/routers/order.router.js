@@ -30,5 +30,20 @@ router.post(
     commonMiddleware.isBodyValid(OrderValidator.create),
     orderController.create
 )
+router.post(
+    "/quick",
+    commonMiddleware.isBodyValid(OrderValidator.sendSms),
+    orderController.sendSms
+)
+router.post(
+    "/quick/confirm-code",
+    commonMiddleware.isBodyValid(OrderValidator.verifyPhone),
+    orderController.verifyPhone
+)
+router.post(
+    "/quick/confirm",
+    commonMiddleware.isBodyValid(OrderValidator.createBySms),
+    orderController.createBySms
+)
 
 module.exports = router

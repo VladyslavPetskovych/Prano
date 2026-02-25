@@ -229,7 +229,7 @@ function Footer() {
             </a>
           </div>
           <p className="text-sm">
-            Copyright 2025 Всі права захищені.{" "}
+            Copyright © {new Date().getFullYear()} Всі права захищені.{" "}
             <Link to="/privacy-policy" className="text-Ngold hover:underline">
               Політика конфіденційності
             </Link>

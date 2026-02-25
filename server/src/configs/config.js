@@ -24,6 +24,7 @@ module.exports = {
     NO_REPLY_PASSWORD: process.env.NO_REPLY_PASSWORD,
 
     CC_API_KEY: process.env.CC_API_KEY,
+    SMS_API_KEY: process.env.SMS_API_KEY,
 
     MANAGER_EMAIL: process.env.MANAGER_EMAIL,
 }

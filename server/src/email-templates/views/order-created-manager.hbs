@@ -1,7 +1,7 @@
 <table class="body">
 	<tr>
 		<td style="font-size: 18px; text-align: center">
-			{{nameOfUser}} створив нове замовлення!
+			{{name}} створив нове замовлення!
 		</td>
 	</tr>
 	<tr>
@@ -13,8 +13,13 @@
 				{{#if fromTelegram}}
 					<b>Замовлення з телеграму</b>
 				{{/if}}
+				{{#if quickOrder}}
+					<b>Швидке замовлення</b>
+				{{/if}}
 				Ім'я: {{name}},
-				Email: {{email}},
+				{{#if email}}
+					Email: {{email}},
+				{{/if}}
 				Номер телефону: {{phone}},
 				Тип одягу: {{clothType}},
 				Тип послуги: {{productType}}
@@ -24,17 +29,19 @@
 			</p>
 		</td>
 	</tr>
-	<tr>
-		<td style="text-align: center">
-			<p style="margin: 17px 0 0;">
-				Замовлено з такого профілю:
-			</p>
-			<p style="margin: 17px 0 0;">
-<!--				СleanCloud Id: {{cleanCloudId}},-->
-				Ім'я: {{nameOfUser}},
-				Email: {{emailOfUser}},
-				Номер телефону: {{phoneOfUser}}
-			</p>
-		</td>
-	</tr>
+	{{#unless quickOrder}}
+		<tr>
+			<td style="text-align: center">
+				<p style="margin: 17px 0 0;">
+					Замовлено з такого профілю:
+				</p>
+				<p style="margin: 17px 0 0;">
+<!--					СleanCloud Id: {{cleanCloudId}},-->
+					Ім'я: {{nameOfUser}},
+					Email: {{emailOfUser}},
+					Номер телефону: {{phoneOfUser}}
+				</p>
+			</td>
+		</tr>
+	{{/unless}}
 </table>
