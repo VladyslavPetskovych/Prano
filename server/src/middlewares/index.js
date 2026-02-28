@@ -5,6 +5,7 @@ module.exports = {
     commonMiddleware: require("./common.middleware"),
     imageMiddleware: require("./image.middleware"),
     merchandiseMiddleware: require("./merchandise.middleware"),
+    phoneMiddleware: require("./phone.middleware"),
     postMiddleware: require("./post.middleware"),
     productMiddleware: require("./product.middleware"),
     userMiddleware: require("./user.middleware"),

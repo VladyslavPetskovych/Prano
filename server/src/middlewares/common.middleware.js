@@ -39,10 +39,6 @@ class CommonMiddleware {
             }
         }
     }
-
-    rateLimiter (req, res, next) {
-
-    }
 }
 
 module.exports = new CommonMiddleware()

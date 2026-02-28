@@ -14,7 +14,6 @@ const userSchema = new Schema(
         },
         email: {
             type: String,
-            required: true,
             trim: true,
             lowercase: true,
         },
@@ -25,13 +24,13 @@ const userSchema = new Schema(
         },
         password: {
             type: String,
-            required: true,
+            required: false,
             select: false,
         },
         status: {
             type: String,
             enum: EUserStatus,
-            default: EUserStatus.INACTIVE,
+            default: EUserStatus.ACTIVE,
         },
         role: {
             type: String,

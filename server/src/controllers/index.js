@@ -4,6 +4,7 @@ module.exports = {
     categoryController: require("./category.controller"),
     merchandiseController: require("./merchandise.controller"),
     orderController: require("./order.controller"),
+    phoneController: require("./phone.controller"),
     postController: require("./post.controller"),
     productController: require("./product.controller"),
     telegramController: require("./telegram.controller"),
