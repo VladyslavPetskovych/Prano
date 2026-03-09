@@ -37,6 +37,7 @@ import PrivacyPolicy from "./pages/privacyPolicy.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import ResetPassword from "./pages/resetPassword.jsx";
 import RestorePassword from "./pages/restorePassword.jsx";
+import {AuthorizePage} from "./pages/authorizePage.jsx";
 
 const AppContent = ({ isMaintenanceMode }) => {
   const location = useLocation();
@@ -66,10 +67,11 @@ const AppContent = ({ isMaintenanceMode }) => {
         <Route path="/price" element={<Price />} />
         <Route path="/contacts" element={<Contacts />} />
         <Route path="/account" element={<Account />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<AuthorizePage />} />
+        {/*<Route path="/login" element={<Login />} />*/}
         <Route path="/premium" element={<Premium />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/activate/:token" element={<ActivateAccount />} />
+        {/*<Route path="/register" element={<Register />} />*/}
+        {/*<Route path="/activate/:token" element={<ActivateAccount />} />*/}
         <Route path="/admin" element={<PrivateRoute element={AdminPanel} />} />
         <Route path="/textile" element={<Textile />} />
         <Route path="/fur" element={<Fur />} />

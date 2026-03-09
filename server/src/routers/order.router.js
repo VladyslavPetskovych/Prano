@@ -1,7 +1,7 @@
 const {Router} = require("express");
 const {rateLimit} = require("express-rate-limit");
 
-const {authMiddleware, userMiddleware, commonMiddleware} = require("../middlewares");
+const {authMiddleware, userMiddleware, commonMiddleware, phoneMiddleware} = require("../middlewares");
 const {OrderValidator} = require("../validators");
 const {orderController} = require("../controllers");
 
@@ -26,23 +26,15 @@ router.post(
     "/",
     authMiddleware.checkAccessToken,
     userMiddleware.isUserActive,
-    limiter,
+    commonMiddleware.rateLimiter(2,  2 * 60 * 1000),
     commonMiddleware.isBodyValid(OrderValidator.create),
     orderController.create
 )
 router.post(
-    "/quick",
-    commonMiddleware.isBodyValid(OrderValidator.sendSms),
-    orderController.sendSms
-)
-router.post(
-    "/quick/confirm-code",
-    commonMiddleware.isBodyValid(OrderValidator.verifyPhone),
-    orderController.verifyPhone
-)
-router.post(
     "/quick/confirm",
     commonMiddleware.isBodyValid(OrderValidator.createBySms),
+    phoneMiddleware.isSmsRecordExist,
+    phoneMiddleware.isSmsRecordVerified,
     orderController.createBySms
 )
 

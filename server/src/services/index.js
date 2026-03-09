@@ -8,6 +8,7 @@ module.exports = {
     merchandiseService: require("./merchandise.service"),
     orderService: require("./order.service"),
     passwordService: require("./password.service"),
+    phoneService: require("./phone.service"),
     postService: require("./post.service"),
     productService: require("./product.service"),
     smsService: require("./sms.service"),

@@ -51,32 +51,6 @@ class AuthMiddleware {
         }
     }
 
-    checkActionToken(tokenType) {
-        return async (req, res, next) => {
-            try {
-                const actionToken = req.params.token
-
-                if (!actionToken) {
-                    throw new ApiError("Token is not provided", 400)
-                }
-
-                const payload = tokenService.checkActionToken(actionToken, tokenType)
-
-                const entity = await Action.findOne({actionToken});
-                if (!entity) {
-                    throw new ApiError("Action token is not valid", 401)
-                }
-
-                res.locals.token = entity
-                res.locals.tokenPayload = {id: payload.id}
-
-                next()
-            } catch (e) {
-                next(e)
-            }
-        }
-    }
-
     async checkChatId(req, res, next) {
         try {
             const chatId = req.get("Authorization");

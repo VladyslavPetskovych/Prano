@@ -26,7 +26,7 @@ const orderSchema = new Schema(
         },
         email: {
             type: String,
-            required: true,
+            required: false,
         },
         clothType: {
             type: String,

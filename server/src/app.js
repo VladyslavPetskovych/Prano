@@ -12,7 +12,8 @@ const {
     advertisementRouter,
     telegramRouter,
     merchandiseRouter,
-    categoryRouter
+    categoryRouter,
+    phoneRouter
 } = require("./routers");
 const {configs} = require("./configs");
 const {cronRunner} = require("./crons");
@@ -33,6 +34,7 @@ app.use("/auth", authRouter)
 app.use("/categories", categoryRouter)
 app.use("/merchandises", merchandiseRouter)
 app.use("/orders", orderRouter)
+app.use("/phone", phoneRouter)
 app.use("/posts", postRouter)
 app.use("/products", productRouter)
 app.use("/telegram", telegramRouter)
