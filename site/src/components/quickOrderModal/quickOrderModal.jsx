@@ -18,8 +18,8 @@ const QuickOrderModal = ({onClose}) => {
 
     const sendSms = async () => {
         try {
-            const response = await axios.post("http://localhost:3000/phone/send-sms", {phone});
-            // const response = await axios.post("https://prano.group/api/phone/send-sms", {phone});
+            // const response = await axios.post("http://localhost:3000/phone/send-sms", {phone});
+            const response = await axios.post("https://prano.group/api/phone/send-sms", {phone});
 
             setSmsId(response.data.smsId);
             setStep(STEPS.CODE);
@@ -30,8 +30,8 @@ const QuickOrderModal = ({onClose}) => {
 
     const verifyCode = async () => {
         try {
-            await axios.post("http://localhost:3000/phone/verify", {smsId, code});
-            // await axios.post("https://prano.group/api/phone/verify", {smsId, code});
+            // await axios.post("http://localhost:3000/phone/verify", {smsId, code});
+            await axios.post("https://prano.group/api/phone/verify", {smsId, code});
 
             setStep(STEPS.ORDER);
         } catch (error) {
@@ -41,8 +41,8 @@ const QuickOrderModal = ({onClose}) => {
 
     const sendOrder = async () => {
         try {
-            await axios.post("http://localhost:3000/orders/quick/confirm", {smsId, orderData});
-            // await axios.post("https://prano.group/api/orders/quick/confirm", {smsId, orderData});
+            // await axios.post("http://localhost:3000/orders/quick/confirm", {smsId, orderData});
+            await axios.post("https://prano.group/api/orders/quick/confirm", {smsId, orderData});
 
             alert("Замовлення надіслано!");
             onClose();

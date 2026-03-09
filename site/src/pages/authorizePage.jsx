@@ -31,8 +31,8 @@ const AuthorizePage = () => {
                 payload.name = name;
             }
 
-            const {data} = await axios.post("http://localhost:3000/auth", payload);
-            // const {data} = await axios.post("https://prano.group/api/auth", payload);
+            // const {data} = await axios.post("http://localhost:3000/auth", payload);
+            const {data} = await axios.post("https://prano.group/api/auth", payload);
 
             const {accessToken, refreshToken, userId} = data;
             if (userId) {
@@ -54,8 +54,8 @@ const AuthorizePage = () => {
             setLoading(true);
             setError("");
 
-            const {data} = await axios.post("http://localhost:3000/phone/send-sms", {phone});
-            // const {data} = await axios.post("https://prano.group/api/phone/send-sms", {phone});
+            // const {data} = await axios.post("http://localhost:3000/phone/send-sms", {phone});
+            const {data} = await axios.post("https://prano.group/api/phone/send-sms", {phone});
 
             setSmsId(data.smsId);
             setStep(STEPS.CODE);
@@ -73,8 +73,8 @@ const AuthorizePage = () => {
             setLoading(true);
             setError("");
 
-            const {data} = await axios.post("http://localhost:3000/phone/verify", {smsId, code: Number(code)});
-            // const {data} = await axios.post("https://prano.group/api/phone/verify", {smsId, code: Number(code)});
+            // const {data} = await axios.post("http://localhost:3000/phone/verify", {smsId, code: Number(code)});
+            const {data} = await axios.post("https://prano.group/api/phone/verify", {smsId, code: Number(code)});
 
             if (data.userRegisteredAlready === true) {
                 await handleAuth();
