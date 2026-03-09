@@ -20,8 +20,8 @@ const logLocalStorageData = () => {
 const fetchUserData = async (userId, accessToken, dispatch) => {
   try {
     const response = await api.get(
-      // `https://prano.group/api/users/${userId}`,
-      `http://localhost:3000/users/${userId}`,
+      `https://prano.group/api/users/${userId}`,
+      // `http://localhost:3000/users/${userId}`,
       {
         headers: {
           Authorization: `${accessToken}`,
