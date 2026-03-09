@@ -1,86 +1,125 @@
-import React, {useEffect, useState} from "react";
+import {useState} from "react";
 import axios from "axios";
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
+
+import {login} from "../redux/authSlice.js";
 
 const STEPS = {
-    PHONE: 1, CODE: 2, ORDER: 3,
+    PHONE: 1, CODE: 2, NAME: 3,
 };
 
-const QuickOrderModal = ({onClose}) => {
+const AuthorizePage = () => {
     const [step, setStep] = useState(STEPS.PHONE);
     const [phone, setPhone] = useState("+380");
     const [code, setCode] = useState("");
     const [smsId, setSmsId] = useState(null);
-    const [clothTypes, setClothTypes] = useState([])
+    const [name, setName] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
-    const [orderData, setOrderData] = useState({
-        name: "", clothType: "", productType: "", note: "",
-    });
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleAuth = async (name = null) => {
+        try {
+            setError("");
+
+            const payload = {smsId};
+
+            if (name) {
+                payload.name = name;
+            }
+
+            const {data} = await axios.post("http://localhost:3000/auth", payload);
+            // const {data} = await axios.post("https://prano.group/api/auth", payload);
+
+            const {accessToken, refreshToken, userId} = data;
+            if (userId) {
+                dispatch(login({accessToken, refreshToken, userId}));
+
+                navigate("/account");
+            } else {
+                setError("Щось пішло не так. Спробуйте ще раз.");
+            }
+        } catch (error) {
+            console.error("Auth error:", error);
+
+            setError("Помилка входу. Спробуйте пізніше.");
+        }
+    };
 
     const sendSms = async () => {
         try {
-            const response = await axios.post("http://localhost:3000/phone/send-sms", {phone});
-            // const response = await axios.post("https://prano.group/api/phone/send-sms", {phone});
+            setLoading(true);
+            setError("");
 
-            setSmsId(response.data.smsId);
+            const {data} = await axios.post("http://localhost:3000/phone/send-sms", {phone});
+            // const {data} = await axios.post("https://prano.group/api/phone/send-sms", {phone});
+
+            setSmsId(data.smsId);
             setStep(STEPS.CODE);
         } catch (error) {
-            console.error(error);
+            console.error("Send sms error:", error);
+
+            setError("Помилка відправки SMS");
+        } finally {
+            setLoading(false);
         }
     };
 
     const verifyCode = async () => {
         try {
-            await axios.post("http://localhost:3000/phone/verify", {smsId, code});
-            // await axios.post("https://prano.group/api/phone/verify", {smsId, code});
+            setLoading(true);
+            setError("");
 
-            setStep(STEPS.ORDER);
-        } catch (error) {
-            console.error(error);
-        }
-    };
+            const {data} = await axios.post("http://localhost:3000/phone/verify", {smsId, code: Number(code)});
+            // const {data} = await axios.post("https://prano.group/api/phone/verify", {smsId, code: Number(code)});
 
-    const sendOrder = async () => {
-        try {
-            await axios.post("http://localhost:3000/orders/quick/confirm", {smsId, orderData});
-            // await axios.post("https://prano.group/api/orders/quick/confirm", {smsId, orderData});
-
-            alert("Замовлення надіслано!");
-            onClose();
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    useEffect(() => {
-        const fetchMerchandises = async () => {
-            try {
-                const response = await axios.get("https://prano.group/api/merchandises");
-                console.log("Merchandises:", response.data);
-
-                // беремо саме масив data
-                setClothTypes(response.data.data || []);
-            } catch (error) {
-                console.error("Помилка при завантаженні merchandises:", error);
+            if (data.userRegisteredAlready === true) {
+                await handleAuth();
+            } else {
+                setStep(STEPS.NAME);
             }
-        };
+        } catch (error) {
+            console.error("Code error:", error);
 
-        fetchMerchandises();
-    }, []);
+            setError("Невірний код");
+        } finally {
+            setLoading(false);
+        }
+    };
 
+    const registerUser = async () => {
+        try {
+            setLoading(true);
+            setError("");
+
+            await handleAuth(name);
+        } catch (error) {
+            console.error("Registration error:", error);
+
+            setError("Помилка реєстрації");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
-        <div
-            className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4"
-            onClick={onClose}
-        >
-            <div
-                className="bg-white w-full max-w-md rounded-xl shadow-xl p-6"
-                onClick={(e) => e.stopPropagation()}
-            >
-                <div className="flex justify-between mb-5">
-                    <h3 className="text-2xl font-semibold">Швидке замовлення</h3>
-                    <button onClick={onClose}>✕</button>
-                </div>
+        <div className="flex items-center justify-center bg-gray-100 px-4 py-10 min-h-[100dvh]">
+
+            <div className="w-full max-w-md p-6 bg-white rounded-xl shadow-xl">
+
+                <h2 className="text-2xl font-semibold mb-5 text-center"
+                    style={{color: "#22282B"}}>
+                    Авторизація
+                </h2>
+
+                {error &&
+                    <p className="mb-3 text-sm text-red-500 text-center">
+                        {error}
+                    </p>
+                }
 
                 {step === STEPS.PHONE &&
                     <div className="flex flex-col gap-3">
@@ -109,9 +148,10 @@ const QuickOrderModal = ({onClose}) => {
                             }}
                             required
                         />
+
                         <button
                             onClick={sendSms}
-                            disabled={!phone || phone.length !== 13}
+                            disabled={!phone || phone === "+380" || loading}
                             className="
                                 w-full py-4 rounded-xl text-lg font-semibold text-white
                                 bg-Ndark
@@ -153,9 +193,10 @@ const QuickOrderModal = ({onClose}) => {
                                 borderColor: "#CEB27F"
                             }}
                         />
+
                         <button
                             onClick={verifyCode}
-                            disabled={!code}
+                            disabled={!code || loading}
                             className="
                                 w-full py-4 rounded-xl text-lg font-semibold text-white
                                 bg-Ndark
@@ -174,57 +215,30 @@ const QuickOrderModal = ({onClose}) => {
                     </div>
                 }
 
-                {step === STEPS.ORDER &&
+                {step === STEPS.NAME &&
                     <div className="flex flex-col gap-3">
+
+                        <label
+                            className="text-m font-medium"
+                            style={{ color: "#22282B" }}
+                        >
+                            Введіть ваше імʼя
+                        </label>
+
                         <input
                             type="text"
-                            name="name"
-                            value={orderData.name}
-                            onChange={(e) => setOrderData({...orderData, name: e.target.value})}
-                            placeholder="Ваше ім'я"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder="Імʼя"
                             className="w-full p-4 border rounded-xl focus:outline-none"
                             style={{
                                 borderColor: "#CEB27F"
                             }}
-                            required
                         />
-                        <select
-                            name="clothType"
-                            value={orderData.clothType}
-                            onChange={(e) => setOrderData({...orderData, clothType: e.target.value})}
-                            className="w-full p-4 border rounded-xl focus:outline-none"
-                            required
-                        >
-                            <option value="">Оберіть тип одягу</option>
-                            {clothTypes.map((item) => (<option key={item._id} value={item.title}>
-                                {item.title}
-                            </option>))}
-                        </select>
-                        <select
-                            name="productType"
-                            value={orderData.productType}
-                            onChange={(e) => setOrderData({...orderData, productType: e.target.value})}
-                            className="w-full p-4 border rounded-xl focus:outline-none"
-                            required
-                        >
-                            <option value="">Оберіть тип послуги</option>
-                            <option value="Хімчистка">Хімчистка</option>
-                            <option value="Хімчистка">Прання</option>
-                            <option value="Ремонт одягу">Чистка взуття</option>
-                            <option value="Ремонт одягу">Реставрація взуття</option>
-                            <option value="Прасування">Ремонт одягу</option>
-                            <option value="Ремонт одягу">Реставрація сумок</option>
-                        </select>
-                        <textarea
-                            name="note"
-                            value={orderData.note}
-                            onChange={(e) => setOrderData({...orderData, note: e.target.value})}
-                            placeholder="Додаткові побажання"
-                            className="w-full p-4 border rounded-xl focus:outline-none"
-                        />
+
                         <button
-                            onClick={sendOrder}
-                            disabled={orderData.name === "" || orderData.clothType === "" || orderData.productType === ""}
+                            onClick={registerUser}
+                            disabled={!name || loading}
                             className="
                                 w-full py-4 rounded-xl text-lg font-semibold text-white
                                 bg-Ndark
@@ -238,7 +252,7 @@ const QuickOrderModal = ({onClose}) => {
                                 disabled:opacity-80
                             "
                         >
-                            Оформити замовлення
+                            Завершити реєстрацію
                         </button>
                     </div>
                 }
@@ -248,5 +262,5 @@ const QuickOrderModal = ({onClose}) => {
 };
 
 export {
-    QuickOrderModal
+    AuthorizePage
 }

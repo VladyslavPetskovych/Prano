@@ -26,7 +26,7 @@ router.post(
     "/",
     authMiddleware.checkAccessToken,
     userMiddleware.isUserActive,
-    limiter,
+    commonMiddleware.rateLimiter(2,  2 * 60 * 1000),
     commonMiddleware.isBodyValid(OrderValidator.create),
     orderController.create
 )

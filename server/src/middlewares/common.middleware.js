@@ -1,5 +1,6 @@
 const {isObjectIdOrHexString} = require("mongoose");
 const fs = require("fs");
+const {rateLimit} = require("express-rate-limit");
 
 const {ApiError} = require("../errors");
 
@@ -38,6 +39,14 @@ class CommonMiddleware {
                 next(e)
             }
         }
+    }
+
+    rateLimiter(maxCountOfRequests, windowMs) {
+        return rateLimit({
+            windowMs,
+            max: maxCountOfRequests,
+            message: `Too many requests, try again after ${windowMs / 60000} minutes`
+        });
     }
 }
 

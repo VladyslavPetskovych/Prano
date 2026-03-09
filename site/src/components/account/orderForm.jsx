@@ -12,7 +12,7 @@ const OrderForm = ({ user }) => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
-    email: "",
+    // email: "",
     note: "",
     productType: "",
     clothType: "",
@@ -23,7 +23,7 @@ const OrderForm = ({ user }) => {
       setFormData({
         name: user.name || "",
         phone: user.phone || "",
-        email: user.email || "",
+        // email: user.email || "",
         note: "",
         productType: "",
         clothType: "",
@@ -99,15 +99,15 @@ const OrderForm = ({ user }) => {
           className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-400 focus:outline-none"
           required
         />
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Email"
-          className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-400 focus:outline-none"
-          required
-        />
+        {/*<input*/}
+        {/*  type="email"*/}
+        {/*  name="email"*/}
+        {/*  value={formData.email}*/}
+        {/*  onChange={handleChange}*/}
+        {/*  placeholder="Email"*/}
+        {/*  className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-400 focus:outline-none"*/}
+        {/*  required*/}
+        {/*/>*/}
         <textarea
           name="note"
           value={formData.note}
@@ -154,12 +154,26 @@ const OrderForm = ({ user }) => {
 
         <button
           type="submit"
-          disabled={!isChecked || isLoading}
-          className={`w-full py-4 rounded-xl text-lg font-semibold transition duration-300 ${
-            isChecked && !isLoading
-              ? "bg-blue-500 text-white hover:bg-blue-600"
-              : "bg-gray-400 text-gray-200 cursor-not-allowed"
-          }`}
+          disabled={
+            !isChecked ||
+              isLoading ||
+              formData.name === "" ||
+              formData.phone === "" ||
+              formData.productType === "" ||
+              formData.clothType === ""
+            }
+          className="
+            w-full py-4 rounded-xl text-lg font-semibold text-white
+            bg-Ndark
+            transition duration-300
+
+            hover:bg-[#c4a75c]
+
+            disabled:bg-gray-400
+            disabled:hover:bg-gray-400
+            disabled:cursor-not-allowed
+            disabled:opacity-80
+          "
         >
           {isLoading ? "Відправка..." : "Оформити замовлення"}
         </button>
