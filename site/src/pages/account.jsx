@@ -21,6 +21,7 @@ const fetchUserData = async (userId, accessToken, dispatch) => {
   try {
     const response = await api.get(
       `https://prano.group/api/users/${userId}`,
+      // `http://localhost:3000/users/${userId}`,
       {
         headers: {
           Authorization: `${accessToken}`,
@@ -94,11 +95,11 @@ const Account = () => {
       <AccountHeader user={user} />
 
       {/* 🔹 Сповіщення про статус */}
-      {user?.status === "inactive" && (
-        <div className="mb-8">
-          <ReactivateButton userId={userId} accessToken={accessToken} />
-        </div>
-      )}
+      {/*{user?.status === "inactive" && (*/}
+      {/*  <div className="mb-8">*/}
+      {/*    <ReactivateButton userId={userId} accessToken={accessToken} />*/}
+      {/*  </div>*/}
+      {/*)}*/}
 
       {/* 🔹 Telegram */}
       <div className="mb-10 max-w-4xl mx-auto">
