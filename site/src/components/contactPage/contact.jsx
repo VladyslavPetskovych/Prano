@@ -23,7 +23,7 @@ const Contacts = ({ backgroundClass }) => {
       mapUrl:
         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2570.1130036332244!2d24.030968376842735!3d49.857592571579224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473add021fba2607%3A0x34d0d71274100ac6!2sLypynskoho%2054%2C%20L'viv!5e0!3m2!1sen!2sua!4v1742389961537!5m2!1sen!2sua",
       schedule: {
-        "Пн-Пт": "09:00-19:00",
+        "Пн-Пт": "09:00-20:00",
         Сб: "11:00-18:00",
         Нд: "вихідний",
       },
