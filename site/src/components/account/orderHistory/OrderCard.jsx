@@ -7,19 +7,35 @@ const OrderCard = ({ order }) => {
     : "—";
 
   return (
-    <div className="border rounded-xl p-4 mb-4 bg-gray-50 shadow-sm">
-      <h3 className="font-bold text-lg mb-2">🧾 Замовлення</h3>
-      <p>👤 Клієнт: {order.name}</p>
-      <p>📞 Телефон: {order.phone}</p>
-      <p>✉️ Email: {order.email}</p>
-      <p>👕 Тип одягу: {order.clothType}</p>
-      <p>🧴 Послуга: {order.productType}</p>
-      <p>
-        📝 Примітка:
-        <br />
-        <span className="whitespace-pre-line">{order.note || "—"}</span>
-      </p>
-      <p>📅 Дата створення: {createdAt}</p>
+    <div className="border border-lightGray rounded-xl p-4 mb-3 last:mb-0 bg-lightGray/20 border-l-4 border-l-Ngold">
+      <h3 className="font-tinos font-bold text-lg text-Ndark mb-3">
+        Замовлення <span className="text-coolBlue text-base">· {createdAt}</span>
+      </h3>
+      <div className="space-y-1.5 font-manrope text-sm text-logoGray">
+        <p>
+          <span className="text-mediumGray">Клієнт:</span> {order.name}
+        </p>
+        <p>
+          <span className="text-mediumGray">Телефон:</span> {order.phone}
+        </p>
+        <p>
+          <span className="text-mediumGray">Email:</span> {order.email}
+        </p>
+        <p>
+          <span className="text-mediumGray">Тип одягу:</span>{" "}
+          {order.clothType}
+        </p>
+        <p>
+          <span className="text-mediumGray">Послуга:</span> {order.productType}
+        </p>
+        <p>
+          <span className="text-mediumGray">Примітка:</span>
+          <br />
+          <span className="whitespace-pre-line text-Ndark/90">
+            {order.note || "—"}
+          </span>
+        </p>
+      </div>
     </div>
   );
 };

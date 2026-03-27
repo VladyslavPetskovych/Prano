@@ -74,20 +74,26 @@ const OrderForm = ({ user }) => {
     }
   };
 
+  const field =
+    "w-full p-3.5 border border-lightGray rounded-xl bg-pureWhite font-manrope text-sm text-Ndark placeholder:text-mediumGray focus:ring-2 focus:ring-Nblue/25 focus:border-Nblue focus:outline-none transition";
+
   return (
-    <div className="w-full bg-white/60 backdrop-blur-xl p-8 rounded-3xl shadow-xl transition-all duration-300">
-      <h2 className="md:text-3xl text-2xl font-bold font-roboto text-Ndark text-center mb-8 relative after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue">
+    <div className="w-full">
+      <h2 className="text-2xl sm:text-3xl font-bold font-tinos text-Ndark text-center mb-2">
         Оформлення замовлення
       </h2>
+      <p className="text-center font-manrope text-sm text-coolBlue mb-8 max-w-md mx-auto">
+        Заповніть форму — ми звʼяжемося з вами для уточнень.
+      </p>
 
-      <form className="space-y-5" onSubmit={handleSubmit}>
+      <form className="space-y-4" onSubmit={handleSubmit}>
         <input
           type="text"
           name="name"
           value={formData.name}
           onChange={handleChange}
           placeholder="Ім'я"
-          className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          className={field}
           required
         />
         <input
@@ -96,7 +102,7 @@ const OrderForm = ({ user }) => {
           value={formData.phone}
           onChange={handleChange}
           placeholder="Телефон"
-          className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          className={field}
           required
         />
         {/*<input*/}
@@ -113,14 +119,15 @@ const OrderForm = ({ user }) => {
           value={formData.note}
           onChange={handleChange}
           placeholder="Додаткові побажання"
-          className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          className={field}
+          rows={3}
         />
 
         <select
           name="clothType"
           value={formData.clothType}
           onChange={handleChange}
-          className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          className={field}
           required
         >
           <option value="">Оберіть тип одягу</option>
@@ -135,7 +142,7 @@ const OrderForm = ({ user }) => {
           name="productType"
           value={formData.productType}
           onChange={handleChange}
-          className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          className={field}
           required
         >
           <option value="">Оберіть тип послуги</option>
@@ -162,24 +169,15 @@ const OrderForm = ({ user }) => {
               formData.productType === "" ||
               formData.clothType === ""
             }
-          className="
-            w-full py-4 rounded-xl text-lg font-semibold text-white
-            bg-Ndark
-            transition duration-300
-
-            hover:bg-[#c4a75c]
-
-            disabled:bg-gray-400
-            disabled:hover:bg-gray-400
-            disabled:cursor-not-allowed
-            disabled:opacity-80
-          "
+          className="w-full py-3.5 rounded-xl text-base font-manrope font-semibold text-pureWhite bg-Ndark transition duration-300 hover:bg-Ngold hover:text-Ndark disabled:bg-mediumGray disabled:hover:bg-mediumGray disabled:text-pureWhite disabled:cursor-not-allowed disabled:opacity-90"
         >
           {isLoading ? "Відправка..." : "Оформити замовлення"}
         </button>
 
         {message && (
-          <p className="text-center text-sm text-gray-800 mt-4">{message}</p>
+          <p className="text-center font-manrope text-sm text-Ndark mt-2">
+            {message}
+          </p>
         )}
       </form>
     </div>

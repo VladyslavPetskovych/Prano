@@ -8,9 +8,9 @@ function TelegramBlock() {
       href="https://t.me/Prano_Lviv_bot"
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed hidden bottom-3 left-4 lg:flex flex-col items-center p-1 rounded-xl w-40 md:w-52"
+      className="fixed bottom-3 left-4 z-40 hidden w-40 flex-col items-center rounded-xl p-1 lg:flex lg:w-52"
     >
-      <div className="bg-slate-500 text-white px-3 py-2 rounded-lg shadow-md relative text-sm md:text-base leading-snug transition-all duration-300 hover:shadow-xl hover:scale-105">
+      <div className="bg-slate-500 text-white px-3 py-2 rounded-lg shadow-md relative text-sm lg:text-base leading-snug transition-all duration-300 hover:shadow-xl hover:scale-105">
         <p>
           Відстежуйте своє замовлення у{" "}
           <span className="font-semibold">телеграм боті</span>
@@ -24,12 +24,12 @@ function TelegramBlock() {
       </div>
       <div className="relative mt-1 transition-all duration-300 hover:scale-110">
         <img
-          className="w-16 md:w-24 h-auto object-contain"
+          className="w-16 lg:w-24 h-auto object-contain"
           src={hand}
           alt="Hand"
         />
         <img
-          className="absolute top-1/2 left-[56%] transform -translate-x-1/2 -translate-y-1/2 w-10 md:w-7 h-auto"
+          className="absolute top-1/2 left-[56%] transform -translate-x-1/2 -translate-y-1/2 w-10 lg:w-7 h-auto"
           src={telegramlogo}
           alt="Telegram Logo"
         />

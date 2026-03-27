@@ -32,13 +32,12 @@ const Checkbox = ({ isChecked, onChange }) => {
           id="agree"
           checked={isChecked}
           onChange={onChange}
-          className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          className="w-4 h-4 rounded border-lightGray text-Nblue focus:ring-Nblue/30"
         />
-        {/* The label no longer directly toggles the checkbox */}
-        <label className="text-gray-700 cursor-pointer">
+        <label className="font-manrope text-sm text-logoGray cursor-pointer">
           Я погоджуюся з{" "}
           <span
-            className="font-semibold text-blue-600 hover:text-blue-500"
+            className="font-semibold text-Nblue hover:text-Ngold cursor-pointer"
             onClick={openModal}
           >
             умовами замовлення
@@ -114,7 +113,8 @@ const Checkbox = ({ isChecked, onChange }) => {
             </div>
             <div className="flex justify-end mt-4">
               <button
-                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                type="button"
+                className="px-4 py-2 bg-Nblue text-pureWhite rounded-lg font-manrope text-sm hover:bg-Nblue/90 transition"
                 onClick={closeModal}
               >
                 Закрити

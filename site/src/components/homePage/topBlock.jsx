@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import back from "../../assets/home/back.webp";
+import back from "../../assets/home/back.png";
 import logo from "../../assets/logo/pranoTextGold.svg";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";

@@ -79,8 +79,8 @@ const Account = () => {
 
   if (checkingAuth) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-gray-600">Перевірка авторизації...</p>
+      <div className="flex justify-center items-center min-h-screen bg-backgroundBeige/30">
+        <p className="text-logoGray font-manrope text-sm">Перевірка авторизації...</p>
       </div>
     );
   }
@@ -90,48 +90,45 @@ const Account = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-gray-100 pt-32 px-4 font-tinos text-gray-800 relative overflow-x-hidden">
-      {/* 🔹 Хедер */}
-      <AccountHeader user={user} />
+    <div className="min-h-screen bg-gradient-to-b from-backgroundBeige/50 via-pureWhite to-lightGray/40 pt-28 sm:pt-32 px-4 pb-16 font-tinos text-logoGray relative overflow-x-hidden">
+      <div className="max-w-4xl mx-auto space-y-8">
+        <AccountHeader user={user} />
 
-      {/* 🔹 Сповіщення про статус */}
-      {/*{user?.status === "inactive" && (*/}
-      {/*  <div className="mb-8">*/}
-      {/*    <ReactivateButton userId={userId} accessToken={accessToken} />*/}
-      {/*  </div>*/}
-      {/*)}*/}
+        {/*{user?.status === "inactive" && (*/}
+        {/*  <div className="mb-8">*/}
+        {/*    <ReactivateButton userId={userId} accessToken={accessToken} />*/}
+        {/*  </div>*/}
+        {/*)}*/}
 
-      {/* 🔹 Telegram */}
-      <div className="mb-10 max-w-4xl mx-auto">
-        <TelegramAccaunt />
-      </div>
+        <div className="bg-pureWhite border border-lightGray rounded-2xl shadow-sm p-6 sm:p-8">
+          <OrderForm user={user} />
+        </div>
 
-      {/* 🔹 Основна частина */}
-      <div className="max-w-4xl mx-auto mb-10 bg-white/60 backdrop-blur-md p-6 rounded-3xl shadow-lg transition-all">
-        <OrderForm user={user} />
-      </div>
+        <div>
+          <button
+            type="button"
+            onClick={() => setIsHistoryOpen(!isHistoryOpen)}
+            className="block w-full text-center py-3.5 rounded-xl font-manrope text-sm font-semibold border-2 border-Nblue text-Nblue bg-pureWhite hover:bg-Nblue hover:text-pureWhite transition"
+          >
+            {isHistoryOpen
+              ? "Сховати попередні замовлення"
+              : "Показати попередні замовлення"}
+          </button>
 
-      {/* 🔹 Історія замовлень */}
-      <div className="max-w-4xl mx-auto mb-20">
-        <button
-          onClick={() => setIsHistoryOpen(!isHistoryOpen)}
-          className="block w-full text-center bg-gray-700 hover:bg-gray-800 text-white py-3 rounded-xl font-semibold transition"
-        >
-          {isHistoryOpen
-            ? "Сховати попередні замовлення"
-            : "Показати попередні замовлення"}
-        </button>
-
-        <div
-          className={`transition-all duration-500 overflow-hidden ${
-            isHistoryOpen ? "max-h-[2000px] mt-6" : "max-h-0"
-          }`}
-        >
-          <div className="mt-4 bg-white/60 backdrop-blur-md p-6 rounded-3xl shadow-lg">
-            <OrderHistory />
+          <div
+            className={`transition-all duration-500 overflow-hidden ${
+              isHistoryOpen ? "max-h-[2000px] mt-6" : "max-h-0"
+            }`}
+          >
+            <div className="mt-4 bg-pureWhite border border-lightGray rounded-2xl shadow-sm p-6">
+              <OrderHistory />
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Fixed widget: visible only from lg (see telegramAccaunt.jsx) */}
+      <TelegramAccaunt />
     </div>
   );
 };

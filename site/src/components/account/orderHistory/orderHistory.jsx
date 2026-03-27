@@ -61,22 +61,30 @@ const OrderHistory = () => {
   };
 
   return (
-    <div className="p-6 bg-white rounded-base shadow-md">
-      <h2 className="text-xl font-semibold mb-4">
-        🧾 Ваші останні 4 замовлення
-      </h2>
+    <div className="space-y-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <h2 className="text-lg sm:text-xl font-tinos font-semibold text-Ndark">
+          Ваші останні 4 замовлення
+        </h2>
+        <button
+          type="button"
+          onClick={handleRefresh}
+          className="shrink-0 px-4 py-2 rounded-lg bg-Nblue text-pureWhite font-manrope text-sm font-medium hover:bg-Nblue/90 transition"
+        >
+          Оновити список
+        </button>
+      </div>
 
-      <button
-        onClick={handleRefresh}
-        className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-      >
-        🔄 Оновити замовлення
-      </button>
-
-      {loading && <p>⏳ Завантаження замовлень...</p>}
-      {error && <p className="text-red-600">{error}</p>}
+      {loading && (
+        <p className="font-manrope text-sm text-coolBlue">
+          Завантаження замовлень...
+        </p>
+      )}
+      {error && <p className="font-manrope text-sm text-red-600">{error}</p>}
       {!loading && !error && orders.length === 0 && (
-        <p>📭 У Вас поки немає замовлень.</p>
+        <p className="font-manrope text-sm text-mediumGray py-4 text-center border border-dashed border-lightGray rounded-xl">
+          У вас поки немає замовлень.
+        </p>
       )}
 
       {orders.map((order, index) => (

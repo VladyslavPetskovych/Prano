@@ -15,34 +15,40 @@ const AccountHeader = ({ user }) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="flex flex-col md:flex-row justify-between items-center bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-lg mb-12">
-      <div className="flex items-center gap-4">
+    <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-pureWhite border border-lightGray rounded-2xl shadow-sm p-6">
+      <div className="flex items-center gap-4 text-center md:text-left">
         <img
-          className="w-12 h-12 rounded-full bg-slate-300"
+          className="w-14 h-14 rounded-full bg-lightGray object-cover ring-2 ring-Ngold/50 ring-offset-2 ring-offset-pureWhite"
           src={userpng}
           alt="user"
         />
-        <h2 className="text-2xl font-bold text-gray-900">
-          {user?.name ? `Вітаємо, ${user.name}!` : "Вітаємо, користувач!"}
-        </h2>
+        <div>
+          <p className="font-manrope text-xs uppercase tracking-wider text-coolBlue mb-0.5">
+            Особистий кабінет
+          </p>
+          <h2 className="text-xl sm:text-2xl font-bold text-Ndark">
+            {user?.name ? `Вітаємо, ${user.name}!` : "Вітаємо, користувач!"}
+          </h2>
+        </div>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-3 mt-4 md:mt-0">
+      <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
         {user?.role === "admin" && (
           <Link
             to="/admin"
-            className="bg-Nblue hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow transition text-center"
+            className="bg-Nblue hover:bg-Nblue/90 text-pureWhite px-4 py-2.5 rounded-xl text-sm font-manrope font-semibold text-center transition shadow-sm"
           >
             Панель адміністратора
           </Link>
         )}
 
         <button
+          type="button"
           onClick={() => {
             logLocalStorageData();
             dispatch(logout());
           }}
-          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl text-sm font-semibold transition"
+          className="border border-lightGray text-logoGray hover:bg-lightGray/50 px-4 py-2.5 rounded-xl text-sm font-manrope font-semibold transition"
         >
           Вийти
         </button>
