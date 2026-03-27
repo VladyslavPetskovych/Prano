@@ -1,5 +1,9 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
+
+import {login} from "../../redux/authSlice.js";
 
 const STEPS = {
     PHONE: 1, CODE: 2, ORDER: 3,
@@ -16,6 +20,9 @@ const QuickOrderModal = ({onClose}) => {
         name: "", clothType: "", productType: "", note: "",
     });
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const sendSms = async () => {
         try {
             // const response = await axios.post("http://localhost:3000/phone/send-sms", {phone});
@@ -30,8 +37,27 @@ const QuickOrderModal = ({onClose}) => {
 
     const verifyCode = async () => {
         try {
-            // await axios.post("http://localhost:3000/phone/verify", {smsId, code});
-            await axios.post("https://prano.group/api/phone/verify", {smsId, code});
+            // const {data} = await axios.post("http://localhost:3000/phone/verify", {smsId, code});
+            const {data} = await axios.post("https://prano.group/api/phone/verify", {smsId, code});
+
+            const {userRegisteredAlready} = data;
+
+            if (userRegisteredAlready) {
+
+                // const {data} = await axios.post("http://localhost:3000/auth", {smsId});
+                const {data} = await axios.post("https://prano.group/api/auth", {smsId});
+
+                const {accessToken, refreshToken, userId} = data;
+
+                if (userId) {
+                    dispatch(login({accessToken, refreshToken, userId}));
+                    navigate("/account");
+                } else {
+                    console.error("Щось пішло не так. Спробуйте ще раз.");
+                }
+
+                return;
+            }
 
             setStep(STEPS.ORDER);
         } catch (error) {
