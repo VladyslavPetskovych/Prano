@@ -19,7 +19,15 @@ const merchandiseSchema = new Schema(
             }
         },
         secondPrice: {
-            type: Number,
+            type: Schema.Types.Mixed,
+            validate: {
+                validator: v =>
+                    v == null ||
+                    v === "" ||
+                    typeof v === "number" ||
+                    typeof v === "string",
+                message: "secondPrice must be a number or a string",
+            },
         },
         order: {
             type: Number,

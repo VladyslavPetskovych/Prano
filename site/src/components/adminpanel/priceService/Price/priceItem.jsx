@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { updateMerchandise, updateMerchandiseOrder } from "./PriceApi";
 
+const showPriceOrEmpty = (v) => {
+  if (v == null) return "";
+  const s = String(v).trim();
+  if (s === "" || s === "null" || s === "undefined") return "";
+  return v;
+};
+
 const PriceServiceItem = ({
   service,
   categories,
@@ -14,8 +21,9 @@ const PriceServiceItem = ({
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     title: service.title,
-    price: service.price,
-    secondPrice: service.secondPrice || "",
+    price: service.price == null ? "" : String(service.price),
+    secondPrice:
+      service.secondPrice == null ? "" : String(service.secondPrice),
     order: service.order || "",
     quantity: service.quantity || "",
   });
@@ -32,17 +40,27 @@ const PriceServiceItem = ({
     setLoading(true);
     setError(null);
 
+    const strNorm = (v) =>
+      v == null || v === "" ? "" : typeof v === "string" ? v.trim() : String(v);
+
+    if (strNorm(formData.price) === "") {
+      setError("Ціна не може бути порожньою.");
+      setLoading(false);
+      return;
+    }
+
     const updateData = {};
     const updateOrder = formData.order !== service.order;
 
     if (formData.title !== service.title) updateData.title = formData.title;
-    if (formData.price !== service.price)
-      updateData.price = Number(formData.price);
 
-    if (formData.secondPrice !== service.secondPrice) {
-      if (formData.secondPrice !== "" && formData.secondPrice !== null) {
-        updateData.secondPrice = Number(formData.secondPrice);
-      }
+    if (strNorm(formData.price) !== strNorm(service.price)) {
+      updateData.price = strNorm(formData.price);
+    }
+
+    if (strNorm(formData.secondPrice) !== strNorm(service.secondPrice)) {
+      updateData.secondPrice =
+        strNorm(formData.secondPrice) === "" ? null : strNorm(formData.secondPrice);
     }
 
     // 👇 якщо поле змінено, але пусте — відправляємо пусту стрічку
@@ -96,20 +114,22 @@ const PriceServiceItem = ({
           </td>
           <td className="p-3">
             <input
-              type="number"
+              type="text"
               name="price"
               value={formData.price}
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded"
+              placeholder="напр. 450 або від 500 ₴"
             />
           </td>
           <td className="p-3">
             <input
-              type="number"
+              type="text"
               name="secondPrice"
               value={formData.secondPrice}
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded"
+              placeholder="необовʼязково"
             />
           </td>
           <td className="p-3">
@@ -152,8 +172,8 @@ const PriceServiceItem = ({
       ) : (
         <>
           <td className="p-3">{service.title}</td>
-          <td className="p-3">{service.price}</td>
-          <td className="p-3">{service.secondPrice}</td>
+          <td className="p-3">{showPriceOrEmpty(service.price)}</td>
+          <td className="p-3">{showPriceOrEmpty(service.secondPrice)}</td>
           <td className="p-3">{service.quantity || "—"}</td>
           <td className="p-3">{service.order}</td>
           <td>{category ? category.title : "Немає категорії"}</td>

@@ -3,8 +3,13 @@ const Joi = require("joi");
 class MerchandiseValidator {
     static title = Joi.string().min(3).max(65).trim()
     static quantity = Joi.string().trim()
-    static price = Joi.alternatives().try(Joi.number().min(1), Joi.string().trim())
-    static secondPrice = Joi.number().min(1).allow(null)
+    static price = Joi.alternatives().try(
+        Joi.number(),
+        Joi.string().trim().min(1)
+    )
+    static secondPrice = Joi.alternatives()
+        .try(Joi.number(), Joi.string().trim().allow(""))
+        .allow(null)
     static order = Joi.number().integer().min(1)
     static categoryId = Joi.string().hex().length(24).trim()
 

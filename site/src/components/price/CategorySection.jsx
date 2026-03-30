@@ -18,6 +18,16 @@ export default function CategorySection({ title, description, items }) {
 
   const toggleSort = () => setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
 
+  /** Якщо ціни немає (null, порожньо тощо) — нічого не показуємо. Числа — з «грн», інше — як у адмінці. */
+  const formatPriceCell = (val) => {
+    if (val == null) return "";
+    if (typeof val === "number" && Number.isNaN(val)) return "";
+    const s = String(val).trim();
+    if (s === "" || s === "null" || s === "undefined") return "";
+    if (/^\d+([.,]\d+)?$/.test(s)) return `${s} грн`;
+    return s;
+  };
+
   // 🆕 Позначка "NEW" для "Чистка килимів"
   const isNewCategory = title === "Чистка килимів";
 
@@ -135,12 +145,12 @@ export default function CategorySection({ title, description, items }) {
 
                   {/* Стандарт (no discount view) */}
                   <td className="px-1 sm:px-2 py-3 text-center border-l whitespace-nowrap font-medium">
-                    {std ? `${std} грн` : ""}
+                    {formatPriceCell(std)}
                   </td>
 
                   {/* Преміум (no discount view) */}
                   <td className="px-1 sm:px-2 py-3 text-center border-l whitespace-nowrap font-medium">
-                    {pr ? `${pr} грн` : ""}
+                    {formatPriceCell(pr)}
                   </td>
                 </tr>
               );
