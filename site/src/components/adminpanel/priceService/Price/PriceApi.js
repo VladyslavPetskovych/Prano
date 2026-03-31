@@ -1,8 +1,8 @@
 // PriceApi.js
 import axios from "axios";
 
-const API_URL = "/api/merchandises";
-const CATEGORY_URL = "/api/categories";
+const API_URL = "https://prano.group/api/merchandises";
+const CATEGORY_URL = "https://prano.group/api/categories";
 
 const getToken = () => localStorage.getItem("accessToken");
 
@@ -36,7 +36,7 @@ export const updateMerchandiseOrder = async (id, order, token) => {
   console.log("📦 Payload to PATCH /order:", { order });
 
   return axios.patch(
-    `/api/merchandises/${id}/order`,
+    `https://prano.group/api/merchandises/${id}/order`,
     { order },
     {
       headers: {

@@ -7,7 +7,7 @@ export const attachStore = (store) => {
 };
 
 // ====== Базові шляхи ======
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api";
+const BASE_URL = "https://prano.group/api"; // напр.
 const REFRESH_URL = `${BASE_URL}/auth/refresh`;
 
 const api = axios.create({

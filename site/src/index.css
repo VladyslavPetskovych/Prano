@@ -26,6 +26,11 @@ body {
   animation: marquee 10s linear infinite;
 }
 
+@font-face {
+  font-family: "CondensedFont";
+  src: url("/fonts/condensed.woff2") format("woff2");
+  font-display: swap;
+}
 @layer utilities {
   .back {
     background: repeating-linear-gradient(
