@@ -9,7 +9,7 @@ function PriceTable() {
 
   useEffect(() => {
     axios
-      .get("https://prano.group/api/products")
+      .get("/api/products")
       .then((response) => {
         const list = response.data.data || [];
         setProducts(

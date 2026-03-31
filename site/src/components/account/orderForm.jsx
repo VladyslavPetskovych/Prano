@@ -34,9 +34,7 @@ const OrderForm = ({ user }) => {
   useEffect(() => {
     const fetchMerchandises = async () => {
       try {
-        const response = await axios.get(
-          "https://prano.group/api/merchandises"
-        );
+        const response = await axios.get("/api/merchandises");
         console.log("Merchandises:", response.data);
 
         // беремо саме масив data
