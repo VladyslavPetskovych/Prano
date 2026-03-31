@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { apiUrl } from "../../config/apiOrigin";
 
 export function useProducts() {
   const [products, setProducts] = useState([]);
@@ -9,15 +10,12 @@ export function useProducts() {
   useEffect(() => {
     let mounted = true;
     axios
-      .get("https://prano.group/api/products")
+      .get(apiUrl("/products"))
       .then((res) => {
         if (!mounted) return;
         const list = res.data?.data || [];
         setProducts(
           [...list].sort((a, b) => {
-            const ao = a.order != null ? a.order : Number.MAX_SAFE_INTEGER;
-            const bo = b.order != null ? b.order : Number.MAX_SAFE_INTEGER;
-            if (ao !== bo) return ao - bo;
             const at = a.createdAt ? new Date(a.createdAt).getTime() : 0;
             const bt = b.createdAt ? new Date(b.createdAt).getTime() : 0;
             return at - bt;

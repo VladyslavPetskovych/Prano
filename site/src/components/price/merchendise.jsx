@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { useMerchandiseData } from "./useMerchandiseData";
 import { useProducts } from "./useProducts";
 import { buildMatchedDescriptions } from "./descriptionMatcher";
+import { getPriceCategoryPatternIndex } from "./categoryDisplayOrder";
 import PricesHeader from "./PricesHeader";
 
 export default function Merchandise() {
@@ -21,6 +22,34 @@ export default function Merchandise() {
     [categories, products]
   );
 
+  const sortedCategoryEntries = useMemo(() => {
+    const entries = Object.entries(groupedData);
+
+    /** Порядок блоків цін — поле order з колекції categories (адмінка → категорії). */
+    const effectiveOrder = (group) => {
+      if (group.order != null && group.order !== "") {
+        const n = Number(group.order);
+        return Number.isFinite(n) ? n : null;
+      }
+      return null;
+    };
+
+    return [...entries].sort((a, b) => {
+      const [, gA] = a;
+      const [, gB] = b;
+      const oA = effectiveOrder(gA);
+      const oB = effectiveOrder(gB);
+      const rankA = oA == null ? Number.MAX_SAFE_INTEGER : oA;
+      const rankB = oB == null ? Number.MAX_SAFE_INTEGER : oB;
+      if (rankA !== rankB) return rankA - rankB;
+
+      const iA = getPriceCategoryPatternIndex(gA.title);
+      const iB = getPriceCategoryPatternIndex(gB.title);
+      if (iA !== iB) return iA - iB;
+      return String(gA.title || "").localeCompare(String(gB.title || ""), "uk");
+    });
+  }, [groupedData]);
+
   return (
     <div className="py-4 mt-1 space-y-8 font-manrope font-bold max-w-8xl mx-auto">
       {/* Хедер «Ціни» + логотип + пошук */}
@@ -37,13 +66,12 @@ export default function Merchandise() {
       )}
 
       {/* Категорії */}
-      {Object.entries(groupedData).map(([categoryId, group]) => (
+      {sortedCategoryEntries.map(([categoryId, group]) => (
         <CategorySection
           key={categoryId}
           title={group.title}
           description={matchedDescriptions[categoryId]}
           items={group.items}
- 
         />
       ))}
 

@@ -14,7 +14,6 @@ export const updateService = async (serviceId, updatedData) => {
     if (updatedData.title !== undefined) payload.title = updatedData.title;
     if (updatedData.description !== undefined)
       payload.description = updatedData.description;
-    if (updatedData.order !== undefined) payload.order = updatedData.order;
 
     const { data } = await axios.patch(`${API_URL}/${serviceId}`, payload, {
       headers: getAuthHeaders(),

@@ -10,9 +10,6 @@ const productSchema = new Schema(
             type: String,
             required: true,
         },
-        order: {
-            type: Number,
-        },
     },
     {
         versionKey: false,

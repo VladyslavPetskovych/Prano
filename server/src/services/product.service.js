@@ -16,9 +16,6 @@ class ProductService {
             ]);
 
             const products = [...productsRaw].sort((a, b) => {
-                const ao = a.order != null ? a.order : Number.MAX_SAFE_INTEGER;
-                const bo = b.order != null ? b.order : Number.MAX_SAFE_INTEGER;
-                if (ao !== bo) return ao - bo;
                 const at = a.createdAt ? new Date(a.createdAt).getTime() : 0;
                 const bt = b.createdAt ? new Date(b.createdAt).getTime() : 0;
                 return at - bt;
@@ -35,13 +32,7 @@ class ProductService {
     }
 
     async create(data) {
-        let payload = {...data};
-        if (payload.order == null) {
-            const all = await Product.find().select("order").lean();
-            const maxOrder = all.reduce((m, p) => Math.max(m, p.order ?? 0), 0);
-            payload.order = maxOrder + 1;
-        }
-        return await Product.create(payload)
+        return await Product.create({...data})
     }
 
     async findById(id) {

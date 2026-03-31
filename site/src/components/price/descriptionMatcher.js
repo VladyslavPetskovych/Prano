@@ -39,6 +39,45 @@ const scoreTitles = (a, b) => {
 };
 
 /**
+ * Найкращий збіг продукту до назви категорії (той самий алгоритм, що й для описів).
+ * 1) Точний збіг нормалізованих назв
+ * 2) Фаззі за scoreTitles і порогом
+ * @param {string} categoryTitle
+ * @param {Array<{title?: string, description?: string}>} products
+ * @param {number} threshold 0..1
+ * @returns {object | null} продукт або null
+ */
+export function matchCategoryToProduct(
+  categoryTitle,
+  products,
+  threshold = 0.45
+) {
+  if (!Array.isArray(products) || !products.length) return null;
+
+  const nk = normalize(categoryTitle);
+  if (nk) {
+    for (const p of products) {
+      const np = normalize(p.title || "");
+      if (np && np === nk) return p;
+    }
+  }
+
+  let best = null;
+  let bestScore = 0;
+
+  for (const p of products) {
+    const sc = scoreTitles(categoryTitle, p.title || "");
+    if (sc > bestScore) {
+      bestScore = sc;
+      best = p;
+    }
+  }
+
+  if (best && bestScore >= threshold) return best;
+  return null;
+}
+
+/**
  * buildMatchedDescriptions
  * @param {Array} categories [{_id, title}]
  * @param {Array} products [{title, description}]
@@ -50,18 +89,8 @@ export function buildMatchedDescriptions(categories, products, threshold = 0.45)
   if (!Array.isArray(categories) || !Array.isArray(products)) return map;
 
   categories.forEach((cat) => {
-    let best = null;
-    let bestScore = 0;
-
-    products.forEach((p) => {
-      const sc = scoreTitles(cat.title, p.title || "");
-      if (sc > bestScore) {
-        bestScore = sc;
-        best = p;
-      }
-    });
-
-    if (best && bestScore >= threshold) {
+    const best = matchCategoryToProduct(cat.title, products, threshold);
+    if (best) {
       map[cat._id] = best.description;
     }
   });

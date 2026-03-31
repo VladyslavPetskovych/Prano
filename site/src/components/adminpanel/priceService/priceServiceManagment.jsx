@@ -28,9 +28,6 @@ const PriceServiceManagement = () => {
         const list = Array.isArray(res.data.data) ? res.data.data : [];
         setServices(
           [...list].sort((a, b) => {
-            const ao = a.order != null ? a.order : Number.MAX_SAFE_INTEGER;
-            const bo = b.order != null ? b.order : Number.MAX_SAFE_INTEGER;
-            if (ao !== bo) return ao - bo;
             const at = a.createdAt ? new Date(a.createdAt).getTime() : 0;
             const bt = b.createdAt ? new Date(b.createdAt).getTime() : 0;
             return at - bt;
@@ -71,9 +68,6 @@ const PriceServiceManagement = () => {
         item._id === updatedItem._id ? { ...item, ...updatedItem } : item
       );
       return [...next].sort((a, b) => {
-        const ao = a.order != null ? a.order : Number.MAX_SAFE_INTEGER;
-        const bo = b.order != null ? b.order : Number.MAX_SAFE_INTEGER;
-        if (ao !== bo) return ao - bo;
         const at = a.createdAt ? new Date(a.createdAt).getTime() : 0;
         const bt = b.createdAt ? new Date(b.createdAt).getTime() : 0;
         return at - bt;
@@ -125,7 +119,6 @@ const PriceServiceManagement = () => {
             <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-md">
               <thead>
                 <tr className="bg-gray-100 border-b border-gray-300">
-                  <th className="p-3 text-left w-24">Порядок</th>
                   <th className="p-3 text-left">Назва</th>
                   <th className="p-3 text-left break-words">Опис</th>
                   <th className="p-3 text-left">Дії</th>

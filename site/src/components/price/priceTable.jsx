@@ -14,9 +14,6 @@ function PriceTable() {
         const list = response.data.data || [];
         setProducts(
           [...list].sort((a, b) => {
-            const ao = a.order != null ? a.order : Number.MAX_SAFE_INTEGER;
-            const bo = b.order != null ? b.order : Number.MAX_SAFE_INTEGER;
-            if (ao !== bo) return ao - bo;
             const at = a.createdAt ? new Date(a.createdAt).getTime() : 0;
             const bt = b.createdAt ? new Date(b.createdAt).getTime() : 0;
             return at - bt;

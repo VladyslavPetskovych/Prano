@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
+import { apiUrl } from "../../config/apiOrigin";
 
 export function useMerchandiseData() {
   const [merchandise, setMerchandise] = useState([]);
@@ -14,12 +15,12 @@ export function useMerchandiseData() {
     try {
       const merchRes = await axios.get(
         query
-          ? `https://prano.group/api/merchandises?title[regex]=${encodeURIComponent(
+          ? `${apiUrl("/merchandises")}?title[regex]=${encodeURIComponent(
               query
             )}&title[options]=i`
-          : "https://prano.group/api/merchandises"
+          : apiUrl("/merchandises")
       );
-      const categoryRes = await axios.get("https://prano.group/api/categories");
+      const categoryRes = await axios.get(apiUrl("/categories"));
 
       const merchArray = merchRes.data.data || [];
       const categoriesArray = categoryRes.data.data || [];
@@ -29,7 +30,11 @@ export function useMerchandiseData() {
 
       const grouped = {};
       categoriesArray.forEach((cat) => {
-        grouped[cat._id] = { title: cat.title, items: [] };
+        grouped[cat._id] = {
+          title: cat.title,
+          order: cat.order,
+          items: [],
+        };
       });
       merchArray.forEach((item) => {
         if (grouped[item.categoryId]) grouped[item.categoryId].items.push(item);
