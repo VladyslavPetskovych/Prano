@@ -6,7 +6,7 @@ function DryCleaning() {
   return (
     <section
       id="dry-cleaning"
-      className="py-16 pt-4 mx-6 md:mx-auto max-w-6xl font-manrope"
+      className="mx-6 md:mx-auto max-w-6xl font-manrope"
     >
       {/* Верхній блок з відео та описом */}
       <div className="grid grid-cols-1 md:grid-cols-2 bg-pureWhite rounded-t-3xl overflow-hidden shadow-xl border border-lightGray">

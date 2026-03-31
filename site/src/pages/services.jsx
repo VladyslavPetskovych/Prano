@@ -26,29 +26,31 @@ function Services() {
     <div className="bg-gradient-to-t from-Ngold via-gray-200 to-Ngold">
       <TopPart />
 
-      <section>
-        <DryCleaning />
-      </section>
+      <div className="space-y-12 md:space-y-14 pb-12 md:pb-14">
+        <section>
+          <DryCleaning />
+        </section>
 
-      <section>
-        <Shoe />
-      </section>
+        <section>
+          <Shoe />
+        </section>
 
-      <section>
-        <FurCleaning />
-      </section>
-      <section>
-        <BagRestoration />
-      </section>
-      <section>
-        <SewingRepair />
-      </section>
-      <section>
-        <ShoeRepair />
-      </section>
-      <section>
-        <Laundry />
-      </section>
+        <section>
+          <FurCleaning />
+        </section>
+        <section>
+          <BagRestoration />
+        </section>
+        <section>
+          <SewingRepair />
+        </section>
+        <section>
+          <ShoeRepair />
+        </section>
+        <section>
+          <Laundry />
+        </section>
+      </div>
     </div>
   );
 }

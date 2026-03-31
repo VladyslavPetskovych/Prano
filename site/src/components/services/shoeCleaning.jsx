@@ -5,7 +5,7 @@ function ShoeCleaningRepair() {
   return (
     <section
       id="shoes-rest"
-      className="my-16 py-16 mx-6 md:mx-auto max-w-6xl font-manrope"
+      className="mx-6 md:mx-auto max-w-6xl font-manrope"
     >
       {/* Заголовок + фото */}
       <div className="grid grid-cols-1 md:grid-cols-2 bg-pureWhite rounded-3xl overflow-hidden shadow-xl border border-lightGray">

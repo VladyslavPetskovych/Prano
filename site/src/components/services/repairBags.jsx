@@ -5,7 +5,7 @@ function BagRestoration() {
   return (
     <section
       id="repair-bags"
-      className=" mx-6 md:mx-auto max-w-6xl font-manrope py-20"
+      className="mx-6 md:mx-auto max-w-6xl font-manrope"
     >
       {/* Верхній блок з фото та описом */}
       <div className="grid grid-cols-1 md:grid-cols-2 bg-pureWhite rounded-3xl overflow-hidden shadow-xl border border-lightGray">

@@ -10,7 +10,7 @@ function ShoeRepair() {
 
   return (
     <section
-      className="my-6 py-9 mx-6 md:mx-auto max-w-6xl rounded-2xl bg-gray-50 shadow-xl"
+      className="mx-6 md:mx-auto max-w-6xl rounded-2xl bg-gray-50 shadow-xl"
       id="shoes-remont"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-1 bg-white rounded-3xl overflow-hidden">

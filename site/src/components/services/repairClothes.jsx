@@ -10,7 +10,7 @@ const clothingRepairFeatures = [
 function ClothingRepair() {
   return (
     <section
-      className="py-16 px-6 mx-6 md:mx-auto max-w-6xl rounded-2xl bg-gray-50 shadow-xl"
+      className="px-6 mx-6 md:mx-auto max-w-6xl rounded-2xl bg-gray-50 shadow-xl"
       id="repair-clothes"
     >
       <h2 className="text-4xl md:text-5xl mx-auto font-extrabold text-gray-800 tracking-wide text-center mb-12">
