@@ -9,7 +9,7 @@ function SaleButton() {
 
   useEffect(() => {
     axios
-      .get("https://prano.group/api/advertisement")
+      .get("/api/advertisement")
       .then((response) => {
         if (response.data && response.data.length > 0) {
           setDeals(response.data);
