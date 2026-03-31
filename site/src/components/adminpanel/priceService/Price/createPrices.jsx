@@ -27,7 +27,8 @@ const CreatePrice = ({ refreshServices }) => {
     categories,
     handleAddCategory,
     handleDeleteCategory,
-    handleEditCategory, // ✅ додано
+    handleEditCategory,
+    handleUpdateCategoryOrder,
   } = useCategoryManager(newCategory, setNewCategory);
 
   return (
@@ -43,7 +44,8 @@ const CreatePrice = ({ refreshServices }) => {
           setNewCategory={setNewCategory}
           handleAddCategory={handleAddCategory}
           handleDeleteCategory={handleDeleteCategory}
-          handleEditCategory={handleEditCategory} // ✅ тепер працює редагування
+          handleEditCategory={handleEditCategory}
+          handleUpdateCategoryOrder={handleUpdateCategoryOrder}
         />
 
         <form

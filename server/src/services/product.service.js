@@ -7,13 +7,22 @@ class ProductService {
         try {
             const queryObj = QueryParser.parse(query);
 
-            const {sortedBy = "createdAt", ...searchObject} = queryObj;
+            const {sortedBy: _sortedBy, ...searchObject} = queryObj;
 
-            const [products, productsTotalCount, productsSearchCount] = await Promise.all([
-                Product.find(searchObject).sort(sortedBy),
+            const [productsRaw, productsTotalCount, productsSearchCount] = await Promise.all([
+                Product.find(searchObject),
                 Product.countDocuments(),
                 Product.countDocuments(searchObject),
             ]);
+
+            const products = [...productsRaw].sort((a, b) => {
+                const ao = a.order != null ? a.order : Number.MAX_SAFE_INTEGER;
+                const bo = b.order != null ? b.order : Number.MAX_SAFE_INTEGER;
+                if (ao !== bo) return ao - bo;
+                const at = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+                const bt = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+                return at - bt;
+            });
 
             return {
                 itemsCount: productsTotalCount,
@@ -26,7 +35,13 @@ class ProductService {
     }
 
     async create(data) {
-        return await Product.create(data)
+        let payload = {...data};
+        if (payload.order == null) {
+            const all = await Product.find().select("order").lean();
+            const maxOrder = all.reduce((m, p) => Math.max(m, p.order ?? 0), 0);
+            payload.order = maxOrder + 1;
+        }
+        return await Product.create(payload)
     }
 
     async findById(id) {

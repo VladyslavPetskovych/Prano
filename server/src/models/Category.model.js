@@ -6,6 +6,9 @@ const categorySchema = new Schema(
             type: String,
             required: true,
         },
+        order: {
+            type: Number,
+        },
     },
     {
         versionKey: false,

@@ -19,7 +19,15 @@ const useCategoryManager = (newCategory, setNewCategory) => {
           console.log("Categories fetched successfully:", res.data);
           const array = Array.isArray(res.data.data) ? res.data.data : [];
 
-          const categoryObj = array.reduce((acc, item) => {
+          const sorted = [...array].sort((a, b) => {
+            const ao = a.order != null ? a.order : Number.MAX_SAFE_INTEGER;
+            const bo = b.order != null ? b.order : Number.MAX_SAFE_INTEGER;
+            if (ao !== bo) return ao - bo;
+            const at = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+            const bt = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+            return at - bt;
+          });
+          const categoryObj = sorted.reduce((acc, item) => {
             acc[item._id] = item;
             return acc;
           }, {});
@@ -70,16 +78,38 @@ const useCategoryManager = (newCategory, setNewCategory) => {
     if (!newTitle || newTitle.trim().length < 2) return;
 
     try {
-      await updateCategory(id, newTitle.trim(), accessToken);
+      const { data } = await updateCategory(
+        id,
+        { title: newTitle.trim() },
+        accessToken
+      );
       setCategories((prev) => ({
         ...prev,
         [id]: {
           ...prev[id],
-          title: newTitle.trim(),
+          ...data,
         },
       }));
     } catch (error) {
       console.error("❌ Помилка при оновленні категорії:", error);
+    }
+  };
+
+  const handleUpdateCategoryOrder = async (id, order) => {
+    const num = Number(order);
+    if (!Number.isFinite(num) || num < 0) return;
+
+    try {
+      const { data } = await updateCategory(id, { order: num }, accessToken);
+      setCategories((prev) => ({
+        ...prev,
+        [id]: {
+          ...prev[id],
+          ...data,
+        },
+      }));
+    } catch (error) {
+      console.error("❌ Помилка при зміні порядку категорії:", error);
     }
   };
 
@@ -88,6 +118,7 @@ const useCategoryManager = (newCategory, setNewCategory) => {
     handleAddCategory,
     handleDeleteCategory,
     handleEditCategory,
+    handleUpdateCategoryOrder,
   };
 };
 

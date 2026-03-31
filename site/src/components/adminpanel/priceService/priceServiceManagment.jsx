@@ -6,6 +6,7 @@ import ServiceItem from "./ServiceItem";
 import PriceItem from "./Price/priceItem";
 import Pagination from "../pagination";
 import { deleteMerchandise } from "./Price/PriceApi";
+import { apiUrl } from "../../../config/apiOrigin";
 
 const PriceServiceManagement = () => {
   const [services, setServices] = useState([]);
@@ -22,17 +23,23 @@ const PriceServiceManagement = () => {
       setLoading(true);
 
       if (viewMode === "services") {
-        const res = await axios.get("https://prano.group/api/products");
+        const res = await axios.get(apiUrl("/products"));
         console.log("📥 Products Response:", res.data);
-        setServices(Array.isArray(res.data.data) ? res.data.data : []);
+        const list = Array.isArray(res.data.data) ? res.data.data : [];
+        setServices(
+          [...list].sort((a, b) => {
+            const ao = a.order != null ? a.order : Number.MAX_SAFE_INTEGER;
+            const bo = b.order != null ? b.order : Number.MAX_SAFE_INTEGER;
+            if (ao !== bo) return ao - bo;
+            const at = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+            const bt = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+            return at - bt;
+          })
+        );
         setTotalPages(1); // без пагінації
       } else {
-        const merchRes = await axios.get(
-          "https://prano.group/api/merchandises"
-        );
-        const categoryRes = await axios.get(
-          "https://prano.group/api/categories"
-        );
+        const merchRes = await axios.get(apiUrl("/merchandises"));
+        const categoryRes = await axios.get(apiUrl("/categories"));
 
         console.log("📥 Merchandises:", merchRes.data.data);
         console.log("📥 Categories:", categoryRes.data);
@@ -59,9 +66,19 @@ const PriceServiceManagement = () => {
   };
 
   const handleEditSuccess = (updatedItem) => {
-    setServices((prev) =>
-      prev.map((item) => (item._id === updatedItem._id ? updatedItem : item))
-    );
+    setServices((prev) => {
+      const next = prev.map((item) =>
+        item._id === updatedItem._id ? { ...item, ...updatedItem } : item
+      );
+      return [...next].sort((a, b) => {
+        const ao = a.order != null ? a.order : Number.MAX_SAFE_INTEGER;
+        const bo = b.order != null ? b.order : Number.MAX_SAFE_INTEGER;
+        if (ao !== bo) return ao - bo;
+        const at = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        const bt = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+        return at - bt;
+      });
+    });
   };
   const handleDeleteMerchandise = async (id) => {
     try {
@@ -108,6 +125,7 @@ const PriceServiceManagement = () => {
             <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-md">
               <thead>
                 <tr className="bg-gray-100 border-b border-gray-300">
+                  <th className="p-3 text-left w-24">Порядок</th>
                   <th className="p-3 text-left">Назва</th>
                   <th className="p-3 text-left break-words">Опис</th>
                   <th className="p-3 text-left">Дії</th>

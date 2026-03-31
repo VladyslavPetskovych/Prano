@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { apiUrl } from "../../../config/apiOrigin";
 
 const CreateService = ({ refreshServices }) => {
   const [title, setTitle] = useState("");
@@ -37,7 +38,7 @@ const CreateService = ({ refreshServices }) => {
     };
 
     try {
-      await axios.post("https://prano.group/api/products", serviceData, {
+      await axios.post(apiUrl("/products"), serviceData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `${accessToken}`,

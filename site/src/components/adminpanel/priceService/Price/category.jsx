@@ -6,7 +6,8 @@ const CategoryManager = ({
   setNewCategory,
   handleAddCategory,
   handleDeleteCategory,
-  handleEditCategory, // ✅ нова функція
+  handleEditCategory,
+  handleUpdateCategoryOrder,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
@@ -35,13 +36,15 @@ const CategoryManager = ({
         onClick={() => setIsOpen(!isOpen)}
         className="text-left w-full bg-gray-100 p-2 rounded shadow flex justify-between items-center"
       >
-        <span className="font-semibold">Керування категоріями</span>
+        <span className="font-semibold">
+          Керування категоріями (порядок блоків на сторінці «Ціни»)
+        </span>
         <span>{isOpen ? "▲" : "▼"}</span>
       </button>
 
       <div
         className={`transition-all duration-300 overflow-hidden ${
-          isOpen ? "max-h-[500px] mt-3" : "max-h-0"
+          isOpen ? "max-h-[2000px] mt-3" : "max-h-0"
         }`}
       >
         <div className="space-y-2">
@@ -63,55 +66,90 @@ const CategoryManager = ({
             </button>
           </div>
 
+          <p className="text-xs text-gray-600">
+            Менше число — вище блок на сайті. Категорії без номера йдуть в кінці (як раніше за
+            датою).
+          </p>
+
           {/* Список категорій */}
           <ul className="space-y-1">
-            {Object.values(categories).map((cat) => (
-              <li
-                key={cat._id}
-                className="flex justify-between items-center border p-2 rounded gap-2"
-              >
-                {editingId === cat._id ? (
-                  <>
-                    <input
-                      type="text"
-                      value={editTitle}
-                      onChange={(e) => setEditTitle(e.target.value)}
-                      className="border p-1 flex-1"
-                    />
-                    <button
-                      onClick={saveEdit}
-                      className="bg-blue-500 text-white px-2 rounded"
-                    >
-                      💾
-                    </button>
-                    <button
-                      onClick={cancelEditing}
-                      className="bg-gray-400 text-white px-2 rounded"
-                    >
-                      ✖
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <span className="flex-1">{cat.title}</span>
-                    <button
-                      type="button"
-                      onClick={() => startEditing(cat)}
-                      className="bg-yellow-500 text-white px-2 rounded"
-                    >
-                      ✏️
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleDeleteCategory(cat._id)}
-                      className="bg-red-500 text-white px-2 rounded"
-                    >
-                      🗑️
-                    </button>
-                  </>
-                )}
-              </li>
-            ))}
+            {Object.values(categories)
+              .sort((a, b) => {
+                const ao = a.order != null ? a.order : Number.MAX_SAFE_INTEGER;
+                const bo = b.order != null ? b.order : Number.MAX_SAFE_INTEGER;
+                if (ao !== bo) return ao - bo;
+                const at = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+                const bt = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+                return at - bt;
+              })
+              .map((cat) => (
+                <li
+                  key={cat._id}
+                  className="flex flex-wrap justify-between items-center border p-2 rounded gap-2"
+                >
+                  {editingId === cat._id ? (
+                    <>
+                      <input
+                        type="text"
+                        value={editTitle}
+                        onChange={(e) => setEditTitle(e.target.value)}
+                        className="border p-1 flex-1 min-w-[120px]"
+                      />
+                      <button
+                        type="button"
+                        onClick={saveEdit}
+                        className="bg-blue-500 text-white px-2 rounded"
+                      >
+                        💾
+                      </button>
+                      <button
+                        type="button"
+                        onClick={cancelEditing}
+                        className="bg-gray-400 text-white px-2 rounded"
+                      >
+                        ✖
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <label className="flex items-center gap-1 text-sm shrink-0">
+                        <span className="text-gray-500 whitespace-nowrap">№</span>
+                        <input
+                          type="number"
+                          min={0}
+                          className="border p-1 w-16 rounded"
+                          defaultValue={cat.order ?? ""}
+                          key={`ord-${cat._id}-${cat.order ?? "x"}`}
+                          onBlur={(e) => {
+                            const raw = e.target.value.trim();
+                            if (raw === "") return;
+                            const v = parseInt(raw, 10);
+                            if (!Number.isFinite(v) || v < 0) return;
+                            if (v === cat.order) return;
+                            handleUpdateCategoryOrder(cat._id, v);
+                          }}
+                          title="Порядок на сторінці цін (збережеться після виходу з поля)"
+                        />
+                      </label>
+                      <span className="flex-1 min-w-[120px]">{cat.title}</span>
+                      <button
+                        type="button"
+                        onClick={() => startEditing(cat)}
+                        className="bg-yellow-500 text-white px-2 rounded"
+                      >
+                        ✏️
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteCategory(cat._id)}
+                        className="bg-red-500 text-white px-2 rounded"
+                      >
+                        🗑️
+                      </button>
+                    </>
+                  )}
+                </li>
+              ))}
           </ul>
         </div>
       </div>

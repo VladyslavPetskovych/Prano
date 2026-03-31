@@ -9,11 +9,20 @@ class CategoryService {
 
             const {sortedBy = "createdAt", ...searchObject} = queryObj;
 
-            const [categories, categoriesTotalCount, categoriesSearchCount] = await Promise.all([
-                Category.find(searchObject).sort(sortedBy),
+            const [categoriesRaw, categoriesTotalCount, categoriesSearchCount] = await Promise.all([
+                Category.find(searchObject),
                 Category.countDocuments(),
                 Category.countDocuments(searchObject)
             ]);
+
+            const categories = [...categoriesRaw].sort((a, b) => {
+                const ao = a.order != null ? a.order : Number.MAX_SAFE_INTEGER;
+                const bo = b.order != null ? b.order : Number.MAX_SAFE_INTEGER;
+                if (ao !== bo) return ao - bo;
+                const at = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+                const bt = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+                return at - bt;
+            });
 
             return {
                 itemsCount: categoriesTotalCount,
@@ -26,7 +35,13 @@ class CategoryService {
     }
 
     async create(data) {
-        return await Category.create(data)
+        let payload = {...data};
+        if (payload.order == null) {
+            const all = await Category.find().select("order").lean();
+            const maxOrder = all.reduce((m, c) => Math.max(m, c.order ?? 0), 0);
+            payload.order = maxOrder + 1;
+        }
+        return await Category.create(payload)
     }
 
     async findById(id) {

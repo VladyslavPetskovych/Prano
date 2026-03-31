@@ -12,7 +12,17 @@ export function useProducts() {
       .get("https://prano.group/api/products")
       .then((res) => {
         if (!mounted) return;
-        setProducts(res.data?.data || []);
+        const list = res.data?.data || [];
+        setProducts(
+          [...list].sort((a, b) => {
+            const ao = a.order != null ? a.order : Number.MAX_SAFE_INTEGER;
+            const bo = b.order != null ? b.order : Number.MAX_SAFE_INTEGER;
+            if (ao !== bo) return ao - bo;
+            const at = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+            const bt = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+            return at - bt;
+          })
+        );
         setProdLoading(false);
       })
       .catch(() => {

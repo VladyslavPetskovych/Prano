@@ -9,7 +9,10 @@ const productSchema = new Schema(
         description: {
             type: String,
             required: true,
-        }
+        },
+        order: {
+            type: Number,
+        },
     },
     {
         versionKey: false,

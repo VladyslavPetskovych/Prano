@@ -1,6 +1,7 @@
 import axios from "axios";
+import { apiUrl } from "../../../config/apiOrigin";
 
-const API_URL = "https://prano.group/api/products";
+const API_URL = apiUrl("/products");
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem("accessToken");
@@ -9,16 +10,17 @@ const getAuthHeaders = () => {
 
 export const updateService = async (serviceId, updatedData) => {
   try {
-    const payload = {
-      title: updatedData.title,
-      description: updatedData.description,
-    };
+    const payload = {};
+    if (updatedData.title !== undefined) payload.title = updatedData.title;
+    if (updatedData.description !== undefined)
+      payload.description = updatedData.description;
+    if (updatedData.order !== undefined) payload.order = updatedData.order;
 
-    await axios.patch(`${API_URL}/${serviceId}`, payload, {
+    const { data } = await axios.patch(`${API_URL}/${serviceId}`, payload, {
       headers: getAuthHeaders(),
     });
 
-    return { success: true };
+    return { success: true, data };
   } catch (error) {
     console.error("Error updating service:", error);
     return {

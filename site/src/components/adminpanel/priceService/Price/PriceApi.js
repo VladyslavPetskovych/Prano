@@ -84,15 +84,12 @@ export const createCategory = async (title, token) => {
     }
   );
 };
-export const updateCategory = async (id, title, token) => {
-  return axios.patch(
-    `${CATEGORY_URL}/${id}`,
-    { title },
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `${token || getToken()}`,
-      },
-    }
-  );
+/** @param {string} id @param {{ title?: string, order?: number }} body */
+export const updateCategory = async (id, body, token) => {
+  return axios.patch(`${CATEGORY_URL}/${id}`, body, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `${token || getToken()}`,
+    },
+  });
 };
