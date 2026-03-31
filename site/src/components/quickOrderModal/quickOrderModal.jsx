@@ -26,7 +26,7 @@ const QuickOrderModal = ({onClose}) => {
     const sendSms = async () => {
         try {
             // const response = await axios.post("http://localhost:3000/phone/send-sms", {phone});
-            const response = await axios.post("/api/phone/send-sms", {phone});
+            const response = await axios.post("https://prano.group/api/phone/send-sms", {phone});
 
             setSmsId(response.data.smsId);
             setStep(STEPS.CODE);
@@ -38,14 +38,14 @@ const QuickOrderModal = ({onClose}) => {
     const verifyCode = async () => {
         try {
             // const {data} = await axios.post("http://localhost:3000/phone/verify", {smsId, code});
-            const {data} = await axios.post("/api/phone/verify", {smsId, code});
+            const {data} = await axios.post("https://prano.group/api/phone/verify", {smsId, code});
 
             const {userRegisteredAlready} = data;
 
             if (userRegisteredAlready) {
 
                 // const {data} = await axios.post("http://localhost:3000/auth", {smsId});
-                const {data} = await axios.post("/api/auth", {smsId});
+                const {data} = await axios.post("https://prano.group/api/auth", {smsId});
 
                 const {accessToken, refreshToken, userId} = data;
 
@@ -68,7 +68,7 @@ const QuickOrderModal = ({onClose}) => {
     const sendOrder = async () => {
         try {
             // await axios.post("http://localhost:3000/orders/quick/confirm", {smsId, orderData});
-            await axios.post("/api/orders/quick/confirm", {smsId, orderData});
+            await axios.post("https://prano.group/api/orders/quick/confirm", {smsId, orderData});
 
             alert("Замовлення надіслано!");
             onClose();
@@ -80,7 +80,7 @@ const QuickOrderModal = ({onClose}) => {
     useEffect(() => {
         const fetchMerchandises = async () => {
             try {
-                const response = await axios.get("/api/merchandises");
+                const response = await axios.get("https://prano.group/api/merchandises");
                 console.log("Merchandises:", response.data);
 
                 // беремо саме масив data
