@@ -55,6 +55,7 @@ const PrevArrow = ({ onClick }) => (
 
 function ReviewsSlider() {
   const [sliderKey, setSliderKey] = useState(0);
+  const SlickSlider = Slider?.default ?? Slider;
 
   useEffect(() => {
     const handleResize = () => setSliderKey((prevKey) => prevKey + 1);
@@ -93,7 +94,7 @@ function ReviewsSlider() {
       <h2 className="text-3xl text-center sm:text-4xl font-bold font-tinos   text-Ndark relative inline-block after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue mb-7">
         Відгуки наших клієнтів
       </h2>
-      <Slider {...settings} key={sliderKey}>
+      <SlickSlider {...settings} key={sliderKey}>
         {reviews.map((review) => (
           <div key={review.id} className="px-16 text-center">
             <img
@@ -111,7 +112,7 @@ function ReviewsSlider() {
             </div>
           </div>
         ))}
-      </Slider>
+      </SlickSlider>
     </div>
   );
 }
