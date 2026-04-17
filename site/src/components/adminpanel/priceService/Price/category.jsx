@@ -8,6 +8,7 @@ const CategoryManager = ({
   handleDeleteCategory,
   handleEditCategory,
   handleUpdateCategoryOrder,
+  handleToggleCategoryVisibility,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
@@ -131,7 +132,33 @@ const CategoryManager = ({
                           title="Порядок на сторінці цін (збережеться після виходу з поля)"
                         />
                       </label>
+                      <span
+                        className={`text-xs px-2 py-1 rounded ${
+                          cat.isActive === false
+                            ? "bg-red-100 text-red-700"
+                            : "bg-green-100 text-green-700"
+                        }`}
+                      >
+                        {cat.isActive === false ? "Приховано" : "Показується"}
+                      </span>
                       <span className="flex-1 min-w-[120px]">{cat.title}</span>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          handleToggleCategoryVisibility(
+                            cat._id,
+                            !(cat.isActive !== false)
+                          )
+                        }
+                        className={`text-white px-2 rounded ${
+                          cat.isActive === false
+                            ? "bg-emerald-600"
+                            : "bg-slate-600"
+                        }`}
+                        title="Показувати або приховувати категорію на сторінці цін"
+                      >
+                        {cat.isActive === false ? "👁 Показати" : "🙈 Приховати"}
+                      </button>
                       <button
                         type="button"
                         onClick={() => startEditing(cat)}

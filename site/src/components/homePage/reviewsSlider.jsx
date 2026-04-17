@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Slider from "react-slick";
+import SliderModule from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
@@ -54,6 +54,8 @@ const PrevArrow = ({ onClick }) => (
 );
 
 function ReviewsSlider() {
+  const Slider =
+    typeof SliderModule === "function" ? SliderModule : SliderModule?.default;
   const [sliderKey, setSliderKey] = useState(0);
 
   useEffect(() => {

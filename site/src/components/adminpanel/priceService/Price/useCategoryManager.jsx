@@ -113,12 +113,28 @@ const useCategoryManager = (newCategory, setNewCategory) => {
     }
   };
 
+  const handleToggleCategoryVisibility = async (id, isActive) => {
+    try {
+      const { data } = await updateCategory(id, { isActive }, accessToken);
+      setCategories((prev) => ({
+        ...prev,
+        [id]: {
+          ...prev[id],
+          ...data,
+        },
+      }));
+    } catch (error) {
+      console.error("❌ Помилка при зміні видимості категорії:", error);
+    }
+  };
+
   return {
     categories,
     handleAddCategory,
     handleDeleteCategory,
     handleEditCategory,
     handleUpdateCategoryOrder,
+    handleToggleCategoryVisibility,
   };
 };
 

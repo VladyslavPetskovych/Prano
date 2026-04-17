@@ -29,6 +29,7 @@ const CreatePrice = ({ refreshServices }) => {
     handleDeleteCategory,
     handleEditCategory,
     handleUpdateCategoryOrder,
+    handleToggleCategoryVisibility,
   } = useCategoryManager(newCategory, setNewCategory);
 
   return (
@@ -46,6 +47,7 @@ const CreatePrice = ({ refreshServices }) => {
           handleDeleteCategory={handleDeleteCategory}
           handleEditCategory={handleEditCategory}
           handleUpdateCategoryOrder={handleUpdateCategoryOrder}
+          handleToggleCategoryVisibility={handleToggleCategoryVisibility}
         />
 
         <form

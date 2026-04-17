@@ -24,12 +24,15 @@ export function useMerchandiseData() {
 
       const merchArray = merchRes.data.data || [];
       const categoriesArray = categoryRes.data.data || [];
+      const visibleCategories = categoriesArray.filter(
+        (cat) => cat.isActive !== false
+      );
 
       setMerchandise(merchArray);
-      setCategories(categoriesArray);
+      setCategories(visibleCategories);
 
       const grouped = {};
-      categoriesArray.forEach((cat) => {
+      visibleCategories.forEach((cat) => {
         grouped[cat._id] = {
           title: cat.title,
           order: cat.order,

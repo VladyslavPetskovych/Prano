@@ -9,6 +9,10 @@ const categorySchema = new Schema(
         order: {
             type: Number,
         },
+        isActive: {
+            type: Boolean,
+            default: true,
+        },
     },
     {
         versionKey: false,
