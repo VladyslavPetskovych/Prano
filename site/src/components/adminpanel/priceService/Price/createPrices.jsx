@@ -34,7 +34,7 @@ const CreatePrice = ({ refreshServices }) => {
 
   return (
     <div className="bg-slate-200 min-h-[30vh] flex items-center justify-center p-3">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full md:w-1/2">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full md:w-[calc(50%+100px)] max-w-[920px]">
         <h2 className="text-2xl font-bold mb-4 text-center">Створити товар</h2>
         {error && <p className="text-red-500 text-center">{error}</p>}
 

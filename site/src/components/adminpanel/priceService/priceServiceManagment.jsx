@@ -140,7 +140,20 @@ const PriceServiceManagement = () => {
       ) : (
         <>
           <CreatePrice refreshServices={() => fetchData(currentPage)} />
-          <div className="overflow-x-auto my-3">
+          <div className="md:hidden my-3 space-y-3">
+            {services.map((item) => (
+              <PriceItem
+                key={item._id}
+                service={item}
+                categories={categories}
+                onEditSuccess={handleEditSuccess}
+                onDeleteRequest={handleDeleteMerchandise}
+                layout="card"
+              />
+            ))}
+          </div>
+
+          <div className="hidden md:block overflow-x-auto my-3">
             <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-md">
               <thead>
                 <tr>

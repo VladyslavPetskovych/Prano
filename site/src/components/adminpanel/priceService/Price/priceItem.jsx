@@ -13,6 +13,7 @@ const PriceServiceItem = ({
   categories,
   onEditSuccess,
   onDeleteRequest,
+  layout = "table",
 }) => {
   const category = Array.isArray(categories?.data)
     ? categories.data.find((cat) => cat._id === service.categoryId)
@@ -98,6 +99,117 @@ const PriceServiceItem = ({
       }
     }
   };
+
+  if (layout === "card") {
+    return (
+      <div className="bg-white border border-gray-300 rounded-md p-3 shadow-sm">
+        {isEditing ? (
+          <div className="space-y-2">
+            <input
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="Назва"
+            />
+            <input
+              type="text"
+              name="price"
+              value={formData.price}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="Ціна"
+            />
+            <input
+              type="text"
+              name="secondPrice"
+              value={formData.secondPrice}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="Друга ціна"
+            />
+            <input
+              type="text"
+              name="quantity"
+              value={formData.quantity}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="Одиниця виміру"
+            />
+            <input
+              type="number"
+              name="order"
+              value={formData.order}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="Порядок"
+            />
+            <div className="text-sm text-gray-600">
+              Категорія: {category ? category.title : "Немає категорії"}
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={handleSave}
+                className="px-3 py-1 bg-blue-500 text-white rounded"
+                disabled={loading}
+              >
+                💾
+              </button>
+              <button
+                onClick={() => setIsEditing(false)}
+                className="px-3 py-1 bg-gray-400 text-white rounded"
+                disabled={loading}
+              >
+                ✖
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            <div className="font-semibold text-base break-words">{service.title}</div>
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              <div>
+                <span className="text-gray-500">Ціна:</span>{" "}
+                <span>{showPriceOrEmpty(service.price)}</span>
+              </div>
+              <div>
+                <span className="text-gray-500">Друга ціна:</span>{" "}
+                <span>{showPriceOrEmpty(service.secondPrice) || "—"}</span>
+              </div>
+              <div>
+                <span className="text-gray-500">К-сть:</span>{" "}
+                <span>{service.quantity || "—"}</span>
+              </div>
+              <div>
+                <span className="text-gray-500">Порядок:</span>{" "}
+                <span>{service.order}</span>
+              </div>
+            </div>
+            <div className="text-sm">
+              <span className="text-gray-500">Категорія:</span>{" "}
+              <span>{category ? category.title : "Немає категорії"}</span>
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setIsEditing(true)}
+                className="px-3 py-1 bg-yellow-500 text-white rounded"
+              >
+                ✏️
+              </button>
+              <button
+                onClick={handleDelete}
+                className="px-3 py-1 bg-red-500 text-white rounded"
+              >
+                🗑️
+              </button>
+            </div>
+          </div>
+        )}
+        {error && <p className="mt-2 text-red-500 text-sm">{error}</p>}
+      </div>
+    );
+  }
 
   return (
     <tr className="border-b border-gray-300 text-sm">
