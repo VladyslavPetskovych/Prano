@@ -52,7 +52,7 @@ export default function Merchandise() {
   }, [groupedData]);
 
   return (
-    <div className="py-1 mt-1 space-y-1 font-manrope font-bold max-w-8xl mx-auto">
+    <div className="py-1 mt-1 space-y-6 font-manrope font-bold max-w-8xl mx-auto">
       <div className="w-full flex justify-center pt-16">
         <div className="w-[60vw] min-w-[300px] max-w-[760px] overflow-hidden rounded-2xl border border-Ngold/30 shadow-md bg-white">
           <img
