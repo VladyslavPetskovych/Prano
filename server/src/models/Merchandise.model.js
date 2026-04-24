@@ -29,6 +29,11 @@ const merchandiseSchema = new Schema(
                 message: "secondPrice must be a number or a string",
             },
         },
+        discountPercent: {
+            type: Number,
+            enum: [0, 10, 15, 20, 30],
+            default: 0,
+        },
         order: {
             type: Number,
             required: true,

@@ -22,6 +22,7 @@ const CreatePrice = ({ refreshServices }) => {
 
   const [order, setOrder] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [discountPercent, setDiscountPercent] = useState(0);
 
   const {
     categories,
@@ -59,7 +60,8 @@ const CreatePrice = ({ refreshServices }) => {
               secondPrice,
               category,
               order,
-              quantity
+              quantity,
+              discountPercent
             )
           }
           className="space-y-4"
@@ -115,6 +117,35 @@ const CreatePrice = ({ refreshServices }) => {
               </option>
             ))}
           </select>
+
+          <div>
+            <p className="mb-2 text-sm font-semibold text-gray-700">Знижка для позиції</p>
+            <div className="flex flex-wrap gap-2">
+              {[10, 15, 20, 30].map((value) => {
+                const checked = Number(discountPercent) === value;
+                return (
+                  <label
+                    key={value}
+                    className={`px-3 py-1 rounded border text-sm cursor-pointer ${
+                      checked
+                        ? "bg-green-100 border-green-500 text-green-700"
+                        : "bg-white border-gray-300 text-gray-700"
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      className="mr-1"
+                      checked={checked}
+                      onChange={() =>
+                        setDiscountPercent((prev) => (Number(prev) === value ? 0 : value))
+                      }
+                    />
+                    -{value}%
+                  </label>
+                );
+              })}
+            </div>
+          </div>
 
           <button
             type="submit"

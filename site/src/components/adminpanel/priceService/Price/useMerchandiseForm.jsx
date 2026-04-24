@@ -22,7 +22,8 @@ const useMerchandiseForm = (refreshServices) => {
     secondPrice,
     category,
     order,
-    quantity
+    quantity,
+    discountPercent
   ) => {
     e.preventDefault();
     setLoading(true);
@@ -65,6 +66,10 @@ const useMerchandiseForm = (refreshServices) => {
 
       if (quantity && quantity.trim() !== "") {
         newMerch.quantity = quantity.trim();
+      }
+
+      if ([0, 10, 15, 20, 30].includes(Number(discountPercent))) {
+        newMerch.discountPercent = Number(discountPercent);
       }
 
       console.log("📦 Відправляємо на бекенд:", newMerch);

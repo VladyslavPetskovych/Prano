@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import PremiumInfoModal from "./PremiumInfoModal";
-import { applyDiscount, isHomeTextileCategory } from "./discountRules";
+import { isHomeTextileCategory } from "./discountRules";
 
 export default function CategorySection({ title, description, items }) {
   const [isPremiumModalOpen, setPremiumModalOpen] = useState(false);
@@ -39,25 +39,24 @@ export default function CategorySection({ title, description, items }) {
   const hasAnyDiscount = useMemo(() => {
     if (!Array.isArray(items) || items.length === 0) return false;
 
-    return items.some((item) => {
-      const itemTitle = item?.title ?? "";
-      const std = item?.price;
-      const pr = item?.secondPrice;
-
-      const stdDiscount =
-        std != null ? applyDiscount(std, itemTitle, title) : std;
-      const prDiscount = pr != null ? applyDiscount(pr, itemTitle, title) : pr;
-
-      return (
-        (std != null && Number(stdDiscount) !== Number(std)) ||
-        (pr != null && Number(prDiscount) !== Number(pr))
-      );
-    });
-  }, [items, title]);
+    return items.some((item) => Number(item?.discountPercent) > 0);
+  }, [items]);
 
   // ✅ If you want to HIDE the badge when discounts are disabled:
   // const showBadge = false;
   const showBadge = !isNewCategory && (isHomeTextile || hasAnyDiscount);
+
+  const applyItemDiscount = (value, discountPercent) => {
+    const raw = String(value ?? "").trim();
+    if (raw === "" || raw === "null" || raw === "undefined") return value;
+    const normalized = raw.replace(",", ".");
+    const numeric = Number(normalized);
+    if (!Number.isFinite(numeric)) return value;
+    const discount = Number(discountPercent) || 0;
+    if (discount <= 0) return numeric;
+    const discounted = Math.round(numeric * (1 - discount / 100));
+    return discounted;
+  };
 
   return (
     <div className="bg-white shadow-2xl rounded-3xl border border-Ngold/30 overflow-hidden border-Ndark hover:shadow-2xl">
@@ -116,17 +115,11 @@ export default function CategorySection({ title, description, items }) {
                 price: std,
                 secondPrice: pr,
                 quantity,
+                discountPercent,
               } = item;
-
-              // ✅ DISCOUNT LOGIC DISABLED (commented)
-              // const stdDiscount =
-              //   std != null ? applyDiscount(std, itemTitle, title) : std;
-              // const prDiscount =
-              //   pr != null ? applyDiscount(pr, itemTitle, title) : pr;
-              // const stdHasDiscount =
-              //   std != null && Number(stdDiscount) !== Number(std);
-              // const prHasDiscount =
-              //   pr != null && Number(prDiscount) !== Number(pr);
+              const stdDiscount = applyItemDiscount(std, discountPercent);
+              const prDiscount = applyItemDiscount(pr, discountPercent);
+              const hasDiscount = Number(discountPercent) > 0;
 
               return (
                 <tr
@@ -143,14 +136,32 @@ export default function CategorySection({ title, description, items }) {
                     {quantity || " "}
                   </td>
 
-                  {/* Стандарт (no discount view) */}
+                  {/* Стандарт */}
                   <td className="px-1 sm:px-2 py-3 text-center border-l whitespace-nowrap font-medium">
-                    {formatPriceCell(std)}
+                    {hasDiscount ? (
+                      <div className="flex flex-col items-center leading-tight">
+                        <span className="text-xs line-through text-gray-400">
+                          {formatPriceCell(std)}
+                        </span>
+                        <span>{formatPriceCell(stdDiscount)}</span>
+                      </div>
+                    ) : (
+                      formatPriceCell(std)
+                    )}
                   </td>
 
-                  {/* Преміум (no discount view) */}
+                  {/* Преміум */}
                   <td className="px-1 sm:px-2 py-3 text-center border-l whitespace-nowrap font-medium">
-                    {formatPriceCell(pr)}
+                    {hasDiscount ? (
+                      <div className="flex flex-col items-center leading-tight">
+                        <span className="text-xs line-through text-gray-400">
+                          {formatPriceCell(pr)}
+                        </span>
+                        <span>{formatPriceCell(prDiscount)}</span>
+                      </div>
+                    ) : (
+                      formatPriceCell(pr)
+                    )}
                   </td>
                 </tr>
               );

@@ -4,6 +4,7 @@ import { useProducts } from "./useProducts";
 import { buildMatchedDescriptions } from "./descriptionMatcher";
 import { getPriceCategoryPatternIndex } from "./categoryDisplayOrder";
 import PricesHeader from "./PricesHeader";
+import pricePromoImage from "../../assets/price/prom24042026.jpg";
 
 export default function Merchandise() {
   const { categories, groupedData, loading, error, fetchData } =
@@ -51,7 +52,18 @@ export default function Merchandise() {
   }, [groupedData]);
 
   return (
-    <div className="py-4 mt-1 space-y-8 font-manrope font-bold max-w-8xl mx-auto">
+    <div className="py-1 mt-1 space-y-1 font-manrope font-bold max-w-8xl mx-auto">
+      <div className="w-full flex justify-center pt-16">
+        <div className="w-[60vw] min-w-[300px] max-w-[760px] overflow-hidden rounded-2xl border border-Ngold/30 shadow-md bg-white">
+          <img
+            src={pricePromoImage}
+            alt="Промо хімчистки"
+            className="w-full h-auto object-contain object-center"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
       {/* Хедер «Ціни» + логотип + пошук */}
       <PricesHeader onSearch={handleSearch} />
 

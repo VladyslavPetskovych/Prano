@@ -10,6 +10,7 @@ class MerchandiseValidator {
     static secondPrice = Joi.alternatives()
         .try(Joi.number(), Joi.string().trim().allow(""))
         .allow(null)
+    static discountPercent = Joi.number().valid(0, 10, 15, 20, 30)
     static order = Joi.number().integer().min(1)
     static categoryId = Joi.string().hex().length(24).trim()
 
@@ -18,6 +19,7 @@ class MerchandiseValidator {
         quantity: this.quantity,
         price: this.price.required(),
         secondPrice: this.secondPrice,
+        discountPercent: this.discountPercent,
         categoryId: this.categoryId.required(),
         order: this.order
     })
@@ -27,6 +29,7 @@ class MerchandiseValidator {
         quantity: this.quantity,
         price: this.price,
         secondPrice: this.secondPrice,
+        discountPercent: this.discountPercent,
     })
 
     static changeOrder = Joi.object({

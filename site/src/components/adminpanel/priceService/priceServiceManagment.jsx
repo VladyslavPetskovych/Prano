@@ -161,6 +161,7 @@ const PriceServiceManagement = () => {
                   <th>Ціна</th>
                   <th>Друга ціна</th>
                   <th>К-сть</th>
+                  <th>Знижка</th>
                   <th>Порядок</th>
                   <th>Категорія</th>
                   <th>Дії</th>

@@ -27,6 +27,10 @@ const PriceServiceItem = ({
       service.secondPrice == null ? "" : String(service.secondPrice),
     order: service.order || "",
     quantity: service.quantity || "",
+    discountPercent:
+      [10, 15, 20, 30].includes(Number(service.discountPercent))
+        ? Number(service.discountPercent)
+        : 0,
   });
 
   const [loading, setLoading] = useState(false);
@@ -68,6 +72,12 @@ const PriceServiceItem = ({
     if (formData.quantity !== service.quantity) {
       updateData.quantity =
         formData.quantity.trim() === "" ? "" : formData.quantity.trim();
+    }
+
+    const nextDiscount = Number(formData.discountPercent) || 0;
+    const prevDiscount = Number(service.discountPercent) || 0;
+    if (nextDiscount !== prevDiscount) {
+      updateData.discountPercent = nextDiscount;
     }
 
     try {
@@ -145,6 +155,38 @@ const PriceServiceItem = ({
               className="w-full p-2 border border-gray-300 rounded"
               placeholder="Порядок"
             />
+            <div>
+              <p className="mb-2 text-sm font-semibold text-gray-700">Знижка</p>
+              <div className="flex flex-wrap gap-2">
+                {[10, 15, 20, 30].map((value) => {
+                  const checked = Number(formData.discountPercent) === value;
+                  return (
+                    <label
+                      key={`m-discount-${service._id}-${value}`}
+                      className={`px-2 py-1 rounded border text-xs cursor-pointer ${
+                        checked
+                          ? "bg-green-100 border-green-500 text-green-700"
+                          : "bg-white border-gray-300 text-gray-700"
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        className="mr-1"
+                        checked={checked}
+                        onChange={() =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            discountPercent:
+                              Number(prev.discountPercent) === value ? 0 : value,
+                          }))
+                        }
+                      />
+                      -{value}%
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
             <div className="text-sm text-gray-600">
               Категорія: {category ? category.title : "Немає категорії"}
             </div>
@@ -184,6 +226,14 @@ const PriceServiceItem = ({
               <div>
                 <span className="text-gray-500">Порядок:</span>{" "}
                 <span>{service.order}</span>
+              </div>
+              <div>
+                <span className="text-gray-500">Знижка:</span>{" "}
+                <span>
+                  {Number(service.discountPercent) > 0
+                    ? `-${Number(service.discountPercent)}%`
+                    : "—"}
+                </span>
               </div>
             </div>
             <div className="text-sm">
@@ -255,6 +305,37 @@ const PriceServiceItem = ({
             />
           </td>
           <td className="p-3">
+            <div className="flex flex-wrap gap-1">
+              {[10, 15, 20, 30].map((value) => {
+                const checked = Number(formData.discountPercent) === value;
+                return (
+                  <label
+                    key={`discount-${service._id}-${value}`}
+                    className={`px-2 py-1 rounded border text-xs cursor-pointer ${
+                      checked
+                        ? "bg-green-100 border-green-500 text-green-700"
+                        : "bg-white border-gray-300 text-gray-700"
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      className="mr-1"
+                      checked={checked}
+                      onChange={() =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          discountPercent:
+                            Number(prev.discountPercent) === value ? 0 : value,
+                        }))
+                      }
+                    />
+                    -{value}%
+                  </label>
+                );
+              })}
+            </div>
+          </td>
+          <td className="p-3">
             <input
               type="number"
               name="order"
@@ -287,6 +368,11 @@ const PriceServiceItem = ({
           <td className="p-3">{showPriceOrEmpty(service.price)}</td>
           <td className="p-3">{showPriceOrEmpty(service.secondPrice)}</td>
           <td className="p-3">{service.quantity || "—"}</td>
+          <td className="p-3">
+            {Number(service.discountPercent) > 0
+              ? `-${Number(service.discountPercent)}%`
+              : "—"}
+          </td>
           <td className="p-3">{service.order}</td>
           <td>{category ? category.title : "Немає категорії"}</td>
           <td className="p-3 flex gap-2">
@@ -306,7 +392,7 @@ const PriceServiceItem = ({
         </>
       )}
       {error && (
-        <td colSpan="7" className="text-red-500">
+        <td colSpan="8" className="text-red-500">
           {error}
         </td>
       )}
