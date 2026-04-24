@@ -140,7 +140,7 @@ export default function CategorySection({ title, description, items }) {
                   <td className="px-1 sm:px-2 py-3 text-center border-l whitespace-nowrap font-medium">
                     {hasDiscount ? (
                       <div className="flex flex-col items-center leading-tight">
-                        <span className="text-xs line-through text-gray-400">
+                        <span className="text-xs line-through decoration-red-500 text-gray-400">
                           {formatPriceCell(std)}
                         </span>
                         <span>{formatPriceCell(stdDiscount)}</span>
@@ -154,7 +154,7 @@ export default function CategorySection({ title, description, items }) {
                   <td className="px-1 sm:px-2 py-3 text-center border-l whitespace-nowrap font-medium">
                     {hasDiscount ? (
                       <div className="flex flex-col items-center leading-tight">
-                        <span className="text-xs line-through text-gray-400">
+                        <span className="text-xs line-through decoration-red-500 text-gray-400">
                           {formatPriceCell(pr)}
                         </span>
                         <span>{formatPriceCell(prDiscount)}</span>
