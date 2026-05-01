@@ -106,7 +106,7 @@ function Footer() {
                     Пн–Пт: 09:00–20:00
                   </span>
                   <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1">
-                    Сб: 11:00–18:00
+                    Сб: 11:00–20:00
                   </span>
                   <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1">
                     Нд: вихідний
