@@ -14,6 +14,7 @@ import Kal2 from "../../assets/contacts/kal2.webp";
 import Kal3 from "../../assets/contacts/kal3.webp";
 
 import Leo1 from "../../assets/contacts/leo1.png";
+import NovaPoshtaPostomatIcon from "../../assets/icons/novaPoshtaPostomat.png";
 
 const Contacts = ({ backgroundClass }) => {
   const locations = [
@@ -66,6 +67,24 @@ const Contacts = ({ backgroundClass }) => {
   ];
 
   const [selectedLocation, setSelectedLocation] = useState(locations[0]);
+  const [copiedKey, setCopiedKey] = useState("");
+
+  const postomatData = {
+    postomat: "40464",
+    city: "Львів",
+    phone: "0771515111",
+    receiver: "Преміумсервіс «Прано» (Львів)",
+  };
+
+  const copyText = async (text, key) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedKey(key);
+      setTimeout(() => setCopiedKey(""), 1500);
+    } catch (e) {
+      console.error("Copy failed", e);
+    }
+  };
 
   return (
     <div className={`min-h-screen ${backgroundClass} text-white`}>
@@ -149,6 +168,85 @@ const Contacts = ({ backgroundClass }) => {
             transition={{ duration: 0.5 }}
           />
         </AnimatePresence>
+      </div>
+
+      {/* інформація про доставку через поштомат */}
+      <div className="px-3 sm:px-5 pb-4">
+        <div className="max-w-6xl mx-auto rounded-2xl border border-Ngold/40 bg-Ndark/80 shadow-xl p-4 sm:p-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+            <div className="flex items-start sm:items-center gap-3">
+              <img
+                src={NovaPoshtaPostomatIcon}
+                alt="Поштомат Нової пошти"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg object-cover shrink-0 mt-1 sm:mt-0"
+              />
+              <div>
+                <h3 className="text-xl sm:text-3xl font-extrabold text-Ngold leading-tight">
+                  Поштомат Нової пошти
+                </h3>
+                <p className="text-sm sm:text-base text-gray-300 mt-1">
+                  Адреса поштомату, для відправки речей
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() =>
+                copyText(
+                  `Поштомат: ${postomatData.postomat}\nМісто: ${postomatData.city}\nТелефон: ${postomatData.phone}\nОтримувач: ${postomatData.receiver}`,
+                  "all"
+                )
+              }
+              className="w-full sm:w-auto px-4 py-2 rounded-lg bg-Ngold text-Ndark font-semibold hover:opacity-90 transition"
+            >
+              {copiedKey === "all" ? "Скопійовано" : "Скопіювати"}
+            </button>
+          </div>
+          <div className="grid gap-2 text-gray-200 text-sm sm:text-lg">
+            <button
+              type="button"
+              onClick={() => copyText(postomatData.postomat, "postomat")}
+              className="text-left rounded-md px-3 py-2 border border-white/10 hover:bg-white/10 transition"
+            >
+              <span className="text-Ngold font-semibold">Поштомат:</span>{" "}
+              {postomatData.postomat}
+              {copiedKey === "postomat" ? (
+                <span className="ml-2 text-xs text-green-300">Скопійовано</span>
+              ) : null}
+            </button>
+            <button
+              type="button"
+              onClick={() => copyText(postomatData.city, "city")}
+              className="text-left rounded-md px-3 py-2 border border-white/10 hover:bg-white/10 transition"
+            >
+              <span className="text-Ngold font-semibold">Місто:</span> {postomatData.city}
+              {copiedKey === "city" ? (
+                <span className="ml-2 text-xs text-green-300">Скопійовано</span>
+              ) : null}
+            </button>
+            <button
+              type="button"
+              onClick={() => copyText(postomatData.phone, "phone")}
+              className="text-left rounded-md px-3 py-2 border border-white/10 hover:bg-white/10 transition"
+            >
+              <span className="text-Ngold font-semibold">Телефон:</span> {postomatData.phone}
+              {copiedKey === "phone" ? (
+                <span className="ml-2 text-xs text-green-300">Скопійовано</span>
+              ) : null}
+            </button>
+            <button
+              type="button"
+              onClick={() => copyText(postomatData.receiver, "receiver")}
+              className="text-left rounded-md px-3 py-2 border border-white/10 hover:bg-white/10 transition"
+            >
+              <span className="text-Ngold font-semibold">Отримувач:</span>{" "}
+              {postomatData.receiver}
+              {copiedKey === "receiver" ? (
+                <span className="ml-2 text-xs text-green-300">Скопійовано</span>
+              ) : null}
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* фото */}
