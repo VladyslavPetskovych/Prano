@@ -13,7 +13,8 @@ const {
     telegramRouter,
     merchandiseRouter,
     categoryRouter,
-    phoneRouter
+    phoneRouter,
+    priceAdvertRouter
 } = require("./routers");
 const {configs} = require("./configs");
 const {cronRunner} = require("./crons");
@@ -28,6 +29,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use("/advertisementImages", express.static(path.join(__dirname, "../images/advertisementImages")))
 app.use("/postImages", express.static(path.join(__dirname, "../images/postImages")))
+app.use("/priceAdvertImages", express.static(path.join(__dirname, "../images/priceAdvertImages")))
 
 app.use("/advertisement", advertisementRouter)
 app.use("/auth", authRouter)
@@ -36,6 +38,7 @@ app.use("/merchandises", merchandiseRouter)
 app.use("/orders", orderRouter)
 app.use("/phone", phoneRouter)
 app.use("/posts", postRouter)
+app.use("/price-advert", priceAdvertRouter)
 app.use("/products", productRouter)
 app.use("/telegram", telegramRouter)
 app.use("/users", userRouter)

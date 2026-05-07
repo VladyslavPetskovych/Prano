@@ -6,6 +6,7 @@ module.exports = {
     OldPassword: require("./OldPassword.model"),
     Order: require("./Order.model"),
     Post: require("./Post.model"),
+    PriceAdvert: require("./PriceAdvert.model"),
     Product: require("./Product.model"),
     Sms: require("./Sms.model"),
     Token: require("./Token.model"),

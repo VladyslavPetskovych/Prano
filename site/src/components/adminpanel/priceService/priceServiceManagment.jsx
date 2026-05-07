@@ -4,9 +4,9 @@ import CreateService from "./createService";
 import CreatePrice from "./Price/createPrices";
 import ServiceItem from "./ServiceItem";
 import PriceItem from "./Price/priceItem";
-import Pagination from "../pagination";
 import { deleteMerchandise } from "./Price/PriceApi";
 import { apiUrl } from "../../../config/apiOrigin";
+import PriceAdvertManagement from "./priceAdvertManagment";
 
 const PriceServiceManagement = () => {
   const [services, setServices] = useState([]);
@@ -21,6 +21,7 @@ const PriceServiceManagement = () => {
   const fetchData = async (page = 1) => {
     try {
       setLoading(true);
+      setError(null);
 
       if (viewMode === "services") {
         const res = await axios.get(apiUrl("/products"));
@@ -34,7 +35,7 @@ const PriceServiceManagement = () => {
           })
         );
         setTotalPages(1); // без пагінації
-      } else {
+      } else if (viewMode === "prices") {
         const merchRes = await axios.get(apiUrl("/merchandises"));
         const categoryRes = await axios.get(apiUrl("/categories"));
 
@@ -46,6 +47,10 @@ const PriceServiceManagement = () => {
         setTotalPages(
           Math.ceil(merchRes.data.itemsCount / merchRes.data.data.length)
         );
+      } else {
+        setServices([]);
+        setCategories([]);
+        setTotalPages(1);
       }
     } catch (err) {
       setError("Не вдалося отримати дані.");
@@ -110,6 +115,14 @@ const PriceServiceManagement = () => {
         >
           Ціни
         </button>
+        <button
+          className={`px-4 py-2 rounded ${
+            viewMode === "advert" ? "bg-blue-500 text-white" : "bg-gray-200"
+          }`}
+          onClick={() => setViewMode("advert")}
+        >
+          Реклама
+        </button>
       </div>
 
       {viewMode === "services" ? (
@@ -137,7 +150,7 @@ const PriceServiceManagement = () => {
             </table>
           </div>
         </>
-      ) : (
+      ) : viewMode === "prices" ? (
         <>
           <CreatePrice refreshServices={() => fetchData(currentPage)} />
           <div className="md:hidden my-3 space-y-3">
@@ -184,6 +197,8 @@ const PriceServiceManagement = () => {
             </table>
           </div>
         </>
+      ) : (
+        <PriceAdvertManagement />
       )}
     </div>
   );

@@ -6,6 +6,7 @@ module.exports = {
     orderRouter: require("./order.router"),
     phoneRouter: require("./phone.router"),
     postRouter: require("./post.router"),
+    priceAdvertRouter: require("./priceAdvert.router"),
     productRouter: require("./product.router"),
     telegramRouter: require("./telegram.router"),
     userRouter: require("./user.router"),

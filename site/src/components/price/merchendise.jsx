@@ -1,16 +1,19 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import axios from "axios";
 import { useMerchandiseData } from "./useMerchandiseData";
 import { useProducts } from "./useProducts";
 import { buildMatchedDescriptions } from "./descriptionMatcher";
 import { getPriceCategoryPatternIndex } from "./categoryDisplayOrder";
 import PricesHeader from "./PricesHeader";
 import pricePromoImage from "../../assets/price/prom24042026.jpg";
+import { apiUrl, getApiOrigin } from "../../config/apiOrigin";
 
 export default function Merchandise() {
   const { categories, groupedData, loading, error, fetchData } =
     useMerchandiseData();
   const { products, prodLoading, prodError } = useProducts();
   const [searchTerm, setSearchTerm] = useState("");
+  const [promoImage, setPromoImage] = useState(pricePromoImage);
 
   const handleSearch = (term) => {
     setSearchTerm(term);
@@ -51,12 +54,30 @@ export default function Merchandise() {
     });
   }, [groupedData]);
 
+  useEffect(() => {
+    const fetchPromoImage = async () => {
+      try {
+        const response = await axios.get(apiUrl("/price-advert"));
+        const imagePath = response.data?.image;
+        if (imagePath) {
+          setPromoImage(`${getApiOrigin()}/api/priceAdvertImages/${imagePath}`);
+        } else {
+          setPromoImage(pricePromoImage);
+        }
+      } catch (e) {
+        setPromoImage(pricePromoImage);
+      }
+    };
+
+    fetchPromoImage();
+  }, []);
+
   return (
     <div className="py-1 mt-1 space-y-6 font-manrope font-bold max-w-8xl mx-auto">
       <div className="w-full flex justify-center pt-16">
         <div className="w-[60vw] min-w-[300px] max-w-[760px] overflow-hidden rounded-2xl border border-Ngold/30 shadow-md bg-white">
           <img
-            src={pricePromoImage}
+            src={promoImage}
             alt="Промо хімчистки"
             className="w-full h-auto object-contain object-center"
             loading="lazy"
