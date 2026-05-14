@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const sharp = require("sharp");
 
 const { PriceAdvert } = require("../models");
 const { ApiError } = require("../errors");
@@ -38,9 +39,20 @@ class PriceAdvertService {
       );
       fs.mkdirSync(directoryPath, { recursive: true });
 
-      const newFilePath = path.join(directoryPath, file.filename);
-      fs.renameSync(file.path, newFilePath);
-      const imagePath = `${advert._id}/${file.filename}`;
+      const optimizedFileName = `price-advert-${Date.now()}.webp`;
+      const optimizedFilePath = path.join(directoryPath, optimizedFileName);
+
+      await sharp(file.path)
+        .rotate()
+        .resize({ width: 1400, withoutEnlargement: true })
+        .webp({ quality: 78, effort: 4 })
+        .toFile(optimizedFilePath);
+
+      if (fs.existsSync(file.path)) {
+        fs.unlinkSync(file.path);
+      }
+
+      const imagePath = `${advert._id}/${optimizedFileName}`;
 
       return await PriceAdvert.findByIdAndUpdate(
         advert._id,
@@ -48,7 +60,7 @@ class PriceAdvertService {
         { new: true }
       );
     } catch (e) {
-      throw new ApiError(e.message, e.status);
+      throw new ApiError(e.message, e.status || 500);
     }
   }
 
@@ -59,11 +71,23 @@ class PriceAdvertService {
         return { image: null };
       }
 
+      if (advert.image) {
+        const imageFilePath = path.join(
+          __dirname,
+          `../../images/priceAdvertImages/${advert.image}`
+        );
+        if (fs.existsSync(imageFilePath)) {
+          fs.unlinkSync(imageFilePath);
+        }
+      }
+
       const directoryPath = path.join(
         __dirname,
         `../../images/priceAdvertImages/${advert._id}`
       );
-      fs.rmSync(directoryPath, { recursive: true, force: true });
+      if (fs.existsSync(directoryPath)) {
+        fs.rmSync(directoryPath, { recursive: true, force: true });
+      }
 
       return await PriceAdvert.findByIdAndUpdate(
         advert._id,
@@ -71,7 +95,7 @@ class PriceAdvertService {
         { new: true }
       );
     } catch (e) {
-      throw new ApiError(e.message, e.status);
+      throw new ApiError(e.message, e.status || 500);
     }
   }
 }

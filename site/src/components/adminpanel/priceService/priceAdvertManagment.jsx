@@ -67,6 +67,14 @@ const PriceAdvertManagement = () => {
       return;
     }
 
+    if (
+      !window.confirm(
+        "Ви впевнені, що хочете видалити рекламне зображення зі сторінки цін?"
+      )
+    ) {
+      return;
+    }
+
     setLoading(true);
     setMessage("");
 
@@ -81,7 +89,8 @@ const PriceAdvertManagement = () => {
       setSelectedFile(null);
       setMessage("Зображення видалено.");
     } catch (error) {
-      setMessage("Не вдалося видалити зображення.");
+      const serverMessage = error.response?.data?.message;
+      setMessage(serverMessage || "Не вдалося видалити зображення.");
     } finally {
       setLoading(false);
     }
@@ -89,7 +98,14 @@ const PriceAdvertManagement = () => {
 
   return (
     <div className="bg-slate-200 min-h-[30vh] p-4 rounded">
-      <h3 className="text-xl font-semibold mb-4">Реклама для сторінки цін</h3>
+      <h3 className="text-xl font-semibold mb-2">Реклама для сторінки цін</h3>
+      <p className="text-sm text-gray-700 mb-4">
+        Це зображення показується зверху на сторінці{" "}
+        <a href="/price" className="text-blue-600 underline" target="_blank" rel="noreferrer">
+          /price
+        </a>
+        . Якщо зображення видалено, банер на сайті не відображається.
+      </p>
 
       <div className="flex flex-col md:flex-row gap-3 items-start md:items-center">
         <input

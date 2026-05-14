@@ -4,7 +4,10 @@ import CreateService from "./createService";
 import CreatePrice from "./Price/createPrices";
 import ServiceItem from "./ServiceItem";
 import PriceItem from "./Price/priceItem";
-import { deleteMerchandise } from "./Price/PriceApi";
+import {
+  clearAllMerchandiseDiscounts,
+  deleteMerchandise,
+} from "./Price/PriceApi";
 import { apiUrl } from "../../../config/apiOrigin";
 import PriceAdvertManagement from "./priceAdvertManagment";
 
@@ -17,6 +20,8 @@ const PriceServiceManagement = () => {
   const [viewMode, setViewMode] = useState("services");
 
   const [categories, setCategories] = useState([]);
+  const [showClearDiscountsModal, setShowClearDiscountsModal] = useState(false);
+  const [clearingDiscounts, setClearingDiscounts] = useState(false);
 
   const fetchData = async (page = 1) => {
     try {
@@ -89,6 +94,22 @@ const PriceServiceManagement = () => {
     }
   };
 
+  const handleClearAllDiscounts = async () => {
+    setClearingDiscounts(true);
+    try {
+      await clearAllMerchandiseDiscounts(services);
+      setServices((prev) =>
+        prev.map((item) => ({ ...item, discountPercent: 0 }))
+      );
+      setShowClearDiscountsModal(false);
+    } catch (err) {
+      console.error("Error clearing discounts:", err);
+      alert("Не вдалося очистити знижки.");
+    } finally {
+      setClearingDiscounts(false);
+    }
+  };
+
   if (loading) return <p>Завантаження...</p>;
   if (error) return <p>{error}</p>;
 
@@ -153,6 +174,56 @@ const PriceServiceManagement = () => {
       ) : viewMode === "prices" ? (
         <>
           <CreatePrice refreshServices={() => fetchData(currentPage)} />
+
+          <div className="my-3 flex justify-end">
+            <button
+              type="button"
+              className="rounded bg-red-500 px-4 py-2 text-white transition hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-60"
+              onClick={() => setShowClearDiscountsModal(true)}
+              disabled={clearingDiscounts}
+            >
+              Очистити всі знижки
+            </button>
+          </div>
+
+          {showClearDiscountsModal && (
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+              onClick={() =>
+                !clearingDiscounts && setShowClearDiscountsModal(false)
+              }
+            >
+              <div
+                className="mx-4 w-full max-w-md rounded-lg bg-white p-6 shadow-xl"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h3 className="mb-3 text-lg font-bold">Підтвердження</h3>
+                <p className="mb-6 text-gray-700">
+                  Ви впевнені, що хочете очистити всі знижки для всіх товарів?
+                  Цю дію не можна скасувати.
+                </p>
+                <div className="flex justify-end gap-3">
+                  <button
+                    type="button"
+                    className="rounded bg-gray-200 px-4 py-2 transition hover:bg-gray-300 disabled:opacity-60"
+                    onClick={() => setShowClearDiscountsModal(false)}
+                    disabled={clearingDiscounts}
+                  >
+                    Скасувати
+                  </button>
+                  <button
+                    type="button"
+                    className="rounded bg-red-500 px-4 py-2 text-white transition hover:bg-red-600 disabled:opacity-60"
+                    onClick={handleClearAllDiscounts}
+                    disabled={clearingDiscounts}
+                  >
+                    {clearingDiscounts ? "Очищення..." : "Так, очистити"}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="md:hidden my-3 space-y-3">
             {services.map((item) => (
               <PriceItem

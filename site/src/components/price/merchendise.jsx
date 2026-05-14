@@ -5,7 +5,6 @@ import { useProducts } from "./useProducts";
 import { buildMatchedDescriptions } from "./descriptionMatcher";
 import { getPriceCategoryPatternIndex } from "./categoryDisplayOrder";
 import PricesHeader from "./PricesHeader";
-import pricePromoImage from "../../assets/price/prom24042026.jpg";
 import { apiUrl, getApiOrigin } from "../../config/apiOrigin";
 
 export default function Merchandise() {
@@ -13,7 +12,7 @@ export default function Merchandise() {
     useMerchandiseData();
   const { products, prodLoading, prodError } = useProducts();
   const [searchTerm, setSearchTerm] = useState("");
-  const [promoImage, setPromoImage] = useState(pricePromoImage);
+  const [promoImage, setPromoImage] = useState(null);
 
   const handleSearch = (term) => {
     setSearchTerm(term);
@@ -62,10 +61,10 @@ export default function Merchandise() {
         if (imagePath) {
           setPromoImage(`${getApiOrigin()}/api/priceAdvertImages/${imagePath}`);
         } else {
-          setPromoImage(pricePromoImage);
+          setPromoImage(null);
         }
       } catch (e) {
-        setPromoImage(pricePromoImage);
+        setPromoImage(null);
       }
     };
 
@@ -74,16 +73,18 @@ export default function Merchandise() {
 
   return (
     <div className="py-1 mt-1 space-y-6 font-manrope font-bold max-w-8xl mx-auto">
-      <div className="w-full flex justify-center pt-16">
-        <div className="w-[60vw] min-w-[300px] max-w-[760px] overflow-hidden rounded-2xl border border-Ngold/30 shadow-md bg-white">
-          <img
-            src={promoImage}
-            alt="Промо хімчистки"
-            className="w-full h-auto object-contain object-center"
-            loading="lazy"
-          />
+      {promoImage && (
+        <div className="w-full flex justify-center pt-16">
+          <div className="w-[50vw] min-w-[260px] max-w-[620px] overflow-hidden rounded-2xl border border-Ngold/30 shadow-md bg-white">
+            <img
+              src={promoImage}
+              alt="Промо хімчистки"
+              className="w-full h-auto object-contain object-center"
+              loading="lazy"
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Хедер «Ціни» + логотип + пошук */}
       <PricesHeader onSearch={handleSearch} />

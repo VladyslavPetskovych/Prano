@@ -55,6 +55,21 @@ export const deleteMerchandise = async (id, token) => {
   });
 };
 
+export const clearAllMerchandiseDiscounts = async (merchandises, token) => {
+  const authToken = token || getToken();
+  const withDiscount = merchandises.filter(
+    (item) => Number(item.discountPercent) > 0
+  );
+
+  await Promise.all(
+    withDiscount.map((item) =>
+      updateMerchandise(item._id, { discountPercent: 0 }, authToken)
+    )
+  );
+
+  return withDiscount.length;
+};
+
 export const getCategories = async (token) => {
   return axios.get(CATEGORY_URL, {
     headers: {
