@@ -4,7 +4,8 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon ./src/app.js --watch ./src",
-    "start": "node ./src/app.js"
+    "start": "node ./src/app.js",
+    "seed:addresses": "node ./scripts/seed-addresses.js"
   },
   "keywords": [],
   "author": "",

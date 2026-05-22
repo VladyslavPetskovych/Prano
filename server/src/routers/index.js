@@ -1,4 +1,5 @@
 module.exports = {
+    addressRouter: require("./address.router"),
     advertisementRouter: require("./advertisement.router"),
     authRouter: require("./auth.router"),
     categoryRouter: require("./category.router"),

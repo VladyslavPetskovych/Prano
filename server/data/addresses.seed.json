@@ -1,0 +1,52 @@
+{
+  "pickup_addresses": [
+    {
+      "name": "Липинського, 54",
+      "phone": "+380771515111",
+      "googleMapsUrl": "https://share.google/jOYnBbJyAEzEZpRrb",
+      "schedule": {
+        "Пн-Пт": "09:00-20:00",
+        "Сб": "11:00-20:00",
+        "Нд": "вихідний"
+      },
+      "images": ["lyp1.webp", "lyp2.webp", "lyp3.webp"]
+    },
+    {
+      "name": "Під Дубом, 26а",
+      "phone": "+380969386418",
+      "googleMapsUrl": "https://share.google/4mPF1aXWlHxd3DMv",
+      "schedule": {
+        "Пн-Пт": "09:00-20:00",
+        "Сб-Нд": "11:00-20:00"
+      },
+      "images": ["dub1.webp", "dub2.webp", "dub3.webp"]
+    },
+    {
+      "name": "Червоної Калини, 60",
+      "phone": "+380688074310",
+      "googleMapsUrl": "https://share.google/YQEd4nvvd4QF407ok",
+      "schedule": {
+        "Пн-Пт": "09:00-20:00",
+        "Сб-Нд": "11:00-20:00"
+      },
+      "images": ["kal1.webp", "kal2.webp", "kal3.webp"]
+    },
+    {
+      "name": "Мельника, 18",
+      "phone": "+380687430691",
+      "googleMapsUrl": "https://www.google.com/maps/place/Prano/@49.8300069,24.003696,17z",
+      "schedule": {
+        "Пн-Пт": "09:00-20:00",
+        "Сб-Нд": "11:00-20:00"
+      },
+      "showNewBadge": true,
+      "images": ["leo1.png"]
+    }
+  ],
+  "postomat": {
+    "postomat": "40464",
+    "city": "Львів",
+    "phone": "0771515111",
+    "receiver": "Преміумсервіс «Прано» (Львів)"
+  }
+}

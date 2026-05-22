@@ -1,4 +1,5 @@
 module.exports = {
+    AddressValidator: require("./address.validator"),
     AdvertisementValidator: require("./advertisement.validator"),
     CategoryValidator: require("./category.validator"),
     MerchandiseValidator: require("./merchandise.validator"),

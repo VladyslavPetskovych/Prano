@@ -1,4 +1,5 @@
 module.exports = {
+    addressController: require("./address.controller"),
     advertisementController: require("./advertisement.controller"),
     authController: require("./auth.controller"),
     categoryController: require("./category.controller"),

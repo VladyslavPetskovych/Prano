@@ -4,6 +4,7 @@ const cors = require("cors");
 const path = require("path");
 
 const {
+    addressRouter,
     authRouter,
     userRouter,
     postRouter,
@@ -18,6 +19,7 @@ const {
 } = require("./routers");
 const {configs} = require("./configs");
 const {cronRunner} = require("./crons");
+const {seedAddresses} = require("./utils/addressSeed.util");
 
 const app = express();
 
@@ -30,7 +32,9 @@ app.use(express.urlencoded({extended: true}));
 app.use("/advertisementImages", express.static(path.join(__dirname, "../images/advertisementImages")))
 app.use("/postImages", express.static(path.join(__dirname, "../images/postImages")))
 app.use("/priceAdvertImages", express.static(path.join(__dirname, "../images/priceAdvertImages")))
+app.use("/addressImages", express.static(path.join(__dirname, "../images/addressImages")))
 
+app.use("/addresses", addressRouter)
 app.use("/advertisement", advertisementRouter)
 app.use("/auth", authRouter)
 app.use("/categories", categoryRouter)
@@ -73,6 +77,16 @@ const PORT = 3000;
 
 app.listen(PORT, async () => {
     await dbConnect()
+    try {
+        const seedResult = await seedAddresses({ attachImages: true })
+        if (seedResult.created > 0 || seedResult.postomatCreated) {
+            console.log(
+                `Addresses seeded: ${seedResult.created} locations, postomat: ${seedResult.postomatCreated}`
+            )
+        }
+    } catch (err) {
+        console.error("Address seed failed:", err.message)
+    }
     cronRunner()
     console.log(`Server has started on PORT ${PORT}`)
 })

@@ -1,32 +1,58 @@
+const axios = require("axios");
 const bot = require("../bot");
+
+const API_URL = "https://prano.group/api/addresses";
+
+const formatSchedule = (schedule = {}) =>
+  Object.entries(schedule)
+    .map(([day, hours]) => `${day}: ${hours}`)
+    .join("\n");
+
+const buildLocationBlock = (address) => {
+  const mapLink = address.googleMapsUrl || address.mapUrl;
+  const title = address.name;
+
+  let block = "";
+  if (mapLink) {
+    block += `🏢 <a href="${mapLink}">${title}</a>\n`;
+  } else {
+    block += `🏢 ${title}\n`;
+  }
+
+  if (address.phone) {
+    const tel = address.phone.replace(/\s/g, "");
+    block += `📞 <a href="tel:${tel}">${address.phone}</a>\n`;
+  }
+
+  const scheduleText = formatSchedule(address.schedule);
+  if (scheduleText) {
+    block += `${scheduleText}\n`;
+  }
+
+  return block;
+};
 
 module.exports = async (msg) => {
   const chatId = msg.chat.id;
 
-  const info = `
-<b>Пункти прийому:</b>
+  try {
+    const response = await axios.get(API_URL);
+    const addresses = response.data?.data || [];
 
-🏢 <a href="https://share.google/jOYnBbJyAEzEZpRrb">Вулиця Липинського, 54, Львів</a>
-📞 <a href="tel:+380771515111">+380771515111</a>
-Пн–Пт: 09:00–20:00
-Сб: 11:00–20:00
-Нд: вихідний
+    if (!addresses.length) {
+      await bot.sendMessage(chatId, "Адреси тимчасово недоступні.");
+      return;
+    }
 
-🏢 <a href="https://share.google/4mPF1aXWlHxd3DMv">Вулиця Під Дубом, 26а, Львів</a>
-📞 <a href="tel:+380969386418">+380969386418</a>
-Пн–Пт: 09:00–20:00
-Сб–Нд: 11:00–20:00
+    const blocks = addresses.map(buildLocationBlock).join("\n");
+    const info = `<b>Пункти прийому:</b>\n\n${blocks.trim()}`;
 
-🏢 <a href="https://share.google/YQEd4nvvd4QF407ok">Проспект Червоної Калини, 60, Львів</a>
-📞 <a href="tel:+380688074310">+380688074310</a>
-Пн–Пт: 09:00–20:00
-Сб–Нд: 11:00–20:00
-
-🏢 <a href="https://www.google.com/maps/place/Prano/@49.8300069,24.003696,17z">ТРЦ Leoland, вул. Мельника, 18, Львів</a>
-📞 <a href="tel:+380687430691">+380687430691</a>
-Пн–Пт: 09:00–20:00
-Сб–Нд: 11:00–20:00
-  `;
-
-  await bot.sendMessage(chatId, info, { parse_mode: "HTML" });
+    await bot.sendMessage(chatId, info, { parse_mode: "HTML" });
+  } catch (err) {
+    console.error("Failed to fetch addresses:", err.message);
+    await bot.sendMessage(
+      chatId,
+      "Не вдалося завантажити адреси. Спробуйте пізніше."
+    );
+  }
 };

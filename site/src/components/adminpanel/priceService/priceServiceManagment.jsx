@@ -10,6 +10,7 @@ import {
 } from "./Price/PriceApi";
 import { apiUrl } from "../../../config/apiOrigin";
 import PriceAdvertManagement from "./priceAdvertManagment";
+import AddressManagement from "./Address/addressManagement";
 
 const PriceServiceManagement = () => {
   const [services, setServices] = useState([]);
@@ -144,6 +145,14 @@ const PriceServiceManagement = () => {
         >
           Реклама
         </button>
+        <button
+          className={`px-4 py-2 rounded ${
+            viewMode === "addresses" ? "bg-blue-500 text-white" : "bg-gray-200"
+          }`}
+          onClick={() => setViewMode("addresses")}
+        >
+          Адреси
+        </button>
       </div>
 
       {viewMode === "services" ? (
@@ -268,8 +277,10 @@ const PriceServiceManagement = () => {
             </table>
           </div>
         </>
-      ) : (
+      ) : viewMode === "advert" ? (
         <PriceAdvertManagement />
+      ) : (
+        <AddressManagement />
       )}
     </div>
   );

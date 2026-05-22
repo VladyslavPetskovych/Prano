@@ -1,11 +1,13 @@
 module.exports = {
     Action: require("./Action.model"),
+    Address: require("./Address.model"),
     Advertisement: require("./Advertisement.model"),
     Category: require("./Category.model"),
     Merchandise: require("./Merchandise.model"),
     OldPassword: require("./OldPassword.model"),
     Order: require("./Order.model"),
     Post: require("./Post.model"),
+    Postomat: require("./Postomat.model"),
     PriceAdvert: require("./PriceAdvert.model"),
     Product: require("./Product.model"),
     Sms: require("./Sms.model"),

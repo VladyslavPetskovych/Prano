@@ -1,4 +1,5 @@
 module.exports = {
+    addressMiddleware: require("./address.middleware"),
     advertisementMiddleware: require("./advertisement.middleware"),
     authMiddleware: require("./auth.middleware"),
     categoryMiddleware: require("./category.middleware"),
