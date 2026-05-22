@@ -77,6 +77,8 @@ const AddressManagement = () => {
     <div>
       <p className="text-sm text-gray-700 mb-4">
         Ці адреси відображаються на сторінці контактів і в Telegram-боті.
+        Фото завантажуються окремо для кожного пункту — після збереження вони
+        одразу зʼявляються на сайті.
       </p>
 
       <CreateAddress
@@ -93,6 +95,7 @@ const AddressManagement = () => {
         <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-md">
           <thead>
             <tr className="bg-gray-100 border-b">
+              <th className="p-3 text-left">Фото</th>
               <th className="p-3 text-left">Назва</th>
               <th className="p-3 text-left">Телефон</th>
               <th className="p-3 text-left">Графік</th>

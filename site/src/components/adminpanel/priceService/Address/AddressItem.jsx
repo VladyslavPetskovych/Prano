@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import {
-  deleteAddress,
-  deleteAddressImage,
-  getAddressImageUrl,
-  updateAddress,
-  uploadAddressImages,
-} from "./AddressApi";
+import { deleteAddress, getAddressImageUrl, updateAddress } from "./AddressApi";
 import { rowsToSchedule, scheduleToRows } from "./scheduleUtils";
+import AddressPhotos from "./AddressPhotos";
 
 const AddressItem = ({ address, onUpdate, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -24,7 +19,8 @@ const AddressItem = ({ address, onUpdate, onDelete }) => {
   const [scheduleRows, setScheduleRows] = useState(
     scheduleToRows(address.schedule)
   );
-  const [images, setImages] = useState(address.images || []);
+
+  const firstImage = address.images?.[0];
 
   const beginEdit = () => {
     setForm({
@@ -37,7 +33,6 @@ const AddressItem = ({ address, onUpdate, onDelete }) => {
       isActive: address.isActive !== false,
     });
     setScheduleRows(scheduleToRows(address.schedule));
-    setImages(address.images || []);
     setIsEditing(true);
     setError(null);
   };
@@ -73,88 +68,82 @@ const AddressItem = ({ address, onUpdate, onDelete }) => {
     }
   };
 
-  const handleImageUpload = async (e) => {
-    const files = Array.from(e.target.files || []);
-    if (!files.length) return;
-
-    setLoading(true);
-    setError(null);
-    try {
-      const updated = await uploadAddressImages(address._id, files);
-      setImages(updated.images || []);
-      onUpdate(updated);
-      e.target.value = "";
-    } catch (err) {
-      setError(err.response?.data?.message || "Не вдалося завантажити фото.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleImageDelete = async (imagePath) => {
-    if (!window.confirm("Видалити це фото?")) return;
-    setLoading(true);
-    try {
-      const updated = await deleteAddressImage(address._id, imagePath);
-      setImages(updated.images || []);
-      onUpdate(updated);
-    } catch (err) {
-      setError(err.response?.data?.message || "Не вдалося видалити фото.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   if (!isEditing) {
     return (
-      <tr className="border-b">
-        <td className="p-3 align-top">
-          <div className="font-medium">{address.name}</div>
-          {!address.isActive && (
-            <span className="text-xs text-red-600">Неактивна</span>
-          )}
-          {address.showNewBadge && (
-            <span className="text-xs text-amber-600 ml-1">NEW</span>
-          )}
-        </td>
-        <td className="p-3 align-top">{address.phone}</td>
-        <td className="p-3 align-top text-sm">
-          {Object.entries(address.schedule || {}).map(([day, hours]) => (
-            <div key={day}>
-              {day}: {hours}
+      <>
+        <tr className="border-b">
+          <td className="p-3 align-top w-28">
+            {firstImage ? (
+              <img
+                src={getAddressImageUrl(firstImage)}
+                alt=""
+                className="w-20 h-20 object-cover rounded border"
+              />
+            ) : (
+              <span className="text-xs text-gray-400">Без фото</span>
+            )}
+            {address.images?.length > 1 && (
+              <span className="text-xs text-gray-500 block mt-1">
+                +{address.images.length - 1} фото
+              </span>
+            )}
+          </td>
+          <td className="p-3 align-top">
+            <div className="font-medium">{address.name}</div>
+            {!address.isActive && (
+              <span className="text-xs text-red-600">Неактивна</span>
+            )}
+            {address.showNewBadge && (
+              <span className="text-xs text-amber-600 ml-1">NEW</span>
+            )}
+          </td>
+          <td className="p-3 align-top">{address.phone}</td>
+          <td className="p-3 align-top text-sm">
+            {Object.entries(address.schedule || {}).map(([day, hours]) => (
+              <div key={day}>
+                {day}: {hours}
+              </div>
+            ))}
+          </td>
+          <td className="p-3 align-top">{address.sortOrder ?? 0}</td>
+          <td className="p-3 align-top">
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={beginEdit}
+                className="px-3 py-1 bg-yellow-500 text-white rounded"
+              >
+                ✍️
+              </button>
+              <button
+                type="button"
+                onClick={handleDelete}
+                disabled={loading}
+                className="px-3 py-1 bg-red-500 text-white rounded"
+              >
+                🗑️
+              </button>
             </div>
-          ))}
-        </td>
-        <td className="p-3 align-top">{address.sortOrder ?? 0}</td>
-        <td className="p-3 align-top">
-          <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={beginEdit}
-              className="px-3 py-1 bg-yellow-500 text-white rounded"
-            >
-              ✍️
-            </button>
-            <button
-              type="button"
-              onClick={handleDelete}
-              disabled={loading}
-              className="px-3 py-1 bg-red-500 text-white rounded"
-            >
-              🗑️
-            </button>
-          </div>
-          {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
-        </td>
-      </tr>
+            {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+          </td>
+        </tr>
+        <tr className="border-b bg-gray-50">
+          <td colSpan={6} className="px-3 pb-3">
+            <AddressPhotos address={address} onUpdate={onUpdate} />
+          </td>
+        </tr>
+      </>
     );
   }
 
   return (
     <tr className="border-b bg-slate-50">
-      <td colSpan={5} className="p-4">
+      <td colSpan={6} className="p-4">
         {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-        <div className="grid md:grid-cols-2 gap-2">
+
+        <AddressPhotos address={address} onUpdate={onUpdate} />
+
+        <div className="grid md:grid-cols-2 gap-2 mt-4">
           <input
             className="border p-2 rounded"
             value={form.name}
@@ -251,35 +240,6 @@ const AddressItem = ({ address, onUpdate, onDelete }) => {
           >
             + Рядок графіку
           </button>
-        </div>
-
-        <div className="mt-3">
-          <p className="text-sm font-medium mb-1">Фото</p>
-          <div className="flex flex-wrap gap-2 mb-2">
-            {images.map((img) => (
-              <div key={img} className="relative">
-                <img
-                  src={getAddressImageUrl(img)}
-                  alt=""
-                  className="w-24 h-24 object-cover rounded border"
-                />
-                <button
-                  type="button"
-                  onClick={() => handleImageDelete(img)}
-                  className="absolute top-0 right-0 bg-red-500 text-white text-xs px-1 rounded"
-                >
-                  ×
-                </button>
-              </div>
-            ))}
-          </div>
-          <input
-            type="file"
-            accept="image/png,image/jpeg,image/webp"
-            multiple
-            onChange={handleImageUpload}
-            disabled={loading}
-          />
         </div>
 
         <div className="flex gap-2 mt-4">

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createAddress } from "./AddressApi";
+import { createAddress, uploadAddressImages } from "./AddressApi";
 import { rowsToSchedule } from "./scheduleUtils";
 
 const emptyRow = () => ({ day: "", hours: "" });
@@ -18,8 +18,17 @@ const CreateAddress = ({ onCreated }) => {
     { day: "Пн-Пт", hours: "09:00-20:00" },
     emptyRow(),
   ]);
+  const [photoFiles, setPhotoFiles] = useState([]);
+  const [photoPreview, setPhotoPreview] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const handlePhotosChange = (e) => {
+    const files = Array.from(e.target.files || []);
+    setPhotoFiles(files);
+    photoPreview.forEach((url) => URL.revokeObjectURL(url));
+    setPhotoPreview(files.map((file) => URL.createObjectURL(file)));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,11 +36,16 @@ const CreateAddress = ({ onCreated }) => {
     setError(null);
 
     try {
-      const created = await createAddress({
+      let created = await createAddress({
         ...form,
         sortOrder: Number(form.sortOrder) || 0,
         schedule: rowsToSchedule(scheduleRows),
       });
+
+      if (photoFiles.length) {
+        created = await uploadAddressImages(created._id, photoFiles);
+      }
+
       onCreated(created);
       setForm({
         name: "",
@@ -46,6 +60,9 @@ const CreateAddress = ({ onCreated }) => {
         { day: "Пн-Пт", hours: "09:00-20:00" },
         emptyRow(),
       ]);
+      setPhotoFiles([]);
+      photoPreview.forEach((url) => URL.revokeObjectURL(url));
+      setPhotoPreview([]);
     } catch (err) {
       setError(
         err.response?.data?.message || "Не вдалося створити адресу."
@@ -151,6 +168,32 @@ const CreateAddress = ({ onCreated }) => {
           >
             + Додати рядок графіку
           </button>
+        </div>
+
+        <div className="mt-3 p-3 bg-slate-50 rounded border">
+          <p className="text-sm font-medium mb-2">Фото пункту</p>
+          <input
+            type="file"
+            accept="image/png,image/jpeg,image/webp"
+            multiple
+            onChange={handlePhotosChange}
+            className="block w-full text-sm"
+          />
+          {photoPreview.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-2">
+              {photoPreview.map((src, i) => (
+                <img
+                  key={src}
+                  src={src}
+                  alt={`Превʼю ${i + 1}`}
+                  className="w-20 h-20 object-cover rounded border"
+                />
+              ))}
+            </div>
+          )}
+          <p className="text-xs text-gray-500 mt-1">
+            Можна обрати кілька файлів — вони збережуться разом з адресою.
+          </p>
         </div>
 
         <button
