@@ -2,8 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaTiktok, FaInstagram, FaTelegram } from "react-icons/fa";
 import { FiMapPin, FiClock, FiPhone, FiMail } from "react-icons/fi";
+import { useAddresses } from "../../hooks/useAddresses";
 
 function Footer() {
+  const { locations } = useAddresses();
+
   return (
     <footer className="bg-black text-white py-4">
       <div className="container mx-auto px-4">
@@ -60,95 +63,30 @@ function Footer() {
           <div>
             <h3 className="font-bold text-lg">Пункти прийому</h3>
             <ul className="mt-4 text-sm space-y-5">
-              {/* Липинського */}
-              {/* Леоленд — новий пункт */}
-              <li>
-                <div className="flex items-start gap-2">
-                  <FiMapPin className="text-Ngold mt-0.5 shrink-0" />
-                  <p className="font-medium flex items-center gap-2">
-                    ТРЦ Leoland, Мельника, 18
-                    {/* <span
-                      className="
-          text-[10px] 
-          px-2 py-1 
-          rounded-md 
-          font-bold 
-          bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500
-          text-black 
-          shadow-[0_0_8px_rgba(255,215,0,0.7)]
-          animate-[pulse_1.8s_ease-in-out_infinite]
-          border border-yellow-200
-        "
-                    >
-                      NEW
-                    </span> */}
-                  </p>
-                </div>
+              {locations.map((location) => (
+                <li key={location._id}>
+                  <div className="flex items-start gap-2">
+                    <FiMapPin className="text-Ngold mt-0.5 shrink-0" />
+                    <p className="font-medium flex items-center gap-2">
+                      {location.name}
+                    </p>
+                  </div>
 
-                <div className="mt-2 flex items-center gap-2 ml-6 text-xs text-gray-300">
-                  <FiClock className="text-Ngold shrink-0" />
-                  <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1">
-                    Пн–Пт: 09:00–20:00
-                  </span>
-                  <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1">
-                    Сб–Нд: 11:00–20:00
-                  </span>
-                </div>
-              </li>
-              <li>
-                <div className="flex items-start gap-2">
-                  <FiMapPin className="text-Ngold mt-0.5 shrink-0" />
-                  <p className="font-medium">Вулиця Липинського, 54, Львів</p>
-                </div>
-                <div className="mt-2 flex items-center gap-2 ml-6 text-xs text-gray-300">
-                  <FiClock className="text-Ngold shrink-0" />
-                  <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1">
-                    Пн–Пт: 09:00–20:00
-                  </span>
-                  <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1">
-                    Сб: 11:00–20:00
-                  </span>
-                  <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1">
-                    Нд: вихідний
-                  </span>
-                </div>
-              </li>
-
-              {/* Під Дубом */}
-              <li>
-                <div className="flex items-start gap-2">
-                  <FiMapPin className="text-Ngold mt-0.5 shrink-0" />
-                  <p className="font-medium">Вулиця Під Дубом, 26а, Львів</p>
-                </div>
-                <div className="mt-2 flex items-center gap-2 ml-6 text-xs text-gray-300">
-                  <FiClock className="text-Ngold shrink-0" />
-                  <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1">
-                    Пн–Пт: 09:00–20:00
-                  </span>
-                  <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1">
-                    Сб–Нд: 11:00–20:00
-                  </span>
-                </div>
-              </li>
-
-              {/* Сихів */}
-              <li>
-                <div className="flex items-start gap-2">
-                  <FiMapPin className="text-Ngold mt-0.5 shrink-0" />
-                  <p className="font-medium">
-                    Проспект Червоної Калини, 60, Львів
-                  </p>
-                </div>
-                <div className="mt-2 flex items-center gap-2 ml-6 text-xs text-gray-300">
-                  <FiClock className="text-Ngold shrink-0" />
-                  <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1">
-                    Пн–Пт: 09:00–20:00
-                  </span>
-                  <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1">
-                    Сб–Нд: 11:00–20:00
-                  </span>
-                </div>
-              </li>
+                  <div className="mt-2 flex flex-wrap items-center gap-2 ml-6 text-xs text-gray-300">
+                    <FiClock className="text-Ngold shrink-0" />
+                    {Object.entries(location.schedule || {}).map(
+                      ([day, hours], i) => (
+                        <span
+                          key={i}
+                          className="inline-flex items-center rounded-full bg-white/10 px-3 py-1"
+                        >
+                          {day}: {hours}
+                        </span>
+                      )
+                    )}
+                  </div>
+                </li>
+              ))}
             </ul>
           </div>
 
