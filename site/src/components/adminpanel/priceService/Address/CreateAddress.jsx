@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { createAddress, uploadAddressImages } from "./AddressApi";
 import { rowsToSchedule } from "./scheduleUtils";
+import { levelToPx } from "./fontSizeUtils";
 
 const emptyRow = () => ({ day: "", hours: "" });
 
 const CreateAddress = ({ onCreated }) => {
   const [form, setForm] = useState({
     name: "",
+    nameFontLevel: 3,
     phone: "",
     mapUrl: "",
     googleMapsUrl: "",
@@ -36,9 +38,11 @@ const CreateAddress = ({ onCreated }) => {
     setError(null);
 
     try {
+      const { nameFontLevel, ...rest } = form;
       let created = await createAddress({
-        ...form,
+        ...rest,
         sortOrder: Number(form.sortOrder) || 0,
+        nameFontSize: levelToPx(nameFontLevel),
         schedule: rowsToSchedule(scheduleRows),
       });
 
@@ -113,6 +117,26 @@ const CreateAddress = ({ onCreated }) => {
             value={form.sortOrder}
             onChange={(e) => setForm({ ...form, sortOrder: e.target.value })}
           />
+          <div className="flex flex-col gap-1 text-sm">
+            <span className="whitespace-nowrap">
+              Розмір назви: {form.nameFontLevel} / 5
+            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs">A</span>
+              <input
+                type="range"
+                min={1}
+                max={5}
+                step={1}
+                className="w-full accent-blue-500"
+                value={form.nameFontLevel}
+                onChange={(e) =>
+                  setForm({ ...form, nameFontLevel: Number(e.target.value) })
+                }
+              />
+              <span className="text-lg">A</span>
+            </div>
+          </div>
           <label className="flex items-center gap-2 text-sm">
             <input
               type="checkbox"

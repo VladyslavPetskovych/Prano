@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { deleteAddress, getAddressImageUrl, updateAddress } from "./AddressApi";
 import { rowsToSchedule, scheduleToRows } from "./scheduleUtils";
+import { levelToPx, pxToLevel } from "./fontSizeUtils";
 import AddressPhotos from "./AddressPhotos";
 
 const AddressItem = ({ address, onUpdate, onDelete }) => {
@@ -9,6 +10,7 @@ const AddressItem = ({ address, onUpdate, onDelete }) => {
   const [error, setError] = useState(null);
   const [form, setForm] = useState({
     name: address.name,
+    nameFontLevel: pxToLevel(address.nameFontSize),
     phone: address.phone,
     mapUrl: address.mapUrl || "",
     googleMapsUrl: address.googleMapsUrl || "",
@@ -41,9 +43,11 @@ const AddressItem = ({ address, onUpdate, onDelete }) => {
     setLoading(true);
     setError(null);
     try {
+      const { nameFontLevel, ...rest } = form;
       const updated = await updateAddress(address._id, {
-        ...form,
+        ...rest,
         sortOrder: Number(form.sortOrder) || 0,
+        nameFontSize: levelToPx(nameFontLevel),
         schedule: rowsToSchedule(scheduleRows),
       });
       onUpdate(updated);
@@ -174,6 +178,26 @@ const AddressItem = ({ address, onUpdate, onDelete }) => {
             value={form.sortOrder}
             onChange={(e) => setForm({ ...form, sortOrder: e.target.value })}
           />
+          <div className="flex flex-col gap-1 text-sm">
+            <span className="whitespace-nowrap">
+              Розмір назви: {form.nameFontLevel} / 5
+            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs">A</span>
+              <input
+                type="range"
+                min={1}
+                max={5}
+                step={1}
+                className="w-full accent-blue-500"
+                value={form.nameFontLevel}
+                onChange={(e) =>
+                  setForm({ ...form, nameFontLevel: Number(e.target.value) })
+                }
+              />
+              <span className="text-lg">A</span>
+            </div>
+          </div>
           <div className="flex gap-4 text-sm">
             <label className="flex items-center gap-1">
               <input

@@ -7,6 +7,10 @@ const addressSchema = new Schema(
       required: true,
       trim: true,
     },
+    nameFontSize: {
+      type: Number,
+      default: 16,
+    },
     phone: {
       type: String,
       required: true,

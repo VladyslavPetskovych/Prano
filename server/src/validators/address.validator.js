@@ -2,6 +2,7 @@ const Joi = require("joi");
 
 class AddressValidator {
   static name = Joi.string().min(2).max(120).trim();
+  static nameFontSize = Joi.number().min(10).max(40);
   static phone = Joi.string().min(5).max(30).trim();
   static mapUrl = Joi.string().allow("").trim();
   static googleMapsUrl = Joi.string().allow("").trim();
@@ -12,6 +13,7 @@ class AddressValidator {
 
   static create = Joi.object({
     name: this.name.required(),
+    nameFontSize: this.nameFontSize,
     phone: this.phone.required(),
     mapUrl: this.mapUrl,
     googleMapsUrl: this.googleMapsUrl,
@@ -23,6 +25,7 @@ class AddressValidator {
 
   static update = Joi.object({
     name: this.name,
+    nameFontSize: this.nameFontSize,
     phone: this.phone,
     mapUrl: this.mapUrl,
     googleMapsUrl: this.googleMapsUrl,
