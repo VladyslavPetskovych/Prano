@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useLocation,
 } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux";
@@ -14,7 +13,6 @@ import UpperHeader from "./components/utils/upperHeader.jsx";
 import Header from "./components/utils/header.jsx";
 import Footer from "./components/utils/footer.jsx";
 import ScrollToTop from "./components/utils/scrollToTop.jsx";
-import LoadingScreen from "./components/utils/loadingScreen.jsx";
 
 // Сторінки
 import Home from "./pages/home.jsx";
@@ -40,17 +38,6 @@ import RestorePassword from "./pages/restorePassword.jsx";
 import {AuthorizePage} from "./pages/authorizePage.jsx";
 
 const AppContent = ({ isMaintenanceMode }) => {
-  const location = useLocation();
-  const [routeLoading, setRouteLoading] = useState(false);
-
-  useEffect(() => {
-    setRouteLoading(true);
-    const timer = setTimeout(() => {
-      setRouteLoading(false);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [location.pathname]);
-
   return isMaintenanceMode ? (
     <LandingPage />
   ) : (
@@ -58,7 +45,6 @@ const AppContent = ({ isMaintenanceMode }) => {
       <ScrollToTop />
       <UpperHeader />
       <Header />
-      {routeLoading && <LoadingScreen />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/services" element={<Services />} />
@@ -86,7 +72,6 @@ const AppContent = ({ isMaintenanceMode }) => {
 };
 
 const App = () => {
-  const [initialLoading, setInitialLoading] = useState(true);
   const isMaintenanceMode = false;
 
   useEffect(() => {
@@ -94,12 +79,11 @@ const App = () => {
     document.body.classList.add("loading");
 
     const timer = setTimeout(() => {
-      setInitialLoading(false);
       document.body.classList.remove("loading");
 
       if (preloader) {
         preloader.classList.add("fade-out");
-        setTimeout(() => preloader.remove(), 300);
+        setTimeout(() => preloader.remove(), 400);
       }
     }, 600);
 
@@ -108,10 +92,6 @@ const App = () => {
       clearTimeout(timer);
     };
   }, []);
-
-  if (initialLoading) {
-    return <LoadingScreen />;
-  }
 
   return (
     <Provider store={store}>

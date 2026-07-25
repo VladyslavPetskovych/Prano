@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import pranoVideo from "../../assets/videos/Prano Small Video(1).mp4";
 import back from "../../assets/home/back.png";
 import logo from "../../assets/logo/pranoTextGold.svg";
 import { Link } from "react-router-dom";
@@ -7,28 +8,34 @@ import {QuickOrderModal} from "../quickOrderModal/index.js";
 
 
 const TopBlock = () => {
-  const [bgLoaded, setBgLoaded] = useState(false);
   const isAuth = useSelector((state) => state.auth.isAuth);
   const [isQuickOpen, setIsQuickOpen] = useState(false);
-
-  useEffect(() => {
-    const img = new Image();
-    img.src = back;
-    img.onload = () => setBgLoaded(true);
-  }, []);
+  const [videoReady, setVideoReady] = useState(false);
 
   return (
-    <div className="relative h-[900px] w-full flex flex-col items-center justify-center overflow-hidden font-manrope">
+    <div className="relative h-[900px] w-full flex flex-col items-center justify-center overflow-hidden font-manrope bg-Ndark">
+      {/* Постер-зображення — показується миттєво, поки відео не готове */}
       <div
-        className={`absolute inset-0 bg-cover bg-center transition-opacity duration-500 ${
-          bgLoaded ? "opacity-100" : "opacity-0"
+        className={`absolute inset-0 bg-cover bg-center transition-opacity duration-700 ${
+          videoReady ? "opacity-0" : "opacity-100"
         }`}
         style={{ backgroundImage: `url(${back})` }}
       ></div>
 
-      {!bgLoaded && (
-        <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
-      )}
+      <video
+        src={pranoVideo}
+        poster={back}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        onLoadedData={() => setVideoReady(true)}
+        onCanPlay={() => setVideoReady(true)}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+          videoReady ? "opacity-100" : "opacity-0"
+        }`}
+      />
 
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/40"></div>
 
