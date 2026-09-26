@@ -43,9 +43,9 @@ const BlogList = () => {
 
   return (
     <div className="pt-32  w-full px-4 bg-white">
-      <h2 className="text-3xl w-full mx-auto  sm:text-4xl font-bold font-roboto text-center  text-Ndark relative inline-block after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue mb-7">
-        Актуальні новини і акції 
-      </h2>
+      <h1 className="text-3xl w-full mx-auto  sm:text-4xl font-bold font-roboto text-center  text-Ndark relative inline-block after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue mb-7">
+        Актуальні новини і акції
+      </h1>
       <BlogListItems blogs={blogs} />
       <Pagination
         currentPage={currentPage}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import NovaPoshtaPostomatIcon from "../../assets/icons/novaPoshtaPostomat.png";
 import { useAddresses } from "../../hooks/useAddresses";
+import { JsonLd, buildLocationsSchema } from "../utils/seo.jsx";
 
 const Contacts = ({ backgroundClass }) => {
   const { locations, postomatData, loading, error } = useAddresses();
@@ -38,19 +39,20 @@ const Contacts = ({ backgroundClass }) => {
 
   return (
     <div className={`min-h-screen ${backgroundClass} text-white`}>
+      <JsonLd data={buildLocationsSchema(locations)} />
       <div className="max-w-7xl mx-auto flex justify-center flex-col w-full px-5 pt-16">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center text-Ngold relative inline-block after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue mb-7">
+        <h1 className="text-3xl sm:text-4xl font-bold text-center text-Ngold relative inline-block after:content-[''] after:block after:w-20 after:h-1 after:mt-3 after:mx-auto after:bg-Nblue mb-7">
           Наші пункти прийому
-        </h2>
+        </h1>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 text-gray-300 px-8">
+        <div className="flex flex-wrap justify-center gap-5 text-gray-300 sm:px-8">
           {locations.map((location) => {
             const isActive = activeLocation?._id === location._id;
             return (
               <div
                 key={location._id}
                 onClick={() => setSelectedLocation(location)}
-                className={`group relative flex flex-col h-full overflow-hidden rounded-2xl p-5 cursor-pointer transition-all duration-300 backdrop-blur-sm
+                className={`group relative flex flex-col w-full sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)] overflow-hidden rounded-2xl p-6 cursor-pointer transition-all duration-300 backdrop-blur-sm
                   ${
                     isActive
                       ? "bg-gradient-to-br from-Ngold/20 to-gray-900/90 border border-Ngold shadow-[0_0_25px_-5px_rgba(212,175,55,0.5)]"
@@ -74,7 +76,7 @@ const Contacts = ({ backgroundClass }) => {
                 <a
                   href={`tel:${location.phone.replace(/\D/g, "")}`}
                   onClick={(e) => e.stopPropagation()}
-                  className="mt-1 inline-flex items-center gap-2 self-start text-sm font-medium text-Ngold hover:underline"
+                  className="mt-1 mb-4 inline-flex items-center gap-2 self-start text-sm font-medium text-Ngold hover:underline"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +89,7 @@ const Contacts = ({ backgroundClass }) => {
                   {location.phone}
                 </a>
 
-                <div className="mt-4 pt-3 border-t border-white/10 space-y-1 text-sm text-gray-400">
+                <div className="mt-auto pt-3 border-t border-white/10 space-y-1 text-sm text-gray-400">
                   {Object.entries(location.schedule || {}).map(([day, hours], i) => (
                     <p key={i} className="flex justify-between gap-3">
                       <span className="font-medium text-Ngold/90">{day}</span>

@@ -13,6 +13,7 @@ import UpperHeader from "./components/utils/upperHeader.jsx";
 import Header from "./components/utils/header.jsx";
 import Footer from "./components/utils/footer.jsx";
 import ScrollToTop from "./components/utils/scrollToTop.jsx";
+import { RouteSeo } from "./components/utils/seo.jsx";
 
 // Сторінки
 import Home from "./pages/home.jsx";
@@ -31,7 +32,7 @@ import PrivateRoute from "./components/adminpanel/privateRoute.jsx";
 import AdminPanel from "./pages/adminpanel.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 import Premium from "./pages/premium.jsx";
-import PrivacyPolicy from "./pages/privacyPolicy.jsx";
+import PrivacyPolicy from "./pages/policyPage.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import ResetPassword from "./pages/resetPassword.jsx";
 import RestorePassword from "./pages/restorePassword.jsx";
@@ -43,6 +44,7 @@ const AppContent = ({ isMaintenanceMode }) => {
   ) : (
     <>
       <ScrollToTop />
+      <RouteSeo />
       <UpperHeader />
       <Header />
       <Routes>

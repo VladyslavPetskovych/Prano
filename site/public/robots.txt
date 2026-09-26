@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /account
+Disallow: /login
+Disallow: /reset-password
+Disallow: /restore-password
 
 Sitemap: https://prano.group/sitemap.xml

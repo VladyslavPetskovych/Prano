@@ -17,7 +17,7 @@ function TopBlock() {
           >
             Збережемо елегантність вашого хутра
           </h1>
-          <img src={CatLogo} alt="Cat Logo" className="w-24 md:w-32" />
+          <img src={CatLogo} alt="Логотип Prano" className="w-24 md:w-32" />
         </div>
 
         <p

@@ -1,5 +1,4 @@
 import React from "react";
-import { Helmet } from "react-helmet";
 import grid1 from "../../assets/fur/grid1.jpg";
 import grid2 from "../../assets/fur/grid2.jpg";
 import grid5 from "../../assets/fur/grid5.jpg";
@@ -39,29 +38,6 @@ const GridBlock = () => {
 
   return (
     <div className="py-16 px-6 md:px-16 bg-Ngold text-white">
-      <Helmet>
-        <title>Наші послуги з догляду та ремонту хутра | FurCare</title>
-        <meta
-          name="description"
-          content="Пропонуємо професійне чищення, ремонт, зміну фасону та реставрацію вінтажного хутра. Якість, на яку ви можете покластися."
-        />
-        <meta
-          name="keywords"
-          content="чищення хутра, ремонт хутра, реставрація хутра, зміна фасону, догляд за хутром"
-        />
-        <meta name="author" content="FurCare" />
-        <meta
-          property="og:title"
-          content="Наші послуги з догляду та ремонту хутра | FurCare"
-        />
-        <meta
-          property="og:description"
-          content="Професійні послуги з чищення, ремонту та реставрації хутряних виробів."
-        />
-        <meta property="og:image" content={grid1} />
-        <meta property="og:type" content="website" />
-        <meta property="og:locale" content="uk_UA" />
-      </Helmet>
 
       <h2
         className="text-4xl font-bold text-center mb-16 tracking-tight text-white drop-shadow-md"

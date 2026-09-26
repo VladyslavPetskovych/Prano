@@ -111,10 +111,10 @@ export default function Merchandise() {
 
       {/* Банер */}
       <div className="max-w-3xl mx-auto text-center bg-white border border-Ngold/30 p-6 rounded-xl shadow-lg">
-        <h1 className="text-lg sm:text-xl font-semibold text-Nblack tracking-wide leading-relaxed">
+        <p className="text-lg sm:text-xl font-semibold text-Nblack tracking-wide leading-relaxed">
           При корпоративних замовленнях і великих об'ємах економія до{" "}
           <span className="font-extrabold">30%</span>
-        </h1>
+        </p>
       </div>
     </div>
   );

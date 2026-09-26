@@ -40,11 +40,11 @@ const TopBlock = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/40"></div>
 
       <div className="relative z-10 text-center px-6">
-        <img src={logo} alt="" className="w-64 md:w-96 mx-auto" />
+        <img src={logo} alt="Prano — преміум хімчистка у Львові" className="w-64 md:w-96 mx-auto" />
 
-        <p className="md:text-2xl text-xl  font-bold text-white mt-4 max-w-2xl mx-auto leading-relaxed shadow-md p-2 bg-opacity-20 bg-black rounded-2xl">
+        <h1 className="md:text-2xl text-xl  font-bold text-white mt-4 max-w-2xl mx-auto leading-relaxed shadow-md p-2 bg-opacity-20 bg-black rounded-2xl">
           Хімчистка одягу, прання, реставрація сумок і взуття у Львові. Преміум-послуги для вашого комфорту та стилю.
-        </p>
+        </h1>
 
         <button
           onClick={() => {

@@ -1,10 +1,19 @@
 const Joi = require("joi");
 
+// Якщо вставили весь <iframe ...>, беремо лише значення src
+const extractIframeSrc = (value) => {
+  const match = value.match(/<iframe[^>]*\ssrc\s*=\s*["']([^"']+)["']/i);
+  return match ? match[1].replace(/&amp;/g, "&").trim() : value;
+};
+
 class AddressValidator {
   static name = Joi.string().min(2).max(120).trim();
   static nameFontSize = Joi.number().min(10).max(40);
   static phone = Joi.string().min(5).max(30).trim();
-  static mapUrl = Joi.string().allow("").trim();
+  static mapUrl = Joi.string()
+    .allow("")
+    .trim()
+    .custom((value) => extractIframeSrc(value));
   static googleMapsUrl = Joi.string().allow("").trim();
   static schedule = Joi.object().pattern(Joi.string(), Joi.string());
   static sortOrder = Joi.number().integer().min(0);

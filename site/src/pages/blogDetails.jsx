@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import { Helmet } from "react-helmet-async";
+import { Seo, JsonLd, SITE_URL, SITE_NAME } from "../components/utils/seo.jsx";
 import ReactMarkdown from "react-markdown"; // Імпорт бібліотеки для рендерингу Markdown
 
 const formatDate = (dateString) => {
   const options = { year: "numeric", month: "long", day: "numeric" };
   return new Date(dateString).toLocaleDateString("uk-UA", options);
 };
+
+// Прибирає Markdown-розмітку, щоб отримати чистий текст для meta description
+const toPlainText = (markdown = "") =>
+  markdown
+    .replace(/^\s*#\s[^\n]*\n/, "") // перший заголовок дублює назву статті
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/[#>*_`~-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 
 const BlogDetails = () => {
   const { id } = useParams();
@@ -30,29 +40,46 @@ const BlogDetails = () => {
   }, [id]);
 
   if (loading) return <p className="text-center mt-10">Loading...</p>;
-  if (error) return <p className="text-center text-red-500 mt-10">{error}</p>;
+  if (error)
+    return (
+      <>
+        <Seo title={`Статтю не знайдено | ${SITE_NAME}`} path={`/blog/${id}`} noindex />
+        <p className="text-center text-red-500 mt-10">{error}</p>
+      </>
+    );
+
+  const description = toPlainText(blog.description).slice(0, 160);
+  const image = blog.images?.[0]
+    ? `${SITE_URL}/api/postImages/${blog.images[0]}`
+    : undefined;
 
   return (
     <div className="bg-Ngold w-full py-32 px-4">
-      {/* SEO dynamic data */}
-      <Helmet>
-        <title>{blog.title} | Prano Group</title>
-        <meta name="description" content={blog.description?.slice(0, 150)} />
-        <meta property="og:title" content={blog.title} />
-        <meta
-          property="og:description"
-          content={blog.description?.slice(0, 150)}
-        />
-        <meta
-          property="og:image"
-          content={`https://prano.group/api/postImages/${blog.images?.[0]}`}
-        />
-        <meta property="og:type" content="article" />
-        <meta
-          property="og:url"
-          content={`https://prano.group/blog/${blog._id}`}
-        />
-      </Helmet>
+      <Seo
+        title={`${blog.title} | ${SITE_NAME}`}
+        description={description}
+        path={`/blog/${blog._id}`}
+        image={image}
+        type="article"
+      />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: blog.title,
+          description,
+          image,
+          datePublished: blog.createdAt,
+          dateModified: blog.updatedAt || blog.createdAt,
+          mainEntityOfPage: `${SITE_URL}/blog/${blog._id}`,
+          author: { "@type": "Organization", name: SITE_NAME },
+          publisher: {
+            "@type": "Organization",
+            name: SITE_NAME,
+            logo: { "@type": "ImageObject", url: `${SITE_URL}/og/prano-logo.png` },
+          },
+        }}
+      />
 
       <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg border">
         <img
@@ -66,7 +93,12 @@ const BlogDetails = () => {
 
         {/* Використовуємо ReactMarkdown для рендерингу Markdown контенту */}
         <div className="text-gray-600 leading-relaxed">
-          <ReactMarkdown>{blog.description}</ReactMarkdown>
+          <ReactMarkdown
+            // На сторінці вже є <h1> з назвою, тому заголовки з тексту статті — <h2>
+            components={{ h1: ({ node, ...props }) => <h2 {...props} /> }}
+          >
+            {blog.description}
+          </ReactMarkdown>
         </div>
 
         <div className="flex flex-row items-center justify-between ">
