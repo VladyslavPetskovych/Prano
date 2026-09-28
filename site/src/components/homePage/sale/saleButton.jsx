@@ -30,7 +30,7 @@ function SaleButton() {
       >
         <img
           src={Laska}
-          alt="laska"
+          alt="Акції Prano"
           className=" opacity-50 hover:opacity-80 animate-bounce w-[100px] md:w-full"
           style={{ animationDuration: "7s" }}
         />

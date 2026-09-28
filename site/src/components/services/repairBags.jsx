@@ -11,7 +11,7 @@ function BagRestoration() {
       <div className="grid grid-cols-1 md:grid-cols-2 bg-pureWhite rounded-3xl overflow-hidden shadow-xl border border-lightGray">
         {/* Фото */}
         <div className="relative">
-          <img
+          <img loading="lazy" decoding="async"
             src={purse}
             alt="Реставрація сумок та аксесуарів"
             className="w-full h-[280px] md:h-[320px] object-cover brightness-95 hover:scale-105 transition-transform duration-500"

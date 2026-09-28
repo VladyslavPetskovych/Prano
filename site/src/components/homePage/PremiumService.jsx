@@ -28,7 +28,7 @@ function EndlessPossibilities() {
         </div>
 
         <div className="w-full md:w-2/3 flex flex-col sm:flex-row justify-center items-center gap-1">
-          <img
+          <img loading="lazy" decoding="async"
             src={brand1}
             alt="Прання"
             className="rounded-lg hidden lg:block shadow-xl object-cover w-full max-w-[250px] h-[250px] lg:w-[220px] lg:h-[300px] hover:scale-105 transition duration-300"
@@ -36,7 +36,7 @@ function EndlessPossibilities() {
 
           <SliderPremium />
 
-          <img
+          <img loading="lazy" decoding="async"
             src={brand2}
             alt="Догляд за одягом"
             className="rounded-lg hidden lg:block shadow-xl object-cover w-full max-w-[250px] h-[250px] lg:w-[220px] lg:h-[300px] hover:scale-105 transition duration-300"

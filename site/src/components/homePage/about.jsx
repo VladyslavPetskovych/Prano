@@ -33,9 +33,9 @@ function About() {
 
   return (
     <section className="relative w-full py-20 px-4 sm:px-6 lg:px-8">
-      <img
+      <img loading="lazy" decoding="async"
         src={backScroll}
-        alt="Background"
+        alt="Хімчистка Prano у Львові"
         className="absolute inset-0 w-full h-full object-cover z-0"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60 z-10" />

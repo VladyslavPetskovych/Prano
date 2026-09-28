@@ -1,6 +1,6 @@
 import { useState } from "react";
 import pranoVideo from "../../assets/videos/Prano Small Video(1).mp4";
-import back from "../../assets/home/back.png";
+import back from "../../assets/home/back.jpg";
 import logo from "../../assets/logo/pranoTextGold.svg";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";

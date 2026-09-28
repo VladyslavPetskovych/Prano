@@ -32,7 +32,7 @@ function UpperHeader() {
               handleCopy("+380771515111");
             }}
           >
-            <img src={phone} alt="phone" className="h-4 w-4 object-contain " />
+            <img src={phone} alt="" className="h-4 w-4 object-contain " />
             <span className="italic hover:underline font-bold">
               +380771515111
             </span>
@@ -43,7 +43,7 @@ function UpperHeader() {
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => handleCopy("pranolviv@gmail.com")}
           >
-            <img src={mail} alt="mail" className="h-4 w-4 object-contain" />
+            <img src={mail} alt="" className="h-4 w-4 object-contain" />
             <span className="italic hover:underline font-bold">
               pranolviv@gmail.com
             </span>

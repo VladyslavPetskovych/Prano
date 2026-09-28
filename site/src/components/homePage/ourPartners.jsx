@@ -22,7 +22,7 @@ export const partners = [
 function ImageBlock({ src, alt }) {
   return (
     <div className="w-36 flex-shrink-0">
-      <img
+      <img loading="lazy" decoding="async"
         src={src}
         alt={alt}
         className="w-full h-24 object-contain rounded-lg shadow-lg transition-transform transform hover:scale-105"

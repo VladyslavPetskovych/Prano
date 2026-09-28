@@ -13,12 +13,12 @@ export default function AutomationBlock() {
     <div className="flex  lg:flex-row items-center flex-col-reverse  md:justify-between  p-12 rounded-lg shadow-lg">
       <div className="relative flex-1  justify-center hidden lg:flex">
         <div className="relative">
-          <img className="w-96 h-auto object-contain" src={hand} alt="Hand" />
+          <img loading="lazy" decoding="async" className="w-96 h-auto object-contain" src={hand} alt="" />
           <div className="absolute inset-0 flex items-center justify-center">
-            <img
+            <img loading="lazy" decoding="async"
               className="w-16 md:w-20 h-auto ml-7 translate-x-2 translate-y-1"
               src={telegramlogo}
-              alt="Telegram Logo"
+              alt="Telegram"
             />
           </div>
         </div>
@@ -31,7 +31,7 @@ export default function AutomationBlock() {
           className="mt-4   text-Nblue px-6 py-2 text-lg font-medium hover:bg-white hover:text-orange-400 transition duration-300"
           data-aos="fade-up"
         >
-          <img src={pranologo} alt="logo prano" className="w-32" />
+          <img loading="lazy" decoding="async" src={pranologo} alt="Логотип Prano" className="w-32" />
           ПЕРЕЙТИ В БОТ
         </a>
       </div>

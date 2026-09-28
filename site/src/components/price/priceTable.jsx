@@ -33,7 +33,7 @@ function PriceTable() {
         <h2 className="text-3xl md:ml-36 font-extrabold text-center text-Nblack mb-6 md:mb-1 tracking-wide relative inline-block after:content-[''] after:block after:w-24 after:h-1 after:mt-4 after:mx-auto after:bg-Ngold">
           Опис послуг
         </h2>
-        <img className="w-32 mx-3" src={CatLogo} alt="Cat logo" />
+        <img className="w-32 mx-3" src={CatLogo} alt="Логотип Prano" />
       </div>
 
       {loading ? (

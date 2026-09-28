@@ -45,9 +45,9 @@ function Laundry() {
         </div>
 
         <div className="relative flex justify-center items-center px-6 pb-6 md:p-6">
-          <img
+          <img loading="lazy" decoding="async"
             src={laundry}
-            alt="Laundry process"
+            alt="Прання одягу та текстилю"
             className="w-full max-h-96 rounded-xl object-cover shadow-lg hover:scale-105 transition-transform duration-300"
           />
         </div>

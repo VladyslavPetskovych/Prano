@@ -19,6 +19,14 @@ const toPlainText = (markdown = "") =>
     .replace(/\s+/g, " ")
     .trim();
 
+// Прибирає перший заголовок тексту, якщо він повторює назву статті (вона вже в <h1>)
+const withoutTitleHeading = (markdown = "", title = "") => {
+  const match = /^\s*#\s+([^\n]*)\n/.exec(markdown);
+  return match && match[1].trim() === title.trim()
+    ? markdown.slice(match[0].length)
+    : markdown;
+};
+
 const BlogDetails = () => {
   const { id } = useParams();
   const [blog, setBlog] = useState(null);
@@ -97,7 +105,7 @@ const BlogDetails = () => {
             // На сторінці вже є <h1> з назвою, тому заголовки з тексту статті — <h2>
             components={{ h1: ({ node, ...props }) => <h2 {...props} /> }}
           >
-            {blog.description}
+            {withoutTitleHeading(blog.description, blog.title)}
           </ReactMarkdown>
         </div>
 

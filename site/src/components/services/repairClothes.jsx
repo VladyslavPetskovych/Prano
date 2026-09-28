@@ -19,9 +19,9 @@ function ClothingRepair() {
 
       <div className="flex flex-col md:flex-row gap-8">
         <div className="w-full md:w-1/2 h-[400px] overflow-hidden rounded-2xl shadow-xl">
-          <img
+          <img loading="lazy" decoding="async"
             src={repairImage}
-            alt="Clothing repair"
+            alt="Ремонт та пошиття одягу"
             className="w-full h-full object-cover rounded-2xl hover:scale-105 transition-transform duration-300"
           />
         </div>

@@ -27,22 +27,17 @@ export default function PricesHeader({
           {/* Праворуч: заголовок + логотип */}
           <div className="w-full md:w-auto flex flex-col items-center md:flex-row md:items-center md:justify-end gap-3 sm:gap-4">
             {/* <img src={Promo20012025} alt="" className="md:hidden" /> */}
-            <h2 className="block md:hidden text-3xl font-extrabold text-Nblack leading-tight text-center">
-              {title}
-            </h2>
-
-            {/* Для десктопів: текст + логотип праворуч */}
-            <div className="hidden md:flex items-center gap-3 sm:gap-4 md:text-right md:justify-end">
-              <div className="flex flex-col items-end">
-                <h2 className="text-[34px] font-extrabold text-Nblack leading-tight">
+            <div className="flex items-center gap-3 sm:gap-4 md:text-right md:justify-end">
+              <div className="flex flex-col items-center md:items-end">
+                <h1 className="text-3xl md:text-[34px] font-extrabold text-Nblack leading-tight text-center md:text-right">
                   {title}
-                </h2>
-                <span className="mt-2 h-1 w-24 bg-Ngold rounded-full md:ml-auto" />
+                </h1>
+                <span className="hidden md:block mt-2 h-1 w-24 bg-Ngold rounded-full md:ml-auto" />
               </div>
               <img
                 src={CatLogo}
-                alt="Cat logo"
-                className="w-14 h-14 md:w-32 md:h-32 select-none"
+                alt="Логотип Prano"
+                className="hidden md:block w-14 h-14 md:w-32 md:h-32 select-none"
                 draggable="false"
               />
             </div>

@@ -52,7 +52,7 @@ const GridBlock = () => {
             key={card.id}
             className="flex flex-col items-start group bg-Ndark p-3 rounded-2xl"
           >
-            <img
+            <img loading="lazy" decoding="async"
               src={card.img}
               alt={card.header}
               className="w-full h-72 rounded-2xl object-cover mb-6 shadow-lg transition-transform duration-300 group-hover:scale-105"

@@ -33,7 +33,7 @@ function Header() {
       }`}
     >
       <Link to="/" onClick={() => setOpened(false)}>
-        <img src={logo} alt="logo" className="h-12 pt-1 object-contain" />
+        <img src={logo} alt="Prano — на головну" className="h-12 pt-1 object-contain" />
       </Link>
 
       <div className="hidden md:flex items-center space-x-5 text-xl">

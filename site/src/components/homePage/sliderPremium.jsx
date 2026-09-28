@@ -29,7 +29,7 @@ const duplicatedPremiumPartners = [...premiumPartners, ...premiumPartners];
 function VerticalImageBlock({ src, alt }) {
   return (
     <div className="h-20 flex-shrink-0 flex items-center justify-center">
-      <img
+      <img loading="lazy" decoding="async"
         src={src}
         alt={alt}
         className="h-full object-contain rounded-lg  transition-transform transform hover:scale-105"

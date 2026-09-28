@@ -1,6 +1,10 @@
 # Development stage
 FROM node:20-alpine AS development
 
+# Chromium потрібен для пререндерингу сторінок під час збірки (scripts/prerender.js)
+RUN apk add --no-cache chromium
+ENV CHROME_PATH=/usr/bin/chromium-browser
+
 WORKDIR /app
 
 COPY package*.json ./

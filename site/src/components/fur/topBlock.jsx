@@ -34,19 +34,19 @@ function TopBlock() {
         <div className="md:col-span-2 h-[70vh]">
           <img
             src={furCoat}
-            alt="Fur Coat"
+            alt="Хутряна шуба після чистки"
             className="w-full h-full object-cover rounded-2xl hover:scale-105 transition-transform duration-300"
           />
         </div>
         <div className="flex flex-col md:h-[70vh]  gap-4">
           <img
             src={furtop}
-            alt="Fur Texture Top"
+            alt="Текстура натурального хутра"
             className="hidden md:block w-full h-1/2 object-cover rounded-2xl hover:scale-105 transition-transform duration-300"
           />
           <img
             src={furTX}
-            alt="Fur Texture Close"
+            alt="Хутро крупним планом"
             className="hidden md:block w-full h-1/2 object-cover rounded-2xl hover:scale-105 transition-transform duration-300"
           />
         </div>
@@ -69,7 +69,7 @@ function TopBlock() {
         </div>
         <img
           src={weasel}
-          alt="Weasel"
+          alt="Ласка — символ Prano"
           className="w-72 md:w-96 object-contain rounded-full hover:scale-105 transition-transform duration-300"
         />
       </section>

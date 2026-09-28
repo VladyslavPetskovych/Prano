@@ -30,7 +30,7 @@ function SearchInput({ onSearch }) {
           onClick={() => onSearch(term)}
           className="absolute right-1 top-1/2 transform -translate-y-1/2 w-9 h-9 flex justify-center items-center rounded-full hover:bg-gray-200 transition"
         >
-          <img src={glass} alt="search" className="w-7 h-7" />
+          <img src={glass} alt="" className="w-7 h-7" />
         </button>
       </div>
     </div>

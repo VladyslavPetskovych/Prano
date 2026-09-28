@@ -53,7 +53,7 @@ const GridBlock = () => {
           className="text-xl md:text-3xl font-bold text-center  tracking-tight text-white drop-shadow-md"
           style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.7)" }}
         ></h2>
-        <img
+        <img loading="lazy" decoding="async"
           src={log}
           alt="Логотип Prano"
           className="w-32 mx-9"
@@ -66,7 +66,7 @@ const GridBlock = () => {
             key={card.id}
             className="flex flex-col items-start group bg-Ndark p-5 rounded-2xl shadow-lg transition-transform "
           >
-            <img
+            <img loading="lazy" decoding="async"
               src={card.img}
               alt={card.header}
               className="w-full h-72 rounded-xl object-cover mb-6 shadow-md transition-transform duration-300 hover:scale-105"

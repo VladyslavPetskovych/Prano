@@ -98,7 +98,7 @@ function ReviewsSlider() {
       <Slider {...settings} key={sliderKey}>
         {reviews.map((review) => (
           <div key={review.id} className="px-16 text-center">
-            <img
+            <img loading="lazy" decoding="async"
               src={review.image}
               alt={review.author}
               className="w-auto h-64 md:h-64 mx-auto rounded-lg shadow-md object-contain cursor-pointer hover:scale-105 transition-transform duration-300"

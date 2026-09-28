@@ -50,9 +50,9 @@ const AboutUs = () => {
             ласка. Обирає чистоту без компромісів
           </h2>
         </div>
-        <img
+        <img loading="lazy" decoding="async"
           src={weasel}
-          alt="Weasel"
+          alt="Ласка — символ Prano"
           className="w-72 md:w-96 object-contain rounded-full hover:scale-105 transition-transform duration-300"
         />
       </section>

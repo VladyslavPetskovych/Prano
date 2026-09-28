@@ -14,7 +14,7 @@ const BlogListItems = ({ blogs }) => {
           key={blog._id}
           className="p-6 border border-gray-200 rounded-3xl shadow-lg flex flex-col items-center text-center bg-white hover:shadow-2xl transition-shadow duration-300"
         >
-          <img
+          <img loading="lazy" decoding="async"
             src={`https://prano.group/api/postImages/${blog.images?.[0]}`}
             alt={blog.title}
             className="w-full h-64 object-cover rounded-2xl mb-5"

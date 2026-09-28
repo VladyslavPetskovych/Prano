@@ -50,7 +50,7 @@ function DryCleaning() {
 
         {/* Фото */}
         <div className="relative">
-          <img
+          <img loading="lazy" decoding="async"
             src={dryCleaningg}
             alt="Процес хімчистки одягу"
             className="w-full h-[280px] md:h-[320px] object-cover  shadow-xl brightness-95 hover:scale-105 transition-transform duration-500"

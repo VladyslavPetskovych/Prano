@@ -11,9 +11,9 @@ function dryCleaning() {
           className="relative group overflow-hidden md:col-span-2 h-full"
           data-aos="fade-right"
         >
-          <img
+          <img loading="lazy" decoding="async"
             src={laundryPhoto}
-            alt="Leather & Fur Care"
+            alt="Догляд за шкірою та хутром"
             className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500"
           />
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center bg-black bg-opacity-60 p-4">
@@ -36,9 +36,9 @@ function dryCleaning() {
           className="relative group overflow-hidden h-full"
           data-aos="fade-left"
         >
-          <img
+          <img loading="lazy" decoding="async"
             src={dryCleaningPhoto}
-            alt="Textile Care"
+            alt="Хімчистка текстилю"
             className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500"
           />
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center bg-black bg-opacity-60 p-4">

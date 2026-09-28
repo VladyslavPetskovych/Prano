@@ -130,7 +130,7 @@ const Contacts = ({ backgroundClass }) => {
           <div className="max-w-6xl mx-auto rounded-2xl border border-Ngold/40 bg-Ndark/80 shadow-xl p-4 sm:p-8">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
               <div className="flex items-start sm:items-center gap-3">
-                <img
+                <img loading="lazy" decoding="async"
                   src={NovaPoshtaPostomatIcon}
                   alt="Поштомат Нової пошти"
                   className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg object-cover shrink-0 mt-1 sm:mt-0"
@@ -211,7 +211,7 @@ const Contacts = ({ backgroundClass }) => {
         <div className="flex items-center justify-center p-7">
           <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 w-full max-w-6xl">
             {activeLocation.images.map((img, i) => (
-              <motion.img
+              <motion.img loading="lazy" decoding="async"
                 key={i}
                 src={img}
                 alt={`${activeLocation.name} фото ${i + 1}`}

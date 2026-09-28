@@ -15,7 +15,7 @@ function TopPart() {
       >
         НАШІ ПОСЛУГИ
       </h1>
-      <img className="w-32 mx-3" src={CatLogo} alt="" />
+      <img className="w-32 mx-3" src={CatLogo} alt="Логотип Prano" />
     </div>
   );
 }
