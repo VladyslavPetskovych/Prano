@@ -1,9 +1,15 @@
 const { isReportViewer } = require("../admin");
-const { sendLatestReport } = require("../reports");
+const { sendLatestReport, sendWeekSummary, sendTrends } = require("../reports");
 
-module.exports = async function report(msg) {
-  // Без доступу до звітів нічого не відповідаємо — так само, як на будь-який невідомий текст
+// Без доступу до звітів нічого не відповідаємо — так само, як на будь-який невідомий текст
+const forReportViewers = (action) => async (msg) => {
   if (!(await isReportViewer(msg))) return;
 
-  await sendLatestReport(msg.chat.id.toString());
+  await action(msg.chat.id.toString());
+};
+
+module.exports = {
+  report: forReportViewers(sendLatestReport),
+  week: forReportViewers(sendWeekSummary),
+  trends: forReportViewers(sendTrends),
 };

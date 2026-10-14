@@ -11,8 +11,13 @@ const ADMIN_CHAT_KEY = "admin:chatId";
 const REPORT_CHATS_KEY = "reports:chatByPhone";
 const MANAGER_BUTTON = "👨‍💼 Менеджер";
 const REPORT_BUTTON = "📊 Звіт";
-const ADMIN_ROW = [MANAGER_BUTTON, REPORT_BUTTON];
-const REPORT_ROW = [REPORT_BUTTON];
+const WEEK_BUTTON = "📅 Тиждень";
+const TRENDS_BUTTON = "📈 Тренди";
+const REPORT_ROW = [REPORT_BUTTON, WEEK_BUTTON, TRENDS_BUTTON];
+// Рядки клавіатури: адміну — менеджер і звіти, переглядачу звітів — лише звіти
+const ADMIN_ROWS = [[MANAGER_BUTTON], REPORT_ROW];
+const REPORT_ROWS = [REPORT_ROW];
+const copyRows = (rows) => rows.map((row) => [...row]);
 
 const normalizePhone = (phone = "") => String(phone).replace(/\D/g, "");
 
@@ -74,27 +79,27 @@ const clearChatRoles = async (chatId) => {
   }
 };
 
-// Надає права за перевіреним контактом; повертає рядок кнопок для клавіатури або null
+// Надає права за перевіреним контактом; повертає рядки кнопок для клавіатури (або порожній список)
 const grantRolesFromContact = async (msg) => {
   const chatId = msg.chat.id.toString();
   await clearChatRoles(chatId);
 
-  if (!isVerifiedReportContact(msg)) return null;
+  if (!isVerifiedReportContact(msg)) return [];
 
   const phone = verifiedContactPhone(msg);
   await redisClient.hSet(REPORT_CHATS_KEY, phone, chatId);
 
   if (isVerifiedAdminContact(msg)) {
     await redisClient.set(ADMIN_CHAT_KEY, chatId);
-    return [...ADMIN_ROW];
+    return copyRows(ADMIN_ROWS);
   }
-  return [...REPORT_ROW];
+  return copyRows(REPORT_ROWS);
 };
 
-// Додає кнопки ролі до клавіатури: адміну — менеджер і звіт, переглядачу звітів — лише звіт
+// Додає кнопки ролі до клавіатури: адміну — менеджер і звіти, переглядачу звітів — лише звіти
 const addManagerButton = async (msg, keyboardButtons) => {
-  if (await isAdmin(msg)) keyboardButtons.push([...ADMIN_ROW]);
-  else if (await isReportViewer(msg)) keyboardButtons.push([...REPORT_ROW]);
+  if (await isAdmin(msg)) keyboardButtons.push(...copyRows(ADMIN_ROWS));
+  else if (await isReportViewer(msg)) keyboardButtons.push(...copyRows(REPORT_ROWS));
   return keyboardButtons;
 };
 
@@ -125,7 +130,8 @@ const formatOrder = (order) => {
 module.exports = {
   MANAGER_BUTTON,
   REPORT_BUTTON,
-  ADMIN_ROW,
+  WEEK_BUTTON,
+  TRENDS_BUTTON,
   isAdmin,
   isReportViewer,
   getAdminChat,

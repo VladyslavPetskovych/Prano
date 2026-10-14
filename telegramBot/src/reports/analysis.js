@@ -10,6 +10,7 @@ const HEADERS = {
   desc: "Описание изменения",
   paidBefore: "Сумма оплат ДО изменения",
   paidAfter: "Оплата заказа ПОСЛЕ изменения",
+  sumAfter: "Сумма заказа ПОСЛЕ изменения",
 };
 
 const decodeXml = (text) =>
@@ -47,8 +48,8 @@ const readRow = (rowXml, strings) => {
   return cells;
 };
 
-// Повертає зміни замовлень лише за вказані дати (ДД.ММ.РРРР)
-const parseAnalysisRows = (xlsxBuffer, dates) => {
+// Повертає зміни замовлень; якщо задано dates — лише за ці дати (ДД.ММ.РРРР)
+const parseAnalysisRows = (xlsxBuffer, dates = null) => {
   const zip = new AdmZip(xlsxBuffer);
   const sheet = zip.getEntry("xl/worksheets/sheet1.xml");
   if (!sheet) throw new Error("Analysis sheet not found");
@@ -78,7 +79,8 @@ const parseAnalysisRows = (xlsxBuffer, dates) => {
 
     const order = cells[columns.order];
     const changeDate = cells[columns.changeDate];
-    if (typeof order !== "string" || !/^\d+-\d+$/.test(order) || !dates.includes(changeDate)) continue;
+    if (typeof order !== "string" || !/^\d+-\d+$/.test(order)) continue;
+    if (typeof changeDate !== "string" || (dates && !dates.includes(changeDate))) continue;
 
     rows.push({
       order,
@@ -87,6 +89,7 @@ const parseAnalysisRows = (xlsxBuffer, dates) => {
       desc: cells[columns.desc] || "",
       paidBefore: Number(cells[columns.paidBefore]) || 0,
       paidAfter: Number(cells[columns.paidAfter]) || 0,
+      sumAfter: Number(cells[columns.sumAfter]) || 0,
     });
   }
 
@@ -94,31 +97,4 @@ const parseAnalysisRows = (xlsxBuffer, dates) => {
   return rows;
 };
 
-// Оплати й нові замовлення за день; філія — з дужок в кінці опису "(Леоленд)"
-const summarizeDay = (rows, date, branchBySuffix = {}) => {
-  const day = { received: 0, refunded: 0, receivedByBranch: {}, refundedByBranch: {}, created: 0 };
-
-  for (const row of rows) {
-    if (row.changeDate !== date) continue;
-
-    const branch =
-      row.desc.match(/\(([^()]+)\)\s*$/)?.[1] ||
-      branchBySuffix[row.order.split("-").pop()] ||
-      "Без філії";
-    const paid = row.paidAfter - row.paidBefore;
-
-    if (paid > 0) {
-      day.received += paid;
-      day.receivedByBranch[branch] = (day.receivedByBranch[branch] || 0) + paid;
-    } else if (paid < 0) {
-      day.refunded += -paid;
-      day.refundedByBranch[branch] = (day.refundedByBranch[branch] || 0) - paid;
-    }
-
-    if (/створенн|создани/i.test(row.desc)) day.created++;
-  }
-
-  return day;
-};
-
-module.exports = { ANALYSIS_FILE, parseAnalysisRows, summarizeDay };
+module.exports = { ANALYSIS_FILE, parseAnalysisRows };

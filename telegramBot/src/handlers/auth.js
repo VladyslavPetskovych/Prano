@@ -64,8 +64,7 @@ bot.on("contact", async (msg) => {
       ];
 
       // Доступ менеджера/звітів — лише якщо користувач поділився власним контактом з дозволеним номером
-      const roleButtons = await grantRolesFromContact(msg);
-      if (roleButtons) keyboardButtons.push(roleButtons);
+      keyboardButtons.push(...(await grantRolesFromContact(msg)));
 
       const keyboard = {
         reply_markup: {
