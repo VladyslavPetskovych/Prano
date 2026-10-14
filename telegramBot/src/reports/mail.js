@@ -24,7 +24,7 @@ const findZipPart = (node) => {
   if (!node) return null;
   const name = node.dispositionParameters?.filename || node.parameters?.name || "";
   if (node.part && (node.type === "application/zip" || /\.zip$/i.test(name))) {
-    return node.part;
+    return { part: node.part, size: node.size || 0 };
   }
   for (const child of node.childNodes || []) {
     const part = findZipPart(child);
@@ -33,19 +33,21 @@ const findZipPart = (node) => {
   return null;
 };
 
-const streamToBuffer = async (stream) => {
+const streamToBuffer = async (stream, expectedSize, onProgress) => {
   const chunks = [];
   let size = 0;
   for await (const chunk of stream) {
     size += chunk.length;
     if (size > MAX_ZIP_BYTES) throw new Error("Report attachment is too large");
     chunks.push(chunk);
+    if (expectedSize) onProgress(Math.min(size / expectedSize, 1));
   }
   return Buffer.concat(chunks);
 };
 
-// Знаходить найновіший лист зі звітом; якщо withZip — також завантажує вкладення
-const fetchLatestReport = async ({ withZip = false, days = 7 } = {}) => {
+// Знаходить найновіший лист зі звітом; якщо withZip — також завантажує вкладення.
+// onProgress(частка 0..1) викликається під час завантаження вкладення.
+const fetchLatestReport = async ({ withZip = false, days = 7, onProgress = () => {} } = {}) => {
   const client = createClient();
   await client.connect();
 
@@ -74,9 +76,9 @@ const fetchLatestReport = async ({ withZip = false, days = 7 } = {}) => {
         .map((message) => ({
           uid: message.uid,
           subject: message.envelope?.subject || "",
-          zipPart: findZipPart(message.bodyStructure),
+          zip: findZipPart(message.bodyStructure),
         }))
-        .filter((m) => REPORT_SUBJECT.test(m.subject) && m.zipPart)
+        .filter((m) => REPORT_SUBJECT.test(m.subject) && m.zip)
         .sort((a, b) => b.uid - a.uid)[0];
 
       if (!latest) return null;
@@ -88,10 +90,11 @@ const fetchLatestReport = async ({ withZip = false, days = 7 } = {}) => {
       };
 
       if (withZip) {
-        const { content } = await client.download(String(latest.uid), latest.zipPart, {
+        const { content } = await client.download(String(latest.uid), latest.zip.part, {
           uid: true,
         });
-        report.zip = await streamToBuffer(content);
+        // Розмір у структурі листа — у base64, розкодовані дані приблизно на чверть менші
+        report.zip = await streamToBuffer(content, latest.zip.size * 0.75, onProgress);
       }
 
       return report;

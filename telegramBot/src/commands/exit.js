@@ -1,7 +1,7 @@
 // logout.js
 const redisClient = require("../redis");
 const bot = require("../bot");
-const { clearAdminChatIfMatches } = require("../admin");
+const { clearChatRoles } = require("../admin");
 
 module.exports = async function logout(msg) {
   const chatId = msg.chat.id.toString();
@@ -14,7 +14,7 @@ module.exports = async function logout(msg) {
 
   // Видалення даних користувача з Redis
   await redisClient.del(chatId);
-  await clearAdminChatIfMatches(chatId);
+  await clearChatRoles(chatId);
 
   // Повідомлення користувачу про вихід
   bot.sendMessage(chatId, "Ви вийшли з облікового запису ❌", {

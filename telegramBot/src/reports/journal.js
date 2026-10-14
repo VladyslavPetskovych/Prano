@@ -17,8 +17,11 @@ const COLUMNS = {
 };
 const ROW_TOLERANCE = 7;
 
-const unzipReport = (zipBuffer) => {
-  const entries = new AdmZip(zipBuffer).getEntries().filter((e) => !e.isDirectory);
+// Розпаковує лише потрібні файли (wanted(назва) => true/false)
+const unzipReport = (zipBuffer, wanted = () => true) => {
+  const entries = new AdmZip(zipBuffer)
+    .getEntries()
+    .filter((e) => !e.isDirectory && wanted(path.basename(e.entryName)));
 
   const totalSize = entries.reduce((sum, e) => sum + (e.header.size || 0), 0);
   if (totalSize > MAX_UNZIPPED_BYTES) throw new Error("Report archive is too large");
@@ -29,9 +32,11 @@ const unzipReport = (zipBuffer) => {
   }));
 };
 
+const parseAmount = (value) => Number(String(value).replace(/\s/g, "").replace(",", "."));
+
 const loadPdfjs = () => import("pdfjs-dist/legacy/build/pdf.mjs");
 
-const parseJournalRows = async (pdfBuffer) => {
+const parseJournalRows = async (pdfBuffer, onProgress = () => {}) => {
   const pdfjs = await loadPdfjs();
   const doc = await pdfjs.getDocument({
     data: new Uint8Array(pdfBuffer),
@@ -65,16 +70,18 @@ const parseJournalRows = async (pdfBuffer) => {
         type: cell(COLUMNS.type),
         order: anchor.text,
         desc: cell(COLUMNS.desc),
+        deltaSum: parseAmount(cell(COLUMNS.deltaSum)) || 0,
+        user: cell(COLUMNS.user),
         branch: cell(COLUMNS.branch),
       });
     }
+
+    onProgress(pageNumber / doc.numPages);
   }
 
   await doc.destroy();
   return rows;
 };
-
-const parseAmount = (value) => Number(String(value).replace(/\s/g, "").replace(",", "."));
 
 const summarizeJournal = (rows) => {
   // Суфікс номера замовлення відповідає філії (напр. "-7" — Леоленд)
@@ -87,10 +94,15 @@ const summarizeJournal = (rows) => {
 
   const summary = {
     dates: [...new Set(rows.map((r) => r.date).filter(Boolean))],
-    newOrders: { count: 0, sum: 0, byBranch: {} },
+    branchBySuffix,
+    newOrders: { count: 0, sum: 0, byBranch: {}, biggest: null },
+    employees: {},
     statuses: {},
+    issueDateChanges: 0,
+    reworkReturns: 0,
     cancelledOrders: 0,
-    cancelledServices: 0,
+    cancelledServices: { count: 0, sum: 0 },
+    priceReductions: { count: 0, sum: 0 },
   };
 
   for (const row of rows) {
@@ -100,18 +112,35 @@ const summarizeJournal = (rows) => {
     );
     if (row.type === "Создание заказа" || created) {
       const amount = created ? parseAmount(created[1]) : 0;
-      const branch = (summary.newOrders.byBranch[branchOf(row)] ||= { count: 0, sum: 0 });
+      const branchName = branchOf(row);
+      const branch = (summary.newOrders.byBranch[branchName] ||= { count: 0, sum: 0 });
       summary.newOrders.count++;
       summary.newOrders.sum += amount;
       branch.count++;
       branch.sum += amount;
+
+      if (!summary.newOrders.biggest || amount > summary.newOrders.biggest.amount) {
+        summary.newOrders.biggest = { order: row.order, amount, branch: branchName };
+      }
+      if (row.user) summary.employees[row.user] = (summary.employees[row.user] || 0) + 1;
     }
 
     const status = row.type.startsWith("Изменение состояния") && row.desc.match(/ на "([^"]+)"/);
     if (status) summary.statuses[status[1]] = (summary.statuses[status[1]] || 0) + 1;
 
+    if (row.type.startsWith("Изменение даты выдачи")) summary.issueDateChanges++;
+    if (row.type.startsWith("Возврат")) summary.reworkReturns++;
     if (row.type.startsWith("Отмена заказа")) summary.cancelledOrders++;
-    if (row.type.startsWith("Отмена услуги")) summary.cancelledServices++;
+
+    // Рядки "Изменение суммы заказа в меньшую сторону" дублюють ці суми, тому їх не рахуємо
+    if (row.type.startsWith("Отмена услуги")) {
+      summary.cancelledServices.count++;
+      summary.cancelledServices.sum += row.deltaSum;
+    }
+    if (row.type.startsWith("Изменение суммы услуги") && row.deltaSum < 0) {
+      summary.priceReductions.count++;
+      summary.priceReductions.sum += row.deltaSum;
+    }
   }
 
   return summary;

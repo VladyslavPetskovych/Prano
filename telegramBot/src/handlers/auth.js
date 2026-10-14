@@ -2,12 +2,7 @@
 const bot = require("../bot");
 const redisClient = require("../redis");
 const axios = require("axios");
-const {
-  ADMIN_ROW,
-  isVerifiedAdminContact,
-  setAdminChat,
-  clearAdminChatIfMatches,
-} = require("../admin");
+const { grantRolesFromContact } = require("../admin");
 
 module.exports = async function auth(msg) {
   const chatId = msg.chat.id.toString();
@@ -68,13 +63,9 @@ bot.on("contact", async (msg) => {
         ["🚪 Вийти"],
       ];
 
-      // Доступ менеджера — лише якщо користувач поділився власним контактом з номером адміна
-      if (isVerifiedAdminContact(msg)) {
-        await setAdminChat(chatId);
-        keyboardButtons.push([...ADMIN_ROW]);
-      } else {
-        await clearAdminChatIfMatches(chatId);
-      }
+      // Доступ менеджера/звітів — лише якщо користувач поділився власним контактом з дозволеним номером
+      const roleButtons = await grantRolesFromContact(msg);
+      if (roleButtons) keyboardButtons.push(roleButtons);
 
       const keyboard = {
         reply_markup: {
