@@ -8,6 +8,9 @@ const orders = require("../commands/orders");
 const logout = require("../commands/exit");
 const createOrder = require("../commands/createOrder");
 const addresses = require("../commands/addresses");
+const manager = require("../commands/manager");
+const report = require("../commands/report");
+const { MANAGER_BUTTON, REPORT_BUTTON } = require("../admin");
 
 bot.onText(/\/start/, (msg) => {
   start(msg);
@@ -24,6 +27,8 @@ bot.on("message", async (msg) => {
   else if (text === "✍️ Створити нове замовлення") createOrder(msg);
   else if (text === "🧾 Історія замовлень") orders(msg);
   else if (text === "📍 Адреси пунктів прийому") addresses(msg);
+  else if (text === MANAGER_BUTTON) manager(msg);
+  else if (text === REPORT_BUTTON) report(msg);
 
   // Обробка кнопки "🚪 Вийти"
   if (text === "🚪 Вийти") {

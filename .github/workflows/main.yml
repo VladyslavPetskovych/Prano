@@ -23,6 +23,13 @@ jobs:
             echo "🔄 Updating code..." && \
             docker compose down --remove-orphans && \
             git checkout ${{ secrets.MAIN_BRANCH }} && git pull && \
+            if [ -n "${{ secrets.REPORTS_EMAIL_USER }}" ]; then \
+              echo "📧 Updating report email settings in .env..." && \
+              touch .env && \
+              sed -i "/^REPORTS_EMAIL_USER=/d;/^REPORTS_EMAIL_PASSWORD=/d" .env && \
+              if [ -n "$(tail -c1 .env)" ]; then echo >> .env; fi && \
+              printf "REPORTS_EMAIL_USER=\"%s\"\nREPORTS_EMAIL_PASSWORD=\"%s\"\n" "${{ secrets.REPORTS_EMAIL_USER }}" "${{ secrets.REPORTS_EMAIL_PASSWORD }}" >> .env; \
+            fi && \
             docker compose up -d --build
 
             echo "📊 Checking disk usage..."

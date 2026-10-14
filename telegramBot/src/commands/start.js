@@ -1,5 +1,6 @@
 const bot = require("../bot");
 const redisClient = require("../redis");
+const { addManagerButton } = require("../admin");
 
 module.exports = async function start(msg) {
   console.log("/start command");
@@ -19,6 +20,7 @@ module.exports = async function start(msg) {
     [ "📍 Адреси пунктів прийому"],
   ];
   if (phone) keyboardButtons.push(["🚪 Вийти"]);
+  await addManagerButton(msg, keyboardButtons);
 
   const keyboard = {
     reply_markup: {

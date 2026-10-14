@@ -102,6 +102,8 @@ services:
       - token=${TG_BOT_TOKEN}
       - REDIS_URL=${REDIS_URL}
       - BD_ACCESS=${DB_URL}
+      - REPORTS_EMAIL_USER=${REPORTS_EMAIL_USER}
+      - REPORTS_EMAIL_PASSWORD=${REPORTS_EMAIL_PASSWORD}
     volumes:
       - ./telegramBot:/app
       - /app/node_modules

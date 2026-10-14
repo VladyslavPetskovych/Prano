@@ -1,6 +1,7 @@
 const bot = require("../bot");
 const redisClient = require("../redis");
 const axios = require("axios");
+const { addManagerButton } = require("../admin");
 
 const createOrder = async (msg, productType) => {
   const chatId = msg.chat.id.toString();
@@ -40,6 +41,7 @@ const createOrder = async (msg, productType) => {
       ["🧾 Ваша історія замовлень", "📍 Адреси пунктів прийому"],
       ["🚪 Вийти"],
     ];
+    await addManagerButton(msg, keyboardButtons);
 
     const keyboard = {
       reply_markup: {
@@ -86,6 +88,7 @@ bot.on("message", async (msg) => {
       ["📍 Адреси пунктів прийому"],
     ];
     if (phone) keyboardButtons.push(["🚪 Вийти"]);
+    await addManagerButton(msg, keyboardButtons);
 
     const keyboard = {
       reply_markup: {

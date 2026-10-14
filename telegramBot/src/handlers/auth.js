@@ -2,6 +2,12 @@
 const bot = require("../bot");
 const redisClient = require("../redis");
 const axios = require("axios");
+const {
+  ADMIN_ROW,
+  isVerifiedAdminContact,
+  setAdminChat,
+  clearAdminChatIfMatches,
+} = require("../admin");
 
 module.exports = async function auth(msg) {
   const chatId = msg.chat.id.toString();
@@ -55,14 +61,24 @@ bot.on("contact", async (msg) => {
     if (response.status === 200) {
       await redisClient.set(chatId, phone);
 
+      const keyboardButtons = [
+        ["💰 Послуги", "👤 Профіль"],
+        ["✍️ Створити нове замовлення", "🧾 Історія замовлень"],
+        ["📍 Адреси пунктів прийому"],
+        ["🚪 Вийти"],
+      ];
+
+      // Доступ менеджера — лише якщо користувач поділився власним контактом з номером адміна
+      if (isVerifiedAdminContact(msg)) {
+        await setAdminChat(chatId);
+        keyboardButtons.push([...ADMIN_ROW]);
+      } else {
+        await clearAdminChatIfMatches(chatId);
+      }
+
       const keyboard = {
         reply_markup: {
-          keyboard: [
-            ["💰 Послуги", "👤 Профіль"],
-            ["✍️ Створити нове замовлення", "🧾 Історія замовлень"],
-            ["📍 Адреси пунктів прийому"],
-            ["🚪 Вийти"],
-          ],
+          keyboard: keyboardButtons,
           resize_keyboard: true,
           one_time_keyboard: false,
         },
