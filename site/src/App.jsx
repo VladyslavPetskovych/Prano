@@ -34,6 +34,7 @@ import LandingPage from "./pages/LandingPage.jsx";
 import Premium from "./pages/premium.jsx";
 import PrivacyPolicy from "./pages/policyPage.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import Promo from "./pages/promo.jsx";
 import ResetPassword from "./pages/resetPassword.jsx";
 import RestorePassword from "./pages/restorePassword.jsx";
 import {AuthorizePage} from "./pages/authorizePage.jsx";
@@ -63,6 +64,7 @@ const AppContent = ({ isMaintenanceMode }) => {
         <Route path="/admin" element={<PrivateRoute element={AdminPanel} />} />
         <Route path="/textile" element={<Textile />} />
         <Route path="/fur" element={<Fur />} />
+        <Route path="/promo/:slug" element={<Promo />} />
         <Route path="privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/restore-password/:token" element={<RestorePassword />} />

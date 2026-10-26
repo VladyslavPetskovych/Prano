@@ -11,6 +11,7 @@ const {
     productRouter,
     orderRouter,
     advertisementRouter,
+    campaignRouter,
     telegramRouter,
     merchandiseRouter,
     categoryRouter,
@@ -37,6 +38,7 @@ app.use("/addressImages", express.static(path.join(__dirname, "../images/address
 app.use("/addresses", addressRouter)
 app.use("/advertisement", advertisementRouter)
 app.use("/auth", authRouter)
+app.use("/campaigns", campaignRouter)
 app.use("/categories", categoryRouter)
 app.use("/merchandises", merchandiseRouter)
 app.use("/orders", orderRouter)

@@ -61,6 +61,7 @@ const NOINDEX_PREFIXES = [
   "/admin",
   "/reset-password",
   "/restore-password",
+  "/promo",
 ];
 
 export const Seo = ({

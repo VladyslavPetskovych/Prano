@@ -3,6 +3,7 @@ module.exports = {
     advertisementService: require("./advertisement.service"),
     authService: require("./auth.service"),
     axiosService: require("./axios.service"),
+    campaignService: require("./campaign.service"),
     categoryService: require("./category.service"),
     ccService: require("./cc.service"),
     emailService: require("./email.service"),

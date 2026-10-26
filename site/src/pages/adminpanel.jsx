@@ -4,6 +4,7 @@ import PostManagement from "../components/adminpanel/post/postManagment";
 import PriceServiceManagment from "../components/adminpanel/priceService/priceServiceManagment";
 import UserManagement from "../components/adminpanel/user/userManagment";
 import AdvertManagement from "../components/adminpanel/advert/advertManagment";
+import MarketingManagement from "../components/adminpanel/marketing/marketingManagement";
 
 const AdminPanel = () => {
   const [view, setView] = useState("posts");
@@ -56,11 +57,19 @@ const AdminPanel = () => {
           >
             Управління пропозиціями
           </CustomButton>
+          <CustomButton
+            onClick={() => setView("marketing")}
+            variant={view === "marketing" ? "default" : "outline"}
+            className="py-1 px-2 text-base m-1"
+          >
+            Управління маркетингом
+          </CustomButton>
         </div>
         {view === "posts" && <PostManagement />}
         {view === "prices" && <PriceServiceManagment />}
         {view === "users" && <UserManagement />}
         {view === "adverts" && <AdvertManagement />}
+        {view === "marketing" && <MarketingManagement />}
       </div>
     </div>
   );

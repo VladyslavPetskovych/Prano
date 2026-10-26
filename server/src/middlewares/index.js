@@ -2,6 +2,7 @@ module.exports = {
     addressMiddleware: require("./address.middleware"),
     advertisementMiddleware: require("./advertisement.middleware"),
     authMiddleware: require("./auth.middleware"),
+    campaignMiddleware: require("./campaign.middleware"),
     categoryMiddleware: require("./category.middleware"),
     commonMiddleware: require("./common.middleware"),
     imageMiddleware: require("./image.middleware"),

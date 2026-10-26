@@ -2,6 +2,7 @@ module.exports = {
     addressController: require("./address.controller"),
     advertisementController: require("./advertisement.controller"),
     authController: require("./auth.controller"),
+    campaignController: require("./campaign.controller"),
     categoryController: require("./category.controller"),
     merchandiseController: require("./merchandise.controller"),
     orderController: require("./order.controller"),
