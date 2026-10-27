@@ -1,9 +1,37 @@
 import React, { useState } from "react";
 import QrCode from "./QrCode";
-import { fetchCampaignStats, getCampaignUrl } from "./MarketingApi";
+import { fetchCampaignLeads, fetchCampaignStats, getCampaignUrl } from "./MarketingApi";
 
 const formatDate = (value) =>
   value ? new Date(value).toLocaleString("uk-UA", { dateStyle: "short", timeStyle: "short" }) : "—";
+
+const SOURCE_LABELS = { qr: "QR-код", link: "Посилання" };
+
+// CSV з ; і BOM — так Excel коректно відкриває кирилицю
+const downloadLeadsCsv = (campaign, leads) => {
+  const rows = [
+    ["Телефон", "Кампанія", "Промокод", "Джерело", "Підтверджено", "Клієнт сайту", "SMS з промокодом"],
+    ...leads.map((lead) => [
+      lead.phone,
+      campaign.name,
+      campaign.promoCode,
+      SOURCE_LABELS[lead.source],
+      formatDate(lead.verifiedAt),
+      lead.isExistingUser ? "так" : "ні",
+      lead.promoSmsSentAt ? "так" : "ні",
+    ]),
+  ];
+  const csv = rows
+    .map((row) => row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(";"))
+    .join("\n");
+
+  const url = URL.createObjectURL(new Blob(["﻿", csv], { type: "text/csv;charset=utf-8" }));
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `leads-${campaign.slug}.csv`;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+};
 
 function Counter({ label, value }) {
   return (
@@ -23,6 +51,7 @@ function CampaignItem({ campaign, onUpdate, onDelete }) {
     description: campaign.description,
   });
   const [stats, setStats] = useState(null);
+  const [leads, setLeads] = useState(null);
   const [copied, setCopied] = useState(false);
 
   const pageUrl = getCampaignUrl(campaign.slug);
@@ -39,6 +68,17 @@ function CampaignItem({ campaign, onUpdate, onDelete }) {
       setStats(await fetchCampaignStats(campaign._id));
     } catch (error) {
       console.error("Error fetching campaign stats:", error.response || error);
+    }
+  };
+
+  // Показуємо лише підтверджені номери — непідтверджені не мають цінності для розсилок
+  const toggleLeads = async () => {
+    if (leads) return setLeads(null);
+    try {
+      const data = await fetchCampaignLeads(campaign._id);
+      setLeads(data.filter((lead) => lead.verified));
+    } catch (error) {
+      console.error("Error fetching campaign leads:", error.response || error);
     }
   };
 
@@ -119,10 +159,11 @@ function CampaignItem({ campaign, onUpdate, onDelete }) {
             </button>
           </div>
 
-          <div className="flex gap-2 mt-3">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-3">
             <Counter label="Сканувань QR" value={campaign.qrScans} />
             <Counter label="Унікальних людей" value={campaign.uniqueVisitors} />
             <Counter label="Всього переглядів" value={campaign.views} />
+            <Counter label="Підтверджених номерів" value={campaign.verifiedPhones || 0} />
           </div>
           <p className="text-xs text-gray-500 mt-1">
             Останній перехід: {formatDate(campaign.lastVisitAt)} · Створено:{" "}
@@ -151,6 +192,9 @@ function CampaignItem({ campaign, onUpdate, onDelete }) {
         <button onClick={toggleStats} className="bg-slate-200 px-3 py-1 rounded hover:bg-slate-300">
           {stats ? "Сховати статистику" : "Статистика за 30 днів"}
         </button>
+        <button onClick={toggleLeads} className="bg-slate-200 px-3 py-1 rounded hover:bg-slate-300">
+          {leads ? "Сховати номери" : "Номери телефонів"}
+        </button>
         <button
           onClick={() => onUpdate(campaign._id, { isActive: !campaign.isActive })}
           className="bg-slate-200 px-3 py-1 rounded hover:bg-slate-300"
@@ -177,6 +221,7 @@ function CampaignItem({ campaign, onUpdate, onDelete }) {
                   <th className="p-1">Сканувань QR</th>
                   <th className="p-1">Унікальних</th>
                   <th className="p-1">Переглядів</th>
+                  <th className="p-1">Номерів</th>
                 </tr>
               </thead>
               <tbody>
@@ -186,10 +231,53 @@ function CampaignItem({ campaign, onUpdate, onDelete }) {
                     <td className="p-1">{day.qrScans}</td>
                     <td className="p-1">{day.uniqueVisitors}</td>
                     <td className="p-1">{day.views}</td>
+                    <td className="p-1">{day.verifiedPhones}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
+          )}
+        </div>
+      )}
+
+      {leads && (
+        <div className="mt-4 overflow-x-auto">
+          {leads.length === 0 ? (
+            <p className="text-sm text-gray-500">Підтверджених номерів ще немає.</p>
+          ) : (
+            <>
+              <div className="flex justify-between items-center mb-2">
+                <p className="text-sm text-gray-500">Підтверджених номерів: {leads.length}</p>
+                <button
+                  onClick={() => downloadLeadsCsv(campaign, leads)}
+                  className="bg-Nblue text-white text-sm px-3 py-1 rounded hover:bg-blue-600"
+                >
+                  Завантажити CSV
+                </button>
+              </div>
+              <table className="w-full text-sm text-center">
+                <thead>
+                  <tr className="bg-slate-100">
+                    <th className="p-1">Телефон</th>
+                    <th className="p-1">Джерело</th>
+                    <th className="p-1">Підтверджено</th>
+                    <th className="p-1">Клієнт сайту</th>
+                    <th className="p-1">SMS з промокодом</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {leads.map((lead) => (
+                    <tr key={lead._id} className="border-b">
+                      <td className="p-1 whitespace-nowrap">{lead.phone}</td>
+                      <td className="p-1">{SOURCE_LABELS[lead.source]}</td>
+                      <td className="p-1">{formatDate(lead.verifiedAt)}</td>
+                      <td className="p-1">{lead.isExistingUser ? "так" : "новий"}</td>
+                      <td className="p-1">{lead.promoSmsSentAt ? "✓" : "не надіслано"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
           )}
         </div>
       )}

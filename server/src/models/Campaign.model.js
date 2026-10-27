@@ -46,6 +46,11 @@ const campaignSchema = new Schema(
             type: Number,
             default: 0,
         },
+        // Номери, які пройшли підтвердження через SMS
+        verifiedPhones: {
+            type: Number,
+            default: 0,
+        },
         lastVisitAt: {
             type: Date,
             default: null,

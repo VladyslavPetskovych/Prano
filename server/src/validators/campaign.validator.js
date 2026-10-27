@@ -21,9 +21,25 @@ class CampaignValidator {
         isActive: Joi.boolean(),
     })
 
+    static visitorId = Joi.string().max(64).trim().allow("")
+    static source = Joi.string().valid("qr", "link").default("link")
+    // Номер нормалізується в сервісі, тут лише відсікаємо сміття
+    static phone = Joi.string().max(20).trim()
+
     static visit = Joi.object({
-        visitorId: Joi.string().max(64).trim().allow(""),
-        source: Joi.string().valid("qr", "link").default("link"),
+        visitorId: this.visitorId,
+        source: this.source,
+    })
+
+    static sendCode = Joi.object({
+        phone: this.phone.required(),
+        visitorId: this.visitorId,
+        source: this.source,
+    })
+
+    static verifyCode = Joi.object({
+        phone: this.phone.required(),
+        code: Joi.string().pattern(/^\d{4}$/).required(),
     })
 }
 

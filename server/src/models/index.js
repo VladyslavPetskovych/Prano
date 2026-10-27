@@ -3,6 +3,7 @@ module.exports = {
     Address: require("./Address.model"),
     Advertisement: require("./Advertisement.model"),
     Campaign: require("./Campaign.model"),
+    CampaignLead: require("./CampaignLead.model"),
     CampaignScan: require("./CampaignScan.model"),
     Category: require("./Category.model"),
     Merchandise: require("./Merchandise.model"),

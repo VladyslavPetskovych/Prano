@@ -55,7 +55,11 @@ function MarketingManagement() {
   };
 
   const handleDelete = async (campaign) => {
-    if (!window.confirm(`Видалити кампанію «${campaign.name}» разом зі статистикою?`)) return;
+    const message =
+      `Видалити кампанію «${campaign.name}» разом зі статистикою та ` +
+      `${campaign.verifiedPhones || 0} підтвердженими номерами телефонів?\n\n` +
+      "Щоб лише зупинити акцію і зберегти дані — краще вимкніть сторінку.";
+    if (!window.confirm(message)) return;
     try {
       await deleteCampaign(campaign._id);
       loadCampaigns();
@@ -92,8 +96,9 @@ function MarketingManagement() {
           <div className="bg-white rounded-lg shadow p-4 mb-6">
             <h3 className="font-bold mb-1">Нова кампанія</h3>
             <p className="text-sm text-gray-500 mb-3">
-              Для кожної кампанії створюється окрема сторінка з промокодом і
-              QR-код, який рахує сканування.
+              Для кожної кампанії створюється окрема сторінка і QR-код, який
+              рахує сканування. Промокод відвідувач бачить і отримує в SMS
+              лише після підтвердження номера телефону.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               <input

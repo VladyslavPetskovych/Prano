@@ -18,6 +18,18 @@ router.post(
     commonMiddleware.isBodyValid(CampaignValidator.visit),
     campaignController.recordVisit
 )
+router.post(
+    "/page/:slug/send-code",
+    campaignMiddleware.isActiveCampaignExistBySlug("slug"),
+    commonMiddleware.isBodyValid(CampaignValidator.sendCode),
+    campaignController.sendCode
+)
+router.post(
+    "/page/:slug/verify",
+    campaignMiddleware.isActiveCampaignExistBySlug("slug"),
+    commonMiddleware.isBodyValid(CampaignValidator.verifyCode),
+    campaignController.verifyCode
+)
 
 router.get(
     "/",
@@ -56,6 +68,14 @@ router.get(
     commonMiddleware.isIdValid("campaignId"),
     campaignMiddleware.isCampaignExist("campaignId"),
     campaignController.getStats
+)
+router.get(
+    "/:campaignId/leads",
+    authMiddleware.checkAccessToken,
+    userMiddleware.checkUserRights(),
+    commonMiddleware.isIdValid("campaignId"),
+    campaignMiddleware.isCampaignExist("campaignId"),
+    campaignController.findLeads
 )
 
 module.exports = router

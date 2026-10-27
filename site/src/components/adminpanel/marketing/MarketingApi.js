@@ -43,6 +43,13 @@ export const fetchCampaignStats = async (id, days = 30) => {
   return data || [];
 };
 
+export const fetchCampaignLeads = async (id) => {
+  const { data } = await axios.get(`${API_URL}/${id}/leads`, {
+    headers: getAuthHeaders(),
+  });
+  return data || [];
+};
+
 // Публічна частина
 export const fetchCampaignPage = async (slug) => {
   const { data } = await axios.get(`${API_URL}/page/${encodeURIComponent(slug)}`);
@@ -51,4 +58,21 @@ export const fetchCampaignPage = async (slug) => {
 
 export const recordCampaignVisit = async (slug, payload) => {
   await axios.post(`${API_URL}/page/${encodeURIComponent(slug)}/visit`, payload);
+};
+
+export const sendCampaignCode = async (slug, payload) => {
+  const { data } = await axios.post(
+    `${API_URL}/page/${encodeURIComponent(slug)}/send-code`,
+    payload
+  );
+  return data;
+};
+
+// Повертає { promoCode, smsSent }
+export const verifyCampaignCode = async (slug, payload) => {
+  const { data } = await axios.post(
+    `${API_URL}/page/${encodeURIComponent(slug)}/verify`,
+    payload
+  );
+  return data;
 };

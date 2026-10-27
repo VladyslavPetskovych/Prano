@@ -55,6 +55,38 @@ class CampaignController {
         }
     }
 
+    async findLeads(req, res, next) {
+        try {
+            const {campaignId} = req.params;
+            const leads = await campaignService.findLeads(campaignId);
+
+            return res.json(leads)
+        } catch (e) {
+            next(e)
+        }
+    }
+
+    async sendCode(req, res, next) {
+        try {
+            const ipKey = req.get("X-Real-IP") || req.ip;
+            const data = await campaignService.sendCode(res.locals.campaign, req.body, ipKey);
+
+            return res.json(data)
+        } catch (e) {
+            next(e)
+        }
+    }
+
+    async verifyCode(req, res, next) {
+        try {
+            const data = await campaignService.verifyCode(res.locals.campaign, req.body);
+
+            return res.json(data)
+        } catch (e) {
+            next(e)
+        }
+    }
+
     async getPage(req, res, next) {
         try {
             return res.json(campaignService.toPublic(res.locals.campaign))
