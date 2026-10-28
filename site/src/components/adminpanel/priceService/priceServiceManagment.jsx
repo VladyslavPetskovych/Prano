@@ -11,6 +11,7 @@ import {
 import { apiUrl } from "../../../config/apiOrigin";
 import PriceAdvertManagement from "./priceAdvertManagment";
 import AddressManagement from "./Address/addressManagement";
+import PriceHistory from "./Price/priceHistory";
 
 const PriceServiceManagement = () => {
   const [services, setServices] = useState([]);
@@ -136,6 +137,14 @@ const PriceServiceManagement = () => {
           onClick={() => setViewMode("prices")}
         >
           Ціни
+        </button>
+        <button
+          className={`px-4 py-2 rounded ${
+            viewMode === "history" ? "bg-blue-500 text-white" : "bg-gray-200"
+          }`}
+          onClick={() => setViewMode("history")}
+        >
+          Історія цін
         </button>
         <button
           className={`px-4 py-2 rounded ${
@@ -277,6 +286,8 @@ const PriceServiceManagement = () => {
             </table>
           </div>
         </>
+      ) : viewMode === "history" ? (
+        <PriceHistory />
       ) : viewMode === "advert" ? (
         <PriceAdvertManagement />
       ) : (

@@ -1,6 +1,7 @@
 const {QueryParser} = require("../utils");
 const {Merchandise, Category} = require("../models");
 const {ApiError} = require("../errors");
+const priceHistoryService = require("./priceHistory.service");
 
 class MerchandiseService {
     async findAll(query) {
@@ -25,7 +26,7 @@ class MerchandiseService {
         }
     }
 
-    async create(data) {
+    async create(data, meta = {}) {
         try {
             const {categoryId, order} = data;
             const category = await Category.findById(categoryId);
@@ -40,14 +41,20 @@ class MerchandiseService {
                     await Merchandise.updateMany({categoryId, order: {$gte: order}}, {$inc: {order: 1}});
                 }
 
-                return await Merchandise.create(data);
+                const created = await Merchandise.create(data);
+                await priceHistoryService.record({action: "create", after: created, meta})
+
+                return created
             }
 
             const lastItem = await Merchandise.findOne({categoryId}).sort({order: -1}).select('order');
 
             const nextOrder = lastItem ? lastItem.order + 1 : 1;
 
-            return await Merchandise.create({...data, order: nextOrder})
+            const created = await Merchandise.create({...data, order: nextOrder})
+            await priceHistoryService.record({action: "create", after: created, meta})
+
+            return created
         } catch (e) {
             throw new ApiError(e.message, e.status)
         }
@@ -57,11 +64,15 @@ class MerchandiseService {
         return await Merchandise.findById(id)
     }
 
-    async updateById(id, data) {
-        return await Merchandise.findOneAndUpdate({_id: id}, {...data}, {returnDocument: "after"})
+    async updateById(id, data, meta = {}) {
+        const before = await Merchandise.findById(id).lean();
+        const updated = await Merchandise.findOneAndUpdate({_id: id}, {...data}, {returnDocument: "after"})
+        await priceHistoryService.record({action: "update", before, after: updated, meta})
+
+        return updated
     }
 
-    async deleteById(id) {
+    async deleteById(id, meta = {}) {
         try {
             const merchandise = await Merchandise.findById(id);
 
@@ -72,6 +83,7 @@ class MerchandiseService {
                 }, {$inc: {order: -1}}),
                 Merchandise.deleteOne({_id: id})
             ])
+            await priceHistoryService.record({action: "delete", before: merchandise, meta})
 
         } catch (e) {
             throw new ApiError(e.message, e.status)

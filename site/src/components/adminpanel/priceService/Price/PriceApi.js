@@ -70,6 +70,17 @@ export const clearAllMerchandiseDiscounts = async (merchandises, token) => {
   return withDiscount.length;
 };
 
+// Журнал змін цін: { data, total, page, limit }
+export const fetchPriceHistory = async ({ search = "", merchandiseId, page = 1, limit = 50 } = {}, token) => {
+  const { data } = await axios.get(`${API_URL}/history`, {
+    params: { search: search || undefined, merchandiseId, page, limit },
+    headers: {
+      Authorization: `${token || getToken()}`,
+    },
+  });
+  return data;
+};
+
 export const getCategories = async (token) => {
   return axios.get(CATEGORY_URL, {
     headers: {

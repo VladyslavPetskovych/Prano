@@ -12,6 +12,7 @@ module.exports = {
     passwordService: require("./password.service"),
     phoneService: require("./phone.service"),
     postService: require("./post.service"),
+    priceHistoryService: require("./priceHistory.service"),
     priceAdvertService: require("./priceAdvert.service"),
     productService: require("./product.service"),
     smsService: require("./sms.service"),

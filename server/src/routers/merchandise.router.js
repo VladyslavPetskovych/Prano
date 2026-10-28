@@ -7,6 +7,12 @@ const {MerchandiseValidator} = require("../validators");
 const router = Router();
 
 router.get("/", merchandiseController.findAll)
+router.get(
+    "/history",
+    authMiddleware.checkAccessToken,
+    userMiddleware.checkUserRights(),
+    merchandiseController.findHistory
+)
 router.post(
     "/",
     authMiddleware.checkAccessToken,

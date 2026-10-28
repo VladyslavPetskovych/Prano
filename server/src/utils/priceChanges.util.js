@@ -199,15 +199,16 @@ const applyPriceChanges = async () => {
       break;
     }
 
+    const meta = { source: `file:${file}` };
     for (const operation of operations) {
       if (operation.type === "create") {
-        const created = await merchandiseService.create(operation.after);
+        const created = await merchandiseService.create(operation.after, meta);
         operation.id = created._id;
       } else if (operation.type === "update") {
-        await Merchandise.updateOne({ _id: operation.id }, operation.after);
+        await merchandiseService.updateById(operation.id, operation.after, meta);
       } else if (operation.type === "delete") {
         operation.before = merchandises.find((m) => String(m._id) === String(operation.id));
-        await merchandiseService.deleteById(operation.id);
+        await merchandiseService.deleteById(operation.id, meta);
       }
       console.log(`[price-changes] ${file}: ${describeOperation(operation)}`);
     }

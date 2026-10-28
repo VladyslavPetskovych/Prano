@@ -13,6 +13,7 @@ module.exports = {
     Postomat: require("./Postomat.model"),
     PriceAdvert: require("./PriceAdvert.model"),
     PriceChange: require("./PriceChange.model"),
+    PriceHistory: require("./PriceHistory.model"),
     Product: require("./Product.model"),
     Sms: require("./Sms.model"),
     Token: require("./Token.model"),

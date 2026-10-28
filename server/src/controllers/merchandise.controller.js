@@ -1,4 +1,6 @@
-const {merchandiseService} = require("../services");
+const {merchandiseService, priceHistoryService} = require("../services");
+
+const adminMeta = (res) => ({source: "admin", userId: res.locals.tokenPayload?.id});
 
 class MerchandiseController {
     async findAll(req, res, next) {
@@ -13,9 +15,19 @@ class MerchandiseController {
 
     async create(req, res, next) {
         try {
-            const createdMerchandise = await merchandiseService.create(req.body);
+            const createdMerchandise = await merchandiseService.create(req.body, adminMeta(res));
 
             return res.json(createdMerchandise)
+        } catch (e) {
+            next(e)
+        }
+    }
+
+    async findHistory(req, res, next) {
+        try {
+            const data = await priceHistoryService.findAll(req.query);
+
+            return res.json(data)
         } catch (e) {
             next(e)
         }
@@ -35,7 +47,7 @@ class MerchandiseController {
     async updateById(req, res, next) {
         try {
             const {merchandiseId} = req.params;
-            const updatedMerchandise = await merchandiseService.updateById(merchandiseId, req.body);
+            const updatedMerchandise = await merchandiseService.updateById(merchandiseId, req.body, adminMeta(res));
 
             return res.json(updatedMerchandise)
         } catch (e) {
@@ -46,7 +58,7 @@ class MerchandiseController {
     async deleteById(req, res, next) {
         try {
             const {merchandiseId} = req.params;
-            await merchandiseService.deleteById(merchandiseId);
+            await merchandiseService.deleteById(merchandiseId, adminMeta(res));
 
             return res.sendStatus(200)
         } catch (e) {
