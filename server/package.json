@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "nodemon ./src/app.js --watch ./src",
     "start": "node ./src/app.js",
-    "seed:addresses": "node ./scripts/seed-addresses.js"
+    "seed:addresses": "node ./scripts/seed-addresses.js",
+    "price-changes:check": "node ./scripts/check-price-changes.js"
   },
   "keywords": [],
   "author": "",

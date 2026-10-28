@@ -21,6 +21,7 @@ const {
 const {configs} = require("./configs");
 const {cronRunner} = require("./crons");
 const {seedAddresses} = require("./utils/addressSeed.util");
+const {applyPriceChanges} = require("./utils/priceChanges.util");
 
 const app = express();
 
@@ -88,6 +89,14 @@ app.listen(PORT, async () => {
         }
     } catch (err) {
         console.error("Address seed failed:", err.message)
+    }
+    try {
+        const appliedPriceChanges = await applyPriceChanges()
+        if (appliedPriceChanges.length > 0) {
+            console.log(`Price changes applied: ${appliedPriceChanges.join(", ")}`)
+        }
+    } catch (err) {
+        console.error("Price changes failed:", err.message)
     }
     cronRunner()
     console.log(`Server has started on PORT ${PORT}`)

@@ -12,6 +12,7 @@ module.exports = {
     Post: require("./Post.model"),
     Postomat: require("./Postomat.model"),
     PriceAdvert: require("./PriceAdvert.model"),
+    PriceChange: require("./PriceChange.model"),
     Product: require("./Product.model"),
     Sms: require("./Sms.model"),
     Token: require("./Token.model"),
