@@ -100,11 +100,8 @@ export default function CategorySection({ title, description, items }) {
               <th className="px-2 py-3 sm:py-4 text-center w-[12%]">
                 Од. виміру
               </th>
-              <th className="px-1 sm:px-3 py-3 sm:py-4 text-center w-[10%]">
-                Стандарт
-              </th>
-              <th className="px-1 sm:px-3 py-3 sm:py-4 text-center w-[10%]">
-                Преміум
+              <th className="px-1 sm:px-3 py-3 sm:py-4 text-center w-[18%]">
+                Ціна
               </th>
             </tr>
           </thead>
@@ -118,8 +115,10 @@ export default function CategorySection({ title, description, items }) {
                 quantity,
                 discountPercent,
               } = item;
-              const stdDiscount = applyItemDiscount(std, discountPercent);
-              const prDiscount = applyItemDiscount(pr, discountPercent);
+              // Колонку «Стандарт» на сайті не показуємо (ціни лишаються в базі й адмінці).
+              // Позиції без преміум-ціни (ремонт взуття, килими) показують свою єдину ціну.
+              const shownPrice = formatPriceCell(pr) === "" ? std : pr;
+              const shownDiscount = applyItemDiscount(shownPrice, discountPercent);
               const hasDiscount = Number(discountPercent) > 0;
 
               return (
@@ -137,31 +136,17 @@ export default function CategorySection({ title, description, items }) {
                     {quantity || " "}
                   </td>
 
-                  {/* Стандарт */}
+                  {/* Ціна */}
                   <td className="px-1 sm:px-2 py-3 text-center border-l whitespace-nowrap font-medium">
                     {hasDiscount ? (
                       <div className="flex flex-col items-center leading-tight">
                         <span className="text-xs line-through decoration-red-500 text-gray-400">
-                          {formatPriceCell(std)}
+                          {formatPriceCell(shownPrice)}
                         </span>
-                        <span>{formatPriceCell(stdDiscount)}</span>
+                        <span>{formatPriceCell(shownDiscount)}</span>
                       </div>
                     ) : (
-                      formatPriceCell(std)
-                    )}
-                  </td>
-
-                  {/* Преміум */}
-                  <td className="px-1 sm:px-2 py-3 text-center border-l whitespace-nowrap font-medium">
-                    {hasDiscount ? (
-                      <div className="flex flex-col items-center leading-tight">
-                        <span className="text-xs line-through decoration-red-500 text-gray-400">
-                          {formatPriceCell(pr)}
-                        </span>
-                        <span>{formatPriceCell(prDiscount)}</span>
-                      </div>
-                    ) : (
-                      formatPriceCell(pr)
+                      formatPriceCell(shownPrice)
                     )}
                   </td>
                 </tr>
