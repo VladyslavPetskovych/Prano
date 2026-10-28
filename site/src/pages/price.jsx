@@ -5,7 +5,7 @@ import PriceTopBlock from "../components/price/PriceTopBlock";
 import Merchendise from "../components/price/merchendise";
 
 // Тимчасово ховаємо прайс, поки оновлюємо ціни. Щоб повернути — поставити false.
-const PRICES_DISABLED = true;
+const PRICES_DISABLED = false;
 
 function PricesUnavailable() {
   return (
