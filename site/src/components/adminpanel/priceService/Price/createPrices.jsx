@@ -76,11 +76,10 @@ const CreatePrice = ({ refreshServices }) => {
           />
           <input
             type="text"
-            placeholder="Ціна"
+            placeholder="Стандартна ціна (порожньо — лише Преміум)"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             className="border p-2 w-full"
-            required
           />
           <input
             type="text"

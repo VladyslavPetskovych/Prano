@@ -5,9 +5,9 @@ const fs = require("fs");
 // Формат файлу — див. data/price-changes/README.md
 const PRICE_CHANGES_DIR = path.join(__dirname, "../../data/price-changes");
 
-// Адмінка не дозволяє зберегти порожню стандартну ціну, тому позиції «лише Преміум»
-// мають у ній цей невидимий символ. Сторінка цін показує його як порожню клітинку.
-const BLANK_PRICE = "\u{E0020}";
+// Позиція «лише Преміум» має порожню стандартну ціну (""). Раніше адмінка цього не дозволяла,
+// і порожнечу імітували невидимим символом — такі значення теж вважаємо порожніми.
+const LEGACY_BLANK_PRICE = "\u{E0020}";
 
 const FIELDS = {
   standard: "price",
@@ -21,9 +21,13 @@ const DISCOUNTS = [0, 10, 15, 20, 30];
 const normalize = (value) => String(value ?? "").replace(/\s+/g, " ").trim().toLowerCase();
 
 const isBlank = (value) =>
-  value == null || String(value).replace(BLANK_PRICE, "").trim() === "" || value === "null";
+  value == null || String(value).replace(LEGACY_BLANK_PRICE, "").trim() === "" || value === "null";
 
-const displayValue = (value) => (isBlank(value) ? "—" : String(value));
+const displayValue = (value) => {
+  if (String(value ?? "").includes(LEGACY_BLANK_PRICE)) return "— (невидимий символ)";
+  if (value === "null") return '— (текст "null")';
+  return isBlank(value) ? "—" : String(value);
+};
 
 const readPriceChangeFiles = () => {
   if (!fs.existsSync(PRICE_CHANGES_DIR)) {
@@ -43,7 +47,7 @@ const readPriceChangeFiles = () => {
 const parseValue = (key, value) => {
   if (key === "standard" || key === "premium") {
     if (value === null || value === "") {
-      return { value: key === "standard" ? BLANK_PRICE : null };
+      return { value: key === "standard" ? "" : null };
     }
     if (typeof value === "number" && value >= 0) return { value };
     if (typeof value === "string" && value.trim()) return { value: value.trim() };
@@ -146,7 +150,7 @@ const planPriceChanges = (changes, categories, merchandises) => {
       after: {
         title: fields.title || title.trim(),
         quantity: fields.quantity || "шт",
-        price: "price" in fields ? fields.price : BLANK_PRICE,
+        price: "price" in fields ? fields.price : "",
         ...(fields.secondPrice != null && { secondPrice: fields.secondPrice }),
         ...(fields.discountPercent != null && { discountPercent: fields.discountPercent }),
         categoryId: category._id,
@@ -221,7 +225,6 @@ const applyPriceChanges = async () => {
 };
 
 module.exports = {
-  BLANK_PRICE,
   readPriceChangeFiles,
   planPriceChanges,
   describeOperation,

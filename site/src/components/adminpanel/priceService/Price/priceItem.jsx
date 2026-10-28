@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { updateMerchandise, updateMerchandiseOrder } from "./PriceApi";
 
+// Раніше порожню ціну імітували невидимим символом U+E0020 або текстом "null" — вважаємо їх порожніми
 const showPriceOrEmpty = (v) => {
   if (v == null) return "";
-  const s = String(v).trim();
+  const s = String(v).replace(/\u{E0020}/gu, "").trim();
   if (s === "" || s === "null" || s === "undefined") return "";
   return v;
 };
@@ -22,9 +23,8 @@ const PriceServiceItem = ({
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     title: service.title,
-    price: service.price == null ? "" : String(service.price),
-    secondPrice:
-      service.secondPrice == null ? "" : String(service.secondPrice),
+    price: String(showPriceOrEmpty(service.price)),
+    secondPrice: String(showPriceOrEmpty(service.secondPrice)),
     order: service.order || "",
     quantity: service.quantity || "",
     discountPercent:
@@ -45,11 +45,11 @@ const PriceServiceItem = ({
     setLoading(true);
     setError(null);
 
-    const strNorm = (v) =>
-      v == null || v === "" ? "" : typeof v === "string" ? v.trim() : String(v);
+    const strNorm = (v) => String(showPriceOrEmpty(v)).trim();
 
-    if (strNorm(formData.price) === "") {
-      setError("Ціна не може бути порожньою.");
+    // Стандартну ціну можна лишити порожньою — тоді позиція «лише Преміум»
+    if (strNorm(formData.price) === "" && strNorm(formData.secondPrice) === "") {
+      setError("Вкажіть стандартну або преміум ціну.");
       setLoading(false);
       return;
     }

@@ -36,8 +36,9 @@ const useMerchandiseForm = (refreshServices) => {
       return;
     }
 
-    if (!price.trim()) {
-      setError("Поле 'Ціна' не може бути порожнім.");
+    // Стандартну ціну можна лишити порожньою — тоді позиція «лише Преміум»
+    if (!price.trim() && !secondPrice.trim()) {
+      setError("Вкажіть стандартну або преміум ціну.");
       setLoading(false);
       return;
     }

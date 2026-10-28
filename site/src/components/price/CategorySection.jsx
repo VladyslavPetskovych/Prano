@@ -22,7 +22,8 @@ export default function CategorySection({ title, description, items }) {
   const formatPriceCell = (val) => {
     if (val == null) return "";
     if (typeof val === "number" && Number.isNaN(val)) return "";
-    const s = String(val).trim();
+    // U+E0020 — невидимий символ, яким раніше позначали порожню ціну
+    const s = String(val).replace(/\u{E0020}/gu, "").trim();
     if (s === "" || s === "null" || s === "undefined") return "";
     if (/^\d+([.,]\d+)?$/.test(s)) return `${s} грн`;
     return s;

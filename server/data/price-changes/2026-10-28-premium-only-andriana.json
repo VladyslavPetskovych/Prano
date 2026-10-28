@@ -1,0 +1,29 @@
+{
+  "description": "Прибрати стандартну ціну — позиції з повідомлення Андріани 28.10.2026 тепер лише Преміум",
+  "changes": [
+    { "category": "Хімчистка", "title": "Пончо", "standard": null, "premium": 879 },
+    { "category": "Хімчистка", "title": "Вітрівка", "standard": null, "premium": 750 },
+    { "category": "Хімчистка", "title": "Плащ", "standard": null, "premium": 879 },
+    { "category": "Хімчистка", "title": "Комбінезон лижний", "standard": null, "premium": 1187 },
+    { "category": "Хімчистка", "title": "Піджак", "standard": null, "premium": 677 },
+    { "category": "Хімчистка", "title": "Піджак складного крою або з декором", "standard": null, "premium": 747 },
+    { "category": "Хімчистка", "title": "Смокінг", "standard": null, "premium": 1150 },
+    { "category": "Хімчистка", "title": "Жилет костюмний", "standard": null, "premium": 510 },
+    { "category": "Хімчистка", "title": "Сорочка чоловіча", "standard": null, "premium": 513 },
+    { "category": "Хімчистка", "title": "Жилет в'язаний / з декором", "standard": null, "premium": 552 },
+    { "category": "Хімчистка", "title": "Світшот / худі", "standard": null, "premium": 670 },
+    { "category": "Хімчистка", "title": "Кардиган", "standard": null, "premium": 755 },
+    { "category": "Хімчистка", "title": "Комбінезон літній простого фасону", "standard": null, "premium": 657 },
+
+    { "category": "Реставрація сумок", "title": "Шкіряна сумка S - до 20 см", "standard": null, "premium": 1999 },
+    { "category": "Реставрація сумок", "title": "Шкіряна сумка M - 25-35 см", "standard": null, "premium": 2300 },
+    { "category": "Реставрація сумок", "title": "Шкіряна сумка L - від 35 см", "standard": null, "premium": 3610 },
+    { "category": "Реставрація сумок", "title": "Сумка з текстилю S - до 20 см", "standard": null, "premium": 1207 },
+    { "category": "Реставрація сумок", "title": "Сумка з текстилю M - 25-35 см", "standard": null, "premium": 1430 },
+    { "category": "Реставрація сумок", "title": "Сумка з текстилю L – від 35 см", "standard": null, "premium": 1879 },
+    { "category": "Реставрація сумок", "title": "Валіза шкіряна", "standard": null, "premium": 3500 },
+
+    { "category": "Реставрація взуття", "title": "Літнє взуття (Босоніжки, сандалі, шльопанці)", "standard": null, "premium": 1847 },
+    { "category": "Реставрація взуття", "title": "Зимове взуття  (чоботи, черевики, угги)", "standard": null, "premium": 2902 }
+  ]
+}
