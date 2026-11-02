@@ -1,7 +1,7 @@
 const Joi = require("joi");
 
 class AdvertisementValidator {
-    static title = Joi.string().min(3).max(45).trim()
+    static title = Joi.string().min(3).max(120).trim()
     static description = Joi.string().min(5).trim()
 
     static create = Joi.object({

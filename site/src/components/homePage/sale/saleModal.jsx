@@ -47,7 +47,9 @@ function SaleModal({ onClose, deals }) {
                 <h3 className="text-xl font-semibold text-gray-900">
                   {deal.title}
                 </h3>
-                <p className="mt-3 text-gray-700">{deal.description}</p>
+                <p className="mt-3 text-gray-700 whitespace-pre-line break-words">
+                  {deal.description}
+                </p>
               </div>
             </div>
           ) : (
