@@ -7,6 +7,12 @@ const {AdvertisementValidator} = require("../validators");
 const router = Router()
 
 router.get("/", advertisementController.findAll)
+router.get(
+    "/stats",
+    authMiddleware.checkAccessToken,
+    userMiddleware.checkUserRights(),
+    advertisementController.getStats
+)
 router.post(
     "/",
     authMiddleware.checkAccessToken,
@@ -20,6 +26,13 @@ router.get(
     commonMiddleware.isIdValid("advertisementId"),
     advertisementMiddleware.isAdvertisementExist("advertisementId"),
     advertisementController.findById
+)
+router.post(
+    "/:advertisementId/view",
+    commonMiddleware.isIdValid("advertisementId"),
+    advertisementMiddleware.isAdvertisementExist("advertisementId"),
+    commonMiddleware.isBodyValid(AdvertisementValidator.view),
+    advertisementController.recordView
 )
 router.patch(
     "/:advertisementId",
@@ -59,6 +72,8 @@ router.post(
     "/telegram/send/:advertisementId",
     authMiddleware.checkAccessToken,
     userMiddleware.checkUserRights(),
+    commonMiddleware.isIdValid("advertisementId"),
+    advertisementMiddleware.isAdvertisementExist("advertisementId"),
     advertisementController.sendMessage
 )
 

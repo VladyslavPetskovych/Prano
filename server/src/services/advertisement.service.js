@@ -1,9 +1,16 @@
 const fs = require("fs");
 
-const {Advertisement} = require("../models");
+const {Advertisement, AdvertisementView, TelegramBroadcast, TelegramUser} = require("../models");
 const {ApiError} = require("../errors");
 const path = require("path");
+const crypto = require("crypto");
 const axios = require("axios");
+
+// Повторне відкриття тим самим відвідувачем протягом цього часу не рахуємо
+const REPEAT_VIEW_WINDOW_MS = 30 * 1000;
+const BROADCASTS_LIMIT = 20;
+
+const hash = (value) => crypto.createHash("sha256").update(value).digest("hex").slice(0, 32);
 
 class AdvertisementService {
     async findAll() {
@@ -13,6 +20,10 @@ class AdvertisementService {
     async create(data, file) {
         try {
             const oldAdvertisement = await Advertisement.findOne({});
+            // Нова пропозиція — статистика переглядів з нуля
+            if (oldAdvertisement) {
+                await AdvertisementView.deleteMany({_advertisementId: oldAdvertisement._id})
+            }
 
             const createdAdvertisement = await Advertisement.findOneAndReplace({}, data, {
                 upsert: true,
@@ -57,6 +68,7 @@ class AdvertisementService {
             fs.rmSync(imgPath, {recursive: true, force: true})
 
             await Advertisement.deleteOne({_id: id})
+            await AdvertisementView.deleteMany({_advertisementId: id})
         } catch (e) {
             throw new ApiError(e.message, e.status)
         }
@@ -98,19 +110,101 @@ class AdvertisementService {
         }
     }
 
-    async sendMessage(id) {
+    async recordView(id, {visitorId}, fallbackKey) {
         try {
-            const advertisementToSend = await Advertisement.findById(id);
+            const visitor = visitorId || hash(fallbackKey);
 
-            await axios.post("http://tgbot:3333/send", advertisementToSend)
-        } catch (e) {
-            if (axios.isAxiosError(e)) {
-                const status = e.response?.status || 500;
-                const message = e.response?.data?.message || e.message;
-                throw new ApiError(message, status);
+            const recentView = await AdvertisementView.exists({
+                _advertisementId: id,
+                visitorId: visitor,
+                createdAt: {$gte: new Date(Date.now() - REPEAT_VIEW_WINDOW_MS)},
+            });
+            if (recentView) {
+                return
             }
 
-            throw new ApiError(e.message, e.status);
+            const isNewViewer = !(await AdvertisementView.exists({_advertisementId: id, visitorId: visitor}));
+
+            await AdvertisementView.create({_advertisementId: id, visitorId: visitor})
+            await Advertisement.updateOne({_id: id}, {
+                $inc: {views: 1, uniqueViewers: isNewViewer ? 1 : 0},
+                $set: {lastViewAt: new Date()},
+            })
+        } catch (e) {
+            throw new ApiError(e.message, e.status)
+        }
+    }
+
+    async sendMessage(id, userId) {
+        const advertisementToSend = await Advertisement.findById(id);
+
+        const broadcast = {
+            _advertisementId: advertisementToSend._id,
+            _userId: userId || null,
+            title: advertisementToSend.title,
+            withImage: Boolean(advertisementToSend.image),
+        };
+        const startedAt = Date.now();
+
+        try {
+            const {data} = await axios.post("http://tgbot:3333/send", advertisementToSend);
+            const result = data && typeof data === "object" ? data : {};
+
+            return await TelegramBroadcast.create({
+                ...broadcast,
+                status: "done",
+                total: result.total || 0,
+                sent: result.sent || 0,
+                failed: result.failed || 0,
+                blocked: result.blocked || 0,
+                durationMs: Date.now() - startedAt,
+            })
+        } catch (e) {
+            const status = axios.isAxiosError(e) ? e.response?.status || 500 : e.status;
+            const message = (axios.isAxiosError(e) && e.response?.data?.message) || e.message;
+
+            await TelegramBroadcast.create({
+                ...broadcast,
+                status: "error",
+                error: message,
+                durationMs: Date.now() - startedAt,
+            }).catch(() => {})
+
+            throw new ApiError(message, status);
+        }
+    }
+
+    async getStats() {
+        try {
+            const [subscribers, advertisements, broadcasts, totals] = await Promise.all([
+                TelegramUser.countDocuments({chatId: {$exists: true, $ne: null}}),
+                Advertisement.find().select("title views uniqueViewers lastViewAt createdAt"),
+                TelegramBroadcast.find()
+                    .sort({createdAt: -1})
+                    .limit(BROADCASTS_LIMIT)
+                    .populate("_userId", "name email"),
+                TelegramBroadcast.aggregate([
+                    {
+                        $group: {
+                            _id: null,
+                            broadcasts: {$sum: 1},
+                            sent: {$sum: "$sent"},
+                            failed: {$sum: "$failed"},
+                            lastSentAt: {$max: "$createdAt"},
+                        },
+                    },
+                    {$project: {_id: 0}},
+                ]),
+            ]);
+
+            return {
+                subscribers,
+                advertisements,
+                telegram: totals[0] || {broadcasts: 0, sent: 0, failed: 0, lastSentAt: null},
+                broadcasts,
+            }
+        } catch (e) {
+            throw new ApiError(e.message, e.status)
         }
     }
 }

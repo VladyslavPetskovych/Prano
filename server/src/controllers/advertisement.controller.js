@@ -79,9 +79,30 @@ class AdvertisementController {
     async sendMessage(req, res, next) {
         try {
             const {advertisementId} = req.params;
-            await advertisementService.sendMessage(advertisementId);
+            const broadcast = await advertisementService.sendMessage(advertisementId, res.locals.tokenPayload?.id);
 
-            return res.sendStatus(200)
+            return res.json(broadcast)
+        } catch (e) {
+            next(e)
+        }
+    }
+
+    async recordView(req, res, next) {
+        try {
+            const {advertisementId} = req.params;
+            await advertisementService.recordView(advertisementId, req.body, `${req.get("X-Real-IP") || req.ip}|${req.get("User-Agent") || ""}`);
+
+            return res.sendStatus(204)
+        } catch (e) {
+            next(e)
+        }
+    }
+
+    async getStats(req, res, next) {
+        try {
+            const stats = await advertisementService.getStats();
+
+            return res.json(stats)
         } catch (e) {
             next(e)
         }

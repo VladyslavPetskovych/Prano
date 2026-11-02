@@ -7,28 +7,14 @@ import {
   sendCampaignCode,
   verifyCampaignCode,
 } from "../components/adminpanel/marketing/MarketingApi";
+import { getVisitorId } from "../components/utils/visitorId";
 
-const VISITOR_KEY = "pranoVisitorId";
 const RESEND_SECONDS = 60;
 
 const STEPS = {
   PHONE: 1,
   CODE: 2,
   DONE: 3,
-};
-
-// Анонімний ідентифікатор браузера — щоб рахувати унікальних людей, а не відкриття
-const getVisitorId = () => {
-  try {
-    let id = localStorage.getItem(VISITOR_KEY);
-    if (!id) {
-      id = crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-      localStorage.setItem(VISITOR_KEY, id);
-    }
-    return id;
-  } catch {
-    return "";
-  }
 };
 
 // Промокод, уже отриманий на цьому пристрої, показуємо одразу

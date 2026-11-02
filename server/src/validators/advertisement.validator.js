@@ -13,6 +13,10 @@ class AdvertisementValidator {
         title: this.title,
         description: this.description,
     })
+
+    static view = Joi.object({
+        visitorId: Joi.string().max(64).trim().allow(""),
+    })
 }
 
 module.exports = AdvertisementValidator

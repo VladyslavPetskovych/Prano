@@ -22,33 +22,54 @@ db.once("open", () => {
   console.log("✅ MongoDB connected");
 });
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const sendAdvert = ({ title, description, image }, chatId) => {
+  const text = `<b>${title}</b>\n\n${description}`;
+
+  if (image) {
+    return bot.sendPhoto(chatId, `https://prano.group/api/advertisementImages/${image}`, {
+      caption: text,
+      parse_mode: "HTML",
+    });
+  }
+
+  return bot.sendMessage(chatId, text, { parse_mode: "HTML" });
+};
+
 app.post("/send", async (req, res) => {
   try {
-    const { title, description, image } = req.body;
-
     const users = await User.find({ chatId: { $exists: true, $ne: null } });
+    const stats = { total: users.length, sent: 0, failed: 0, blocked: 0 };
 
     for (const user of users) {
-      if (image) {
+      try {
+        await sendAdvert(req.body, user.chatId);
+        stats.sent++;
+      } catch (e) {
+        const retryAfter = e.response?.body?.parameters?.retry_after;
 
-        await bot.sendPhoto(user.chatId, `https://prano.group/api/advertisementImages/${image}`, {
-          caption: `<b>${title}</b>\n\n${description}`,
-          parse_mode: "HTML",
-        });
-      } else {
-        await bot.sendMessage(
-          user.chatId,
-          `<b>${title}</b>\n\n${description}`,
-          {
-            parse_mode: "HTML",
+        // Телеграм просить почекати — пробуємо ще раз
+        if (retryAfter) {
+          await sleep(retryAfter * 1000);
+          try {
+            await sendAdvert(req.body, user.chatId);
+            stats.sent++;
+            continue;
+          } catch (retryError) {
+            e = retryError;
           }
-        );
+        }
+
+        stats.failed++;
+        // 403 — користувач заблокував бота або видалив акаунт
+        if (e.response?.statusCode === 403) stats.blocked++;
+        console.error(`❌ Не надіслано ${user.chatId}:`, e.response?.body?.description || e.message);
       }
     }
 
-    console.log(`📨 Повідомлення надіслано ${users.length} користувачам`);
-    return res.sendStatus(200);
-    
+    console.log(`📨 Розсилка: надіслано ${stats.sent} з ${stats.total}, помилок ${stats.failed}`);
+    return res.json(stats);
   } catch (e) {
     console.error("❌ Помилка надсилання:", e);
     return res.status(500).json({ message: e.message || "Помилка на сервері" });

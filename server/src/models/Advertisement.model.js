@@ -14,6 +14,19 @@ const advertisementSchema = new Schema(
             type: String,
             default: null,
         },
+        // Відкриття пропозиції на сайті
+        views: {
+            type: Number,
+            default: 0,
+        },
+        uniqueViewers: {
+            type: Number,
+            default: 0,
+        },
+        lastViewAt: {
+            type: Date,
+            default: null,
+        },
     },
     {
         versionKey: false,

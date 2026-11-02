@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import AdvertStats from "./AdvertStats";
 
 const API_URL = "https://prano.group/api/advertisement";
 const IMAGE_URL = "https://prano.group/api/advertisementImages";
@@ -21,6 +22,7 @@ function AdvertManagement() {
   const [saving, setSaving] = useState(false);
   const [sending, setSending] = useState(false);
   const [message, setMessage] = useState(null); // { type: "error" | "success", text }
+  const [statsKey, setStatsKey] = useState(0);
   const { accessToken } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -144,6 +146,7 @@ function AdvertManagement() {
       });
       resetForm();
       fetchAdverts();
+      setStatsKey((key) => key + 1);
     } catch (error) {
       console.error("Error saving advert:", error.response || error);
       showError(error, "Не вдалося зберегти пропозицію");
@@ -160,6 +163,7 @@ function AdvertManagement() {
       });
       if (editingAdvert?._id === _id) resetForm();
       fetchAdverts();
+      setStatsKey((key) => key + 1);
     } catch (error) {
       console.error("Error deleting advert:", error.response || error);
       showError(error, "Не вдалося видалити пропозицію");
@@ -195,7 +199,7 @@ function AdvertManagement() {
 
     setSending(true);
     try {
-      await axios.post(
+      const { data: broadcast } = await axios.post(
         `${API_URL}/telegram/send/${adverts[0]._id}`,
         {},
         {
@@ -203,8 +207,13 @@ function AdvertManagement() {
         }
       );
       setMessage({
-        type: "success",
-        text: "Пропозицію надіслано користувачам в Телеграм",
+        type: broadcast?.total && !broadcast.sent ? "error" : "success",
+        text: broadcast?.total
+          ? `Пропозицію надіслано: доставлено ${broadcast.sent} з ${broadcast.total}` +
+            (broadcast.failed
+              ? `, не доставлено ${broadcast.failed} (з них заблокували бота: ${broadcast.blocked})`
+              : "")
+          : "Пропозицію надіслано користувачам в Телеграм",
       });
     } catch (error) {
       console.error(
@@ -214,6 +223,7 @@ function AdvertManagement() {
       showError(error, "Не вдалося надіслати пропозицію в Телеграм");
     } finally {
       setSending(false);
+      setStatsKey((key) => key + 1);
     }
   };
 
@@ -243,6 +253,8 @@ function AdvertManagement() {
           {message.text}
         </div>
       )}
+
+      <AdvertStats refreshKey={statsKey} />
 
       <div className="w-full max-w-6xl grid gap-6 lg:grid-cols-2 mb-8">
         {/* Редактор */}

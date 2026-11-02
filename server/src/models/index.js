@@ -2,6 +2,7 @@ module.exports = {
     Action: require("./Action.model"),
     Address: require("./Address.model"),
     Advertisement: require("./Advertisement.model"),
+    AdvertisementView: require("./AdvertisementView.model"),
     Campaign: require("./Campaign.model"),
     CampaignLead: require("./CampaignLead.model"),
     CampaignScan: require("./CampaignScan.model"),
@@ -17,6 +18,7 @@ module.exports = {
     Product: require("./Product.model"),
     Sms: require("./Sms.model"),
     Token: require("./Token.model"),
+    TelegramBroadcast: require("./TelegramBroadcast.model"),
     TelegramUser: require("./TelegramUser.model"),
     User: require("./User.model"),
 }

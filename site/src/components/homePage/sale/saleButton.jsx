@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import SaleModal from "./saleModal";
 import Laska from "../../../assets/logo/gptLaska.png";
+import { getVisitorId } from "../../utils/visitorId";
 
 function SaleButton() {
   const [deals, setDeals] = useState([]);
@@ -22,11 +23,21 @@ function SaleButton() {
 
   if (deals.length === 0) return null;
 
+  const openModal = () => {
+    setIsOpen(true);
+    // Статистика відкриттів для адмінки, помилка не заважає перегляду
+    axios
+      .post(`https://prano.group/api/advertisement/${deals[0]._id}/view`, {
+        visitorId: getVisitorId(),
+      })
+      .catch(() => {});
+  };
+
   return (
     <>
       <button
         className="h-36 w-[120px]  text-white fixed left-0 md:left-auto  md:right-0 bottom-4 md:bottom-0 z-30 m-3 md:m-12   "
-        onClick={() => setIsOpen(true)}
+        onClick={openModal}
       >
         <img
           src={Laska}
