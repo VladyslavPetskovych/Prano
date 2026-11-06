@@ -96,7 +96,7 @@ function Footer() {
             <ul className="mt-4 text-sm space-y-2">
               <li>
                 <Link
-                  to="/services#repair-clothes"
+                  to="/services#cleaning"
                   className="text-blue-600 hover:underline"
                 >
                   Хімчистка одягу

@@ -1,56 +1,36 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import DryCleaning from "../components/services/dryCleaning";
-import Laundry from "../components/services/laundry";
-import Shoe from "../components/services/shoeCleaning";
-import SewingRepair from "../components/services/repairClothes";
-import ShoeRepair from "../components/services/shoeRepair";
-import TopPart from "../components/services/topPart";
-import BagRestoration from "../components/services/repairBags";
-import FurCleaning from "../components/services/furCleaning";
+import ServicesHero from "../components/services/ServicesHero";
+import ServiceSection from "../components/services/ServiceSection";
+import ServicesProcess from "../components/services/ServicesProcess";
+import ServicesCta from "../components/services/ServicesCta";
+import { SERVICES } from "../components/services/servicesData";
+
 function Services() {
   const { hash } = useLocation();
 
+  // Перехід за якорем з меню / футера / інших сторінок (зокрема старі якорі-аліаси)
   useEffect(() => {
-    if (hash) {
-      setTimeout(() => {
-        const element = document.querySelector(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      }, 100);
-    }
+    if (!hash) return;
+    const timer = setTimeout(() => {
+      const el = document.getElementById(decodeURIComponent(hash.slice(1)));
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+    return () => clearTimeout(timer);
   }, [hash]);
 
   return (
-    <div className="bg-gradient-to-t from-Ngold via-gray-200 to-Ngold">
-      <TopPart />
+    <div className="bg-[#F5EFE4]">
+      <ServicesHero />
 
-      <div className="space-y-12 md:space-y-14 pb-12 md:pb-14">
-        <section>
-          <DryCleaning />
-        </section>
-
-        <section>
-          <Shoe />
-        </section>
-
-        <section>
-          <FurCleaning />
-        </section>
-        <section>
-          <BagRestoration />
-        </section>
-        <section>
-          <SewingRepair />
-        </section>
-        <section>
-          <ShoeRepair />
-        </section>
-        <section>
-          <Laundry />
-        </section>
+      <div className="space-y-16 py-14 md:space-y-24 md:py-20">
+        {SERVICES.map((service, i) => (
+          <ServiceSection key={service.id} service={service} index={i} />
+        ))}
+        <ServicesProcess />
       </div>
+
+      <ServicesCta />
     </div>
   );
 }
