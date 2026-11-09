@@ -5,9 +5,8 @@
       "phone": "+380771515111",
       "googleMapsUrl": "https://share.google/jOYnBbJyAEzEZpRrb",
       "schedule": {
-        "Пн-Пт": "09:00-20:00",
-        "Сб": "11:00-20:00",
-        "Нд": "вихідний"
+        "Пн-Пт": "10:00-20:00",
+        "Сб-Нд": "вихідні"
       },
       "images": ["lyp1.webp", "lyp2.webp", "lyp3.webp"]
     },
