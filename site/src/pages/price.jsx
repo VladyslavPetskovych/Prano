@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import PriceTable from "../components/price/priceTable";
 import PriceTopBlock from "../components/price/PriceTopBlock";
 import Merchendise from "../components/price/merchendise";
+import OfferNotice from "../components/price/OfferNotice";
 
 // Тимчасово ховаємо прайс, поки оновлюємо ціни. Щоб повернути — поставити false.
 const PRICES_DISABLED = false;
@@ -52,6 +53,7 @@ function Price() {
       <div className="lg:mx-20 mx-3  rounded-xl">
         {/* <PriceTable /> */}
         <Merchendise />
+        <OfferNotice />
       </div>
     </div>
   );

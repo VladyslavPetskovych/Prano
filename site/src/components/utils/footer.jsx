@@ -171,6 +171,10 @@ function Footer() {
             <Link to="/privacy-policy" className="text-Ngold hover:underline">
               Політика конфіденційності
             </Link>
+            {" · "}
+            <Link to="/public-offer" className="text-Ngold hover:underline">
+              Публічна оферта
+            </Link>
           </p>
         </div>
       </div>

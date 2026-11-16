@@ -13,6 +13,7 @@ export const STATIC_ROUTES = [
   { url: '/premium', changefreq: 'monthly', priority: 0.7 },
   { url: '/blog', changefreq: 'weekly', priority: 0.6 },
   { url: '/privacy-policy', changefreq: 'yearly', priority: 0.2 },
+  { url: '/public-offer', changefreq: 'yearly', priority: 0.3 },
 ]
 
 // Статті блогу беремо з API. Якщо API недоступне — повертаємо порожній список.

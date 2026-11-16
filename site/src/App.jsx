@@ -33,6 +33,7 @@ import AdminPanel from "./pages/adminpanel.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 import Premium from "./pages/premium.jsx";
 import PrivacyPolicy from "./pages/policyPage.jsx";
+import PublicOffer from "./pages/publicOffer.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Promo from "./pages/promo.jsx";
 import ResetPassword from "./pages/resetPassword.jsx";
@@ -66,6 +67,7 @@ const AppContent = ({ isMaintenanceMode }) => {
         <Route path="/fur" element={<Fur />} />
         <Route path="/promo/:slug" element={<Promo />} />
         <Route path="privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/public-offer" element={<PublicOffer />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/restore-password/:token" element={<RestorePassword />} />
         <Route path="*" element={<NotFound />} />
